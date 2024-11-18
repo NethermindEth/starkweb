@@ -111,6 +111,12 @@
             ],
             "siws": [
                 "./dist/types/exports/siws.d.ts"
+            ],
+            "kit": [
+                "./dist/types/kit/exports/index.d.ts"
+            ],
+            "kit/siws": [
+                "./dist/types/kit/siws/exports/index.d.ts"
             ]
         }
     },
