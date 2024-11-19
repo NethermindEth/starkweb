@@ -128,7 +128,7 @@ export function getAbiItem<
         const ambiguousTypes = getAmbiguousTypes(
           abiItem.inputs,
           matchedAbiItem.inputs,
-          args as readonly unknown[],
+          args as unknown[],
         )
         if (ambiguousTypes)
           throw new AbiItemAmbiguityError(

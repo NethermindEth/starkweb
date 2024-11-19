@@ -1,5 +1,3 @@
-import type { Abi, AbiStateMutability, ExtractAbiFunctions } from 'abitype'
-
 import {
   AbiFunctionNotFoundError,
   type AbiFunctionNotFoundErrorType,
@@ -21,6 +19,8 @@ import {
   decodeAbiParameters,
 } from './decodeAbiParameters.js'
 import { type GetAbiItemErrorType, getAbiItem } from './getAbiItem.js'
+import type { Abi, AbiStateMutability } from '../../strk-types/abi.js'
+import type { ExtractAbiFunctions } from '../../strk-types/parser.js'
 
 const docsPath = '/docs/contract/decodeFunctionResult'
 

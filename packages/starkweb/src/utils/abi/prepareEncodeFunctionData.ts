@@ -1,10 +1,3 @@
-import type {
-  Abi,
-  AbiStateMutability,
-  ExtractAbiFunction,
-  ExtractAbiFunctions,
-} from 'abitype'
-
 import {
   AbiFunctionNotFoundError,
   type AbiFunctionNotFoundErrorType,
@@ -24,6 +17,8 @@ import type { Hex } from '../../types/misc.js'
 import type { IsNarrowable, UnionEvaluate } from '../../types/utils.js'
 import { type FormatAbiItemErrorType, formatAbiItem } from './formatAbiItem.js'
 import { type GetAbiItemErrorType, getAbiItem } from './getAbiItem.js'
+import type { Abi, AbiStateMutability } from '../../strk-types/abi.js'
+import type { ExtractAbiFunction, ExtractAbiFunctions } from '../../strk-types/parser.js'
 
 const docsPath = '/docs/contract/encodeFunctionData'
 

@@ -8,6 +8,8 @@ export type Abi = ReadonlyArray<
   FunctionAbi | AbiEvent | AbiStruct | InterfaceAbi | any
 >
 
+export type AbiStateMutability = 'view' | 'external'
+
 // Entry
 export type AbiEntry = {
   name: string

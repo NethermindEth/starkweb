@@ -1,32 +1,25 @@
 import type {
-  Abi,
-  AbiEvent,
-  AbiFunction,
   AbiParameter,
   AbiParameterToPrimitiveType,
   AbiParametersToPrimitiveTypes,
-  AbiStateMutability,
   Address,
   ExtractAbiError,
   ExtractAbiErrorNames,
   ExtractAbiEvent,
   ExtractAbiEventNames,
-  ExtractAbiFunction,
-  ExtractAbiFunctionNames,
   ResolvedRegister,
 } from 'abitype'
 
 import type { Hex, LogTopic } from './misc.js'
-import type { TransactionRequest } from './transaction.js'
 import type {
   Filter,
-  IsNarrowable,
   IsUnion,
   MaybeRequired,
-  NoInfer,
   Prettify,
   UnionToTuple,
 } from './utils.js'
+import type { Abi, AbiEvent, AbiStateMutability, FunctionAbi } from '../strk-types/abi.js'
+import type { ExtractAbiFunction, ExtractAbiFunctionNames } from '../strk-types/parser.js'
 
 export type ContractFunctionName<
   abi extends Abi | readonly unknown[] = Abi,
@@ -164,17 +157,17 @@ export type ExtractAbiFunctionForArgs<
   abi,
   functionName,
   mutability
-> extends infer abiFunction extends AbiFunction
+> extends infer abiFunction extends FunctionAbi
   ? IsUnion<abiFunction> extends true // narrow overloads using `args` by converting to tuple and filtering out overloads that don't match
     ? UnionToTuple<abiFunction> extends infer abiFunctions extends
-        readonly AbiFunction[]
+        readonly FunctionAbi[]
       ? // convert back to union (removes `never` tuple entries)
         { [k in keyof abiFunctions]: CheckArgs<abiFunctions[k], args> }[number]
       : never
     : abiFunction
   : never
 type CheckArgs<
-  abiFunction extends AbiFunction,
+  abiFunction extends FunctionAbi,
   args,
   ///
   targetArgs extends AbiParametersToPrimitiveTypes<
@@ -301,21 +294,6 @@ export type ExtractAbiItemForArgs<
 
 export type EventDefinition = `${string}(${string})`
 
-export type GetValue<
-  TAbi extends Abi | readonly unknown[],
-  TFunctionName extends string,
-  TValueType = TransactionRequest['value'],
-  TAbiFunction extends AbiFunction = TAbi extends Abi
-    ? ExtractAbiFunction<TAbi, TFunctionName>
-    : AbiFunction,
-  _Narrowable extends boolean = IsNarrowable<TAbi, Abi>,
-> = _Narrowable extends true
-  ? TAbiFunction['stateMutability'] extends 'payable'
-    ? { value?: NoInfer<TValueType> | undefined }
-    : TAbiFunction['payable'] extends true
-      ? { value?: NoInfer<TValueType> | undefined }
-      : { value?: undefined }
-  : { value?: NoInfer<TValueType> | undefined }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -341,7 +319,7 @@ export type GetEventArgs<
   TAbiEvent extends AbiEvent & { type: 'event' } = TAbi extends Abi
     ? ExtractAbiEvent<TAbi, TEventName>
     : AbiEvent & { type: 'event' },
-  TArgs = AbiEventParametersToPrimitiveTypes<TAbiEvent['inputs'], TConfig>,
+  TArgs = AbiEventParametersToPrimitiveTypes<TAbiEvent[], TConfig>,
   FailedToParseArgs =
     | ([TArgs] extends [never] ? true : false)
     | (readonly unknown[] extends TArgs ? true : false),

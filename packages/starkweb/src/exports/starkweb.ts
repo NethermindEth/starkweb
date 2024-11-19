@@ -473,7 +473,6 @@ export {
     ContractFunctionArgs,
     ContractFunctionName,
     GetEventArgs,
-    GetValue,
     LogTopicType,
     MaybeAbiEventName,
     MaybeExtractEventArgsFromAbi,

@@ -1,5 +1,4 @@
-import type { Abi, AbiStateMutability } from 'abitype'
-
+import type { Abi, AbiStateMutability } from '../../strk-types/abi.js'
 import { AbiFunctionSignatureNotFoundError } from '../../errors/abi.js'
 import type { ErrorType } from '../../errors/utils.js'
 import type {
