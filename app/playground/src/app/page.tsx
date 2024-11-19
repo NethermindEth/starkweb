@@ -3,14 +3,16 @@
 import { useAccount, useConnect, useDisconnect } from 'starkweb/react'
 
 import { getConfig } from '@/wagmi'
-import { QueryClient } from '@tanstack/react-query'
-import { useState } from 'react'
+import { testAbi } from '@/utils/testAbi'
+import { createWalletClient } from 'starkweb'
+import { custom } from 'starkweb'
+import { sepolia } from 'starkweb/chains'
+
 const config = getConfig()
 
 function App() {
   const account = useAccount()
-  const [queryClient] = useState(() => new QueryClient())
-  const { connectors, connect, status, error } = useConnect(queryClient)
+  const { connectors, connect, status, error } = useConnect()
   const { disconnect } = useDisconnect()
 
   return (
@@ -47,8 +49,50 @@ function App() {
         <div>{status}</div>
         <div>{error?.message}</div>
       </div>
+      <Example />
     </>
   )
+}
+
+const wagmiAbi = [
+  {
+    inputs: [],
+    name: 'mint',
+    outputs: [],
+    state_mutability: 'view',
+    type: 'function',
+  },
+  {
+    type: 'function',
+    name: 'upgrade',
+    inputs: [
+      {
+        name: 'new_class_hash',
+        type: 'core::starknet::class_hash::ClassHash',
+      },
+    ],
+    outputs: [],
+    state_mutability: 'external',
+  },
+] as const
+
+
+export async function Example() {
+  const walletClient =  createWalletClient({
+    chain: sepolia,
+    transport: custom((window as any).starknet),
+  })
+  const _tx = await walletClient.writeContract({
+    address:
+      '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
+    abi: wagmiAbi,
+    functionName: 'mint',
+  })
+  return (
+    <div>
+    <h1>Example</h1>
+  </div>
+ )
 }
 
 export default App

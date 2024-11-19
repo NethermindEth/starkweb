@@ -30,7 +30,7 @@ const supportsSimulationIdRegex = /(rabby|trustwallet)/
 const targetMap = {
   argentX: {
     id: 'argentX',
-    name: 'Argent X Wolf',
+    name: 'Argent X',
     provider(window: Window | undefined) {
       if (window?.starknet_argentX) return window.starknet_argentX
       return window?.starknet_argentX?.providers?.[0]
@@ -38,7 +38,7 @@ const targetMap = {
   },
   braavos: {
     id: 'braavos',
-    name: 'Braavos Wolf',
+    name: 'Braavos',
     provider(window: Window | undefined) {
       if (window?.starknet_braavos) return window.starknet_braavos
       return window?.starknet_braavos?.providers?.[0]
@@ -70,8 +70,8 @@ export function injected(parameters: InjectedParameters = {}) {
 
 
     return {
-      id: 'injected wolf',
-      name: 'Injected wolf',
+      id: 'injected',
+      name: 'Injected',
       provider(window: Window | undefined) {
         return window?.starknet 
       },

@@ -19,9 +19,9 @@ export type GetSpecVersionErrorType = RequestErrorType | ErrorType
  * @returns The current spec version. {@link GetSpecVersionReturnType}
  *
  * @example
- * import { createPublicClient, http } from '@wolf/strkjs'
- * import { mainnet } from '@wolf/strkjs/chains'
- * import { getSpecVersion } from '@wolf/strkjs/public'
+ * import { createPublicClient, http } from 'starkweb'
+ * import { mainnet } from 'starkweb/chains'
+ * import { getSpecVersion } from 'starkweb/public'
  *
  * const client = createPublicClient({
  *   chain: mainnet,
