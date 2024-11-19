@@ -15,18 +15,18 @@ export type WriteContractParameters<
   abi extends Abi | readonly unknown[] = Abi,
   functionName extends ContractFunctionName<
     abi,
-    'nonpayable' | 'payable'
-  > = ContractFunctionName<abi, 'nonpayable' | 'payable'>,
+    'external'
+  > = ContractFunctionName<abi, 'external'>,
   args extends ContractFunctionArgs<
     abi,
-    'nonpayable' | 'payable',
+    'external',
     functionName
-  > = ContractFunctionArgs<abi, 'nonpayable' | 'payable', functionName>,
+  > = ContractFunctionArgs<abi, 'external', functionName>,
   ///
-  allFunctionNames = ContractFunctionName<abi, 'nonpayable' | 'payable'>,
+  allFunctionNames = ContractFunctionName<abi, 'external'>,
 > = ContractFunctionParameters<
   abi,
-  'nonpayable' | 'payable',
+  'external',
   functionName,
   args,
   false,
@@ -91,13 +91,13 @@ export async function writeContract<
   abi extends Abi | readonly unknown[] = Abi,
   functionName extends ContractFunctionName<
     abi,
-    'nonpayable' | 'payable'
-  > = ContractFunctionName<abi, 'nonpayable' | 'payable'>,
+    'external'
+  > = ContractFunctionName<abi, 'external'>,
   args extends ContractFunctionArgs<
     abi,
-    'nonpayable' | 'payable',
+    'external',
     functionName
-  > = ContractFunctionArgs<abi, 'nonpayable' | 'payable', functionName>,
+  > = ContractFunctionArgs<abi, 'external', functionName>,
 >(
   client: Client<Transport, TChain, TAccount>,
   parameters: WriteContractParameters<abi, functionName, args>,

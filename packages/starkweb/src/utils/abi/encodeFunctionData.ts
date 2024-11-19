@@ -1,5 +1,3 @@
-import type { Abi, AbiStateMutability, ExtractAbiFunctions } from 'abitype'
-
 import type { AbiFunctionNotFoundErrorType } from '../../errors/abi.js'
 import type {
   ContractFunctionArgs,
@@ -18,6 +16,8 @@ import {
 import type { FormatAbiItemErrorType } from './formatAbiItem.js'
 import type { GetAbiItemErrorType } from './getAbiItem.js'
 import { prepareEncodeFunctionData } from './prepareEncodeFunctionData.js'
+import type { Abi, AbiStateMutability } from '../../strk-types/abi.js'
+import type { ExtractAbiFunctions } from '../../strk-types/parser.js'
 
 export type EncodeFunctionDataParameters<
   abi extends Abi | readonly unknown[] = Abi,
@@ -82,7 +82,7 @@ export function encodeFunctionData<
       parameters.functionName?.startsWith('0x')
     )
       return parameters as { abi: Abi; functionName: Hex }
-    return prepareEncodeFunctionData(parameters)
+    return prepareEncodeFunctionData(parameters as any)
   })()
 
   const abiItem = abi[0]

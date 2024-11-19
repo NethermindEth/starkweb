@@ -188,10 +188,10 @@ export type WalletActions = {
    */
   writeContract: <
     const abi extends Abi | readonly unknown[],
-    functionName extends ContractFunctionName<abi, 'payable' | 'nonpayable'>,
+    functionName extends ContractFunctionName<abi, 'external'>,
     args extends ContractFunctionArgs<
       abi,
-      'payable' | 'nonpayable',
+      'external',
       functionName
     >,
   >(
