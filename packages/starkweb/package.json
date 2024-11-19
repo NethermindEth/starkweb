@@ -1,6 +1,6 @@
 {
     "name": "starkweb",
-    "version": "0.0.8",
+    "version": "0.0.9",
     "private": false,
     "type": "module",
     "main": "./dist/cjs/exports/starkweb.js",
@@ -111,6 +111,12 @@
             ],
             "siws": [
                 "./dist/types/exports/siws.d.ts"
+            ],
+            "kit": [
+                "./dist/types/kit/exports/index.d.ts"
+            ],
+            "kit/siws": [
+                "./dist/types/kit/siws/exports/index.d.ts"
             ]
         }
     },

@@ -53,7 +53,7 @@ export function createStorage<
 >(parameters: CreateStorageParameters): Evaluate<Storage<storageItemMap>> {
   const {
     deserialize = deserialize_,
-    key: prefix = 'wolf',
+    key: prefix = 'starkweb',
     serialize = serialize_,
     storage = noopStorage,
   } = parameters
