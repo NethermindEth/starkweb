@@ -1,0 +1,364 @@
+---
+title: useContractReads
+description: Hook for calling multiple read methods on a contract.
+---
+
+# useContractReads
+
+Hook for calling multiple read methods on a contract.
+
+## Import
+
+```ts
+import { useContractReads } from "sn-wolf"
+```
+
+## Usage
+
+```tsx [index.tsx]
+import { useContractReads } from "sn-wolf"
+
+const gotchiContract = {
+  address: "0x072589b1e65b5b22b746c8701aae3ecc34af6e64a378091b47188e2a52414dba",
+  abi: gotchiABI,
+} as const
+const mlootContract = {
+  address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
+  abi: mlootABI,
+} as const
+
+function App() {
+  const result = useContractReads({
+    contracts: [
+      {
+        ...gotchiContract,
+        functionName: "getAlive",
+      },
+      {
+        ...gotchiContract,
+        functionName: "getBoredom",
+      },
+      {
+        ...mlootContract,
+        functionName: "getChest",
+        args: [69],
+      },
+      {
+        ...mlootContract,
+        functionName: "getWaist",
+        args: [69],
+      },
+    ],
+  })
+}
+```
+
+## Parameters
+
+```ts
+import { type UseReadContractsParameters } from "sn-wolf"
+```
+
+### contracts
+
+`readonly Contract[]`
+
+Set of contracts to call.
+
+#### abi
+
+`Abi | undefined`
+
+The contract's ABI.
+
+```tsx [index.tsx]
+import { useContractReads } from "sn-wolf"
+
+function App() {
+  const result = useContractReads({
+    contracts: [
+      {
+        address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
+        abi: mlootABI, // [!code focus]
+        functionName: "getChest",
+        args: [69],
+      },
+      // ...
+    ],
+  })
+}
+```
+
+#### address
+
+`Address | undefined`
+
+The contract's address.
+
+```tsx [index.tsx]
+import { useContractReads } from "sn-wolf"
+
+function App() {
+  const result = useContractReads({
+    contracts: [
+      {
+        address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",  // [!code focus]
+        abi: mlootABI,
+        functionName: "getChest",
+        args: [69],
+      },
+      // ...
+    ],
+  })
+}
+```
+
+#### functionName
+
+`string | undefined`
+
+- Function to call on the contract.
+- Inferred from [`abi`](#abi).
+
+```tsx [index.tsx]
+import { useContractReads } from "sn-wolf"
+
+function App() {
+  const result = useContractReads({
+    contracts: [
+      {
+        address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
+        abi: mlootABI,
+        functionName: "getChest", // [!code focus]
+        args: [69],
+      },
+      // ...
+    ],
+  })
+}
+```
+
+#### args
+
+`readonly unknown[] | undefined`
+
+- Arguments to pass when calling the contract.
+- Inferred from [`abi`](#abi) and [`functionName`](#functionname).
+
+```tsx [index.tsx]
+import { useContractReads } from "sn-wolf"
+
+function App() {
+  const result = useContractReads({
+    contracts: [
+      {
+        address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
+        abi: mlootABI,
+        functionName: "getChest",
+        args: [69], // [!code focus]
+      },
+      // ...
+    ],
+  })
+}
+```
+
+#### chainId
+
+`config["chains"][number]["id"] | undefined`
+
+ID of chain to use when fetching data.
+
+```tsx [index.tsx]
+import { useContractReads } from "sn-wolf"
+
+function App() {
+  const result = useContractReads({
+    contracts: [
+      {
+        address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
+        abi: mlootABI,
+        functionName: "getChest",
+        args: [69],
+        chainId: 1  // [!code focus]
+      },
+      // ...
+    ],
+  })
+}
+```
+
+### allowFailure
+
+`boolean`
+
+Whether or not the Hook should throw if a call reverts. If set to `true` (default), and a call reverts, then `useContractReads` will fail silently and its error will be logged in the results array. Defaults to `true`.
+
+```tsx [index.tsx]
+import { useContractReads } from "sn-wolf"
+
+function App() {
+  const result = useContractReads({
+    allowFailure: false, // [!code focus]
+    contracts: [
+      {
+        address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
+        abi: mlootABI,
+        functionName: "getChest",
+        args: [69]
+      },
+      // ...
+    ],
+  })
+}
+```
+
+### batchSize
+
+`number`
+
+The maximum size (in bytes) for each calldata chunk. Set to `0` to disable the size limit. Defaults to `1024`.
+
+```tsx [index.tsx]
+import { useContractReads } from "sn-wolf"
+
+function App() {
+  const result = useContractReads({
+    batchSize: 1024, // [!code focus]
+    contracts: [
+      {
+        address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
+        abi: mlootABI,
+        functionName: "getChest",
+        args: [69]
+      },
+      // ...
+    ],
+  })
+}
+```
+
+### blockNumber
+
+`number`
+
+The block number to perform the read against.
+
+```tsx [index.tsx]
+import { useContractReads } from "sn-wolf"
+
+function App() {
+  const result = useContractReads({
+    blockNumber: 69420n, // [!code focus]
+    contracts: [
+      {
+        address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
+        abi: mlootABI,
+        functionName: "getChest",
+        args: [69]
+      },
+      // ...
+    ],
+  })
+}
+```
+
+### blockTag
+
+`"latest" | "earliest" | "pending" | "safe" | "finalized" | undefined`
+
+Block tag to read against.
+
+```tsx [index.tsx]
+import { useContractReads } from "sn-wolf"
+
+function App() {
+  const result = useContractReads({
+    blockTag: 'safe', // [!code focus]
+    contracts: [
+      {
+        address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
+        abi: mlootABI,
+        functionName: "getChest",
+        args: [69]
+      },
+      // ...
+    ],
+  })
+}
+```
+
+### config
+
+`Config | undefined`
+
+[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`WolfProvider`](/react/api/WolfProvider).
+
+:::code-group
+```tsx [index.tsx]
+import { useContractReads } from "sn-wolf"
+import { config } from "./config"
+
+function App() {
+  const result = useContractReads({
+    config, // [!code focus]
+    contracts: [
+      {
+        address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
+        abi: mlootABI,
+        functionName: "getChest",
+        args: [69]
+      },
+      // ...
+    ],
+  })
+}
+```
+
+```ts [config.ts]
+// [!include ~/snippets/config.ts]
+```
+:::
+
+### multicallAddress
+
+`Address`
+
+Address of multicall contract.
+
+```tsx [index.tsx]
+import { useContractReads } from "sn-wolf"
+
+function App() {
+  const result = useContractReads({
+    contracts: [
+      {
+        address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
+        abi: mlootABI,
+        functionName: "getChest",
+        args: [69]
+      },
+      // ...
+    ],
+    multicallAddress: "0x072cc9028da5b1b916d5344168d5b37ecce8c81c8b4881384443fb488b4c22f0", // [!code focus]
+  })
+}
+```
+
+import QueryOptions from "../../../snippets/query-options.mdx"
+
+<QueryOptions TData="TData" TError="TError" />
+
+## Return Type
+
+```ts
+import { type UseReadContractsReturnType } from "sn-wolf"
+```
+
+import QueryResult from "../../../snippets/query-result.mdx"
+
+<QueryResult TData="TData" TError="TError" />
+
+## Actions
+
+- [`readContracts`](/core/actions/readContracts)

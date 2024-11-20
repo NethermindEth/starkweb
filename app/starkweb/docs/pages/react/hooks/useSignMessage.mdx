@@ -1,0 +1,89 @@
+---
+title: useSignMessage
+description: Hook for signing messages.
+---
+
+# useSignMessage
+
+Hook for signing messages.
+
+## Import
+
+```ts
+import { useSignMessage } from "sn-wolf"
+```
+
+## Usage
+
+```tsx [index.tsx]
+import { useSignMessage } from "sn-wolf"
+
+function App() {
+  const { signMessage } = useSignMessage()
+
+  return (
+    <button onClick={() => signMessage({ message: 'hello world' })}>
+      Sign message
+    </button>
+  )
+}
+```
+
+## Parameters
+
+```ts
+import { type UseSignMessageParameters } from "sn-wolf"
+```
+
+### config
+
+`Config | undefined`
+
+[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`WolfProvider`](/react/api/WolfProvider).
+
+:::code-group
+```tsx [index.tsx]
+import { useSignMessage } from "sn-wolf"
+import { config } from "./config" // [!code focus]
+
+function App() {
+  const result = useSignMessage({
+    config, // [!code focus]
+  })
+}
+```
+
+```ts [config.ts]
+// [!include ~/snippets/config.ts]
+```
+:::
+
+import MutationOptions from "../../../snippets/mutation-options.mdx"
+
+<MutationOptions mutate="signMessage" TError="SignMessageErrorType" TVariables="SignMessageVariables" TData="SignMessageData" />
+
+## Return Type
+
+```ts
+import { type UseSignMessageReturnType } from "sn-wolf"
+```
+
+import MutationResult from "../../../snippets/mutation-result.mdx"
+
+<MutationResult mutate="signMessage" TError="SignMessageErrorType" TVariables="SignMessageVariables" TData="SignMessageData" />
+
+## TanStack Query
+
+```ts
+import {
+  type SignMessageData,
+  type SignMessageVariables,
+  type SignMessageMutate,
+  type SignMessageMutateAsync,
+  signMessageMutationOptions,
+} from "sn-wolf/query"
+```
+
+## Actions
+
+- [`signMessage`](/core/actions/signMessage)

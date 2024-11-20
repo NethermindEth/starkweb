@@ -1,0 +1,121 @@
+---
+title: useSwitchChain
+description: Hook for switching the target chain for a connector or the Wolf `Config`.
+---
+
+# useSwitchChain
+
+Hook for switching the target chain for a connector or the Wolf [`Config`](/react/api/createConfig#config).
+
+## Import
+
+```ts
+import { useSwitchChain } from "sn-wolf"
+```
+
+## Usage
+
+```tsx [index.tsx]
+import { useSwitchChain } from "sn-wolf"
+
+function App() {
+  const { chains, switchChain } = useSwitchChain()
+
+  return (
+    <div>
+      {chains.map((chain) => (
+        <button key={chain.id} onClick={() => switchChain({ chainId: chain.id })}>
+          {chain.name}
+        </button>
+      ))}
+    </div>
+  )
+}
+```
+
+:::tip
+When connected, `switchChain` will switch the target chain for the connector. When not connected, `switchChain` will switch the target chain for the Wolf [`Config`](/react/api/createConfig#config).
+:::
+
+## Parameters
+
+```ts
+import { type UseSwitchChainParameters } from "sn-wolf"
+```
+
+### config
+
+`Config | undefined`
+
+[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`WolfProvider`](/react/api/WolfProvider).
+
+:::code-group
+```tsx [index.tsx]
+import { useSwitchChain } from "sn-wolf"
+import { config } from "./config" // [!code focus]
+
+function App() {
+  const result = useSwitchChain({
+    config, // [!code focus]
+  })
+}
+```
+
+```ts [config.ts]
+// [!include ~/snippets/config.ts]
+```
+:::
+
+import MutationOptions from "../../../snippets/mutation-options.mdx"
+
+<MutationOptions mutate="switchChain" TData="SwitchChainData" TError="SwitchChainErrorType" TVariables="SwitchChainVariables" />
+
+## Return Type
+
+```ts
+import { type UseSwitchChainReturnType } from "sn-wolf"
+```
+
+### chains
+
+`readonly [Chain, ...Chain[]]`
+
+Globally configured chains. Useful for rendering a list of available chains to switch to.
+
+```tsx [index.tsx]
+import { useSwitchChain } from "sn-wolf"
+
+function App() {
+  const { chains, switchChain } = useSwitchChain()
+
+  return (
+    <div>
+      {chains.map((chain) => (
+        <button key={chain.id} onClick={() => switchChain({ chainId: chain.id })}>
+          {chain.name}
+        </button>
+      ))}
+    </div>
+  )
+}
+```
+
+import MutationResult from "../../../snippets/mutation-result.mdx"
+
+<MutationResult mutate="switchChain" TData="SwitchChainData" TError="SwitchChainErrorType" TVariables="SwitchChainVariables" />
+
+## TanStack Query
+
+```ts
+import {
+  type SwitchChainData,
+  type SwitchChainVariables,
+  type SwitchChainMutate,
+  type SwitchChainMutateAsync,
+  switchChainMutationOptions,
+} from "sn-wolf/query"
+```
+
+## Actions
+
+- [`switchChain`](/core/actions/switchChain)

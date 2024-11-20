@@ -1,0 +1,117 @@
+---
+title: useSignTypedData
+description: Hook for signing typed data and calculating signature.
+---
+
+# useSignTypedData
+
+Hook for signing typed data and calculating signature.
+
+## Import
+
+```ts
+import { useSignTypedData } from "sn-wolf"
+```
+
+## Usage
+
+```tsx [index.tsx]
+import { useSignTypedData } from "sn-wolf"
+
+function App() {
+  const { signTypedData } = useSignTypedData()
+
+  return (
+    <button
+      onClick={() =>
+        signTypedData({
+          types: {
+            Person: [
+              { name: "name", type: "string" },
+              { name: "wallet", type: "address" },
+            ],
+            Mail: [
+              { name: "from", type: "Person" },
+              { name: "to", type: "Person" },
+              { name: "contents", type: "string" },
+            ],
+          },
+          primaryType: "Mail",
+          message: {
+            from: {
+              name: "Cow",
+              wallet: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
+            },
+            to: {
+              name: "Bob",
+              wallet: "0x072589b1e65b5b22b746c8701aae3ecc34af6e64a378091b47188e2a52414dba",
+            },
+            contents: "Hello, Bob!",
+          },
+        })
+      }
+    >
+      Sign message
+    </button>
+  )
+}
+```
+
+## Parameters
+
+```ts
+import { type UseSignTypedDataParameters } from "sn-wolf"
+```
+
+### config
+
+`Config | undefined`
+
+[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`WolfProvider`](/react/api/WolfProvider).
+
+:::code-group
+```tsx [index.tsx]
+import { useSignTypedData } from "sn-wolf"
+import { config } from "./config" // [!code focus]
+
+function App() {
+  const result = useSignTypedData({
+    config, // [!code focus]
+  })
+}
+```
+
+```ts [config.ts]
+// [!include ~/snippets/config.ts]
+```
+:::
+
+import MutationOptions from "../../../snippets/mutation-options.mdx"
+
+<MutationOptions mutate="signTypedData" TData="SignTypedDataData" TError="SignTypedDataErrorType" TVariables="SignTypedDataVariables" />
+
+## Return Type
+
+```ts
+import { type UseSignTypedDataReturnType } from "sn-wolf"
+```
+
+import MutationResult from "../../../snippets/mutation-result.mdx"
+
+<MutationResult mutate="signTypedData" TData="SignTypedDataData" TError="SignTypedDataErrorType" TVariables="SignTypedDataVariables" />
+
+## TanStack Query
+
+```ts
+import {
+  type SignTypedDataData,
+  type SignTypedDataVariables,
+  type SignTypedDataMutate,
+  type SignTypedDataMutateAsync,
+  signTypedDataMutationOptions,
+} from "sn-wolf/query"
+```
+
+## Actions
+
+- [`signTypedData`](/core/actions/signTypedData)

@@ -1,0 +1,67 @@
+---
+title: useAccount
+description: Hook for getting current account.
+---
+
+# useAccount
+
+Hook for getting current account.
+
+## Import
+
+```ts
+import { useAccount } from "sn-wolf"
+```
+
+## Usage
+
+```ts
+import { useAccount } from "sn-wolf"
+
+function App() {
+  const account = useAccount()
+}
+```
+
+## Parameters
+
+```ts
+import { type UseAccountParameters } from "sn-wolf"
+```
+
+### config
+
+`Config | undefined`
+
+[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`WolfProvider`](/react/api/WolfProvider).
+
+:::code-group
+```tsx [index.tsx]
+import { useAccount } from "sn-wolf"
+import { config } from "./config" // [!code focus]
+
+function App() {
+  const account = useAccount({
+    config, // [!code focus]
+  })
+}
+```
+
+```ts [config.ts]
+// [!include ~/snippets/config.ts]
+```
+:::
+
+## Return Type
+
+```ts
+import { type UseAccountReturnType } from "sn-wolf"
+```
+
+import GetAccountReturn from "../../../snippets/getAccount-return-type.mdx"
+
+<GetAccountReturn />
+
+## Actions
+
+- [`getAccount`](/core/actions/getAccount)

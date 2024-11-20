@@ -1,0 +1,118 @@
+---
+title: useConnect
+description: Hook for connecting accounts with connectors.
+---
+
+# useConnect
+
+Hook for connecting accounts with [connectors](/react/api/connectors).
+
+## Import
+
+```ts
+import { useConnect } from "sn-wolf"
+```
+
+## Usage
+
+```tsx [index.tsx]
+import { useConnect } from "sn-wolf"
+import { injected } from "sn-wolf/connectors"
+
+function App() {
+  const { connect } = useConnect()
+
+  return (
+    <button onClick={() => connect({ connector: injected() })}>
+      Connect
+    </button>
+  )
+}
+```
+
+## Parameters
+
+```ts
+import { type UseConnectParameters } from "sn-wolf"
+```
+
+### config
+
+`Config | undefined`
+
+[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`WolfProvider`](/react/api/WolfProvider).
+
+:::code-group
+```tsx [index.tsx]
+import { useConnect } from "sn-wolf"
+import { config } from "./config" // [!code focus]
+
+function App() {
+  const result = useConnect({
+    config, // [!code focus]
+  })
+}
+```
+
+```ts [config.ts]
+// [!include ~/snippets/config.ts]
+```
+:::
+
+import MutationOptions from "../../../snippets/mutation-options.mdx"
+
+<MutationOptions mutate="connect" TError="ConnectErrorType" TVariables="{ chainId?: number | undefined; connector?: CreateConnectorFn | Connector | undefined; }" TData="{ accounts: readonly [Address, ...Address[]]; chainId: number; }" />
+
+## Return Type
+
+```ts
+import { type UseConnectReturnType } from "sn-wolf"
+```
+
+### connectors
+
+`readonly Connector[]`
+
+Globally configured connectors via [`createConfig`](/react/api/createConfig#connectors). Useful for rendering a list of available connectors.
+
+```tsx [index.tsx]
+import { useConnect } from "sn-wolf"
+
+function App() {
+  const { connect, connectors } = useConnect()
+
+  return (
+    <div>
+      {connectors.map((connector) => (
+        <button key={connector.id} onClick={() => connect({ connector })}>
+          {connector.name}
+        </button>
+      ))}
+    </div>
+  )
+}
+```
+
+import MutationResult from "../../../snippets/mutation-result.mdx"
+
+<MutationResult mutate="connect" TError="ConnectErrorType" TVariables="{ chainId?: number | undefined; connector?: CreateConnectorFn | Connector | undefined; }" TData="{ accounts: readonly [Address, ...Address[]]; chainId: number; }" />
+
+:::tip
+Not all connectors support connecting directly to a `chainId` (e.g. they don't support programmatic chain switching). In those cases, the connector will connect to whatever chain the connector's provider (e.g. wallet) is connected to.
+:::
+
+## TanStack Query
+
+```ts
+import {
+  type ConnectData,
+  type ConnectVariables,
+  type ConnectMutate,
+  type ConnectMutateAsync,
+  connectMutationOptions,
+} from "sn-wolf/query"
+```
+
+## Actions
+
+- [`connect`](/core/actions/connect)

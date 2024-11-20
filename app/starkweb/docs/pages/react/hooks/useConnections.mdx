@@ -1,0 +1,64 @@
+---
+title: useConnections
+description: Hook for getting active connections.
+---
+
+# useConnections
+
+Hook for getting active connections.
+
+## Import
+
+```ts
+import { useConnections } from "sn-wolf"
+```
+
+## Usage
+
+```tsx [index.tsx]
+import { useConnections } from "sn-wolf"
+
+function App() {
+  const connections = useConnections()
+}
+```
+
+## Parameters
+
+```ts
+import { type UseConnectionsParameters } from "sn-wolf"
+```
+
+### config
+
+`Config | undefined`
+
+[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`WolfProvider`](/react/api/WolfProvider).
+
+:::code-group
+```tsx [index.tsx]
+import { useConnections } from "sn-wolf"
+import { config } from "./config" // [!code focus]
+
+function App() {
+  const connections = useConnections({
+    config, // [!code focus]
+  })
+}
+```
+
+```ts [config.ts]
+// [!include ~/snippets/config.ts]
+```
+:::
+
+## Return Type
+
+```ts
+import { type UseConnectionsReturnType } from "sn-wolf"
+```
+
+## Actions
+
+- [`getConnections`](/core/actions/getConnections)
+- [`watchConnections`](/core/actions/watchConnections)

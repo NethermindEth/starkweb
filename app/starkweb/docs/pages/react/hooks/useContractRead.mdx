@@ -1,0 +1,348 @@
+---
+title: useContractRead
+description: Hook for calling a read-only function on a contract, and returning the response.
+---
+
+# useContractRead
+
+Hook for calling a **read-only** function on a contract, and returning the response.
+
+A **read-only** function (constant function) on a Cairo contract is denoted by a pure or view keyword. They can only read the state of the contract, and cannot make any changes to it. Since read-only methods do not change the state of the contract, they do not require any gas to be executed, and can be called by any user without the need to pay for gas.
+
+## Import
+
+```ts
+import { useContractRead } from "sn-wolf"
+```
+
+## Usage
+
+:::code-group
+```tsx [index.tsx]
+import { useContractRead } from "sn-wolf"
+import { abi } from "./abi"
+
+function App() {
+  const result = useContractRead({
+    abi,
+    address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
+    functionName: "totalSupply",
+  })
+}
+```
+
+```ts [abi.ts]
+// [!include ~/snippets/abi-read.ts]
+```
+:::
+
+## Parameters
+
+```ts
+import { type UseReadContractParameters } from "sn-wolf"
+```
+
+### abi
+
+`Abi | undefined`
+
+The contract's ABI.
+
+:::code-group
+```tsx [index.tsx]
+import { useContractRead } from "sn-wolf"
+import { abi } from "./abi" // [!code focus]
+
+function App() {
+  const result = useContractRead({
+    abi, // [!code focus]
+    address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
+    functionName: "totalSupply",
+  })
+}
+```
+
+```ts [abi.ts]
+// [!include ~/snippets/abi-read.ts]
+```
+:::
+
+### account
+
+`Account | undefined`
+
+Account to use when calling the contract (`msg.sender`).
+
+:::code-group
+```tsx [index.tsx]
+import { useContractRead } from "sn-wolf"
+import { abi } from "./abi"
+
+function App() {
+  const result = useContractRead({
+    abi,
+    address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
+    functionName: "balanceOf",
+    args: ["0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4"],
+    account: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4", // [!code focus]
+  })
+}
+```
+
+```ts [abi.ts]
+// [!include ~/snippets/abi-read.ts]
+```
+:::
+
+### address
+
+`Address | undefined`
+
+The contract's address.
+
+:::code-group
+```tsx [index.tsx]
+import { useContractRead } from "sn-wolf"
+import { abi } from "./abi"
+
+function App() {
+  const result = useContractRead({
+    abi,
+    address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4", // [!code focus]
+    functionName: "totalSupply",
+  })
+}
+```
+
+```ts [abi.ts]
+// [!include ~/snippets/abi-read.ts]
+```
+:::
+
+### args
+
+`readonly unknown[] | undefined`
+
+- Arguments to pass when calling the contract.
+- Inferred from [`abi`](#abi) and [`functionName`](#functionname).
+
+:::code-group
+```tsx [index.tsx]
+import { useContractRead } from "sn-wolf"
+import { abi } from "./abi"
+
+function App() {
+  const result = useContractRead({
+    abi,
+    address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
+    functionName: "balanceOf",
+    args: ["0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4"], // [!code focus]
+  })
+}
+```
+
+```ts [abi.ts]
+// [!include ~/snippets/abi-read.ts]
+```
+:::
+
+---
+
+### blockNumber
+
+`bigint | undefined`
+
+Block number to call contract at.
+
+:::code-group
+```tsx [index.tsx]
+import { useContractRead } from "sn-wolf"
+import { abi } from "./abi"
+
+function App() {
+  const result = useContractRead({
+    abi,
+    address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
+    functionName: "totalSupply",
+    blockNumber: 892408, // [!code focus]
+  })
+}
+```
+
+```ts [abi.ts]
+// [!include ~/snippets/abi-read.ts]
+```
+:::
+
+### blockTag
+
+`"latest" | "earliest" | "pending" | "safe" | "finalized" | undefined`
+
+Block tag to call contract at.
+
+:::code-group
+```tsx [index.tsx]
+import { useContractRead } from "sn-wolf"
+import { abi } from "./abi"
+
+function App() {
+  const result = useContractRead({
+    abi,
+    address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
+    functionName: "totalSupply",
+    blockTag: "safe", // [!code focus]
+  })
+}
+```
+
+```ts [abi.ts]
+// [!include ~/snippets/abi-read.ts]
+```
+:::
+
+---
+
+### chainId
+
+`config["chains"][number]["id"] | undefined`
+
+ID of chain to use when fetching data.
+
+:::code-group
+```tsx [index.tsx]
+import { useContractRead } from "sn-wolf"
+import { mainnet } from "sn-wolf/chains" // [!code focus]
+import { abi } from "./abi"
+
+function App() {
+  const result = useContractRead({
+    abi,
+    address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
+    functionName: "totalSupply",
+    chainId: mainnet.chain_id, // [!code focus]
+  })
+}
+```
+
+```ts [abi.ts]
+// [!include ~/snippets/abi-read.ts]
+```
+:::
+
+### config
+
+`Config | undefined`
+
+[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`WolfProvider`](/react/api/WolfProvider).
+
+:::code-group
+```tsx [index.tsx]
+import { useContractRead } from "sn-wolf"
+import { abi } from "./abi"
+import { config } from "./config" // [!code focus]
+
+function App() {
+  const result = useContractRead({
+    abi,
+    address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
+    functionName: "totalSupply",
+    config, // [!code focus]
+  })
+}
+```
+
+```ts [abi.ts]
+// [!include ~/snippets/abi-read.ts]
+```
+
+```ts [config.ts]
+// [!include ~/snippets/config.ts]
+```
+:::
+
+### functionName
+
+`string | undefined`
+
+- Function to call on the contract.
+- Inferred from [`abi`](#abi).
+
+:::code-group
+```tsx [index.tsx]
+import { useContractRead } from "sn-wolf"
+import { abi } from './abi'
+
+function App() {
+  const result = useContractRead({
+    abi,
+    address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
+    functionName: "balanceOf", // [!code focus]
+    args: ["0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4"],
+  })
+}
+```
+
+```ts [abi.ts]
+// [!include ~/snippets/abi-read.ts]
+```
+:::
+
+### scopeKey
+
+`string | undefined`
+
+Scopes the cache to a given context. Hooks that have identical context will share the same cache.
+
+:::code-group
+```tsx [index.tsx]
+import { useContractRead } from "sn-wolf"
+import { abi } from "./abi"
+
+function App() {
+  const result = useContractRead({
+    abi,
+    address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
+    functionName: "balanceOf",
+    args: ["0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4"],
+    scopeKey: "foo", // [!code focus]
+  })
+}
+```
+
+```ts [abi.ts]
+// [!include ~/snippets/abi-read.ts]
+```
+:::
+
+import QueryOptions from "../../../snippets/query-options.mdx"
+
+<QueryOptions TData="ReadContractReturnType" TError="ReadContractErrorType" />
+
+## Return Type
+
+```ts
+import { type UseReadContractReturnType } from "sn-wolf"
+```
+
+The return type [`data`](#data) property is inferrable via the combination of [`abi`](#abi), [`functionName`](#functionname), and [`args`](#args).
+
+import QueryResult from "../../../snippets/query-result.mdx"
+
+<QueryResult TData="ReadContractReturnType" TError="ReadContractErrorType" />
+
+## TanStack Query
+
+```ts
+import {
+  type ReadContractData,
+  type ReadContractOptions,
+  type ReadContractQueryFnData,
+  type ReadContractQueryKey,
+  readContractQueryKey,
+  readContractQueryOptions,
+} from "sn-wolf/query"
+```
+
+## Actions
+
+- [`readContract`](/core/actions/readContract)

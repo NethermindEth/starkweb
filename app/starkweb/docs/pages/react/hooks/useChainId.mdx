@@ -1,0 +1,74 @@
+---
+title: useChainId
+description: Hook for getting current chain ID.
+---
+
+# useChainId
+
+Hook for getting current chain ID.
+
+## Import
+
+```ts
+import { useChainId } from "sn-wolf"
+```
+
+## Usage
+
+```tsx [index.tsx]
+import { useChainId } from "sn-wolf"
+
+function App() {
+  const chainId = useChainId()
+}
+```
+
+## Parameters
+
+```ts
+import { type UseChainIdParameters } from "sn-wolf"
+```
+
+### config
+
+`Config | undefined`
+
+[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`WolfProvider`](/react/api/WolfProvider).
+
+:::code-group
+```tsx [index.tsx]
+import { useChainId } from "sn-wolf"
+import { config } from "./config" // [!code focus]
+
+function App() {
+  const chainId = useChainId({
+    config, // [!code focus]
+  })
+}
+```
+
+```ts [config.ts]
+// [!include ~/snippets/config.ts]
+```
+:::
+
+## Return Type
+
+```ts
+import { type UseChainIdReturnType } from "sn-wolf"
+```
+
+`number`
+
+Current chain ID from [`config.state.chainId`](/react/api/createConfig#chainid).
+
+:::info
+Only returns chain IDs for chains configured via `createConfig` [`chains`](/react/api/createConfig#chains) parameter.
+
+If the active [connection](/react/api/createConfig#connection) [`chainId`](/react/api/createConfig#chainid-1) is not from a chain included in your Wolf `Config`, `useChainId` will return the last configured chain ID.
+:::
+
+## Actions
+
+- [`getChainId`](/core/actions/getChainId)
+- [`watchChainId`](/core/actions/watchChainId)

@@ -1,0 +1,129 @@
+[TanStack Query Mutation docs](https://tanstack.com/query/v5/docs/react/reference/useMutation)
+
+### {props.mutate}
+
+<p className="vocs_Paragraph">
+<code className="vocs_Code">(variables: {props.TVariables}, \{ onSuccess, onSettled, onError \}) => void</code>
+</p>
+
+The mutation function you can call with variables to trigger the mutation and optionally hooks on additional callback options.
+
+- #### variables
+
+  <p className="vocs_Paragraph">
+  <code className="vocs_Code">{props.TVariables}</code>
+  </p>
+
+  The variables object to pass to the <code className="vocs_Code">{props.mutate}</code> action.
+
+- #### onSuccess
+
+  <p className="vocs_Paragraph">
+  <code className="vocs_Code">(data: {props.TData}, variables: {props.TVariables}, context: TContext) => void</code>
+  </p>
+
+  This function will fire when the mutation is successful and will be passed the mutation's result.
+
+- #### onError
+
+  <p className="vocs_Paragraph">
+  <code className="vocs_Code">(error: {props.TError}, variables: {props.TVariables}, context: TContext | undefined) => void</code>
+  </p>
+
+  This function will fire if the mutation encounters an error and will be passed the error.
+
+- #### onSettled
+
+  <p className="vocs_Paragraph">
+  <code className="vocs_Code">(data: {props.TData} | undefined, error: {props.TError} | null, variables: {props.TVariables}, context: TContext | undefined) => void</code>
+  </p>
+
+  - This function will fire when the mutation is either successfully fetched or encounters an error and be passed either the data or error
+  - If you make multiple requests, `onSuccess` will fire only after the latest call you've made.
+
+### {props.mutate}Async
+
+Similar to <code className="vocs_Code">{props.mutate}</code> but returns a promise which can be awaited.
+
+<p className="vocs_Paragraph">
+<code className="vocs_Code">(variables: {props.TVariables}, \{ onSuccess, onSettled, onError \}) => Promise\<{props.TData}\></code>
+</p>
+
+### data
+
+<p className="vocs_Paragraph">
+<code className="vocs_Code">{props.TData} | undefined</code>
+</p>
+
+- <code className="vocs_Code">{props.mutate}</code> return type
+- Defaults to `undefined`
+- The last successfully resolved data for the mutation.
+
+### error
+
+<p className="vocs_Paragraph">
+<code className="vocs_Code">{props.TError} | null</code>
+</p>
+
+The error object for the mutation, if an error was encountered.
+
+### failureCount
+
+`number`
+
+- The failure count for the mutation.
+- Incremented every time the mutation fails.
+- Reset to `0` when the mutation succeeds.
+
+### failureReason
+
+<p className="vocs_Paragraph">
+<code className="vocs_Code">{props.TError} | null</code>
+</p>
+
+- The failure reason for the mutation retry.
+- Reset to `null` when the mutation succeeds.
+
+### isError / isIdle / isPending / isSuccess
+
+`boolean`
+
+Boolean variables derived from [`status`](#status).
+
+### isPaused
+
+`boolean`
+
+- will be `true` if the mutation has been `paused`.
+- see [Network Mode](https://tanstack.com/query/v5/docs/react/guides/network-mode) for more information.
+
+### reset
+
+`() => void`
+
+A function to clean the mutation internal state (e.g. it resets the mutation to its initial state).
+
+### status
+
+`"idle" | "pending" | "error" | "success"`
+
+- `"idle"` initial status prior to the mutation function executing.
+- `"pending"` if the mutation is currently executing.
+- `"error"` if the last mutation attempt resulted in an error.
+- `"success"` if the last mutation attempt was successful.
+
+### submittedAt
+
+`number`
+
+- The timestamp for when the mutation was submitted.
+- Defaults to `0`.
+
+### variables
+
+<p className="vocs_Paragraph">
+<code className="vocs_Code">{props.TVariables} | undefined</code>
+</p>
+
+- The variables object passed to <code className="vocs_Code">{props.mutate}</code>.
+- Defaults to `undefined`.

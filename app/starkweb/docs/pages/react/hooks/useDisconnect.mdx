@@ -1,0 +1,114 @@
+---
+title: useDisconnect
+description: Hook for disconnecting connections.
+---
+
+# useDisconnect
+
+Hook for disconnecting connections.
+
+## Import
+
+```ts
+import { useDisconnect } from "sn-wolf"
+```
+
+## Usage
+
+```tsx [index.tsx]
+import { useDisconnect } from "sn-wolf"
+
+function App() {
+  const { disconnect } = useDisconnect()
+
+  return (
+    <button onClick={() => disconnect()}>
+      Disconnect
+    </button>
+  )
+}
+```
+
+## Parameters
+
+```ts
+import { type UseDisconnectParameters } from "sn-wolf"
+```
+
+### config
+
+`Config | undefined`
+
+[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`WolfProvider`](/react/api/WolfProvider).
+
+:::code-group
+```tsx [index.tsx]
+import { useDisconnect } from "sn-wolf"
+import { config } from "./config" // [!code focus]
+
+function App() {
+  const result = useDisconnect({
+    config, // [!code focus]
+  })
+}
+```
+
+```ts [config.ts]
+// [!include ~/snippets/config.ts]
+```
+:::
+
+import MutationOptions from "../../../snippets/mutation-options.mdx"
+
+<MutationOptions mutate="disconnect" TError="DisconnectErrorType" TVariables="{ connector?: Connector | undefined; }" TData="void" />
+
+## Return Type
+
+```ts
+import { type UseDisconnectReturnType } from "sn-wolf"
+```
+
+### connectors
+
+`readonly Connector[]`
+
+Connectors that are currently connected. Useful for rendering a list of connectors to disconnect.
+
+```tsx [index.tsx]
+import { useDisconnect } from "sn-wolf"
+import { mainnet } from "sn-wolf/chains"
+
+function App() {
+  const { connectors, disconnect } = useDisconnect()
+
+  return (
+    <div>
+      {connectors.map((connector) => (
+        <button key={connector.id} onClick={() => disconnect({ connector })}>
+          {connector.name}
+        </button>
+      ))}
+    </div>
+  )
+}
+```
+
+import MutationResult from "../../../snippets/mutation-result.mdx"
+
+<MutationResult mutate="disconnect" TError="DisconnectErrorType" TVariables="{ connector?: Connector | undefined; }" TData="void" />
+
+## TanStack Query
+
+```ts
+import {
+  type DisconnectData,
+  type DisconnectVariables,
+  type DisconnectMutate,
+  type DisconnectMutateAsync,
+  disconnectMutationOptions,
+} from "sn-wolf/query"
+```
+
+## Actions
+
+- [`disconnect`](/core/actions/connect)

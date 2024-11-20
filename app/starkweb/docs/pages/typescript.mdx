@@ -1,0 +1,103 @@
+# TypeScript
+
+## Requirements
+
+Wolf is designed to be as type-safe as possible! Things to keep in mind:
+
+- Types currently require using TypeScript >=5.0.4.
+- [TypeScript doesn't follow semver](https://www.learningtypescript.com/articles/why-typescript-doesnt-follow-strict-semantic-versioning) and often introduces breaking changes in minor releases.
+- Changes to types in this repository are considered non-breaking and are usually released as patch changes (otherwise every type enhancement would be a major version!).
+- It is highly recommended that you lock your `sn-wolf` and `typescript` versions to specific patch releases and upgrade with the expectation that types may be fixed or upgraded between any release.
+- The non-type-related public API of Wagmi still follows semver very strictly.
+
+To ensure everything works correctly, make sure your `tsconfig.json` has [`strict`](https://www.typescriptlang.org/tsconfig#strict) mode set to `true`.
+
+```json [tsconfig.json]
+{
+  "compilerOptions": {
+    "strict": true
+  }
+}
+```
+
+## Config Types
+
+By default React Context does not work well with type inference. To support strong type-safety across the React Context boundary, there are two options available:
+
+- Declaration merging to **register** your `config` globally with TypeScript.
+- `config` property to pass your `config` directly to hooks.
+
+### Declaration Merging
+
+[Declaration merging](https://www.typescriptlang.org/docs/handbook/declaration-merging.html) allows you to **register** your `config` globally with TypeScript. The `Register` type enables Wolf to infer types in places that wouldn't normally have access to type info via React Context alone.
+
+To set this up, add the following declaration to your project. Below, we co-locate the declaration merging and the `config` set up.
+
+```ts
+import { createConfig, http } from "starkweb"
+import { mainnet, sepolia } from "starkweb/chains"
+
+declare module "starkweb" { // [!code focus]
+  interface Register { // [!code focus]
+    config: typeof config // [!code focus]
+  } // [!code focus]
+} // [!code focus]
+
+export const config = createConfig({
+  chains: [mainnet, sepolia],
+  transports: {
+    [mainnet.chain_id]: http(),
+    [sepolia.chain_id]: http(),
+  },
+})
+```
+
+Since the `Register` type is global, you only need to add it once in your project. Once set up, you will get strong type-safety across your entire project. For example, query hooks will type `chainId` based on your `config`'s `chains`.
+
+### Hook `config` Property
+
+For cases where you have more than one Wagmi `config` or don't want to use the declaration merging approach, you can pass a specific `config` directly to hooks via the `config` property.
+
+```ts
+import { createConfig, http } from "starkweb"
+import { mainnet, sepolia } from "starkweb/chains"
+
+export const configA = createConfig({ // [!code focus]
+  chains: [mainnet], // [!code focus]
+  transports: { // [!code focus]
+    [mainnet.chain_id]: http(), // [!code focus]
+  }, // [!code focus]
+}) // [!code focus]
+
+export const configB = createConfig({ // [!code focus]
+  chains: [sepolia], // [!code focus]
+  transports: { // [!code focus]
+    [sepolia.chain_id]: http(), // [!code focus]
+  }, // [!code focus]
+}) // [!code focus]
+```
+
+## Const-Assert ABIs & Typed Data
+
+Wolf can infer types based on [ABIs](https://book.cairo-lang.org/ch15-01-contract-class-abi.html) and [SNIP-12](https://github.com/starknet-io/SNIPs/blob/main/SNIPS/snip-12.md) Typed Data definitions. This achieves full end-to-end type-safety from your contracts to your frontend and enlightened developer experience by autocompleting ABI item names, catching misspellings, inferring argument and return types (including overloads), and more.
+
+For this to work, you must either [const-assert](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-4.html#const-assertions) ABIs and Typed Data (more info below) or define them inline. For example, `useContractRead`'s `abi` configuration parameter:
+
+```ts
+const { data } = useContractRead({
+  abi: […], // <--- defined inline // [!code focus]
+})
+```
+
+```ts
+const abi = […] as const // <--- const assertion // [!code focus]
+const { data } = useContractRead({ abi })
+```
+
+If type inference isn't working, it's likely you forgot to add a `const` assertion or define the configuration parameter inline. Also, make sure your ABIs, Typed Data definitions, and [TypeScript configuration](#requirements) are valid and set up correctly.
+
+:::tip
+Unfortunately [TypeScript doesn't support importing JSON `as const` yet](https://github.com/microsoft/TypeScript/issues/32063). Check out the [Wolf CLI](/cli) to help with this! It can automatically fetch ABIs from Etherscan and other block explorers, resolve ABIs from your projects, generate React Hooks, and more.
+:::
+
+Anywhere you see the `abi` or `types` configuration property, you can likely use const-asserted or inline ABIs and Typed Data to get type-safety and inference.
