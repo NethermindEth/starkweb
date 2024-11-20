@@ -97,6 +97,34 @@ importers:
         specifier: latest
         version: 1.0.0-alpha.62(@types/node@22.9.0)(@types/react-dom@18.3.1)(@types/react@18.3.12)(acorn@8.14.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.27.3)(typescript@5.6.3)
 
+  packages/create-starkweb:
+    dependencies:
+      cac:
+        specifier: ^6.7.14
+        version: 6.7.14
+      cross-spawn:
+        specifier: ^7.0.3
+        version: 7.0.3
+      picocolors:
+        specifier: ^1.0.1
+        version: 1.1.1
+      prompts:
+        specifier: ^2.4.2
+        version: 2.4.2
+    devDependencies:
+      '@types/cross-spawn':
+        specifier: ^6.0.6
+        version: 6.0.6
+      '@types/node':
+        specifier: ^20.14.9
+        version: 20.17.6
+      '@types/prompts':
+        specifier: ^2.4.9
+        version: 2.4.9
+      typescript:
+        specifier: ^5.5.2
+        version: 5.6.3
+
   packages/starkweb:
     dependencies:
       '@adraffy/ens-normalize':
@@ -135,6 +163,15 @@ importers:
       abitype:
         specifier: 1.0.5
         version: 1.0.5(typescript@5.6.3)
+      ajv:
+        specifier: ^8.17.1
+        version: 8.17.1
+      cac:
+        specifier: ^6.7.14
+        version: 6.7.14
+      cross-spawn:
+        specifier: ^7.0.3
+        version: 7.0.3
       eventemitter3:
         specifier: 5.0.1
         version: 5.0.1
@@ -147,6 +184,12 @@ importers:
       mipd:
         specifier: 0.0.5
         version: 0.0.5(bufferutil@4.0.8)(typescript@5.6.3)(utf-8-validate@5.0.10)
+      picocolors:
+        specifier: ^1.0.1
+        version: 1.1.1
+      prompts:
+        specifier: ^2.4.2
+        version: 2.4.2
       use-sync-external-store:
         specifier: 1.2.2
         version: 1.2.2(react@18.3.1)
@@ -160,12 +203,15 @@ importers:
       '@stablelib/random':
         specifier: ^2.0.0
         version: 2.0.0
+      '@types/cross-spawn':
+        specifier: ^6.0.6
+        version: 6.0.6
+      '@types/prompts':
+        specifier: ^2.4.9
+        version: 2.4.9
       '@types/react':
         specifier: ^18
         version: 18.3.12
-      ajv:
-        specifier: ^8.17.1
-        version: 8.17.1
       react:
         specifier: 18.3.1
         version: 18.3.1
@@ -1416,6 +1462,9 @@ packages:
   '@types/babel__traverse@7.20.6':
     resolution: {integrity: sha512-r1bzfrm0tomOI8g1SzvCaQHo6Lcv6zu0EA+W2kHrt8dyrHQxGzBBL4kdkzIS+jBMV+EYcMAEAqXqYaLJq5rOZg==}
 
+  '@types/cross-spawn@6.0.6':
+    resolution: {integrity: sha512-fXRhhUkG4H3TQk5dBhQ7m/JDdSNHKwR2BBia62lhwEIq9xGiQKLxd6LymNhn47SjXhsUEPmxi+PKw2OkW4LLjA==}
+
   '@types/debug@4.1.12':
     resolution: {integrity: sha512-vIChWdVG3LG1SMxEvI/AK+FWJthlrqlTu7fbrlywTkkaONwk/UAGaULXRlf8vkzFBLVm0zkMdCquhL5aOjhXPQ==}
 
@@ -1445,6 +1494,9 @@ packages:
 
   '@types/node@22.9.0':
     resolution: {integrity: sha512-vuyHg81vvWA1Z1ELfvLko2c8f34gyA0zaic0+Rllc5lbCnbSyuvb2Oxpm6TAUAC/2xZN3QGqxBNggD1nNR2AfQ==}
+
+  '@types/prompts@2.4.9':
+    resolution: {integrity: sha512-qTxFi6Buiu8+50/+3DGIWLHM6QuWsEKugJnnP6iv2Mc4ncxE4A/OJkjuVOA+5X0X1S/nq5VJRa8Lu+nwcvbrKA==}
 
   '@types/prop-types@15.7.13':
     resolution: {integrity: sha512-hCZTSvwbzWGvhqxp/RqVqwU999pBf2vp7hzIjiYOsl8wqOmUxkQ6ddw1cV3l8811+kdUFus/q4d1Y3E3SyEifA==}
@@ -2316,6 +2368,10 @@ packages:
   jsonfile@6.1.0:
     resolution: {integrity: sha512-5dgndWOriYSm5cnYaJNhalLNDKOqFwyDB/rr1E9ZsGciGvKPs8R2xYGCacuf3z6K1YKDz182fd+fY3cn3pMqXQ==}
 
+  kleur@3.0.3:
+    resolution: {integrity: sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==}
+    engines: {node: '>=6'}
+
   lilconfig@2.1.0:
     resolution: {integrity: sha512-utWOt/GHzuUxnLKxB6dk81RoOeoNeHgbrXiuGk4yyF5qlRz+iIVWu56E2fqGHFrXz0QNUhLB/8nKqvRH66JKGQ==}
     engines: {node: '>=10'}
@@ -2877,6 +2933,10 @@ packages:
   process@0.11.10:
     resolution: {integrity: sha512-cdGef/drWFoydD1JsMzuFf8100nZl+GT+yacc2bEced5f9Rjk4z+WtFUTBu9PhOi9j/jfmBPu0mMEY4wIdAF8A==}
     engines: {node: '>= 0.6.0'}
+
+  prompts@2.4.2:
+    resolution: {integrity: sha512-NxNv/kLguCA7p3jE8oL2aEBsrJWgAakBpgmgK6lpPWV+WuOmY6r2/zbAVnP+T8bQlA0nzHXSJSJW0Hq7ylaD2Q==}
+    engines: {node: '>= 6'}
 
   prop-types@15.8.1:
     resolution: {integrity: sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==}
@@ -4821,6 +4881,10 @@ snapshots:
     dependencies:
       '@babel/types': 7.26.0
 
+  '@types/cross-spawn@6.0.6':
+    dependencies:
+      '@types/node': 20.17.6
+
   '@types/debug@4.1.12':
     dependencies:
       '@types/ms': 0.7.34
@@ -4852,6 +4916,11 @@ snapshots:
   '@types/node@22.9.0':
     dependencies:
       undici-types: 6.19.8
+
+  '@types/prompts@2.4.9':
+    dependencies:
+      '@types/node': 20.17.6
+      kleur: 3.0.3
 
   '@types/prop-types@15.7.13': {}
 
@@ -5397,7 +5466,7 @@ snapshots:
 
   eval@0.1.8:
     dependencies:
-      '@types/node': 22.9.0
+      '@types/node': 20.17.6
       require-like: 0.1.2
 
   event-target-shim@5.0.1: {}
@@ -5808,6 +5877,8 @@ snapshots:
       universalify: 2.0.1
     optionalDependencies:
       graceful-fs: 4.2.11
+
+  kleur@3.0.3: {}
 
   lilconfig@2.1.0: {}
 
@@ -6641,6 +6712,11 @@ snapshots:
   prettier@2.8.8: {}
 
   process@0.11.10: {}
+
+  prompts@2.4.2:
+    dependencies:
+      kleur: 3.0.3
+      sisteransi: 1.0.5
 
   prop-types@15.8.1:
     dependencies:

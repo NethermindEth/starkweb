@@ -6,7 +6,9 @@
       "src/**/*.test.tsx",
       "src/**/*.test-d.ts",
       "src/**/*.bench.ts",
-      "src/**/*.macro.ts"
+      "src/**/*.macro.ts",
+      "node_modules",
+      "src/create-starkweb/templates/**/*"
     ],
     "compilerOptions": {
       "moduleResolution": "node",

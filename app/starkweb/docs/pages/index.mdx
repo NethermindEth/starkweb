@@ -6,11 +6,38 @@ import { HomePage } from 'vocs/components'
 
 <HomePage.Root>
   <HomePage.Logo />
-  <HomePage.Tagline>My Awesome Docs</HomePage.Tagline>
-  <HomePage.InstallPackage name="vocs" type="init" />
-  <HomePage.Description>This is a description of my documentation website.</HomePage.Description>
+  <HomePage.Tagline>Build Starknet dApps with ease</HomePage.Tagline>
+  <HomePage.Description>
+    A collection of React hooks and utilities for Starknet development. 
+    Type-safe, testable, and optimized for the best developer experience.
+  </HomePage.Description>
+  
+  <HomePage.InstallPackage 
+    name="starkweb" 
+    type="init"
+  />
+
+  {/* <HomePage.Features>
+    <HomePage.Feature
+      title="Type Safe"
+      description="Built with TypeScript. Infer types from ABIs and contract interactions."
+    />
+    <HomePage.Feature
+      title="Hooks First"
+      description="20+ React hooks for wallets, contracts, transactions, and more."
+    />
+    <HomePage.Feature
+      title="Developer Experience"
+      description="Auto-refresh on network changes, caching, request deduplication, and more."
+    />
+  </HomePage.Features> */}
+
   <HomePage.Buttons>
-    <HomePage.Button href="/getting-started" variant="accent">Get started</HomePage.Button>
-    <HomePage.Button href="https://github.com/wevm/vocs">GitHub</HomePage.Button>
+    <HomePage.Button href="/docs/getting-started" variant="accent">
+      Get Started
+    </HomePage.Button>
+    <HomePage.Button href="https://github.com/NethermindEth/starkweb">
+      GitHub
+    </HomePage.Button>
   </HomePage.Buttons>
 </HomePage.Root>

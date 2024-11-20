@@ -3,10 +3,6 @@
 import { useAccount, useConnect, useDisconnect } from 'starkweb/react'
 
 import { getConfig } from '@/wagmi'
-import { testAbi } from '@/utils/testAbi'
-import { createWalletClient } from 'starkweb'
-import { custom } from 'starkweb'
-import { sepolia } from 'starkweb/chains'
 
 const config = getConfig()
 
@@ -49,7 +45,7 @@ function App() {
         <div>{status}</div>
         <div>{error?.message}</div>
       </div>
-      <Example />
+      {/* <Example /> */}
     </>
   )
 }
@@ -77,22 +73,22 @@ const wagmiAbi = [
 ] as const
 
 
-export async function Example() {
-  const walletClient =  createWalletClient({
-    chain: sepolia,
-    transport: custom((window as any).starknet),
-  })
-  const _tx = await walletClient.writeContract({
-    address:
-      '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
-    abi: wagmiAbi,
-    functionName: 'mint',
-  })
-  return (
-    <div>
-    <h1>Example</h1>
-  </div>
- )
-}
+// export async function Example() {
+//   const walletClient =  createWalletClient({
+//     chain: sepolia,
+//     transport: custom((window as any).starknet),
+//   })
+//   const _tx = await walletClient.writeContract({
+//     address:
+//       '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
+//     abi: wagmiAbi,
+//     functionName: 'mint',
+//   })
+//   return (
+//     <div>
+//     <h1>Example</h1>
+//   </div>
+//  )
+// }
 
 export default App
