@@ -1,0 +1,85 @@
+---
+title: useClient
+description: Hook for getting `Client` instance.
+---
+
+# useClient
+
+Hook for getting `Client` instance.
+
+## Import
+
+```ts
+import { useClient } from "sn-wolf"
+```
+
+## Usage
+
+```tsx [index.tsx]
+import { useClient } from "sn-wolf"
+
+function App() {
+  const client = useClient()
+}
+```
+
+## Parameters
+
+```ts
+import { type UseClientParameters } from "sn-wolf"
+```
+
+### chainId
+
+`config["chains"][number]["id"] | undefined`
+
+ID of chain to use when getting `Client`.
+
+```ts [index.ts]
+import { useClient } from "sn-wolf"
+import { mainnet } from "sn-wolf/chains" // [!code focus]
+
+function App() {
+  const client = useClient({
+    chainId: mainnet.chain_id, // [!code focus]
+  })
+}
+```
+
+### config
+
+`Config | undefined`
+
+[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`WolfProvider`](/react/api/WolfProvider).
+
+:::code-group
+```tsx [index.tsx]
+import { useClient } from "sn-wolf"
+import { config } from "./config" // [!code focus]
+
+function App() {
+  const client = useClient({
+    config, // [!code focus]
+  })
+}
+```
+
+```ts [config.ts]
+// [!include ~/snippets/config.ts]
+```
+:::
+
+## Return Type
+
+```ts
+import { type UseClientReturnType } from "sn-wolf"
+```
+
+`Client | undefined`
+
+`Client` instance.
+
+## Actions
+
+- [`getClient`](/core/actions/getClient)
+- [`watchClient`](/core/actions/watchClient)

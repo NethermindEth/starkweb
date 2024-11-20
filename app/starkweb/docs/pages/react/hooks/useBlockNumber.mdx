@@ -1,0 +1,151 @@
+---
+title: useBlockNumber
+description: Hook for fetching the number of the most recent block seen.
+---
+
+# useBlockNumber
+
+Hook for fetching the number of the most recent block seen.
+
+## Import
+
+```ts
+import { useBlockNumber } from "sn-wolf"
+```
+
+## Usage
+
+```tsx [index.tsx]
+import { useBlockNumber } from "sn-wolf"
+
+function App() {
+  const result = useBlockNumber()
+}
+```
+
+## Parameters
+
+```ts
+import { type UseBlockNumberParameters } from "sn-wolf"
+```
+
+### cacheTime
+
+`number | undefined`
+
+Time in milliseconds that cached block number will remain in memory.
+
+```tsx [index.tsx]
+import { useBlockNumber } from "sn-wolf"
+
+function App() {
+  const result = useBlockNumber({
+    cacheTime: 4_000, // [!code focus]
+  })
+}
+```
+
+### chainId
+
+`config["chains"][number]["id"] | undefined`
+
+ID of chain to use when fetching data.
+
+```tsx [index.tsx]
+import { useBlockNumber } from "sn-wolf"
+import { mainnet } from "sn-wolf/chains" // [!code focus]
+
+function App() {
+  const result = useBlockNumber({
+    chainId: mainnet.chain_id, // [!code focus]
+  })
+}
+```
+
+### config
+
+`Config | undefined`
+
+[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`WolfProvider`](/react/api/WolfProvider).
+
+:::code-group
+```tsx [index.tsx]
+import { useBlockNumber } from "sn-wolf"
+import { config } from "./config" // [!code focus]
+
+function App() {
+  const result = useBlockNumber({
+    config, // [!code focus]
+  })
+}
+```
+
+```ts [config.ts]
+// [!include ~/snippets/config.ts]
+```
+:::
+
+### scopeKey
+
+`string | undefined`
+
+Scopes the cache to a given context. Hooks that have identical context will share the same cache.
+
+```tsx [index.tsx]
+import { useBlockNumber } from "sn-wolf"
+import { config } from "./config" // [!code focus]
+
+function App() {
+  const result = useBlockNumber({
+    scopeKey: "foo", // [!code focus]
+  })
+}
+```
+
+### watch
+
+`boolean | undefined`
+
+Enables/disables listening for block number changes.
+
+```tsx [index.tsx]
+import { useBlockNumber } from "sn-wolf"
+
+function App() {
+  const result = useBlockNumber({
+    watch: true, // [!code focus]
+  })
+}
+```
+
+import QueryOptions from "../../../snippets/query-options.mdx"
+
+<QueryOptions TData="bigint" TError="GetBlockNumberErrorType" />
+
+## Return Type
+
+```ts
+import { type UseBlockNumberReturnType } from "sn-wolf"
+```
+
+import QueryResult from "../../../snippets/query-result.mdx"
+
+<QueryResult TData="bigint" TError="GetBlockNumberErrorType" />
+
+## TanStack Query
+
+```ts
+import {
+  type GetBlockNumberData,
+  type GetBlockNumberOptions,
+  type GetBlockNumberQueryFnData,
+  type GetBlockNumberQueryKey,
+  getBlockNumberQueryKey,
+  getBlockNumberQueryOptions,
+} from "sn-wolf/query"
+```
+
+## Actions
+
+- [`getBlockNumber`](/core/actions/getBlockNumber)
+- [`watchBlockNumber`](/core/actions/watchBlockNumber)

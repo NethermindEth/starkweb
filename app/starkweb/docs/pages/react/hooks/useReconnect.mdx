@@ -1,0 +1,112 @@
+---
+title: useReconnect
+description: Hook for reconnecting connectors.
+---
+
+# useReconnect
+
+Hook for reconnecting [connectors](/core/api/connectors).
+
+## Import
+
+```ts
+import { useReconnect } from "sn-wolf"
+```
+
+## Usage
+
+```tsx [index.tsx]
+import { useReconnect } from "sn-wolf"
+import { useEffect } from "react"
+
+function App() {
+  const { reconnect } = useReconnect()
+
+  useEffect(() => {
+    reconnect()
+  }, [])
+}
+```
+
+:::tip
+When [`WolfProvider["reconnectOnMount"]`](/react/api/WolfProvider#reconnectonmount) is `true`, `reconnect` is called automatically on mount.
+:::
+
+## Parameters
+
+```ts
+import { type UseReconnectParameters } from "sn-wolf"
+```
+
+### config
+
+`Config | undefined`
+
+[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`WolfProvider`](/react/api/WolfProvider).
+
+:::code-group
+```tsx [index.tsx]
+import { useReconnect } from "sn-wolf"
+import { config } from "./config" // [!code focus]
+
+function App() {
+  const result = useReconnect({
+    config, // [!code focus]
+  })
+}
+```
+
+```ts [config.ts]
+// [!include ~/snippets/config.ts]
+```
+:::
+
+import MutationOptions from "../../../snippets/mutation-options.mdx"
+
+<MutationOptions mutate="reconnect" TError="ReconnectErrorType" TVariables="{ connectors?: (CreateConnectorFn | Connector)[] | undefined; }" TData="{ accounts: readonly [Address, ...Address[]]; chainId: number; connector: Connector }" />
+
+## Return Type
+
+```ts
+import { type UseReconnectReturnType } from "sn-wolf"
+```
+
+### connectors
+
+`readonly Connector[]`
+
+Globally configured connectors via [`createConfig`](/react/api/createConfig#connectors).
+
+```tsx [index.tsx]
+import { useReconnect } from "sn-wolf"
+import { mainnet } from "sn-wolf/chains"
+import { useEffect } from "react"
+
+function App() {
+  const { reconnect, connectors } = useReconnect()
+
+  useEffect(() => {
+    reconnect({ connectors })
+  }, [])
+}
+```
+
+import MutationResult from "../../../snippets/mutation-result.mdx"
+
+<MutationResult mutate="reconnect" TError="ReconnectErrorType" TVariables="{ connectors?: (CreateConnectorFn | Connector)[] | undefined; }" TData="{ accounts: readonly [Address, ...Address[]]; chainId: number; connector: Connector }" />
+
+## TanStack Query
+
+```ts
+import {
+  type ReconnectData,
+  type ReconnectVariables,
+  type ReconnectMutate,
+  type ReconnectMutateAsync,
+  reconnectMutationOptions,
+} from "sn-wolf/query"
+```
+
+## Actions
+
+- [`reconnect`](/core/actions/reconnect)

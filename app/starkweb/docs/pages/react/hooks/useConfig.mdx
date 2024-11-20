@@ -1,0 +1,34 @@
+---
+title: useConfig
+description: Hook for getting `Config` from nearest `WolfProvider`.
+---
+
+# useConfig
+
+Hook for getting [`Config`](/react/api/createConfig#config) from nearest [`WolfProvider`](/react/api/WolfProvider).
+
+## Import
+
+```ts
+import { useConfig } from "sn-wolf"
+```
+
+## Usage
+
+```tsx [index.tsx]
+import { useConfig } from "sn-wolf"
+
+function App() {
+  const config = useConfig()
+}
+```
+
+## Return Type
+
+```ts
+import { type UseConfigReturnType } from "sn-wolf"
+```
+
+import ConfigReturn from "../../../snippets/config-return-type.mdx"
+
+<ConfigReturn />

@@ -1,0 +1,117 @@
+---
+title: useSwitchAccount
+description: Hook for switching the current account.
+---
+
+# useSwitchAccount
+
+Hook for switching the current account.
+
+## Import
+
+```ts
+import { useSwitchAccount } from "sn-wolf"
+```
+
+## Usage
+
+```tsx [index.tsx]
+import { useSwitchAccount } from "sn-wolf"
+
+function App() {
+  const { connectors, switchAccount } = useSwitchAccount()
+
+  return (
+    <div>
+      {connectors.map((connector) => (
+        <button key={connector.id} onClick={() => switchAccount({ connector })}>
+          {connector.name}
+        </button>
+      ))}
+    </div>
+  )
+}
+```
+
+## Parameters
+
+```ts
+import { type UseSwitchAccountParameters } from "sn-wolf"
+```
+
+### config
+
+`Config | undefined`
+
+[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`WolfProvider`](/react/api/WolfProvider).
+
+:::code-group
+```tsx [index.tsx]
+import { useSwitchAccount } from "sn-wolf"
+import { config } from "./config" // [!code focus]
+
+function App() {
+  const result = useSwitchAccount({
+    config, // [!code focus]
+  })
+}
+```
+
+```ts [config.ts]
+// [!include ~/snippets/config.ts]
+```
+:::
+
+import MutationOptions from "../../../snippets/mutation-options.mdx"
+
+<MutationOptions mutate="switchAccount" TData="SwitchAccountData" TError="SwitchAccountErrorType" TVariables="SwitchAccountVariables" />
+
+## Return Type
+
+```ts
+import { type UseSwitchAccountReturnType } from "sn-wolf"
+```
+
+### connectors
+
+`readonly Connector[]`
+
+Globally configured and actively connected connectors. Useful for rendering a list of available connectors to switch to.
+
+```tsx [index.tsx]
+import { useSwitchAccount } from "sn-wolf"
+
+function App() {
+  const { connectors, switchAccount } = useSwitchAccount()
+
+  return (
+    <div>
+      {connectors.map((connector) => (
+        <button key={connector.id} onClick={() => switchAccount({ connector })}>
+          {connector.name}
+        </button>
+      ))}
+    </div>
+  )
+}
+```
+
+import MutationResult from "../../../snippets/mutation-result.mdx"
+
+<MutationResult mutate="switchAccount" TData="SwitchAccountData" TError="SwitchAccountErrorType" TVariables="SwitchAccountVariables" />
+
+## TanStack Query
+
+```ts
+import {
+  type SwitchAccountData,
+  type SwitchAccountVariables,
+  type SwitchAccountMutate,
+  type SwitchAccountMutateAsync,
+  switchAccountMutationOptions,
+} from "sn-wolf/query"
+```
+
+## Actions
+
+- [`switchAccount`](/core/actions/switchAccount)

@@ -1,0 +1,107 @@
+---
+title: useAccountEffect
+description: Hook for listening to account lifecycle events.
+---
+
+# useAccountEffect
+
+Hook for listening to account lifecycle events.
+
+## Import
+
+```ts
+import { useAccountEffect } from "sn-wolf"
+```
+
+## Usage
+
+```tsx [index.tsx]
+import { useAccountEffect } from "sn-wolf"
+
+function App() {
+  useAccountEffect({
+    onConnect(data) {
+      console.log("Connected!", data)
+    },
+    onDisconnect() {
+      console.log("Disconnected!")
+    },
+  })
+}
+```
+
+## Parameters
+
+```ts
+import { type UseAccountEffectParameters } from "sn-wolf"
+```
+
+### config
+
+`Config | undefined`
+
+[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`WolfProvider`](/react/api/WolfProvider).
+
+:::code-group
+```tsx [index.tsx]
+import { useAccountEffect } from "sn-wolf"
+import { config } from "./config" // [!code focus]
+
+function App() {
+  useAccountEffect({
+    config, // [!code focus]
+    onConnect(data) {
+      console.log("Connected!", data)
+    },
+    onDisconnect() {
+      console.log("Disconnected!")
+    },
+  })
+}
+```
+
+```ts [config.ts]
+// [!include ~/snippets/config.ts]
+```
+:::
+
+### onConnect
+
+``((data: { address: `0x${string}`; addresses: readonly [`0x${string}`, ...`0x${string}`[]]; chain: Chain | undefined; chainId: number; connector: Connector; isReconnected: boolean }) => void) | undefined``
+
+Callback that is called when accounts are connected.
+
+```tsx [index.tsx]
+import { useAccountEffect } from "sn-wolf"
+
+function App() {
+  useAccountEffect({
+    onConnect(data) { // [!code focus]
+      console.log("Connected!", data) // [!code focus]
+    }, // [!code focus]
+  })
+}
+```
+
+### onDisconnect
+
+`(() => void) | undefined`
+
+Callback that is called when no more accounts are connected.
+
+```tsx [index.tsx]
+import { useAccountEffect } from "sn-wolf"
+
+function App() {
+  useAccountEffect({
+    onDisconnect() { // [!code focus]
+      console.log("Disconnected!") // [!code focus]
+    }, // [!code focus]
+  })
+}
+```
+
+## Actions
+
+- [`getAccount`](/core/actions/getAccount)
+- [`watchAccount`](/core/actions/watchAccount)

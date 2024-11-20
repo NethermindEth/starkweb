@@ -1,0 +1,173 @@
+---
+title: useBalance
+description: Hook for fetching native currency or token balance.
+---
+
+# useBalance
+
+Hook for fetching native currency or token balance.
+
+## Import
+
+```ts
+import { useBalance } from "sn-wolf"
+```
+
+## Usage
+
+```tsx [index.tsx]
+import { useBalance } from "sn-wolf"
+
+function App() {
+  const result = useBalance({
+    address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
+  })
+}
+```
+
+## Parameters
+
+```ts
+import { type UseBalanceParameters } from "sn-wolf"
+```
+
+### address
+
+`Address | undefined`
+
+Address to get balance for. [`enabled`](#enabled) set to `false` if `address` is `undefined`.
+
+```tsx [index.tsx]
+import { useBalance } from "sn-wolf"
+import { mainnet } from "sn-wolf/chains"
+
+function App() {
+  const result = useBalance({
+    address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4", // [!code focus]
+  })
+}
+```
+
+### blockNumber
+
+`bigint | undefined`
+
+Block number to get balance at.
+
+```ts [index.ts]
+import { useBalance } from "sn-wolf"
+
+function App() {
+  const result = useBalance({
+    address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
+    blockNumber: 892408, // [!code focus]
+  })
+}
+```
+
+### blockTag
+
+`"latest" | "earliest" | "pending" | "safe" | "finalized" | undefined`
+
+Block tag to get balance at.
+
+```ts [index.ts]
+import { useBalance } from "sn-wolf"
+
+function App() {
+  const result = useBalance({
+    address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
+    blockTag: "latest", // [!code focus]
+  })
+}
+```
+
+### chainId
+
+`config["chains"][number]["id"] | undefined`
+
+ID of chain to use when fetching data.
+
+```tsx [index.tsx]
+import { useBalance } from "sn-wolf"
+import { mainnet } from "sn-wolf/chains" // [!code focus]
+
+function App() {
+  const result = useBalance({
+    address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
+    chainId: mainnet.chain_id, // [!code focus]
+  })
+}
+```
+
+### config
+
+`Config | undefined`
+
+[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`WolfProvider`](/react/api/WolfProvider).
+
+:::code-group
+```tsx [index.tsx]
+import { useBalance } from "sn-wolf"
+import { config } from "./config" // [!code focus]
+
+function App() {
+  const result = useBalance({
+    address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
+    config, // [!code focus]
+  })
+}
+```
+
+```ts [config.ts]
+// [!include ~/snippets/config.ts]
+```
+:::
+
+### scopeKey
+
+`string | undefined`
+
+Scopes the cache to a given context. Hooks that have identical context will share the same cache.
+
+```tsx [index.tsx]
+import { useBalance } from "sn-wolf"
+
+function App() {
+  const result = useBalance({
+    address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
+    scopeKey: "foo", // [!code focus]
+  })
+}
+```
+
+import QueryOptions from "../../../snippets/query-options.mdx"
+
+<QueryOptions TData="{ decimals: number; formatted: string; symbol: string; value: bigint; }" TError="GetBalanceErrorType" />
+
+## Return Type
+
+```ts
+import { type UseBalanceReturnType } from "sn-wolf"
+```
+
+import QueryResult from "../../../snippets/query-result.mdx"
+
+<QueryResult TData="{ decimals: number; formatted: string; symbol: string; value: bigint; }" TError="GetBalanceErrorType" />
+
+## TanStack Query
+
+```ts
+import {
+  type GetBalanceData,
+  type GetBalanceOptions,
+  type GetBalanceQueryFnData,
+  type GetBalanceQueryKey,
+  getBalanceQueryKey,
+  getBalanceQueryOptions,
+} from "sn-wolf/query"
+```
+
+## Actions
+
+- [`getBalance`](/core/actions/getBalance)

@@ -1,0 +1,134 @@
+---
+title: useWalletClient
+description: Hook for getting a `WalletClient` object for the current or provided connector.
+---
+
+# useWalletClient
+
+Hook for getting a `WalletClient` object for the current or provided connector.
+
+## Import
+
+```ts
+import { useWalletClient } from "sn-wolf"
+```
+
+## Usage
+
+```tsx [index.tsx]
+import { useWalletClient } from "sn-wolf"
+
+function App() {
+  const result = useWalletClient()
+}
+```
+
+## Parameters
+
+```ts
+import { type UseWalletClientParameters } from "sn-wolf"
+```
+
+### account
+
+`Address | Account | undefined`
+
+Account to use with client. Throws if account is not found on [`connector`](#connector).
+
+```ts
+import { useWalletClient } from "sn-wolf"
+
+function App() {
+  const result = useWalletClient({
+    account: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4", // [!code focus]
+  })
+}
+```
+
+### chainId
+
+`config["chains"][number]["id"] | undefined`
+
+ID of chain to use with client.
+
+```ts
+import { useWalletClient } from "sn-wolf"
+
+function App() {
+  const result = useWalletClient({
+    chainId: mainnet.chain_id, // [!code focus]
+  })
+}
+```
+
+### config
+
+`Config | undefined`
+
+[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`WolfProvider`](/react/api/WolfProvider).
+
+:::code-group
+```tsx [index.tsx]
+import { useWalletClient } from "sn-wolf"
+import { config } from "./config" // [!code focus]
+
+function App() {
+  const result = useWalletClient({
+    config, // [!code focus]
+  })
+}
+```
+
+```ts [config.ts]
+// [!include ~/snippets/config.ts]
+```
+:::
+
+### connector
+
+`Connector | undefined`
+
+- Connector to get client for.
+- Defaults to current connector.
+
+```ts
+import { useConnections, useWalletClient } from "sn-wolf"
+
+function App() {
+  const connections = useConnections(config)
+  const result = useWalletClient({
+    connector: connections[0]?.connector, // [!code focus]
+  })
+}
+```
+
+import QueryOptions from "../../../snippets/query-options.mdx"
+
+<QueryOptions TData="WalletClient" TError="GetWalletClientErrorType" />
+
+## Return Type
+
+```ts
+import { type UseWalletClientReturnType } from "sn-wolf"
+```
+
+import QueryResult from "../../../snippets/query-result.mdx"
+
+<QueryResult TData="WalletClient" TError="GetWalletClientErrorType" />
+
+## TanStack Query
+
+```ts
+import {
+  type GetWalletClientData,
+  type GetWalletClientOptions,
+  type GetWalletClientQueryFnData,
+  type GetWalletClientQueryKey,
+  getWalletClientQueryKey,
+  getWalletClientQueryOptions,
+} from "sn-wolf/query"
+```
+
+## Actions
+
+- [`getWalletClient`](/core/actions/getWalletClient)

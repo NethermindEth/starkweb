@@ -1,0 +1,134 @@
+---
+title: useConnectorClient
+description: Hook for getting a `Client` object for the current or provided connector.
+---
+
+# useConnectorClient
+
+Hook for getting a `Client` object for the current or provided connector.
+
+## Import
+
+```ts
+import { useConnectorClient } from "sn-wolf"
+```
+
+## Usage
+
+```tsx [index.tsx]
+import { useConnectorClient } from "sn-wolf"
+
+function App() {
+  const result = useConnectorClient()
+}
+```
+
+## Parameters
+
+```ts
+import { type UseConnectorClientParameters } from "sn-wolf"
+```
+
+### account
+
+`Address | Account | undefined`
+
+Account to use with client. Throws if account is not found on [`connector`](#connector).
+
+```ts
+import { useConnectorClient } from "sn-wolf"
+
+function App() {
+  const result = useConnectorClient({
+    account: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4", // [!code focus]
+  })
+}
+```
+
+### chainId
+
+`config["chains"][number]["id"] | undefined`
+
+ID of chain to use with client.
+
+```ts
+import { useConnectorClient } from "sn-wolf"
+
+function App() {
+  const result = useConnectorClient({
+    chainId: mainnet.chain_id, // [!code focus]
+  })
+}
+```
+
+### config
+
+`Config | undefined`
+
+[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`WolfProvider`](/react/api/WolfProvider).
+
+:::code-group
+```tsx [index.tsx]
+import { useConnectorClient } from "sn-wolf"
+import { config } from "./config" // [!code focus]
+
+function App() {
+  const result = useConnectorClient({
+    config, // [!code focus]
+  })
+}
+```
+
+```ts [config.ts]
+// [!include ~/snippets/config.ts]
+```
+:::
+
+### connector
+
+`Connector | undefined`
+
+- Connector to get client for.
+- Defaults to current connector.
+
+```ts
+import { useConnections, useConnectorClient } from "sn-wolf"
+
+function App() {
+  const connections = useConnections(config)
+  const result = useConnectorClient({
+    connector: connections[0]?.connector, // [!code focus]
+  })
+}
+```
+
+import QueryOptions from "../../../snippets/query-options.mdx"
+
+<QueryOptions TData="Client" TError="GetConnectorClientErrorType" />
+
+## Return Type
+
+```ts
+import { type UseConnectorClientReturnType } from "sn-wolf"
+```
+
+import QueryResult from "../../../snippets/query-result.mdx"
+
+<QueryResult TData="Client" TError="GetConnectorClientErrorType" />
+
+## TanStack Query
+
+```ts
+import {
+  type GetConnectorClientData,
+  type GetConnectorClientOptions,
+  type GetConnectorClientQueryFnData,
+  type GetConnectorClientQueryKey,
+  getConnectorClientQueryKey,
+  getConnectorClientQueryOptions,
+} from "sn-wolf/query"
+```
+
+## Actions
+
+- [`getConnectorClient`](/core/actions/getConnectorClient)

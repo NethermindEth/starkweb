@@ -1,0 +1,89 @@
+### chains
+
+`readonly [Chain, ...Chain[]]`
+
+[`chains`](/react/api/createConfig#chains) passed to `createConfig`.
+
+### connectors
+
+`readonly Connectors[]`
+
+Connectors set up from passing [`connectors`](/react/api/createConfig#connectors) and [`multiInjectedProviderDiscovery`](/react/api/createConfig#multiinjectedproviderdiscovery) to `createConfig`.
+
+### state
+
+`readonly State`
+
+The `Config` object's internal state. See [`State`](/react/api/createConfig#state-1) for more info.
+
+### storage
+
+`readonly Storage | null`
+
+[`storage`](/react/api/createConfig#storage) passed to `createConfig`.
+
+### getClient
+
+`(parameters?: { chainId?: chainId | undefined }): Client<transports[chains[number]["id"]], Extract<chains[number], { chain_id: chainId }>>`
+
+Creates new `Client` object.
+
+:::code-group
+```ts [index.ts]
+import { config } from "./config"
+
+const client = config.getClient({ chainId: 1 })
+```
+
+```ts [config.ts]
+// [!include ~/snippets/config.ts]
+```
+:::
+
+### setState
+
+`(value: State | ((state: State) => State)) => void`
+
+Updates the `Config` object's internal state. See [`State`](/react/api/createConfig#state-1) for more info.
+
+:::code-group
+```ts [index.ts]
+import { mainnet } from "sn-wolf/chains"
+import { config } from "./config"
+
+config.setState((x) => ({
+  ...x,
+  chainId: x.current ? x.chainId : mainnet.chain_id,
+}))
+```
+
+```ts [config.ts]
+// [!include ~/snippets/config.ts]
+```
+:::
+
+:::warning
+Exercise caution when using this method. It is intended for internal and advanced use-cases only. Manually setting state can cause unexpected behavior.
+:::
+
+### subscribe
+
+`(selector: (state: State>) => state, listener: (selectedState: state, previousSelectedState: state) => void, options?: { emitImmediately?: boolean | undefined; equalityFn?: ((a: state, b: state) => boolean) | undefined } | undefined) => (() => void)`
+
+Listens for state changes matching the `selector` function. Returns a function that can be called to unsubscribe the listener.
+
+:::code-group
+```ts [index.ts]
+import { config } from "./config"
+
+const unsubscribe = config.subscribe(
+  (state) => state.chainId,
+  (chainId) => console.log(`Chain ID changed to ${chainId}`),
+)
+unsubscribe()
+```
+
+```ts [config.ts]
+// [!include ~/snippets/config.ts]
+```
+:::
