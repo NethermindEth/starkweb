@@ -1,6 +1,6 @@
 {
     "name": "starkweb",
-    "version": "0.0.9",
+    "version": "0.0.10",
     "private": false,
     "type": "module",
     "main": "./dist/cjs/exports/starkweb.js",
@@ -8,7 +8,7 @@
     "types": "./dist/types/exports/starkweb.d.ts",
     "typings": "./dist/types/exports/starkweb.d.ts",
     "bin": {
-        "starkweb": "./dist/esm/cli/bin.js"
+        "starkweb": "./dist/esm/create-starkweb/cli.js"
     },
     "repository": {
         "type": "git",
@@ -138,7 +138,7 @@
         "build": "pnpm clean && pnpm build:types && pnpm build:cjs && pnpm build:esm",
         "build:cjs": "tsc --noCheck --project ./tsconfig.build.json --module commonjs --outDir ./dist/cjs --verbatimModuleSyntax false && printf '{\"type\":\"commonjs\"}' > ./dist/cjs/package.json",
         "build:esm": "tsc --noCheck --project ./tsconfig.build.json --module es2020 --outDir ./dist/esm && printf '{\"type\": \"module\",\"sideEffects\":false}' > ./dist/esm/package.json",
-        "build:types": "tsc --project ./tsconfig.build.json --module esnext --declarationDir ./dist/types --emitDeclarationOnly --declaration --declarationMap",
+        "build:types": "tsc --project ./tsconfig.build.json --module esnext --declarationDir ./dist/types --emitDeclarationOnly --declaration --declarationMap --skipLibCheck",
         "clean": "rimraf dist",
         "size": "size-limit",
         "typedoc": "bun run scripts/typedoc.mjs",
@@ -157,29 +157,35 @@
     },
     "devDependencies": {
         "@stablelib/random": "^2.0.0",
+        "@types/cross-spawn": "^6.0.6",
+        "@types/prompts": "^2.4.9",
         "@types/react": "^18",
-        "ajv": "^8.17.1",
         "react": "18.3.1",
         "rimraf": "^6.0.1",
         "turbo": "^2.2.3",
         "typescript": "^5.6.3"
     },
     "dependencies": {
+        "ajv": "^8.17.1",
         "@adraffy/ens-normalize": "1.10.0",
         "@noble/curves": "1.4.0",
         "@noble/hashes": "1.4.0",
         "@scure/base": "1.1.3",
-        "use-sync-external-store": "1.2.2",
-        "@types/use-sync-external-store": "^0.0.6",
         "@scure/bip32": "1.4.0",
         "@scure/bip39": "1.3.0",
         "@scure/starknet": "1.0.0",
         "@starknet-io/types-js": "^0.7.7",
+        "@types/use-sync-external-store": "^0.0.6",
         "abitype": "1.0.5",
+        "cac": "^6.7.14",
+        "cross-spawn": "^7.0.3",
         "eventemitter3": "5.0.1",
         "isows": "1.0.4",
         "lossless-json": "^4.0.2",
         "mipd": "0.0.5",
+        "picocolors": "^1.0.1",
+        "prompts": "^2.4.2",
+        "use-sync-external-store": "1.2.2",
         "ws": "latest",
         "zustand": "4.4.1"
     }
