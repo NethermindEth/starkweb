@@ -1,3 +1,264 @@
 # createConfig
 
 Creates a new [`Config`](#config) object.
+
+## Import
+
+```ts
+import { createConfig } from "starkweb/react"
+```
+
+## Usage
+
+```ts [config.ts]
+// [!include ~/snippets/config.ts]
+```
+
+## Parameters
+
+```ts
+import { type CreateConfigParameters } from "starkweb/react"
+```
+
+### chains
+
+`readonly [Chain, ...Chain[]]`
+
+- Chains used by the `Config`.
+- See [Chains](/react/api/Chains) for more details about built-in chains and the `Chain` type.
+
+```ts
+import { createConfig, http } from "starkweb/react"
+import { mainnet, sepolia } from "starkweb/react/chains"
+
+const config = createConfig({
+  chains: [mainnet, sepolia], // [!code focus]
+  transports: {
+    [mainnet.chain_id]: http("https://mainnet.example.com"),
+    [sepolia.chain_id]: http("https://sepolia.example.com"),
+  },
+})
+```
+
+### connectors
+
+`CreateConnectorFn[] | undefined`
+
+[Connectors](/react/api/connectors) used by the `Config`.
+
+```ts
+import { createConfig, http } from "starkweb/react"
+import { mainnet, sepolia } from "starkweb/react/chains"
+import { injected } from "starkweb/react/connectors" // [!code focus]
+
+const config = createConfig({
+  chains: [mainnet, sepolia],
+  connectors: [injected()], // [!code focus]
+  transports: {
+    [mainnet.chain_id]: http("https://mainnet.example.com"),
+    [sepolia.chain_id]: http("https://sepolia.example.com"),
+  },
+})
+```
+
+### multiInjectedProviderDiscovery
+
+`boolean | undefined`
+
+- Enables discovery of injected providers via [EIP-6963](https://eips.ethereum.org/EIPS/eip-6963) and converting to [injected](/core/connectors/injected) connectors.
+- Defaults to `true`.
+
+```ts
+import { createConfig, http } from "starkweb/react"
+import { mainnet, sepolia } from "starkweb/react/chains"
+
+const config = createConfig({
+  chains: [mainnet, sepolia],
+  multiInjectedProviderDiscovery: false, // [!code focus]
+  transports: {
+    [mainnet.chain_id]: http("https://mainnet.example.com"),
+    [sepolia.chain_id]: http("https://sepolia.example.com"),
+  },
+})
+```
+
+### ssr
+
+`boolean | undefined`
+
+Flag to indicate if the config is being used in a server-side rendering environment. Defaults to `false`.
+
+```ts
+import { createConfig, http } from "starkweb/react" // [!code focus]
+import { mainnet, sepolia } from "starkweb/react/chains"
+
+const config = createConfig({
+  chains: [mainnet, sepolia],
+  ssr: true, // [!code focus]
+  transports: {
+    [mainnet.chain_id]: http("https://mainnet.example.com"),
+    [sepolia.chain_id]: http("https://sepolia.example.com"),
+  },
+})
+```
+
+### storage
+
+`Storage | null | undefined`
+
+- [`Storage`](/react/api/Storage) used by the config. Persists `Config`'s [`State`](#state-1) between sessions.
+- Defaults to `createStorage({ storage: typeof window !== 'undefined' && window.localStorage ? window.localStorage : noopStorage })`.
+
+```ts
+import { createConfig, createStorage, http } from "starkweb/react" // [!code focus]
+import { mainnet, sepolia } from "starkweb/react/chains"
+
+const config = createConfig({
+  chains: [mainnet, sepolia],
+  storage: createStorage({ storage: window.localStorage }), // [!code focus]
+  transports: {
+    [mainnet.chain_id]: http("https://mainnet.example.com"),
+    [sepolia.chain_id]: http("https://sepolia.example.com"),
+  },
+})
+```
+
+### syncConnectedChain
+
+`boolean | undefined`
+
+- Keep the [`State["chainId"]`](#chainid) in sync with the current connection.
+- Defaults to `true`.
+
+```ts
+import { createConfig, http } from "starkweb/react"
+import { mainnet, sepolia } from "starkweb/react/chains"
+
+const config = createConfig({
+  chains: [mainnet, sepolia],
+  syncConnectedChain: false, // [!code focus]
+  transports: {
+    [mainnet.chain_id]: http("https://mainnet.example.com"),
+    [sepolia.chain_id]: http("https://sepolia.example.com"),
+  },
+})
+```
+
+---
+
+### batch
+
+`{ multicall?: boolean | { batchSize?: number | undefined; wait?: number | undefined } | undefined } | { [_ in chains[number]["id"]]?: { multicall?: boolean | { batchSize?: number | undefined; wait?: number | undefined } | undefined } | undefined } | undefined`
+
+- Batch settings.
+- Defaults to `{ multicall: true }`.
+
+```ts
+import { createConfig, http } from "starkweb/react"
+import { mainnet, sepolia } from "starkweb/react/chains"
+
+const config = createConfig({
+  chains: [mainnet, sepolia],
+  batch: { multicall: true }, // [!code focus]
+  transports: {
+    [mainnet.chain_id]: http("https://mainnet.example.com"),
+    [sepolia.chain_id]: http("https://sepolia.example.com"),
+  },
+})
+```
+
+### cacheTime
+
+`number | { [_ in chains[number]["id"]]?: number | undefined } | undefined`
+
+- Frequency in milliseconds for polling enabled features.
+- Defaults to [`pollingInterval`](#pollinginterval) or `4_000`.
+
+```ts
+import { createConfig, http } from "starkweb/react"
+import { mainnet, sepolia } from "starkweb/react/chains"
+
+const config = createConfig({
+  chains: [mainnet, sepolia],
+  cacheTime: 4_000, // [!code focus]
+  transports: {
+    [mainnet.chain_id]: http("https://mainnet.example.com"),
+    [sepolia.chain_id]: http("https://sepolia.example.com"),
+  },
+})
+```
+
+### pollingInterval
+
+`number | { [_ in chains[number]["id"]]?: number | undefined } | undefined`
+
+- Frequency in milliseconds for polling enabled features.
+- Defaults to `4_000`.
+
+```ts
+import { createConfig, http } from "starkweb/react"
+import { mainnet, sepolia } from "starkweb/react/chains"
+
+const config = createConfig({
+  chains: [mainnet, sepolia],
+  pollingInterval: 4_000, // [!code focus]
+  transports: {
+    [mainnet.chain_id]: http("https://mainnet.example.com"),
+    [sepolia.chain_id]: http("https://sepolia.example.com"),
+  },
+})
+```
+
+### transports
+
+`Record<chains[number]["id"], Transport>`
+
+Mapping of [chain IDs](#chains) to [`Transport`](/react/transports). This mapping is used internally when creating chain-aware `Client` objects. See the [Transports docs](/react/transports) for more info.
+
+```ts
+import { createConfig, fallback, http } from "starkweb/react" // [!code focus]
+import { mainnet, sepolia } from "starkweb/react/chains"
+
+const config = createConfig({
+  chains: [mainnet, sepolia],
+  transports: { // [!code focus]
+    [mainnet.chain_id]: fallback([ // [!code focus]
+      http("https://..."), // [!code focus]
+      http("https://..."), // [!code focus]
+    ]), // [!code focus]
+    [sepolia.chain_id]: http("https://..."), // [!code focus]
+  }, // [!code focus]
+})
+```
+
+### client
+
+`(parameters: { chain: chains[number] }) => Client<Transport, chains[number]>`
+
+Function for creating new `Client` to be used internally. Exposes more control over the internal `Client` creation logic versus using the [`transports`](#transports) property.
+
+```ts
+import { createClient, http, createConfig } from "starkweb/react" // [!code focus]
+import { mainnet, sepolia } from "starkweb/react/chains"
+
+const config = createConfig({
+  chains: [mainnet, sepolia],
+  client({ chain }) { // [!code focus]
+    return createClient({ chain, transport: http("https://...") }) // [!code focus]
+  }, // [!code focus]
+})
+```
+
+:::warning
+When using this option, you likely want to pass `parameters.chain` straight through to `createClient` to ensure the `Client` is in sync with any active connections.
+:::
+
+## Return Type
+
+```ts
+import { type Config } from "starkweb/react"
+```
+
+import ConfigReturnType from "../../../snippets/config-return-type.mdx"
+
+<ConfigReturnType />
