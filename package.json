@@ -11,6 +11,7 @@
         "prefix": "pnpm dlx sherif@latest -i remark-gfm --fix",
         "fix": "turbo run fix",
         "build": "turbo run build --filter=./packages/*",
+        "docs:build": "pnpm run build && pnpm run docs:build",
         "build:packages": "turbo run build --filter=./packages/*",
         "build:release": "pnpm run build --filter=./packages/* --force",
         "test": "turbo run test --filter=./packages/*",
