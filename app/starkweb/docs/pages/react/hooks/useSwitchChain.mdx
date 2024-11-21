@@ -10,13 +10,13 @@ Hook for switching the target chain for a connector or the Wolf [`Config`](/reac
 ## Import
 
 ```ts
-import { useSwitchChain } from "sn-wolf"
+import { useSwitchChain } from "starkweb/react"
 ```
 
 ## Usage
 
 ```tsx [index.tsx]
-import { useSwitchChain } from "sn-wolf"
+import { useSwitchChain } from "starkweb/react"
 
 function App() {
   const { chains, switchChain } = useSwitchChain()
@@ -40,18 +40,18 @@ When connected, `switchChain` will switch the target chain for the connector. Wh
 ## Parameters
 
 ```ts
-import { type UseSwitchChainParameters } from "sn-wolf"
+import { type UseSwitchChainParameters } from "starkweb/react"
 ```
 
 ### config
 
 `Config | undefined`
 
-[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`WolfProvider`](/react/api/WolfProvider).
+[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`StarkwebProvider`](/react/api/StarkwebProvider).
 
 :::code-group
 ```tsx [index.tsx]
-import { useSwitchChain } from "sn-wolf"
+import { useSwitchChain } from "starkweb/react"
 import { config } from "./config" // [!code focus]
 
 function App() {
@@ -73,7 +73,7 @@ import MutationOptions from "../../../snippets/mutation-options.mdx"
 ## Return Type
 
 ```ts
-import { type UseSwitchChainReturnType } from "sn-wolf"
+import { type UseSwitchChainReturnType } from "starkweb/react"
 ```
 
 ### chains
@@ -83,7 +83,7 @@ import { type UseSwitchChainReturnType } from "sn-wolf"
 Globally configured chains. Useful for rendering a list of available chains to switch to.
 
 ```tsx [index.tsx]
-import { useSwitchChain } from "sn-wolf"
+import { useSwitchChain } from "starkweb/react"
 
 function App() {
   const { chains, switchChain } = useSwitchChain()
@@ -113,9 +113,9 @@ import {
   type SwitchChainMutate,
   type SwitchChainMutateAsync,
   switchChainMutationOptions,
-} from "sn-wolf/query"
+} from "starkweb/react/query"
 ```
 
 ## Actions
 
-- [`switchChain`](/core/actions/switchChain)
+{/* - [`switchChain`](/core/actions/switchChain) */}

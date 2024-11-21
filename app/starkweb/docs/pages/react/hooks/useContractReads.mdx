@@ -10,13 +10,13 @@ Hook for calling multiple read methods on a contract.
 ## Import
 
 ```ts
-import { useContractReads } from "sn-wolf"
+import { useContractReads } from "starkweb/react"
 ```
 
 ## Usage
 
 ```tsx [index.tsx]
-import { useContractReads } from "sn-wolf"
+import { useContractReads } from "starkweb/react"
 
 const gotchiContract = {
   address: "0x072589b1e65b5b22b746c8701aae3ecc34af6e64a378091b47188e2a52414dba",
@@ -56,7 +56,7 @@ function App() {
 ## Parameters
 
 ```ts
-import { type UseReadContractsParameters } from "sn-wolf"
+import { type UseReadContractsParameters } from "starkweb/react"
 ```
 
 ### contracts
@@ -72,7 +72,7 @@ Set of contracts to call.
 The contract's ABI.
 
 ```tsx [index.tsx]
-import { useContractReads } from "sn-wolf"
+import { useContractReads } from "starkweb/react"
 
 function App() {
   const result = useContractReads({
@@ -96,7 +96,7 @@ function App() {
 The contract's address.
 
 ```tsx [index.tsx]
-import { useContractReads } from "sn-wolf"
+import { useContractReads } from "starkweb/react"
 
 function App() {
   const result = useContractReads({
@@ -121,7 +121,7 @@ function App() {
 - Inferred from [`abi`](#abi).
 
 ```tsx [index.tsx]
-import { useContractReads } from "sn-wolf"
+import { useContractReads } from "starkweb/react"
 
 function App() {
   const result = useContractReads({
@@ -146,7 +146,7 @@ function App() {
 - Inferred from [`abi`](#abi) and [`functionName`](#functionname).
 
 ```tsx [index.tsx]
-import { useContractReads } from "sn-wolf"
+import { useContractReads } from "starkweb/react"
 
 function App() {
   const result = useContractReads({
@@ -170,7 +170,7 @@ function App() {
 ID of chain to use when fetching data.
 
 ```tsx [index.tsx]
-import { useContractReads } from "sn-wolf"
+import { useContractReads } from "starkweb/react"
 
 function App() {
   const result = useContractReads({
@@ -195,7 +195,7 @@ function App() {
 Whether or not the Hook should throw if a call reverts. If set to `true` (default), and a call reverts, then `useContractReads` will fail silently and its error will be logged in the results array. Defaults to `true`.
 
 ```tsx [index.tsx]
-import { useContractReads } from "sn-wolf"
+import { useContractReads } from "starkweb/react"
 
 function App() {
   const result = useContractReads({
@@ -220,7 +220,7 @@ function App() {
 The maximum size (in bytes) for each calldata chunk. Set to `0` to disable the size limit. Defaults to `1024`.
 
 ```tsx [index.tsx]
-import { useContractReads } from "sn-wolf"
+import { useContractReads } from "starkweb/react"
 
 function App() {
   const result = useContractReads({
@@ -245,7 +245,7 @@ function App() {
 The block number to perform the read against.
 
 ```tsx [index.tsx]
-import { useContractReads } from "sn-wolf"
+import { useContractReads } from "starkweb/react"
 
 function App() {
   const result = useContractReads({
@@ -270,7 +270,7 @@ function App() {
 Block tag to read against.
 
 ```tsx [index.tsx]
-import { useContractReads } from "sn-wolf"
+import { useContractReads } from "starkweb/react"
 
 function App() {
   const result = useContractReads({
@@ -292,11 +292,11 @@ function App() {
 
 `Config | undefined`
 
-[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`WolfProvider`](/react/api/WolfProvider).
+[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`StarkwebProvider`](/react/api/StarkwebProvider).
 
 :::code-group
 ```tsx [index.tsx]
-import { useContractReads } from "sn-wolf"
+import { useContractReads } from "starkweb/react"
 import { config } from "./config"
 
 function App() {
@@ -327,7 +327,7 @@ function App() {
 Address of multicall contract.
 
 ```tsx [index.tsx]
-import { useContractReads } from "sn-wolf"
+import { useContractReads } from "starkweb/react"
 
 function App() {
   const result = useContractReads({
@@ -352,7 +352,7 @@ import QueryOptions from "../../../snippets/query-options.mdx"
 ## Return Type
 
 ```ts
-import { type UseReadContractsReturnType } from "sn-wolf"
+import { type UseReadContractsReturnType } from "starkweb/react"
 ```
 
 import QueryResult from "../../../snippets/query-result.mdx"
@@ -361,4 +361,4 @@ import QueryResult from "../../../snippets/query-result.mdx"
 
 ## Actions
 
-- [`readContracts`](/core/actions/readContracts)
+{/* - [`readContracts`](/core/actions/readContracts) */}

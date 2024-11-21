@@ -10,13 +10,13 @@ Hook for signing typed data and calculating signature.
 ## Import
 
 ```ts
-import { useSignTypedData } from "sn-wolf"
+import { useSignTypedData } from "starkweb/react"
 ```
 
 ## Usage
 
 ```tsx [index.tsx]
-import { useSignTypedData } from "sn-wolf"
+import { useSignTypedData } from "starkweb/react"
 
 function App() {
   const { signTypedData } = useSignTypedData()
@@ -60,18 +60,18 @@ function App() {
 ## Parameters
 
 ```ts
-import { type UseSignTypedDataParameters } from "sn-wolf"
+import { type UseSignTypedDataParameters } from "starkweb/react"
 ```
 
 ### config
 
 `Config | undefined`
 
-[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`WolfProvider`](/react/api/WolfProvider).
+[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`StarkwebProvider`](/react/api/StarkwebProvider).
 
 :::code-group
 ```tsx [index.tsx]
-import { useSignTypedData } from "sn-wolf"
+import { useSignTypedData } from "starkweb/react"
 import { config } from "./config" // [!code focus]
 
 function App() {
@@ -93,7 +93,7 @@ import MutationOptions from "../../../snippets/mutation-options.mdx"
 ## Return Type
 
 ```ts
-import { type UseSignTypedDataReturnType } from "sn-wolf"
+import { type UseSignTypedDataReturnType } from "starkweb/react"
 ```
 
 import MutationResult from "../../../snippets/mutation-result.mdx"
@@ -109,9 +109,9 @@ import {
   type SignTypedDataMutate,
   type SignTypedDataMutateAsync,
   signTypedDataMutationOptions,
-} from "sn-wolf/query"
+} from "starkweb/react/query"
 ```
 
 ## Actions
 
-- [`signTypedData`](/core/actions/signTypedData)
+{/* - [`signTypedData`](/core/actions/signTypedData) */}

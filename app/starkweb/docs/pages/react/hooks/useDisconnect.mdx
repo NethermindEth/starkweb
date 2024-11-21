@@ -10,13 +10,13 @@ Hook for disconnecting connections.
 ## Import
 
 ```ts
-import { useDisconnect } from "sn-wolf"
+import { useDisconnect } from "starkweb/react"
 ```
 
 ## Usage
 
 ```tsx [index.tsx]
-import { useDisconnect } from "sn-wolf"
+import { useDisconnect } from "starkweb/react"
 
 function App() {
   const { disconnect } = useDisconnect()
@@ -32,18 +32,18 @@ function App() {
 ## Parameters
 
 ```ts
-import { type UseDisconnectParameters } from "sn-wolf"
+import { type UseDisconnectParameters } from "starkweb/react"
 ```
 
 ### config
 
 `Config | undefined`
 
-[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`WolfProvider`](/react/api/WolfProvider).
+[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`StarkwebProvider`](/react/api/StarkwebProvider).
 
 :::code-group
 ```tsx [index.tsx]
-import { useDisconnect } from "sn-wolf"
+import { useDisconnect } from "starkweb/react"
 import { config } from "./config" // [!code focus]
 
 function App() {
@@ -65,7 +65,7 @@ import MutationOptions from "../../../snippets/mutation-options.mdx"
 ## Return Type
 
 ```ts
-import { type UseDisconnectReturnType } from "sn-wolf"
+import { type UseDisconnectReturnType } from "starkweb/react"
 ```
 
 ### connectors
@@ -75,8 +75,8 @@ import { type UseDisconnectReturnType } from "sn-wolf"
 Connectors that are currently connected. Useful for rendering a list of connectors to disconnect.
 
 ```tsx [index.tsx]
-import { useDisconnect } from "sn-wolf"
-import { mainnet } from "sn-wolf/chains"
+import { useDisconnect } from "starkweb/react"
+import { mainnet } from "starkweb/react/chains"
 
 function App() {
   const { connectors, disconnect } = useDisconnect()
@@ -106,9 +106,9 @@ import {
   type DisconnectMutate,
   type DisconnectMutateAsync,
   disconnectMutationOptions,
-} from "sn-wolf/query"
+} from "starkweb/react/query"
 ```
 
 ## Actions
 
-- [`disconnect`](/core/actions/connect)
+{/* - [`disconnect`](/core/actions/connect) */}

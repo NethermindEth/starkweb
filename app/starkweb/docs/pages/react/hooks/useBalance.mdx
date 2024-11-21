@@ -10,13 +10,13 @@ Hook for fetching native currency or token balance.
 ## Import
 
 ```ts
-import { useBalance } from "sn-wolf"
+import { useBalance } from "starkweb/react"
 ```
 
 ## Usage
 
 ```tsx [index.tsx]
-import { useBalance } from "sn-wolf"
+import { useBalance } from "starkweb/react"
 
 function App() {
   const result = useBalance({
@@ -28,7 +28,7 @@ function App() {
 ## Parameters
 
 ```ts
-import { type UseBalanceParameters } from "sn-wolf"
+import { type UseBalanceParameters } from "starkweb/react"
 ```
 
 ### address
@@ -38,8 +38,8 @@ import { type UseBalanceParameters } from "sn-wolf"
 Address to get balance for. [`enabled`](#enabled) set to `false` if `address` is `undefined`.
 
 ```tsx [index.tsx]
-import { useBalance } from "sn-wolf"
-import { mainnet } from "sn-wolf/chains"
+import { useBalance } from "starkweb/react"
+import { mainnet } from "starkweb/react/chains"
 
 function App() {
   const result = useBalance({
@@ -55,7 +55,7 @@ function App() {
 Block number to get balance at.
 
 ```ts [index.ts]
-import { useBalance } from "sn-wolf"
+import { useBalance } from "starkweb/react"
 
 function App() {
   const result = useBalance({
@@ -72,7 +72,7 @@ function App() {
 Block tag to get balance at.
 
 ```ts [index.ts]
-import { useBalance } from "sn-wolf"
+import { useBalance } from "starkweb/react"
 
 function App() {
   const result = useBalance({
@@ -89,8 +89,8 @@ function App() {
 ID of chain to use when fetching data.
 
 ```tsx [index.tsx]
-import { useBalance } from "sn-wolf"
-import { mainnet } from "sn-wolf/chains" // [!code focus]
+import { useBalance } from "starkweb/react"
+import { mainnet } from "starkweb/react/chains" // [!code focus]
 
 function App() {
   const result = useBalance({
@@ -104,11 +104,11 @@ function App() {
 
 `Config | undefined`
 
-[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`WolfProvider`](/react/api/WolfProvider).
+[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`StarkwebProvider`](/react/api/StarkwebProvider).
 
 :::code-group
 ```tsx [index.tsx]
-import { useBalance } from "sn-wolf"
+import { useBalance } from "starkweb/react"
 import { config } from "./config" // [!code focus]
 
 function App() {
@@ -131,7 +131,7 @@ function App() {
 Scopes the cache to a given context. Hooks that have identical context will share the same cache.
 
 ```tsx [index.tsx]
-import { useBalance } from "sn-wolf"
+import { useBalance } from "starkweb/react"
 
 function App() {
   const result = useBalance({
@@ -148,7 +148,7 @@ import QueryOptions from "../../../snippets/query-options.mdx"
 ## Return Type
 
 ```ts
-import { type UseBalanceReturnType } from "sn-wolf"
+import { type UseBalanceReturnType } from "starkweb/react"
 ```
 
 import QueryResult from "../../../snippets/query-result.mdx"
@@ -165,9 +165,9 @@ import {
   type GetBalanceQueryKey,
   getBalanceQueryKey,
   getBalanceQueryOptions,
-} from "sn-wolf/query"
+} from "starkweb/react/query"
 ```
 
 ## Actions
 
-- [`getBalance`](/core/actions/getBalance)
+{/* - [`getBalance`](/core/actions/getBalance) */}

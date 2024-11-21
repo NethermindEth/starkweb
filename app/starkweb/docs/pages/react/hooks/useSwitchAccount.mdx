@@ -10,13 +10,13 @@ Hook for switching the current account.
 ## Import
 
 ```ts
-import { useSwitchAccount } from "sn-wolf"
+import { useSwitchAccount } from "starkweb/react"
 ```
 
 ## Usage
 
 ```tsx [index.tsx]
-import { useSwitchAccount } from "sn-wolf"
+import { useSwitchAccount } from "starkweb/react"
 
 function App() {
   const { connectors, switchAccount } = useSwitchAccount()
@@ -36,18 +36,18 @@ function App() {
 ## Parameters
 
 ```ts
-import { type UseSwitchAccountParameters } from "sn-wolf"
+import { type UseSwitchAccountParameters } from "starkweb/react"
 ```
 
 ### config
 
 `Config | undefined`
 
-[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`WolfProvider`](/react/api/WolfProvider).
+[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`StarkwebProvider`](/react/api/StarkwebProvider).
 
 :::code-group
 ```tsx [index.tsx]
-import { useSwitchAccount } from "sn-wolf"
+import { useSwitchAccount } from "starkweb/react"
 import { config } from "./config" // [!code focus]
 
 function App() {
@@ -69,7 +69,7 @@ import MutationOptions from "../../../snippets/mutation-options.mdx"
 ## Return Type
 
 ```ts
-import { type UseSwitchAccountReturnType } from "sn-wolf"
+import { type UseSwitchAccountReturnType } from "starkweb/react"
 ```
 
 ### connectors
@@ -79,7 +79,7 @@ import { type UseSwitchAccountReturnType } from "sn-wolf"
 Globally configured and actively connected connectors. Useful for rendering a list of available connectors to switch to.
 
 ```tsx [index.tsx]
-import { useSwitchAccount } from "sn-wolf"
+import { useSwitchAccount } from "starkweb/react"
 
 function App() {
   const { connectors, switchAccount } = useSwitchAccount()
@@ -109,9 +109,9 @@ import {
   type SwitchAccountMutate,
   type SwitchAccountMutateAsync,
   switchAccountMutationOptions,
-} from "sn-wolf/query"
+} from "starkweb/react/query"
 ```
 
 ## Actions
 
-- [`switchAccount`](/core/actions/switchAccount)
+{/* - [`switchAccount`](/core/actions/switchAccount) */}

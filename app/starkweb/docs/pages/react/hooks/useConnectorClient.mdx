@@ -10,13 +10,13 @@ Hook for getting a `Client` object for the current or provided connector.
 ## Import
 
 ```ts
-import { useConnectorClient } from "sn-wolf"
+import { useConnectorClient } from "starkweb/react"
 ```
 
 ## Usage
 
 ```tsx [index.tsx]
-import { useConnectorClient } from "sn-wolf"
+import { useConnectorClient } from "starkweb/react"
 
 function App() {
   const result = useConnectorClient()
@@ -26,7 +26,7 @@ function App() {
 ## Parameters
 
 ```ts
-import { type UseConnectorClientParameters } from "sn-wolf"
+import { type UseConnectorClientParameters } from "starkweb/react"
 ```
 
 ### account
@@ -36,7 +36,7 @@ import { type UseConnectorClientParameters } from "sn-wolf"
 Account to use with client. Throws if account is not found on [`connector`](#connector).
 
 ```ts
-import { useConnectorClient } from "sn-wolf"
+import { useConnectorClient } from "starkweb/react"
 
 function App() {
   const result = useConnectorClient({
@@ -52,7 +52,7 @@ function App() {
 ID of chain to use with client.
 
 ```ts
-import { useConnectorClient } from "sn-wolf"
+import { useConnectorClient } from "starkweb/react"
 
 function App() {
   const result = useConnectorClient({
@@ -65,11 +65,11 @@ function App() {
 
 `Config | undefined`
 
-[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`WolfProvider`](/react/api/WolfProvider).
+[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`StarkwebProvider`](/react/api/StarkwebProvider).
 
 :::code-group
 ```tsx [index.tsx]
-import { useConnectorClient } from "sn-wolf"
+import { useConnectorClient } from "starkweb/react"
 import { config } from "./config" // [!code focus]
 
 function App() {
@@ -92,7 +92,7 @@ function App() {
 - Defaults to current connector.
 
 ```ts
-import { useConnections, useConnectorClient } from "sn-wolf"
+import { useConnections, useConnectorClient } from "starkweb/react"
 
 function App() {
   const connections = useConnections(config)
@@ -109,7 +109,7 @@ import QueryOptions from "../../../snippets/query-options.mdx"
 ## Return Type
 
 ```ts
-import { type UseConnectorClientReturnType } from "sn-wolf"
+import { type UseConnectorClientReturnType } from "starkweb/react"
 ```
 
 import QueryResult from "../../../snippets/query-result.mdx"
@@ -126,9 +126,9 @@ import {
   type GetConnectorClientQueryKey,
   getConnectorClientQueryKey,
   getConnectorClientQueryOptions,
-} from "sn-wolf/query"
+} from "starkweb/react/query"
 ```
 
 ## Actions
 
-- [`getConnectorClient`](/core/actions/getConnectorClient)
+- [`getConnectorClient`](#TODO/core/actions/getConnectorClient)

@@ -5,19 +5,19 @@ description: Hook for connecting accounts with connectors.
 
 # useConnect
 
-Hook for connecting accounts with [connectors](/react/api/connectors).
+Hook for connecting accounts with [connectors](#TODO/react/api/connectors).
 
 ## Import
 
 ```ts
-import { useConnect } from "sn-wolf"
+import { useConnect } from "starkweb/react"
 ```
 
 ## Usage
 
 ```tsx [index.tsx]
-import { useConnect } from "sn-wolf"
-import { injected } from "sn-wolf/connectors"
+import { useConnect } from "starkweb/react"
+import { injected } from "starkweb/react/connectors"
 
 function App() {
   const { connect } = useConnect()
@@ -33,18 +33,18 @@ function App() {
 ## Parameters
 
 ```ts
-import { type UseConnectParameters } from "sn-wolf"
+import { type UseConnectParameters } from "starkweb/react"
 ```
 
 ### config
 
 `Config | undefined`
 
-[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`WolfProvider`](/react/api/WolfProvider).
+[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`StarkwebProvider`](/react/api/StarkwebProvider).
 
 :::code-group
 ```tsx [index.tsx]
-import { useConnect } from "sn-wolf"
+import { useConnect } from "starkweb/react"
 import { config } from "./config" // [!code focus]
 
 function App() {
@@ -66,7 +66,7 @@ import MutationOptions from "../../../snippets/mutation-options.mdx"
 ## Return Type
 
 ```ts
-import { type UseConnectReturnType } from "sn-wolf"
+import { type UseConnectReturnType } from "starkweb/react"
 ```
 
 ### connectors
@@ -76,7 +76,7 @@ import { type UseConnectReturnType } from "sn-wolf"
 Globally configured connectors via [`createConfig`](/react/api/createConfig#connectors). Useful for rendering a list of available connectors.
 
 ```tsx [index.tsx]
-import { useConnect } from "sn-wolf"
+import { useConnect } from "starkweb/react"
 
 function App() {
   const { connect, connectors } = useConnect()
@@ -110,9 +110,9 @@ import {
   type ConnectMutate,
   type ConnectMutateAsync,
   connectMutationOptions,
-} from "sn-wolf/query"
+} from "starkweb/react/query"
 ```
 
 ## Actions
 
-- [`connect`](/core/actions/connect)
+{/* - [`connect`](/core/actions/connect) */}

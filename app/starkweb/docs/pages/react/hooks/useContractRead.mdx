@@ -12,14 +12,14 @@ A **read-only** function (constant function) on a Cairo contract is denoted by a
 ## Import
 
 ```ts
-import { useContractRead } from "sn-wolf"
+import { useContractRead } from "starkweb/react"
 ```
 
 ## Usage
 
 :::code-group
 ```tsx [index.tsx]
-import { useContractRead } from "sn-wolf"
+import { useContractRead } from "starkweb/react"
 import { abi } from "./abi"
 
 function App() {
@@ -39,7 +39,7 @@ function App() {
 ## Parameters
 
 ```ts
-import { type UseReadContractParameters } from "sn-wolf"
+import { type UseReadContractParameters } from "starkweb/react"
 ```
 
 ### abi
@@ -50,7 +50,7 @@ The contract's ABI.
 
 :::code-group
 ```tsx [index.tsx]
-import { useContractRead } from "sn-wolf"
+import { useContractRead } from "starkweb/react"
 import { abi } from "./abi" // [!code focus]
 
 function App() {
@@ -75,7 +75,7 @@ Account to use when calling the contract (`msg.sender`).
 
 :::code-group
 ```tsx [index.tsx]
-import { useContractRead } from "sn-wolf"
+import { useContractRead } from "starkweb/react"
 import { abi } from "./abi"
 
 function App() {
@@ -102,7 +102,7 @@ The contract's address.
 
 :::code-group
 ```tsx [index.tsx]
-import { useContractRead } from "sn-wolf"
+import { useContractRead } from "starkweb/react"
 import { abi } from "./abi"
 
 function App() {
@@ -128,7 +128,7 @@ function App() {
 
 :::code-group
 ```tsx [index.tsx]
-import { useContractRead } from "sn-wolf"
+import { useContractRead } from "starkweb/react"
 import { abi } from "./abi"
 
 function App() {
@@ -156,7 +156,7 @@ Block number to call contract at.
 
 :::code-group
 ```tsx [index.tsx]
-import { useContractRead } from "sn-wolf"
+import { useContractRead } from "starkweb/react"
 import { abi } from "./abi"
 
 function App() {
@@ -182,7 +182,7 @@ Block tag to call contract at.
 
 :::code-group
 ```tsx [index.tsx]
-import { useContractRead } from "sn-wolf"
+import { useContractRead } from "starkweb/react"
 import { abi } from "./abi"
 
 function App() {
@@ -210,8 +210,8 @@ ID of chain to use when fetching data.
 
 :::code-group
 ```tsx [index.tsx]
-import { useContractRead } from "sn-wolf"
-import { mainnet } from "sn-wolf/chains" // [!code focus]
+import { useContractRead } from "starkweb/react"
+import { mainnet } from "starkweb/react/chains" // [!code focus]
 import { abi } from "./abi"
 
 function App() {
@@ -233,11 +233,11 @@ function App() {
 
 `Config | undefined`
 
-[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`WolfProvider`](/react/api/WolfProvider).
+[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`StarkwebProvider`](/react/api/StarkwebProvider).
 
 :::code-group
 ```tsx [index.tsx]
-import { useContractRead } from "sn-wolf"
+import { useContractRead } from "starkweb/react"
 import { abi } from "./abi"
 import { config } from "./config" // [!code focus]
 
@@ -269,7 +269,7 @@ function App() {
 
 :::code-group
 ```tsx [index.tsx]
-import { useContractRead } from "sn-wolf"
+import { useContractRead } from "starkweb/react"
 import { abi } from './abi'
 
 function App() {
@@ -295,7 +295,7 @@ Scopes the cache to a given context. Hooks that have identical context will shar
 
 :::code-group
 ```tsx [index.tsx]
-import { useContractRead } from "sn-wolf"
+import { useContractRead } from "starkweb/react"
 import { abi } from "./abi"
 
 function App() {
@@ -321,7 +321,7 @@ import QueryOptions from "../../../snippets/query-options.mdx"
 ## Return Type
 
 ```ts
-import { type UseReadContractReturnType } from "sn-wolf"
+import { type UseReadContractReturnType } from "starkweb/react"
 ```
 
 The return type [`data`](#data) property is inferrable via the combination of [`abi`](#abi), [`functionName`](#functionname), and [`args`](#args).
@@ -340,9 +340,9 @@ import {
   type ReadContractQueryKey,
   readContractQueryKey,
   readContractQueryOptions,
-} from "sn-wolf/query"
+} from "starkweb/react/query"
 ```
 
 ## Actions
 
-- [`readContract`](/core/actions/readContract)
+{/* - [`readContract`](/core/actions/readContract) */}

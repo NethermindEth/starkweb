@@ -10,13 +10,13 @@ Hook for fetching the number of the most recent block seen.
 ## Import
 
 ```ts
-import { useBlockNumber } from "sn-wolf"
+import { useBlockNumber } from "starkweb/react"
 ```
 
 ## Usage
 
 ```tsx [index.tsx]
-import { useBlockNumber } from "sn-wolf"
+import { useBlockNumber } from "starkweb/react"
 
 function App() {
   const result = useBlockNumber()
@@ -26,7 +26,7 @@ function App() {
 ## Parameters
 
 ```ts
-import { type UseBlockNumberParameters } from "sn-wolf"
+import { type UseBlockNumberParameters } from "starkweb/react"
 ```
 
 ### cacheTime
@@ -36,7 +36,7 @@ import { type UseBlockNumberParameters } from "sn-wolf"
 Time in milliseconds that cached block number will remain in memory.
 
 ```tsx [index.tsx]
-import { useBlockNumber } from "sn-wolf"
+import { useBlockNumber } from "starkweb/react"
 
 function App() {
   const result = useBlockNumber({
@@ -52,8 +52,8 @@ function App() {
 ID of chain to use when fetching data.
 
 ```tsx [index.tsx]
-import { useBlockNumber } from "sn-wolf"
-import { mainnet } from "sn-wolf/chains" // [!code focus]
+import { useBlockNumber } from "starkweb/react"
+import { mainnet } from "starkweb/react/chains" // [!code focus]
 
 function App() {
   const result = useBlockNumber({
@@ -66,11 +66,11 @@ function App() {
 
 `Config | undefined`
 
-[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`WolfProvider`](/react/api/WolfProvider).
+[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`StarkwebProvider`](/react/api/StarkwebProvider).
 
 :::code-group
 ```tsx [index.tsx]
-import { useBlockNumber } from "sn-wolf"
+import { useBlockNumber } from "starkweb/react"
 import { config } from "./config" // [!code focus]
 
 function App() {
@@ -92,7 +92,7 @@ function App() {
 Scopes the cache to a given context. Hooks that have identical context will share the same cache.
 
 ```tsx [index.tsx]
-import { useBlockNumber } from "sn-wolf"
+import { useBlockNumber } from "starkweb/react"
 import { config } from "./config" // [!code focus]
 
 function App() {
@@ -109,7 +109,7 @@ function App() {
 Enables/disables listening for block number changes.
 
 ```tsx [index.tsx]
-import { useBlockNumber } from "sn-wolf"
+import { useBlockNumber } from "starkweb/react"
 
 function App() {
   const result = useBlockNumber({
@@ -125,7 +125,7 @@ import QueryOptions from "../../../snippets/query-options.mdx"
 ## Return Type
 
 ```ts
-import { type UseBlockNumberReturnType } from "sn-wolf"
+import { type UseBlockNumberReturnType } from "starkweb/react"
 ```
 
 import QueryResult from "../../../snippets/query-result.mdx"
@@ -142,10 +142,10 @@ import {
   type GetBlockNumberQueryKey,
   getBlockNumberQueryKey,
   getBlockNumberQueryOptions,
-} from "sn-wolf/query"
+} from "starkweb/react/query"
 ```
 
 ## Actions
 
-- [`getBlockNumber`](/core/actions/getBlockNumber)
-- [`watchBlockNumber`](/core/actions/watchBlockNumber)
+{/* - [`getBlockNumber`](/core/actions/getBlockNumber) */}
+{/* - [`watchBlockNumber`](/core/actions/watchBlockNumber) */}
