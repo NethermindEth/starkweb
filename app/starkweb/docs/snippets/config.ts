@@ -1,5 +1,5 @@
-import { http, createConfig } from "sn-wolf";
-import { mainnet, sepolia } from "sn-wolf/chains";
+import { http, createConfig } from "starkweb/react";
+import { mainnet, sepolia } from "starkweb/react/chains";
 
 export const config = createConfig({
   chains: [mainnet, sepolia],

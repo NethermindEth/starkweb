@@ -10,13 +10,13 @@ Hook for getting current chain ID.
 ## Import
 
 ```ts
-import { useChainId } from "sn-wolf"
+import { useChainId } from "starkweb/react"
 ```
 
 ## Usage
 
 ```tsx [index.tsx]
-import { useChainId } from "sn-wolf"
+import { useChainId } from "starkweb/react"
 
 function App() {
   const chainId = useChainId()
@@ -26,18 +26,18 @@ function App() {
 ## Parameters
 
 ```ts
-import { type UseChainIdParameters } from "sn-wolf"
+import { type UseChainIdParameters } from "starkweb/react"
 ```
 
 ### config
 
 `Config | undefined`
 
-[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`WolfProvider`](/react/api/WolfProvider).
+[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`StarkwebProvider`](/react/api/StarkwebProvider).
 
 :::code-group
 ```tsx [index.tsx]
-import { useChainId } from "sn-wolf"
+import { useChainId } from "starkweb/react"
 import { config } from "./config" // [!code focus]
 
 function App() {
@@ -55,7 +55,7 @@ function App() {
 ## Return Type
 
 ```ts
-import { type UseChainIdReturnType } from "sn-wolf"
+import { type UseChainIdReturnType } from "starkweb/react"
 ```
 
 `number`
@@ -70,5 +70,5 @@ If the active [connection](/react/api/createConfig#connection) [`chainId`](/reac
 
 ## Actions
 
-- [`getChainId`](/core/actions/getChainId)
-- [`watchChainId`](/core/actions/watchChainId)
+{/* - [`getChainId`](/core/actions/getChainId) */}
+{/* - [`watchChainId`](/core/actions/watchChainId) */}

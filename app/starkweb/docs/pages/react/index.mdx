@@ -6,7 +6,7 @@ Starkweb is a React Hooks library for Starknet. To learn more about the rational
 
 ## Automatic Installation
 
-For new projects, we recommend setting up your Starkweb application with the [`create-starkweb`](/cli) command line interface (CLI). This tool initializes a new Starkweb project with TypeScript and installs all required dependencies.
+For new projects, we recommend setting up your Starkweb application with the [`create-starkweb`](#TODO) command line interface (CLI). This tool initializes a new Starkweb project with TypeScript and installs all required dependencies.
 
 :::code-group
 ```bash [pnpm]
@@ -113,7 +113,7 @@ Check out the [StarkwebProvider](/react/api/StarkwebProvider) docs to learn more
 
 ### Setup TanStack Query
 
-Inside the `WolfProvider`, wrap your app in a TanStack Query React Context Provider, e.g. `QueryClientProvider`, and pass a new `QueryClient` instance to the client property:
+Inside the `StarkwebProvider`, wrap your app in a TanStack Query React Context Provider, e.g. `QueryClientProvider`, and pass a new `QueryClient` instance to the client property:
 
 ```tsx [app.tsx]
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query" // [!code focus]
@@ -143,7 +143,7 @@ Now that everything is set up, every component inside the Wolf and TanStack Quer
 
 :::code-group
 ```tsx [profile.tsx]
-import { useAccount, useBalance } from "sn-wolf"
+import { useAccount, useBalance } from "starkweb/react"
 
 export function Profile() {
   const { address } = useAccount()

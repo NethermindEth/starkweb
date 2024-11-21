@@ -10,13 +10,13 @@ Hook for getting a `WalletClient` object for the current or provided connector.
 ## Import
 
 ```ts
-import { useWalletClient } from "sn-wolf"
+import { useWalletClient } from "starkweb/react"
 ```
 
 ## Usage
 
 ```tsx [index.tsx]
-import { useWalletClient } from "sn-wolf"
+import { useWalletClient } from "starkweb/react"
 
 function App() {
   const result = useWalletClient()
@@ -26,7 +26,7 @@ function App() {
 ## Parameters
 
 ```ts
-import { type UseWalletClientParameters } from "sn-wolf"
+import { type UseWalletClientParameters } from "starkweb/react"
 ```
 
 ### account
@@ -36,7 +36,7 @@ import { type UseWalletClientParameters } from "sn-wolf"
 Account to use with client. Throws if account is not found on [`connector`](#connector).
 
 ```ts
-import { useWalletClient } from "sn-wolf"
+import { useWalletClient } from "starkweb/react"
 
 function App() {
   const result = useWalletClient({
@@ -52,7 +52,7 @@ function App() {
 ID of chain to use with client.
 
 ```ts
-import { useWalletClient } from "sn-wolf"
+import { useWalletClient } from "starkweb/react"
 
 function App() {
   const result = useWalletClient({
@@ -65,11 +65,11 @@ function App() {
 
 `Config | undefined`
 
-[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`WolfProvider`](/react/api/WolfProvider).
+[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`StarkwebProvider`](/react/api/StarkwebProvider).
 
 :::code-group
 ```tsx [index.tsx]
-import { useWalletClient } from "sn-wolf"
+import { useWalletClient } from "starkweb/react"
 import { config } from "./config" // [!code focus]
 
 function App() {
@@ -92,7 +92,7 @@ function App() {
 - Defaults to current connector.
 
 ```ts
-import { useConnections, useWalletClient } from "sn-wolf"
+import { useConnections, useWalletClient } from "starkweb/react"
 
 function App() {
   const connections = useConnections(config)
@@ -109,7 +109,7 @@ import QueryOptions from "../../../snippets/query-options.mdx"
 ## Return Type
 
 ```ts
-import { type UseWalletClientReturnType } from "sn-wolf"
+import { type UseWalletClientReturnType } from "starkweb/react"
 ```
 
 import QueryResult from "../../../snippets/query-result.mdx"
@@ -126,9 +126,9 @@ import {
   type GetWalletClientQueryKey,
   getWalletClientQueryKey,
   getWalletClientQueryOptions,
-} from "sn-wolf/query"
+} from "starkweb/react/query"
 ```
 
 ## Actions
 
-- [`getWalletClient`](/core/actions/getWalletClient)
+{/* - [`getWalletClient`](/core/actions/getWalletClient) */}

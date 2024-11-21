@@ -7,7 +7,7 @@ Wolf is designed to be as type-safe as possible! Things to keep in mind:
 - Types currently require using TypeScript >=5.0.4.
 - [TypeScript doesn't follow semver](https://www.learningtypescript.com/articles/why-typescript-doesnt-follow-strict-semantic-versioning) and often introduces breaking changes in minor releases.
 - Changes to types in this repository are considered non-breaking and are usually released as patch changes (otherwise every type enhancement would be a major version!).
-- It is highly recommended that you lock your `sn-wolf` and `typescript` versions to specific patch releases and upgrade with the expectation that types may be fixed or upgraded between any release.
+- It is highly recommended that you lock your `starkweb/react` and `typescript` versions to specific patch releases and upgrade with the expectation that types may be fixed or upgraded between any release.
 - The non-type-related public API of Wagmi still follows semver very strictly.
 
 To ensure everything works correctly, make sure your `tsconfig.json` has [`strict`](https://www.typescriptlang.org/tsconfig#strict) mode set to `true`.
@@ -97,7 +97,7 @@ const { data } = useContractRead({ abi })
 If type inference isn't working, it's likely you forgot to add a `const` assertion or define the configuration parameter inline. Also, make sure your ABIs, Typed Data definitions, and [TypeScript configuration](#requirements) are valid and set up correctly.
 
 :::tip
-Unfortunately [TypeScript doesn't support importing JSON `as const` yet](https://github.com/microsoft/TypeScript/issues/32063). Check out the [Wolf CLI](/cli) to help with this! It can automatically fetch ABIs from Etherscan and other block explorers, resolve ABIs from your projects, generate React Hooks, and more.
+Unfortunately [TypeScript doesn't support importing JSON `as const` yet](https://github.com/microsoft/TypeScript/issues/32063). Check out the [Wolf CLI](#TODO/cli) to help with this! It can automatically fetch ABIs from Etherscan and other block explorers, resolve ABIs from your projects, generate React Hooks, and more.
 :::
 
 Anywhere you see the `abi` or `types` configuration property, you can likely use const-asserted or inline ABIs and Typed Data to get type-safety and inference.

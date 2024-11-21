@@ -10,13 +10,13 @@ Hook for getting `Client` instance.
 ## Import
 
 ```ts
-import { useClient } from "sn-wolf"
+import { useClient } from "starkweb/react"
 ```
 
 ## Usage
 
 ```tsx [index.tsx]
-import { useClient } from "sn-wolf"
+import { useClient } from "starkweb/react"
 
 function App() {
   const client = useClient()
@@ -26,7 +26,7 @@ function App() {
 ## Parameters
 
 ```ts
-import { type UseClientParameters } from "sn-wolf"
+import { type UseClientParameters } from "starkweb/react"
 ```
 
 ### chainId
@@ -36,8 +36,8 @@ import { type UseClientParameters } from "sn-wolf"
 ID of chain to use when getting `Client`.
 
 ```ts [index.ts]
-import { useClient } from "sn-wolf"
-import { mainnet } from "sn-wolf/chains" // [!code focus]
+import { useClient } from "starkweb/react"
+import { mainnet } from "starkweb/react/chains" // [!code focus]
 
 function App() {
   const client = useClient({
@@ -50,11 +50,11 @@ function App() {
 
 `Config | undefined`
 
-[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`WolfProvider`](/react/api/WolfProvider).
+[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`StarkwebProvider`](/react/api/StarkwebProvider).
 
 :::code-group
 ```tsx [index.tsx]
-import { useClient } from "sn-wolf"
+import { useClient } from "starkweb/react"
 import { config } from "./config" // [!code focus]
 
 function App() {
@@ -72,7 +72,7 @@ function App() {
 ## Return Type
 
 ```ts
-import { type UseClientReturnType } from "sn-wolf"
+import { type UseClientReturnType } from "starkweb/react"
 ```
 
 `Client | undefined`
@@ -81,5 +81,5 @@ import { type UseClientReturnType } from "sn-wolf"
 
 ## Actions
 
-- [`getClient`](/core/actions/getClient)
-- [`watchClient`](/core/actions/watchClient)
+{/* - [`getClient`](/core/actions/getClient) */}
+{/* - [`watchClient`](/core/actions/watchClient) */}

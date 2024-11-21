@@ -5,18 +5,18 @@ description: Hook for reconnecting connectors.
 
 # useReconnect
 
-Hook for reconnecting [connectors](/core/api/connectors).
+{/* Hook for reconnecting [connectors](/core/api/connectors). */}
 
 ## Import
 
 ```ts
-import { useReconnect } from "sn-wolf"
+import { useReconnect } from "starkweb/react"
 ```
 
 ## Usage
 
 ```tsx [index.tsx]
-import { useReconnect } from "sn-wolf"
+import { useReconnect } from "starkweb/react"
 import { useEffect } from "react"
 
 function App() {
@@ -29,24 +29,24 @@ function App() {
 ```
 
 :::tip
-When [`WolfProvider["reconnectOnMount"]`](/react/api/WolfProvider#reconnectonmount) is `true`, `reconnect` is called automatically on mount.
+When [`StarkwebProvider["reconnectOnMount"]`](/react/api/StarkwebProvider#reconnectonmount) is `true`, `reconnect` is called automatically on mount.
 :::
 
 ## Parameters
 
 ```ts
-import { type UseReconnectParameters } from "sn-wolf"
+import { type UseReconnectParameters } from "starkweb/react"
 ```
 
 ### config
 
 `Config | undefined`
 
-[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`WolfProvider`](/react/api/WolfProvider).
+[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`StarkwebProvider`](/react/api/StarkwebProvider).
 
 :::code-group
 ```tsx [index.tsx]
-import { useReconnect } from "sn-wolf"
+import { useReconnect } from "starkweb/react"
 import { config } from "./config" // [!code focus]
 
 function App() {
@@ -68,7 +68,7 @@ import MutationOptions from "../../../snippets/mutation-options.mdx"
 ## Return Type
 
 ```ts
-import { type UseReconnectReturnType } from "sn-wolf"
+import { type UseReconnectReturnType } from "starkweb/react"
 ```
 
 ### connectors
@@ -78,8 +78,8 @@ import { type UseReconnectReturnType } from "sn-wolf"
 Globally configured connectors via [`createConfig`](/react/api/createConfig#connectors).
 
 ```tsx [index.tsx]
-import { useReconnect } from "sn-wolf"
-import { mainnet } from "sn-wolf/chains"
+import { useReconnect } from "starkweb/react"
+import { mainnet } from "starkweb/react/chains"
 import { useEffect } from "react"
 
 function App() {
@@ -104,9 +104,9 @@ import {
   type ReconnectMutate,
   type ReconnectMutateAsync,
   reconnectMutationOptions,
-} from "sn-wolf/query"
+} from "starkweb/react/query"
 ```
 
 ## Actions
 
-- [`reconnect`](/core/actions/reconnect)
+{/* - [`reconnect`](/core/actions/reconnect) */}

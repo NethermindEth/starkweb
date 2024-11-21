@@ -10,13 +10,13 @@ Hook for listening to account lifecycle events.
 ## Import
 
 ```ts
-import { useAccountEffect } from "sn-wolf"
+import { useAccountEffect } from "starkweb/react"
 ```
 
 ## Usage
 
 ```tsx [index.tsx]
-import { useAccountEffect } from "sn-wolf"
+import { useAccountEffect } from "starkweb/react"
 
 function App() {
   useAccountEffect({
@@ -33,18 +33,18 @@ function App() {
 ## Parameters
 
 ```ts
-import { type UseAccountEffectParameters } from "sn-wolf"
+import { type UseAccountEffectParameters } from "starkweb/react"
 ```
 
 ### config
 
 `Config | undefined`
 
-[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`WolfProvider`](/react/api/WolfProvider).
+[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`StarkwebProvider`](/react/api/StarkwebProvider).
 
 :::code-group
 ```tsx [index.tsx]
-import { useAccountEffect } from "sn-wolf"
+import { useAccountEffect } from "starkweb/react"
 import { config } from "./config" // [!code focus]
 
 function App() {
@@ -72,7 +72,7 @@ function App() {
 Callback that is called when accounts are connected.
 
 ```tsx [index.tsx]
-import { useAccountEffect } from "sn-wolf"
+import { useAccountEffect } from "starkweb/react"
 
 function App() {
   useAccountEffect({
@@ -90,7 +90,7 @@ function App() {
 Callback that is called when no more accounts are connected.
 
 ```tsx [index.tsx]
-import { useAccountEffect } from "sn-wolf"
+import { useAccountEffect } from "starkweb/react"
 
 function App() {
   useAccountEffect({
@@ -103,5 +103,5 @@ function App() {
 
 ## Actions
 
-- [`getAccount`](/core/actions/getAccount)
-- [`watchAccount`](/core/actions/watchAccount)
+{/* - [`getAccount`](/core/actions/getAccount) */}
+{/* - [`watchAccount`](/core/actions/watchAccount) */}

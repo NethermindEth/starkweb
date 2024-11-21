@@ -1,22 +1,22 @@
 ---
 title: useConfig
-description: Hook for getting `Config` from nearest `WolfProvider`.
+description: Hook for getting `Config` from nearest `StarkwebProvider`.
 ---
 
 # useConfig
 
-Hook for getting [`Config`](/react/api/createConfig#config) from nearest [`WolfProvider`](/react/api/WolfProvider).
+Hook for getting [`Config`](/react/api/createConfig#config) from nearest [`StarkwebProvider`](/react/api/StarkwebProvider).
 
 ## Import
 
 ```ts
-import { useConfig } from "sn-wolf"
+import { useConfig } from "starkweb/react"
 ```
 
 ## Usage
 
 ```tsx [index.tsx]
-import { useConfig } from "sn-wolf"
+import { useConfig } from "starkweb/react"
 
 function App() {
   const config = useConfig()
@@ -26,7 +26,7 @@ function App() {
 ## Return Type
 
 ```ts
-import { type UseConfigReturnType } from "sn-wolf"
+import { type UseConfigReturnType } from "starkweb/react"
 ```
 
 import ConfigReturn from "../../../snippets/config-return-type.mdx"

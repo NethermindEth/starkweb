@@ -10,13 +10,13 @@ Hook for signing messages.
 ## Import
 
 ```ts
-import { useSignMessage } from "sn-wolf"
+import { useSignMessage } from "starkweb/react"
 ```
 
 ## Usage
 
 ```tsx [index.tsx]
-import { useSignMessage } from "sn-wolf"
+import { useSignMessage } from "starkweb/react"
 
 function App() {
   const { signMessage } = useSignMessage()
@@ -32,18 +32,18 @@ function App() {
 ## Parameters
 
 ```ts
-import { type UseSignMessageParameters } from "sn-wolf"
+import { type UseSignMessageParameters } from "starkweb/react"
 ```
 
 ### config
 
 `Config | undefined`
 
-[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`WolfProvider`](/react/api/WolfProvider).
+[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`StarkwebProvider`](/react/api/StarkwebProvider).
 
 :::code-group
 ```tsx [index.tsx]
-import { useSignMessage } from "sn-wolf"
+import { useSignMessage } from "starkweb/react"
 import { config } from "./config" // [!code focus]
 
 function App() {
@@ -65,7 +65,7 @@ import MutationOptions from "../../../snippets/mutation-options.mdx"
 ## Return Type
 
 ```ts
-import { type UseSignMessageReturnType } from "sn-wolf"
+import { type UseSignMessageReturnType } from "starkweb/react"
 ```
 
 import MutationResult from "../../../snippets/mutation-result.mdx"
@@ -81,9 +81,9 @@ import {
   type SignMessageMutate,
   type SignMessageMutateAsync,
   signMessageMutationOptions,
-} from "sn-wolf/query"
+} from "starkweb/react/query"
 ```
 
 ## Actions
 
-- [`signMessage`](/core/actions/signMessage)
+{/* - [`signMessage`](/core/actions/signMessage) */}

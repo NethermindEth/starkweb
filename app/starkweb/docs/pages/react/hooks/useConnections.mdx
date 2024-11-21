@@ -10,13 +10,13 @@ Hook for getting active connections.
 ## Import
 
 ```ts
-import { useConnections } from "sn-wolf"
+import { useConnections } from "starkweb/react"
 ```
 
 ## Usage
 
 ```tsx [index.tsx]
-import { useConnections } from "sn-wolf"
+import { useConnections } from "starkweb/react"
 
 function App() {
   const connections = useConnections()
@@ -26,18 +26,18 @@ function App() {
 ## Parameters
 
 ```ts
-import { type UseConnectionsParameters } from "sn-wolf"
+import { type UseConnectionsParameters } from "starkweb/react"
 ```
 
 ### config
 
 `Config | undefined`
 
-[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`WolfProvider`](/react/api/WolfProvider).
+[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`StarkwebProvider`](/react/api/StarkwebProvider).
 
 :::code-group
 ```tsx [index.tsx]
-import { useConnections } from "sn-wolf"
+import { useConnections } from "starkweb/react"
 import { config } from "./config" // [!code focus]
 
 function App() {
@@ -55,10 +55,10 @@ function App() {
 ## Return Type
 
 ```ts
-import { type UseConnectionsReturnType } from "sn-wolf"
+import { type UseConnectionsReturnType } from "starkweb/react"
 ```
 
 ## Actions
 
-- [`getConnections`](/core/actions/getConnections)
-- [`watchConnections`](/core/actions/watchConnections)
+{/* - [`getConnections`](/core/actions/getConnections) */}
+{/* - [`watchConnections`](/core/actions/watchConnections) */}

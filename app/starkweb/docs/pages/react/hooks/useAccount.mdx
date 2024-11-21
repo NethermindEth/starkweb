@@ -10,13 +10,13 @@ Hook for getting current account.
 ## Import
 
 ```ts
-import { useAccount } from "sn-wolf"
+import { useAccount } from "starkweb/react"
 ```
 
 ## Usage
 
 ```ts
-import { useAccount } from "sn-wolf"
+import { useAccount } from "starkweb/react"
 
 function App() {
   const account = useAccount()
@@ -26,18 +26,18 @@ function App() {
 ## Parameters
 
 ```ts
-import { type UseAccountParameters } from "sn-wolf"
+import { type UseAccountParameters } from "starkweb/react"
 ```
 
 ### config
 
 `Config | undefined`
 
-[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`WolfProvider`](/react/api/WolfProvider).
+[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`StarkwebProvider`](/react/api/StarkwebProvider).
 
 :::code-group
 ```tsx [index.tsx]
-import { useAccount } from "sn-wolf"
+import { useAccount } from "starkweb/react"
 import { config } from "./config" // [!code focus]
 
 function App() {
@@ -55,7 +55,7 @@ function App() {
 ## Return Type
 
 ```ts
-import { type UseAccountReturnType } from "sn-wolf"
+import { type UseAccountReturnType } from "starkweb/react"
 ```
 
 import GetAccountReturn from "../../../snippets/getAccount-return-type.mdx"
@@ -64,4 +64,4 @@ import GetAccountReturn from "../../../snippets/getAccount-return-type.mdx"
 
 ## Actions
 
-- [`getAccount`](/core/actions/getAccount)
+{/* - [`getAccount`](/core/actions/getAccount) */}

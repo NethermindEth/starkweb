@@ -12,14 +12,14 @@ A **write** function on a Cairo contract modifies the state of the blockchain. T
 ## Import
 
 ```ts
-import { useContractWrite } from "sn-wolf"
+import { useContractWrite } from "starkweb/react"
 ```
 
 ## Usage
 
 :::code-group
 ```tsx [index.tsx]
-import { useContractWrite } from "sn-wolf"
+import { useContractWrite } from "starkweb/react"
 import { abi } from "./abi"
 
 function App() {
@@ -54,18 +54,18 @@ function App() {
 ## Parameters
 
 ```ts
-import { type useWriteContractParameters } from "sn-wolf"
+import { type useWriteContractParameters } from "starkweb/react"
 ```
 
 ### config
 
 `Config | undefined`
 
-[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`WolfProvider`](/react/api/WolfProvider).
+[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`StarkwebProvider`](/react/api/StarkwebProvider).
 
 :::code-group
 ```tsx [index.tsx]
-import { useContractWrite } from "sn-wolf"
+import { useContractWrite } from "starkweb/react"
 import { config } from './config' // [!code focus]
 
 function App() {
@@ -87,7 +87,7 @@ import MutationOptions from "../../../snippets/mutation-options.mdx"
 ## Return Type
 
 ```ts
-import { type useWriteContractReturnType } from "sn-wolf"
+import { type useWriteContractReturnType } from "starkweb/react"
 ```
 
 The return type's [`data`](#data) property is inferrable via the combination of [`abi`](#abi), [`functionName`](#functionname), and [`args`](#args).
@@ -105,9 +105,9 @@ import {
   type WriteContractMutate,
   type WriteContractMutateAsync,
   writeContractMutationOptions,
-} from "sn-wolf/query"
+} from "starkweb/react/query"
 ```
 
 ## Actions
 
-- [`writeContract`](/core/actions/writeContract)
+{/* - [`writeContract`](/core/actions/writeContract) */}
