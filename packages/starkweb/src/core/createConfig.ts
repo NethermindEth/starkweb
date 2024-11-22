@@ -37,8 +37,8 @@ import { hexToNumber, stringToHex } from '../utils/index.js'
 
 export type CreateConfigParameters<
   chains extends readonly [Chain, ...Chain[]] = readonly [Chain, ...Chain[]],
-  transports extends Record<chains[number]['id'], Transport> = Record<
-    chains[number]['id'],
+  transports extends Record<chains[number]['chain_id'], Transport> = Record<
+    chains[number]['chain_id'],
     Transport
   >,
 > = Evaluate<
@@ -58,7 +58,7 @@ export type CreateConfigParameters<
       })
     | {
         client(parameters: { chain: chains[number] }): Client<
-          transports[chains[number]['id']],
+          transports[chains[number]['chain_id']],
           chains[number]
         >
       }
@@ -67,7 +67,7 @@ export type CreateConfigParameters<
 
 export function createConfig<
   chains extends readonly [Chain, ...Chain[]],
-  transports extends Record<chains[number]['id'], Transport>,
+  transports extends Record<chains[number]['chain_id'], Transport>,
 >(
   parameters: CreateConfigParameters<chains, transports>,
 ): Config<chains, transports> {
@@ -462,8 +462,8 @@ export function createConfig<
 
 export type Config<
   chains extends readonly Chain[] = readonly Chain[],
-  transports extends Record<chains[number]['id'], Transport> = Record<
-    chains[number]['id'],
+  transports extends Record<chains[number]['chain_id'], Transport> = Record<
+    chains[number]['chain_id'],
     Transport
   >,
 > = {
@@ -488,7 +488,10 @@ export type Config<
 
   getClient(parameters?: {
     chainId?: Hex | undefined
-  }): Client<transports[chains[number]['id']], Extract<chains[number], { chain_id: Hex }>>
+  }): Client<
+    transports[chains[number]['chain_id']],
+    Extract<chains[number], { chain_id: Hex }>
+  >
 
   /**
    * Not part of versioned API, proceed with caution.

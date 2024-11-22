@@ -96,7 +96,7 @@ export async function Example() {
     address:
       '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
     abi: testAbi,
-    functionName: 'approve',
+    functionName: 'transferFrom',
     args: [
       '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
       '1000000000000000000',
