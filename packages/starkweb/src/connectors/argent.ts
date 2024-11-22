@@ -7,6 +7,7 @@ import { UserRejectedRequestError } from "../errors/rpc.js"
 import type { Address, Hex } from "../types/misc.js"
 import type { ProviderConnectInfo, SNIP1193Provider } from "../types/snip1193.js"
 
+
   export  type ArgentXParameters = any
   
   argentX.type = 'argentX' as const
