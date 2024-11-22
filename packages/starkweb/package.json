@@ -1,6 +1,6 @@
 {
     "name": "starkweb",
-    "version": "0.0.10",
+    "version": "0.0.12",
     "private": false,
     "type": "module",
     "main": "./dist/cjs/exports/starkweb.js",
