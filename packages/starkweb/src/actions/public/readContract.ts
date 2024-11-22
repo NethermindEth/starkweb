@@ -1,3 +1,4 @@
+import type { ContractFunctionArgs, ContractFunctionName, ContractFunctionParameters } from '../../types/contract.js'
 import type { Client } from '../../clients/createClient.js'
 import type { Transport } from '../../clients/transports/createTransport.js'
 import type { Abi } from '../../strk-types/abi.js'
@@ -8,12 +9,37 @@ import type { Chain } from '../../types/chain.js'
 import type { Hash } from '../../types/misc.js'
 import { type CallParameters, call } from './call.js'
 
-export type PrimaryReadContractParameters = {
-  address: string
-  abi: Abi
-  functionName: string
-  args?: any[]
-}
+// export type PrimaryReadContractParameters = {
+//   address: string
+//   abi: Abi
+//   functionName: string
+//   args?: any[]
+// }
+
+export type PrimaryReadContractParameters<
+  abi extends Abi | readonly unknown[] = Abi,
+  functionName extends ContractFunctionName<
+    abi,
+    'view'
+  > = ContractFunctionName<abi, 'view'>,
+  args extends ContractFunctionArgs<
+    abi,
+    'view',
+    functionName
+  > = ContractFunctionArgs<
+    abi,
+    'view',
+    functionName
+  >,
+  allFunctionNames = ContractFunctionName<abi, 'view'>
+> = ContractFunctionParameters<
+  abi,
+  'external',
+  functionName,
+  args,
+  false,
+  allFunctionNames
+>
 
 export type SecondaryReadContractParameters =
   | {
@@ -37,19 +63,51 @@ export type SecondaryReadContractParameters =
       blockTag?: BlockTag | undefined
     }
 
-export type ReadContractParameters = PrimaryReadContractParameters &
+export type ReadContractParameters<
+  abi extends Abi | readonly unknown[] = Abi,
+  functionName extends ContractFunctionName<
+    abi,
+    'view'
+  > = ContractFunctionName<abi, 'view'>,
+  args extends ContractFunctionArgs<
+    abi,
+    'view',
+    functionName
+  > = ContractFunctionArgs<
+    abi,
+    'view',
+    functionName
+  >,
+  allFunctionNames = ContractFunctionName<abi, 'view'>
+> = PrimaryReadContractParameters<abi, functionName, args, allFunctionNames> &
   SecondaryReadContractParameters
 
 export type ReadContractReturnTypes = any
 export type ReadContractErrorType = any
 
-export async function readContract<TChain extends Chain | undefined>(
+export async function readContract<
+  TChain extends Chain | undefined,
+  abi extends Abi | readonly unknown[] = Abi,
+  functionName extends ContractFunctionName<
+    abi,
+    'view'
+  > = ContractFunctionName<abi, 'view'>,
+  args extends ContractFunctionArgs<
+    abi,
+    'view',
+    functionName
+  > = ContractFunctionArgs<
+    abi,
+    'view',
+    functionName
+  >
+>(
   client: Client<Transport, TChain>,
-  parameters: ReadContractParameters,
+  parameters: ReadContractParameters<abi, functionName, args>,
 ): Promise<ReadContractReturnTypes | ReadContractErrorType> {
   const { address, functionName, args, blockHash, blockNumber, blockTag } =
-    parameters
-  const calldata: string[] = args ? compile(args) : []
+    parameters as ReadContractParameters
+  const calldata: string[] = args ? compile(args as any) : []
 
   const txCall: CallParameters = {
     contract_address: address,

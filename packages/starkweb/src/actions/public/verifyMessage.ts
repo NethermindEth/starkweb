@@ -1,3 +1,4 @@
+import type { Address } from 'abitype'
 import type { Client } from '../../clients/createClient.js'
 import type { Transport } from '../../clients/transports/createTransport.js'
 import type { ErrorType } from '../../errors/utils.js'
@@ -80,7 +81,7 @@ export async function verifyMessage(
   const hash = getMessageHash(siwsData, account)
   const verifyParams = {
     abi: accountABI,
-    address: account,
+    address: account as Address,
     args: [hash, sn_signature],
     functionName: 'is_valid_signature',
   }

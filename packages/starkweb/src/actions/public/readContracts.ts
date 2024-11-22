@@ -24,7 +24,7 @@ export async function readContracts<TChain extends Chain | undefined>(
 
   const txCallsPromise = contracts.map((callParams) => {
     const { address, functionName, args } = callParams
-    const calldata: string[] = args ? compile(args) : []
+    const calldata: string[] = args ? compile(args as any) : []
 
     const txCall = {
       contract_address: address,

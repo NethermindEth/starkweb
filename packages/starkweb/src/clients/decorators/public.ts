@@ -259,6 +259,8 @@ import {
   verifySiwsMessage,
 } from '../../actions/siws/verifySiwsMessage.js'
 import type { Client } from '../createClient.js'
+import type { ContractFunctionArgs, ContractFunctionName } from '../../types/contract.js'
+import type { Abi } from '../../strk-types/abi.js'
 
 export type PublicActions = {
   /**
@@ -1016,8 +1018,16 @@ export type PublicActions = {
   getStarknetIdVerifierData: (
     args: GetStarknetIdVerifierDataParameters,
   ) => Promise<GetStarknetIdVerifierDataReturnType>
-  readContract: (
-    args: ReadContractParameters,
+  readContract: <
+    const abi extends Abi | readonly unknown[],
+    functionName extends ContractFunctionName<abi, 'view'>,
+    args extends ContractFunctionArgs<
+      abi,
+      'view',
+      functionName
+    >,
+  >(
+    args: ReadContractParameters<abi, functionName, args>,
   ) => Promise<ReadContractReturnTypes | ReadContractErrorType>
 
   readContracts: (
