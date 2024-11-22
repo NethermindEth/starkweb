@@ -1,8 +1,11 @@
 'use client'
 
-import { useAccount, useConnect, useDisconnect } from 'starkweb/react'
+import { useAccount, useConnect, useDisconnect, useWriteContract } from 'starkweb/react'
 
 import { getConfig } from '@/wagmi'
+import { sepolia } from 'starkweb/chains'
+import { createWalletClient, custom } from 'starkweb'
+import { testAbi } from '@/utils/testAbi'
 
 const config = getConfig()
 
@@ -73,22 +76,38 @@ const wagmiAbi = [
 ] as const
 
 
-// export async function Example() {
-//   const walletClient =  createWalletClient({
-//     chain: sepolia,
-//     transport: custom((window as any).starknet),
-//   })
-//   const _tx = await walletClient.writeContract({
-//     address:
-//       '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
-//     abi: wagmiAbi,
-//     functionName: 'mint',
-//   })
-//   return (
-//     <div>
-//     <h1>Example</h1>
-//   </div>
-//  )
-// }
+export async function Example() {
+  const walletClient =  createWalletClient({
+    chain: sepolia,
+    transport: custom((window as any).starknet),
+  })
+  const _tx = await walletClient.writeContract({
+    address:
+      '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
+    abi: testAbi,
+    functionName: 'approve',
+    args: [
+      '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
+      '1000000000000000000',
+    ],
+  })
+  const { writeContract } = useWriteContract();
+  const tx = writeContract({
+    address:
+      '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
+    abi: testAbi,
+    functionName: 'approve',
+    args: [
+      '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
+      '1000000000000000000',
+    ],
+  })
+
+  return (
+    <div>
+    <h1>Example</h1>
+  </div>
+ )
+}
 
 export default App

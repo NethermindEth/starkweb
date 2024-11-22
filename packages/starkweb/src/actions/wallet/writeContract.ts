@@ -1,6 +1,6 @@
 import type { Client } from '../../clients/createClient.js'
 import type { Transport } from '../../clients/transports/createTransport.js'
-import type { Abi } from '../../strk-types/abi.js'
+import type { Abi, AbiStateMutability } from '../../strk-types/abi.js'
 import { compile } from '../../strk-utils/calldata/compile.js'
 import type { Account } from '../../types/account.js'
 import type { Chain } from '../../types/chain.js'
@@ -15,18 +15,18 @@ export type WriteContractParameters<
   abi extends Abi | readonly unknown[] = Abi,
   functionName extends ContractFunctionName<
     abi,
-    'external'
-  > = ContractFunctionName<abi, 'external'>,
+    AbiStateMutability
+  > = ContractFunctionName<abi, AbiStateMutability>,
   args extends ContractFunctionArgs<
     abi,
-    'external',
+    AbiStateMutability,
     functionName
-  > = ContractFunctionArgs<abi, 'external', functionName>,
+  > = ContractFunctionArgs<abi, AbiStateMutability, functionName>,
   ///
-  allFunctionNames = ContractFunctionName<abi, 'external'>,
+  allFunctionNames = ContractFunctionName<abi, AbiStateMutability>,
 > = ContractFunctionParameters<
   abi,
-  'external',
+  AbiStateMutability,
   functionName,
   args,
   false,
