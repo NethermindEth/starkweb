@@ -38,10 +38,42 @@ function App() {
     args: []
   })
 
+  const getMultipleBal = publicClient.readContracts({
+    contracts: [
+      {
+        address: '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
+        abi: testAbi,
+        functionName: '_dispatch',
+        args: []
+      },
+      {
+        address: '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
+        abi: testAbi,
+        functionName: 'balanceOf',
+        args: []
+      }
+    ]
+  })
+
   const init = walletClient.writeContract({
     address: '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
     abi: testAbi,
     functionName: 'approve'
+  })
+
+  const initMultipleTx = walletClient.writeContracts({
+    contracts: [
+      {
+        address: '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
+        abi: testAbi,
+        functionName: 'handle'
+      },
+      {
+        address: '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
+        abi: testAbi,
+        functionName: 'approve'
+      }
+    ]
   })
 
   return (
