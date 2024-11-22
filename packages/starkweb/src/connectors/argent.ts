@@ -6,7 +6,7 @@ import type { RpcError } from "../errors/rpc.js"
 import { UserRejectedRequestError } from "../errors/rpc.js"
 import type { Address, Hex } from "../types/misc.js"
 import type { ProviderConnectInfo, SNIP1193Provider } from "../types/snip1193.js"
-
+import '../window/index.js' 
 
 
   export  type ArgentXParameters = any
@@ -41,8 +41,11 @@ import type { ProviderConnectInfo, SNIP1193Provider } from "../types/snip1193.js
       type: argentX.type,
        icon: "data:image/svg+xml;base64,Cjxzdmcgd2lkdGg9IjQwIiBoZWlnaHQ9IjM2IiB2aWV3Qm94PSIwIDAgNDAgMzYiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik0yNC43NTgyIC0zLjk3MzY0ZS0wN0gxNC42MjM4QzE0LjI4NTEgLTMuOTczNjRlLTA3IDE0LjAxMzggMC4yODExNzggMTQuMDA2NCAwLjYzMDY4M0MxMy44MDE3IDEwLjQ1NDkgOC44MjIzNCAxOS43NzkyIDAuMjUxODkzIDI2LjM4MzdDLTAuMDIwMjA0NiAyNi41OTMzIC0wLjA4MjE5NDYgMjYuOTg3MiAwLjExNjczNCAyNy4yNzA5TDYuMDQ2MjMgMzUuNzM0QzYuMjQ3OTYgMzYuMDIyIDYuNjQwOTkgMzYuMDg3IDYuOTE3NjYgMzUuODc1NEMxMi4yNzY1IDMxLjc3MjggMTYuNTg2OSAyNi44MjM2IDE5LjY5MSAyMS4zMzhDMjIuNzk1MSAyNi44MjM2IDI3LjEwNTcgMzEuNzcyOCAzMi40NjQ2IDM1Ljg3NTRDMzIuNzQxIDM2LjA4NyAzMy4xMzQxIDM2LjAyMiAzMy4zMzYxIDM1LjczNEwzOS4yNjU2IDI3LjI3MDlDMzkuNDY0MiAyNi45ODcyIDM5LjQwMjIgMjYuNTkzMyAzOS4xMzA0IDI2LjM4MzdDMzAuNTU5NyAxOS43NzkyIDI1LjU4MDQgMTAuNDU0OSAyNS4zNzU5IDAuNjMwNjgzQzI1LjM2ODUgMC4yODExNzggMjUuMDk2OSAtMy45NzM2NGUtMDcgMjQuNzU4MiAtMy45NzM2NGUtMDdaIiBmaWxsPSIjRkY4NzVCIi8+Cjwvc3ZnPgo=",
       async setup() {
+        if (typeof window === 'undefined') {
+          return
+        }
         const provider = await this.getProvider()
-        if (provider){
+        if (provider) {
           this.onConnect.bind(this)
           provider.on('accountsChanged', this.onAccountsChanged.bind(this))
         }
@@ -109,7 +112,18 @@ import type { ProviderConnectInfo, SNIP1193Provider } from "../types/snip1193.js
         return chainId
       },
       async getProvider() {
-        const provider: WalletProvider = (window as unknown as Window & { starknet_argentX: SNIP1193Provider }).starknet_argentX as WalletProvider
+        if (typeof window === 'undefined') {
+          return undefined
+        }
+        
+        // Get provider from window object
+        const provider = (window as any).starknet_argentX
+        
+        // Ensure provider exists and has required methods
+        if (!provider || typeof provider.request !== 'function') {
+          throw new Error('Argent X provider not found')
+        }
+
         return provider
       },
       async isAuthorized() {

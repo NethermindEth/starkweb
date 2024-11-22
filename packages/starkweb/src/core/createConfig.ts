@@ -3,17 +3,6 @@ import {
   type Store as MipdStore,
   createStore as createMipd,
 } from 'mipd'
-// import {
-//   type Address,
-//   type Chain,
-//   type Client,
-//   createClient,
-//   type Hex,
-//   hexToNumber,
-//   stringToHex,
-//   type ClientConfig as strkjs_ClientConfig,
-//   type Transport as strkjs_Transport,
-// } from '../../clients/createClient.js'
 import type { Transport as strkjs_Transport } from '../clients/transports/createTransport.js'
 import type { ClientConfig as strkjs_ClientConfig } from '../clients/createClient.js'
 import { persist, subscribeWithSelector } from 'zustand/middleware'
@@ -33,7 +22,7 @@ import { uid } from './utils/uid.js'
 import { version } from './../version.js'
 import { type Client, createClient } from '../clients/createClient.js'
 import type { Address, Hex } from '../types/misc.js'
-import { hexToNumber, stringToHex } from '../utils/index.js'
+import { stringToHex } from '../utils/index.js'
 
 export type CreateConfigParameters<
   chains extends readonly [Chain, ...Chain[]] = readonly [Chain, ...Chain[]],
@@ -97,13 +86,17 @@ export function createConfig<
   const connectors = createStore(() =>
     [
       ...(rest.connectors ?? []),
-      ...(!ssr
+      ...(!ssr && typeof window !== 'undefined'
         ? mipd?.getProviders().map(providerDetailToConnector) ?? []
         : []),
     ].map(setup),
   )
   function setup(connectorFn: CreateConnectorFn): Connector {
-    // Set up emitter with uid and add to connector so they are "linked" together.
+    // Only run setup on client-side
+    if (typeof window === 'undefined') {
+      return {} as Connector; // Return empty connector for SSR
+    }
+
     const emitter = createEmitter<ConnectorEventMap>(uid())
     const connector = {
       ...connectorFn({ 
@@ -115,8 +108,6 @@ export function createConfig<
       uid: emitter.uid,
     }
 
-    // Start listening for `connect` events on connector setup
-    // This allows connectors to "connect" themselves without user interaction (e.g. MetaMask's "Manually connect to current site")
     emitter.on('connect', connect)
     connector.setup?.()
 
@@ -128,7 +119,7 @@ export function createConfig<
     return injected({ target: { ...info, id: info.rdns, provider } })
   }
 
-  const clients = new Map<number, Client<Transport, chains[number]>>()
+  const clients = new Map<Hex, Client<Transport, chains[number]>>()
   // function getClient(
   function getClient(
     parameters?: { chainId?: Hex | undefined },
@@ -142,14 +133,14 @@ export function createConfig<
     // If the target chain is not configured, use the client of the current chain.
     type Return = Client<Transport, Extract<chains[number], { chain_id: Hex }>>
     {
-      const client = clients.get(hexToNumber(chainId))
+      const client = clients.get(chainId)
       if (client && !chain) return client as Return
       if (!chain) throw new ChainNotConfiguredError()
     }
 
     // If a memoized client exists for a chain id, use that.
     {
-      const client = clients.get(hexToNumber(chainId))
+      const client = clients.get(chainId)
       if (client) return client as Return
     }
 
@@ -157,7 +148,7 @@ export function createConfig<
     if (rest.client) client = rest.client({ chain })
     else {
       const chainId = chain.chain_id
-      const chainIds = chains.getState().map((x) => x.id)
+      const chainIds = chains.getState().map((x) => x.chain_id)
       // Grab all properties off `rest` and resolve for use in `createClient`
       const properties: Partial<strkjs_ClientConfig> = {}
       const entries = Object.entries(rest) as [keyof typeof rest, any][]
@@ -193,7 +184,7 @@ export function createConfig<
       })
     }
 
-    clients.set(hexToNumber(chainId), client)
+    clients.set(chainId, client)
     return client as Return
   }
 

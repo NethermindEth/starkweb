@@ -51,14 +51,14 @@ importers:
         specifier: ^18.0.0
         version: 18.3.1(react@18.3.1)
       starkweb:
-        specifier: latest
-        version: 0.0.10(@tanstack/query-core@5.59.17)(@tanstack/react-query@5.45.1(react@18.3.1))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.3.1)(typescript@5.6.3)(utf-8-validate@5.0.10)
+        specifier: ^0.0.12
+        version: 0.0.12(@tanstack/query-core@5.59.17)(@tanstack/react-query@5.45.1(react@18.3.1))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.3.1)(typescript@5.6.3)(utf-8-validate@5.0.10)
       starkwebkit:
         specifier: latest
-        version: 0.0.1(@babel/core@7.26.0)(@tanstack/react-query@5.45.1(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react-is@16.13.1)(react@18.3.1)(starkweb@0.0.10(@tanstack/query-core@5.59.17)(@tanstack/react-query@5.45.1(react@18.3.1))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.3.1)(typescript@5.6.3)(utf-8-validate@5.0.10))
+        version: 0.0.1(@babel/core@7.26.0)(@tanstack/react-query@5.45.1(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react-is@16.13.1)(react@18.3.1)(starkweb@0.0.12(@tanstack/query-core@5.59.17)(@tanstack/react-query@5.45.1(react@18.3.1))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.3.1)(typescript@5.6.3)(utf-8-validate@5.0.10))
       starkwebkit-next-siwe:
         specifier: latest
-        version: 0.0.1(next@12.3.0(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(starkweb@0.0.10(@tanstack/query-core@5.59.17)(@tanstack/react-query@5.45.1(react@18.3.1))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.3.1)(typescript@5.6.3)(utf-8-validate@5.0.10))
+        version: 0.0.1(next@12.3.0(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(starkweb@0.0.12(@tanstack/query-core@5.59.17)(@tanstack/react-query@5.45.1(react@18.3.1))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.3.1)(typescript@5.6.3)(utf-8-validate@5.0.10))
       tailwindcss:
         specifier: ^3.3.2
         version: 3.4.15
@@ -144,7 +144,7 @@ importers:
         version: 18.3.1(react@18.3.1)
       starkweb:
         specifier: latest
-        version: 0.0.10(@tanstack/query-core@5.59.17)(@tanstack/react-query@5.59.19(react@18.3.1))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.3.1)(typescript@5.6.3)(utf-8-validate@5.0.10)
+        version: 0.0.12(@tanstack/query-core@5.59.17)(@tanstack/react-query@5.59.19(react@18.3.1))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.3.1)(typescript@5.6.3)(utf-8-validate@5.0.10)
       typescript:
         specifier: latest
         version: 5.6.3
@@ -4305,8 +4305,8 @@ packages:
   sprintf-js@1.0.3:
     resolution: {integrity: sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==}
 
-  starkweb@0.0.10:
-    resolution: {integrity: sha512-y35Duz0OhPXbikyDkanbOpM5xzbweK0NY268/QAGmUR8JBJtDFduMXnGIE9iAR+kjdRJ1153fQ2+NMFA3dq3oQ==}
+  starkweb@0.0.12:
+    resolution: {integrity: sha512-wrwsmZ2Lvyn2a9/KhvfV+qVM+9ZKauFxKwkuCLYRJKruYsEY89yQEpqsKmEV5gBHHBwakQG9EsmUlGaNdZ4Urg==}
     hasBin: true
     peerDependencies:
       '@tanstack/query-core': '>=5.0.0'
@@ -9615,7 +9615,7 @@ snapshots:
 
   sprintf-js@1.0.3: {}
 
-  starkweb@0.0.10(@tanstack/query-core@5.59.17)(@tanstack/react-query@5.45.1(react@18.3.1))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.3.1)(typescript@5.6.3)(utf-8-validate@5.0.10):
+  starkweb@0.0.12(@tanstack/query-core@5.59.17)(@tanstack/react-query@5.45.1(react@18.3.1))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.3.1)(typescript@5.6.3)(utf-8-validate@5.0.10):
     dependencies:
       '@adraffy/ens-normalize': 1.10.0
       '@noble/curves': 1.4.0
@@ -9651,7 +9651,7 @@ snapshots:
       - utf-8-validate
       - zod
 
-  starkweb@0.0.10(@tanstack/query-core@5.59.17)(@tanstack/react-query@5.59.19(react@18.3.1))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.3.1)(typescript@5.6.3)(utf-8-validate@5.0.10):
+  starkweb@0.0.12(@tanstack/query-core@5.59.17)(@tanstack/react-query@5.59.19(react@18.3.1))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.3.1)(typescript@5.6.3)(utf-8-validate@5.0.10):
     dependencies:
       '@adraffy/ens-normalize': 1.10.0
       '@noble/curves': 1.4.0
@@ -9687,18 +9687,18 @@ snapshots:
       - utf-8-validate
       - zod
 
-  starkwebkit-next-siwe@0.0.1(next@12.3.0(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(starkweb@0.0.10(@tanstack/query-core@5.59.17)(@tanstack/react-query@5.45.1(react@18.3.1))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.3.1)(typescript@5.6.3)(utf-8-validate@5.0.10)):
+  starkwebkit-next-siwe@0.0.1(next@12.3.0(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(starkweb@0.0.12(@tanstack/query-core@5.59.17)(@tanstack/react-query@5.45.1(react@18.3.1))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.3.1)(typescript@5.6.3)(utf-8-validate@5.0.10)):
     dependencies:
       iron-session: 6.3.1(next@12.3.0(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
       next: 12.3.0(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
-      starkweb: 0.0.10(@tanstack/query-core@5.59.17)(@tanstack/react-query@5.45.1(react@18.3.1))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.3.1)(typescript@5.6.3)(utf-8-validate@5.0.10)
+      starkweb: 0.0.12(@tanstack/query-core@5.59.17)(@tanstack/react-query@5.45.1(react@18.3.1))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.3.1)(typescript@5.6.3)(utf-8-validate@5.0.10)
     transitivePeerDependencies:
       - express
       - koa
 
-  starkwebkit@0.0.1(@babel/core@7.26.0)(@tanstack/react-query@5.45.1(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react-is@16.13.1)(react@18.3.1)(starkweb@0.0.10(@tanstack/query-core@5.59.17)(@tanstack/react-query@5.45.1(react@18.3.1))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.3.1)(typescript@5.6.3)(utf-8-validate@5.0.10)):
+  starkwebkit@0.0.1(@babel/core@7.26.0)(@tanstack/react-query@5.45.1(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react-is@16.13.1)(react@18.3.1)(starkweb@0.0.12(@tanstack/query-core@5.59.17)(@tanstack/react-query@5.45.1(react@18.3.1))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.3.1)(typescript@5.6.3)(utf-8-validate@5.0.10)):
     dependencies:
       '@tanstack/react-query': 5.45.1(react@18.3.1)
       buffer: 6.0.3
@@ -9710,7 +9710,7 @@ snapshots:
       react-transition-state: 1.1.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-use-measure: 2.1.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       resize-observer-polyfill: 1.5.1
-      starkweb: 0.0.10(@tanstack/query-core@5.59.17)(@tanstack/react-query@5.45.1(react@18.3.1))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.3.1)(typescript@5.6.3)(utf-8-validate@5.0.10)
+      starkweb: 0.0.12(@tanstack/query-core@5.59.17)(@tanstack/react-query@5.45.1(react@18.3.1))(@types/react@18.3.12)(bufferutil@4.0.8)(react@18.3.1)(typescript@5.6.3)(utf-8-validate@5.0.10)
       styled-components: 5.3.11(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react-is@16.13.1)(react@18.3.1)
     transitivePeerDependencies:
       - '@babel/core'
