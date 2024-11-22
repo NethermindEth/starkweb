@@ -11,7 +11,7 @@ export type UseConfigParameters = ConfigParameter
 
 export type UseConfigReturnType = Config
 
-/** https://starkweb.com/react/api/hooks/useConfig */
+/** https://starkweb.xyz/react/api/hooks/useConfig */
 export function useConfig(
   parameters: UseConfigParameters = {},
 ): UseConfigReturnType {
