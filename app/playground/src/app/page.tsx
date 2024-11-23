@@ -3,16 +3,78 @@
 import { useAccount, useConnect, useDisconnect, useWriteContract } from 'starkweb/react'
 
 import { getConfig } from '@/wagmi'
+import { createPublicClient, createWalletClient, custom, http } from '../../../../packages/starkweb'
 import { sepolia } from 'starkweb/chains'
-import { createWalletClient, custom } from 'starkweb'
 import { testAbi } from '@/utils/testAbi'
 
+import 'starkweb/window'
+
+const publicClient = createPublicClient({
+  chain: sepolia,
+  transport: http(
+    'https://starknet-mainnet.g.alchemy.com/starknet/version/rpc/v0_7/1CrGGwiLsjCjh2sRrBxgCXXcWQJv0FHR',
+  ),
+})
+
+const walletClient = createWalletClient({
+  chain: sepolia,
+  transport: custom(window.starknet!),
+})
+
+
+
 const config = getConfig()
+
 
 function App() {
   const account = useAccount()
   const { connectors, connect, status, error } = useConnect()
   const { disconnect } = useDisconnect()
+
+  const getBal = publicClient.readContract({
+    address: '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
+    abi: testAbi,
+    functionName: 'allowance',
+    args: []
+  })
+
+  const getMultipleBal = publicClient.readContracts({
+    contracts: [
+      {
+        address: '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
+        abi: testAbi,
+        functionName: '_dispatch',
+        args: []
+      },
+      {
+        address: '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
+        abi: testAbi,
+        functionName: 'balanceOf',
+        args: []
+      }
+    ]
+  })
+
+  const init = walletClient.writeContract({
+    address: '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
+    abi: testAbi,
+    functionName: 'approve'
+  })
+
+  const initMultipleTx = walletClient.writeContracts({
+    contracts: [
+      {
+        address: '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
+        abi: testAbi,
+        functionName: 'handle'
+      },
+      {
+        address: '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
+        abi: testAbi,
+        functionName: 'approve'
+      }
+    ]
+  })
 
   return (
     <>

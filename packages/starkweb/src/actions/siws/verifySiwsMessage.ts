@@ -5,6 +5,7 @@ import { getMessageHash } from '../../strk-utils/typedData.js'
 import type { Chain } from '../../types/chain.js'
 import { accountABI } from '../../utils/siws/account-contract-abi.js'
 import { readContract } from '../public/readContract.js'
+import type { Address } from 'abitype'
 
 export type VerifySiwsMessageParameters = {
   statement: string
@@ -69,7 +70,7 @@ export async function verifySiwsMessage<TChain extends Chain | undefined>(
   const hash = getMessageHash(siwsData, account)
 
   const verifyParams = {
-    address: account,
+    address: account as Address,
     abi: accountABI,
     functionName: 'isValidSignature',
     args: [hash, signature],

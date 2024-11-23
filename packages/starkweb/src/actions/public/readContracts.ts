@@ -1,3 +1,4 @@
+import type { Abi } from '../../strk-types/abi.js'
 import type { Client } from '../../clients/createClient.js'
 import type { Transport } from '../../clients/transports/createTransport.js'
 import { calldataToHex, compile } from '../../strk-utils/calldata/compile.js'
@@ -8,23 +9,56 @@ import type {
   PrimaryReadContractParameters,
   SecondaryReadContractParameters,
 } from './readContract.js'
+import type { ContractFunctionArgs, ContractFunctionName } from '../../types/contract.js'
 
-export type ReadContractsParameters = {
-  contracts: PrimaryReadContractParameters[]
+export type ReadContractsParameters<
+  abi extends Abi | readonly unknown[] = Abi,
+  functionName extends ContractFunctionName<
+    abi,
+    'view'
+  > = ContractFunctionName<abi, 'view'>,
+  args extends ContractFunctionArgs<
+    abi,
+    'view',
+    functionName
+  > = ContractFunctionArgs<
+    abi,
+    'view',
+    functionName
+  >,
+  allFunctionNames = ContractFunctionName<abi, 'view'>
+> = {
+  contracts: PrimaryReadContractParameters<abi, functionName, args, allFunctionNames>[]
 } & SecondaryReadContractParameters
 
 export type ReadContractsReturnTypes = any[]
 export type ReadContractsErrorType = any[]
 
-export async function readContracts<TChain extends Chain | undefined>(
+export async function readContracts<
+  TChain extends Chain | undefined,
+  abi extends Abi | readonly unknown[] = Abi,
+  functionName extends ContractFunctionName<
+    abi,
+    'view'
+  > = ContractFunctionName<abi, 'view'>,
+  args extends ContractFunctionArgs<
+    abi,
+    'view',
+    functionName
+  > = ContractFunctionArgs<
+  abi,
+  'view',
+  functionName
+  >
+>(
   client: Client<Transport, TChain>,
-  parameters: ReadContractsParameters,
+  parameters: ReadContractsParameters<abi, functionName, args>,
 ): Promise<ReadContractsReturnTypes | ReadContractsErrorType> {
-  const { contracts, blockHash, blockNumber, blockTag } = parameters
+  const { contracts, blockHash, blockNumber, blockTag } = parameters as ReadContractsParameters
 
   const txCallsPromise = contracts.map((callParams) => {
     const { address, functionName, args } = callParams
-    const calldata: string[] = args ? compile(args) : []
+    const calldata: string[] = args ? compile(args as any) : []
 
     const txCall = {
       contract_address: address,
