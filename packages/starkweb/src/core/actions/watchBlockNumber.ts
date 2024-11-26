@@ -24,7 +24,7 @@ export type WatchBlockNumberParameters<
 > = {
   [key in keyof chains]: UnionEvaluate<
     strkjs_WatchBlockNumberParameters<
-      config['_internal']['transports'][chains[key]['id']] extends infer transport extends
+      config['_internal']['transports'][chains[key]['chain_id']] extends infer transport extends
         Transport
         ? Transport extends transport
           ? WebSocketTransport

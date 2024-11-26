@@ -28,7 +28,7 @@ export async function getBalance<TChain extends Chain | undefined>(
   const { address, blockNumber, blockTag } = parameter
 
   const readContractArgs: ReadContractParameters = {
-    address: chain?.nativeCurrency?.address as string,
+    address: chain?.nativeCurrency?.address as `0x${string}`,
     abi: erc20Abi,
     functionName: 'balanceOf',
     args: [address],

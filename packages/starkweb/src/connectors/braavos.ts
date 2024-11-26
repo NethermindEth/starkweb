@@ -6,9 +6,9 @@ import type { RpcError } from "../errors/rpc.js"
 import { UserRejectedRequestError } from "../errors/rpc.js"
 import type { Address, Hex } from "../types/misc.js"
 import type { ProviderConnectInfo, SNIP1193Provider } from "../types/snip1193.js"
-
+import '../window/index.js' 
   
-  export type ArgentXParameters = any
+  export type BraavosParameters = any
   
   braavos.type = 'braavos' as const
   export function braavos() {
@@ -116,8 +116,11 @@ import type { ProviderConnectInfo, SNIP1193Provider } from "../types/snip1193.js
       },
       async getProvider() {
         // if (typeof window === 'undefined') return undefined
-        const provider: WalletProvider = (window as unknown as Window & { starknet_braavos: SNIP1193Provider }).starknet_braavos as WalletProvider
-        return provider
+        const provider = (window as any).starknet_braavos
+        if (!provider || typeof provider.request !== 'function') {
+          throw new Error('Braavos provider not found')
+        }
+        return provider as WalletProvider
       },
       async isAuthorized() {
         try {

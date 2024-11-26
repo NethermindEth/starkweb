@@ -1,42 +1,49 @@
-import type { Abi, AbiStateMutability, FunctionAbi } from './abi.js'
+import type { Abi, AbiStateMutability, FunctionAbi } from "./abi.js";
 
-type ExtractFunctions<T> = T extends { type: 'function' }
+type ExtractFunctions<T> = T extends { type: "function" }
   ? T
-  : T extends { type: 'interface'; items: infer Items }
-    ? Items extends FunctionAbi[]
-      ? Items[number]
-      : never
+  : T extends { type: "interface"; items: infer Items }
+  ? Items extends FunctionAbi[]
+    ? Items[number]
     : never
+  : never;
 
 export type ContractFunctions<TAbi extends Abi> = {
-  [K in ExtractFunctions<TAbi[number]> as K['name']]: K
-}
-
+  [K in ExtractFunctions<TAbi[number]> as K["name"]]: K;
+};
 
 type Extract<T, U> = T extends U
   ? T
-  : T extends { type: 'interface'; items: infer Items }
-    ? Items
-    : never
+  : T extends { type: "interface"; items: infer Items }
+  ? Items
+  : never;
 
 export type ExtractAbiFunction<
-    abi extends Abi,
-    functionName extends ExtractAbiFunctionNames<abi>,
-    abiStateMutability extends AbiStateMutability = AbiStateMutability,
-  > = Extract<
-    ExtractAbiFunctions<abi, abiStateMutability>,
-    { name: functionName }
-  >
+  abi extends Abi,
+  functionName extends ExtractAbiFunctionNames<abi>,
+  abiStateMutability extends AbiStateMutability = AbiStateMutability
+> = Extract<
+  ExtractAbiFunctions<abi, abiStateMutability>,
+  { name: functionName }
+>;
 
-  export type ExtractAbiFunctions<
-    abi extends Abi,
-    abiStateMutability extends AbiStateMutability = AbiStateMutability,
-  > = Extract<
-    abi[number],
-    { type: 'function'; state_mutability: abiStateMutability }
-  >
+export type ExtractAbiFunctions<
+  abi extends Abi,
+  abiStateMutability extends AbiStateMutability = AbiStateMutability
+> = Extract<
+  abi[number],
+  { type: "function"; state_mutability: abiStateMutability }
+>;
 
-  export type ExtractAbiFunctionNames<
-    abi extends Abi,
-    abiStateMutability extends AbiStateMutability = AbiStateMutability,
-  > = ExtractAbiFunctions<abi, abiStateMutability>[number]['name']
+type ExtractFunctionByMutability<
+  abi extends Abi,
+  abiStateMutability extends AbiStateMutability = AbiStateMutability
+> = Extract<
+  ExtractAbiFunctions<abi, abiStateMutability>[number],
+  { state_mutability: abiStateMutability }
+>;
+
+export type ExtractAbiFunctionNames<
+  abi extends Abi,
+  abiStateMutability extends AbiStateMutability = AbiStateMutability
+> = ExtractFunctionByMutability<abi, abiStateMutability>["name"];

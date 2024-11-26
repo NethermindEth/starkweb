@@ -7,6 +7,7 @@ import type { ByteArray, Hex, Signature } from '../../types/misc.js'
 import type { HashTypedDataErrorType } from '../../utils/signature/hashTypedData.js'
 import { accountABI } from '../../utils/siws/account-contract-abi.js'
 import { readContract } from './readContract.js'
+import type { Address } from 'abitype'
 // import {
 //   type VerifyHashErrorType,
 //   type VerifyHashParameters,
@@ -43,7 +44,7 @@ export async function verifyTypedData(
     parameters as VerifyTypedDataParameters
   const hash = getMessageHash(typedData, address)
   const verifyParams = {
-    address,
+    address: address as Address,
     abi: accountABI,
     functionName: 'isValidSignature',
     args: [hash, signature],

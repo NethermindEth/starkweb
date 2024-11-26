@@ -6,6 +6,7 @@ import type { Chain } from '../../types/chain.js'
 import { accountABI } from '../../utils/siws/account-contract-abi.js'
 import type { ISiwsTypedData } from '../../utils/siws/types.js'
 import { readContract } from '../public/readContract.js'
+import type { Address } from 'abitype'
 
 export type VerifySiwsDataParameters = {
   siwsData: ISiwsTypedData
@@ -24,7 +25,7 @@ export async function verifySiwsData<TChain extends Chain | undefined>(
   const hash = getMessageHash(siwsData, account)
   const verifyParams = {
     abi: accountABI,
-    address: account[0]!,
+    address: account[0]! as Address,
     args: [hash, signature],
     functionName: 'is_valid_signature',
   }
