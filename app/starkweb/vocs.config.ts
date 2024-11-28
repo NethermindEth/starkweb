@@ -52,6 +52,14 @@ export default defineConfig({
               link: "/react/api/createConfig",
             },
             {
+              text: "createStorage",
+              link: "/react/api/createStorage",
+            },
+            {
+              text: "Chains",
+              link: "/react/api/Chains",
+            },
+            {
               text: "StarkwebProvider",
               link: "/react/api/StarkwebProvider",
             },
