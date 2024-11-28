@@ -154,7 +154,7 @@ export async function Example() {
     ],
   })
   const { writeContract } = useWriteContract();
-  const { readContract } = useReadContract({
+  const { data } = useReadContract({
     abi: testAbi,
     functionName: 'domains',
     address:
@@ -174,7 +174,7 @@ export async function Example() {
 
   return (
     <div>
-    <h1>Example</h1>
+    <h1>Example {JSON.stringify(data)}</h1>
   </div>
  )
 }
