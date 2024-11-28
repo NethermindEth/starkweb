@@ -1028,7 +1028,7 @@ export type PublicActions = {
     >,
   >(
     args: ReadContractParameters<abi, functionName, args>,
-  ) => Promise<ReadContractReturnTypes | ReadContractErrorType>
+  ) => Promise<ReadContractReturnTypes<abi, functionName, args> | ReadContractErrorType>
 
   readContracts: <
     const abi extends Abi | readonly unknown[],

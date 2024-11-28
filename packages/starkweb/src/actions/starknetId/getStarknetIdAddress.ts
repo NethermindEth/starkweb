@@ -118,7 +118,7 @@ async function tryResolveDomain(
     },
   })
 
-  if (Array.isArray(result) && result.length > 0) {
+  if (Array.isArray(result) && result.length > 0 && result[0]) {
     return result[0]
   }
   throw new Error('Invalid response from contract call')

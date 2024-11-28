@@ -8,7 +8,7 @@ import {
 import type { Config } from '../createConfig.js'
 import type { Compute } from '../types/utils.js'
 import type { ContractFunctionArgs, ContractFunctionName } from '../../types/contract.js'
-import type { Abi, AbiStateMutability } from '../../strk-types/abi.js'
+import type { Abi } from '../../strk-types/abi.js'
 
 export function writeContractMutationOptions<
   config extends Config = Config,
@@ -37,15 +37,15 @@ export type WriteContractData = Compute<WriteContractReturnType>
 
 export type WriteContractVariables<
   abi extends Abi | readonly unknown[],
-  functionName extends ContractFunctionName<abi, AbiStateMutability>,
+  functionName extends ContractFunctionName<abi, 'external'>,
   args extends ContractFunctionArgs<
     abi,
-    AbiStateMutability,
+    'external',
     functionName
   >,
   config extends Config,
   chainId extends config['chains'][number]['chain_id'],
-  allFunctionNames = ContractFunctionName<abi, AbiStateMutability>,
+  allFunctionNames = ContractFunctionName<abi, 'external'>,
 > = WriteContractParameters<
   abi,
   functionName,
@@ -57,10 +57,10 @@ export type WriteContractVariables<
 
 export type WriteContractMutate<config extends Config, context = unknown> = <
   const abi extends Abi | readonly unknown[],
-  functionName extends ContractFunctionName<abi, AbiStateMutability>,
+  functionName extends ContractFunctionName<abi, 'external'>,
   args extends ContractFunctionArgs<
     abi,
-    AbiStateMutability,
+    'external',
     functionName
   >,
 >(
@@ -92,10 +92,10 @@ export type WriteContractMutateAsync<
   context = unknown,
 > = <
   const abi extends Abi | readonly unknown[],
-  functionName extends ContractFunctionName<abi, AbiStateMutability>,
+  functionName extends ContractFunctionName<abi, 'external'>,
   args extends ContractFunctionArgs<
     abi,
-    AbiStateMutability,
+    'external',
     functionName
   >,
 >(
