@@ -354,10 +354,10 @@ export type PublicRpcSchema = [
   {
     Method: 'starknet_call'
     Parameters?: {
-      request: FUNCTION_CALL
+      request: FUNCTION_CALL[] | FUNCTION_CALL
       block_id: BLOCK_ID
     }
-    ReturnType: FELT
+    ReturnType: FELT[] | FELT
   },
   // Chain Information
   /**

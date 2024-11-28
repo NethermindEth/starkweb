@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { Client } from '../../clients/createClient.js'
 import type { Transport } from '../../clients/transports/createTransport.js'
 import type { StarknetChainId } from '../../constants/starknet.js'

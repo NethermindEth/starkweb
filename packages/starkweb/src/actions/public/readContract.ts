@@ -82,8 +82,12 @@ export type ReadContractParameters<
 > = PrimaryReadContractParameters<abi, functionName, args, allFunctionNames> &
   SecondaryReadContractParameters
 
-export type ReadContractReturnTypes = any
-export type ReadContractErrorType = any
+export type ReadContractReturnTypes<
+  abi extends Abi | readonly unknown[],
+  functionName extends ContractFunctionName<abi, 'view'>,
+  args extends ContractFunctionArgs<abi, 'view', functionName>,
+> = any | args 
+export type ReadContractErrorType = any 
 
 export async function readContract<
   TChain extends Chain | undefined,
@@ -104,9 +108,9 @@ export async function readContract<
 >(
   client: Client<Transport, TChain>,
   parameters: ReadContractParameters<abi, functionName, args>,
-): Promise<ReadContractReturnTypes | ReadContractErrorType> {
+): Promise<ReadContractReturnTypes<abi, functionName, args> | ReadContractErrorType> {
   const { address, functionName, args, blockHash, blockNumber, blockTag } =
-    parameters as ReadContractParameters
+    parameters as ReadContractParameters<abi, functionName, args>
   const calldata: string[] = args ? compile(args as any) : []
 
   const txCall: CallParameters = {

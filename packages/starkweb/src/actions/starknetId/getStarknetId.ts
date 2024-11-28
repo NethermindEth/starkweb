@@ -52,8 +52,7 @@ export async function getStarknetId(
         block_id: 'latest',
       },
     })
-
-    if (Array.isArray(result) && result.length > 0) {
+    if (Array.isArray(result) && result.length > 0 && result[0]) {
       return BigInt(result[0]).toString()
     }
     throw new Error('Invalid response from contract call')
