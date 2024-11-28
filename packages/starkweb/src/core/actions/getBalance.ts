@@ -15,7 +15,7 @@ export type GetBalanceReturnType = strkjs_GetBalanceReturnTypes
 
 export type GetBalanceErrorType = strkjs_GetBalanceErrorType
 
-/** https://wagmi.sh/core/api/actions/readContract */
+/** https://starkweb.xyz/core/api/actions/readContract */
 export function getBalance(
   config: Config,
   parameters: GetBalanceParameters,

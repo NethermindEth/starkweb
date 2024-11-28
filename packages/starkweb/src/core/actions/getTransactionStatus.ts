@@ -24,7 +24,7 @@ export type GetTransactionStatusReturnType = Evaluate<
 export type GetTransactionStatusErrorType =
   strkjs_GetTransactionStatusErrorType;
 
-/** https://wagmi.sh/core/api/actions/getTransactionStatus */
+/** https://starkweb.xyz/core/api/actions/getTransactionStatus */
 export function getTransactionStatus(
   config: Config,
   parameters: GetTransactionStatusParameters

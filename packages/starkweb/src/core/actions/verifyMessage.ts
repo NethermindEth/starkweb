@@ -15,7 +15,7 @@ export type VerifyMessageReturnType = strkjs_VerifyMessageReturnType
 
 export type VerifyMessageErrorType = strkjs_VerifyMessageErrorType
 
-/** https://wagmi.sh/core/api/actions/verifyMessage */
+/** https://starkweb.xyz/core/api/actions/verifyMessage */
 export function verifyMessage(
   config: Config,
   parameters: VerifyMessageParameters,

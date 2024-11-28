@@ -45,7 +45,7 @@ export type UseReconnectReturnType<context = unknown> = Compute<
   }
 >
 
-/** https://wagmi.sh/react/api/hooks/useReconnect */
+/** https://starkweb.xyz/react/api/hooks/useReconnect */
 export function useReconnect<context = unknown>(
   parameters: UseReconnectParameters<context> = {},
 ): UseReconnectReturnType<context> {

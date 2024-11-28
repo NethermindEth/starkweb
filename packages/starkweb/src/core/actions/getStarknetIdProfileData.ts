@@ -15,7 +15,7 @@ import {
   
   export type GetStarknetIdProfileDataErrorType = strkjs_GetStarknetIdProfileDataErrorType
   
-  /** https://wagmi.sh/core/api/actions/getStarknetIdProfileData */
+  /** https://starkweb.xyz/core/api/actions/getStarknetIdProfileData */
   export function getStarknetIdProfileData<config extends Config>(
     config: config,
     parameters: GetStarknetIdProfileDataParameters,

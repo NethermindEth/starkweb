@@ -24,7 +24,7 @@ export type UseWatchBlockNumberParameters<
 
 export type UseWatchBlockNumberReturnType = void
 
-/** https://wagmi.sh/react/api/hooks/useWatchBlockNumber */
+/** https://starkweb.xyz/react/api/hooks/useWatchBlockNumber */
 export function useWatchBlockNumber<
   config extends Config = Config,
   chainId extends

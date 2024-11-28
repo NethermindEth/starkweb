@@ -17,7 +17,7 @@ import {
   
   export type WriteContractsErrorType = strkjs_WriteContractsErrorType
   
-  /** https://wagmi.sh/core/api/actions/writeContracts */
+  /** https://starkweb.xyz/core/api/actions/writeContracts */
   export function writeContracts(
     config: Config,
     parameters: WriteContractsParameters,

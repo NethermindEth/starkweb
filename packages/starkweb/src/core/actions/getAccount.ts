@@ -53,7 +53,7 @@ export type GetAccountReturnType =
       status: 'disconnected'
     }
 
-/** https://wagmi.sh/core/api/actions/getAccount */
+/** https://starkweb.xyz/core/api/actions/getAccount */
 export function getAccount(config: Config) {
   const uid = config.state.current!
   const connection = config.state.connections.get(uid)

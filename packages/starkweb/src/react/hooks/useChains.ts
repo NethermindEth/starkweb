@@ -14,7 +14,7 @@ export type UseChainsParameters = ConfigParameter
 
 export type UseChainsReturnType = GetChainsReturnType
 
-/** https://wagmi.sh/react/api/hooks/useChains */
+/** https://starkweb.xyz/react/api/hooks/useChains */
 export function useChains(parameters: UseChainsParameters = {}): UseChainsReturnType {
   const config = useConfig(parameters)
 

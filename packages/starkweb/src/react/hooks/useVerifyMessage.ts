@@ -35,7 +35,7 @@ export type UseVerifyMessageParameters<
 export type UseVerifyMessageReturnType<selectData = VerifyMessageData> =
   UseQueryReturnType<selectData>
 
-/** https://wagmi.sh/react/api/hooks/useVerifyMessage */
+/** https://starkweb.xyz/react/api/hooks/useVerifyMessage */
 export function useVerifyMessage<
   config extends Config = ResolvedRegister['config'],
   selectData = VerifyMessageData,

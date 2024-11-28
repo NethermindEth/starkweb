@@ -15,7 +15,7 @@ import {
   
   export type GetStarknetIdPfpVerifierDataErrorType = strkjs_GetStarknetIdPfpVerifierDataErrorType
   
-  /** https://wagmi.sh/core/api/actions/getStarknetIdPfpVerifierData */
+  /** https://starkweb.xyz/core/api/actions/getStarknetIdPfpVerifierData */
   export function getStarknetIdPfpVerifierData<config extends Config>(
     config: config,
     parameters: GetStarknetIdPfpVerifierDataParameters,

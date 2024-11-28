@@ -15,7 +15,7 @@ export type UseChainIdParameters = ConfigParameter
 
 export type UseChainIdReturnType = GetChainIdReturnType
 
-/** https://wagmi.sh/react/api/hooks/useChainId */
+/** https://starkweb.xyz/react/api/hooks/useChainId */
 export function useChainId(
   parameters: UseChainIdParameters = {},
 ): UseChainIdReturnType {

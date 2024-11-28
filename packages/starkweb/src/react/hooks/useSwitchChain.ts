@@ -52,7 +52,7 @@ export type UseSwitchChainReturnType<
   }
 >
 
-/** https://wagmi.sh/react/api/hooks/useSwitchChain */
+/** https://starkweb.xyz/react/api/hooks/useSwitchChain */
 export function useSwitchChain(
   parameters: UseSwitchChainParameters = {},
 ): UseSwitchChainReturnType {

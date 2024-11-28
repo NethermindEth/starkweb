@@ -52,7 +52,7 @@ export type UseWalletClientReturnType<
   selectData = GetWalletClientData,
 > = UseQueryReturnType<selectData, GetWalletClientErrorType>
 
-/** https://wagmi.sh/react/api/hooks/useWalletClient */
+/** https://starkweb.xyz/react/api/hooks/useWalletClient */
 export function useWalletClient<
   config extends Config = ResolvedRegister['config'],
   selectData = GetWalletClientData,

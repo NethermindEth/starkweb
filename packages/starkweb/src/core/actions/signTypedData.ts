@@ -26,7 +26,7 @@ export type SignTypedDataErrorType =
   | ErrorType
   // strkjs
 
-/** https://wagmi.sh/core/api/actions/signTypedData */
+/** https://starkweb.xyz/core/api/actions/signTypedData */
 export async function signTypedData(
   config: Config,
   parameters: SignTypedDataParameters,

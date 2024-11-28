@@ -7,7 +7,7 @@ export type WatchClientParameters = {
 
 export type WatchClientReturnType = () => void
 
-/** https://wagmi.sh/core/api/actions/watchClient */
+/** https://starkweb.xyz/core/api/actions/watchClient */
 export function watchClient(
   config: Config,
   parameters: WatchClientParameters,

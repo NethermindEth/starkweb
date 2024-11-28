@@ -45,7 +45,7 @@ export type UseDisconnectReturnType<
     disconnectAsync: DisconnectMutateAsync
   }
 
-/** https://wagmi.sh/react/api/hooks/useDisconnect */
+/** https://starkweb.xyz/react/api/hooks/useDisconnect */
 export function useDisconnect<
   context = unknown,
 >(

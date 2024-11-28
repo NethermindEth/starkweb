@@ -35,7 +35,7 @@ export type ReadContractReturnType<
 
 export type ReadContractErrorType = starkweb_ReadContractErrorType
 
-/** https://wagmi.sh/core/api/actions/readContract */
+/** https://starkweb.xyz/core/api/actions/readContract */
 export function readContract<
   abi extends Abi,
   functionName extends ContractFunctionName<abi, 'view'>,
