@@ -25,7 +25,7 @@ import { type CreateConfigParameters } from "starkweb/react"
 `readonly [Chain, ...Chain[]]`
 
 - Chains used by the `Config`.
-- See [Chains](/react/api/Chains) for more details about built-in chains and the `Chain` type.
+- See [Chains](#TODO/react/api/Chains) for more details about built-in chains and the `Chain` type.
 
 ```ts
 import { createConfig, http } from "starkweb/react"
@@ -44,12 +44,12 @@ const config = createConfig({
 
 `CreateConnectorFn[] | undefined`
 
-[Connectors](/react/api/connectors) used by the `Config`.
+[Connectors](#TODO/react/api/connectors) used by the `Config`.
 
 ```ts
 import { createConfig, http } from "starkweb/react"
-import { mainnet, sepolia } from "starkweb/react/chains"
-import { injected } from "starkweb/react/connectors" // [!code focus]
+import { mainnet, sepolia } from "starkweb/chains"
+import { injected } from "starkweb/connectors" // [!code focus]
 
 const config = createConfig({
   chains: [mainnet, sepolia],
@@ -65,7 +65,7 @@ const config = createConfig({
 
 `boolean | undefined`
 
-- Enables discovery of injected providers via [EIP-6963](https://eips.ethereum.org/EIPS/eip-6963) and converting to [injected](/core/connectors/injected) connectors.
+- Enables discovery of injected providers via [EIP-6963](https://eips.ethereum.org/EIPS/eip-6963) and converting to [injected](#TODO/core/connectors/injected) connectors.
 - Defaults to `true`.
 
 ```ts
@@ -106,7 +106,7 @@ const config = createConfig({
 
 `Storage | null | undefined`
 
-- [`Storage`](/react/api/Storage) used by the config. Persists `Config`'s [`State`](#state-1) between sessions.
+- [`Storage`](#TODO/react/api/Storage) used by the config. Persists `Config`'s [`State`](#state-1) between sessions.
 - Defaults to `createStorage({ storage: typeof window !== 'undefined' && window.localStorage ? window.localStorage : noopStorage })`.
 
 ```ts
@@ -213,7 +213,7 @@ const config = createConfig({
 
 `Record<chains[number]["id"], Transport>`
 
-Mapping of [chain IDs](#chains) to [`Transport`](/react/transports). This mapping is used internally when creating chain-aware `Client` objects. See the [Transports docs](/react/transports) for more info.
+Mapping of [chain IDs](#chains) to [`Transport`](#TODO/react/transports). This mapping is used internally when creating chain-aware `Client` objects. See the [Transports docs](#TODO/react/transports) for more info.
 
 ```ts
 import { createConfig, fallback, http } from "starkweb/react" // [!code focus]
