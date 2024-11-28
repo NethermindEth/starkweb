@@ -2,13 +2,22 @@ import { defineConfig } from "vocs";
 
 export default defineConfig({
   title: "Starkweb",
-  description: "Reactivity for Starknet applications",
+  description: "all-in-one Starknet Toolkit",
+  banner: {
+    content:
+      "Join the Starkweb Telegram Channel [here](https://t.me/strkweb)",
+    dismissable: true,
+  },
   logoUrl: { light: "/logo-light-hug.svg", dark: "/logo-dark-hug.svg" },
   topNav: [
+    { text: "Core", link: "/core", match: "/core" },
     { text: "React", link: "/react", match: "/react" },
     { text: "Connect", link: "/connect", match: "/connect" },
-    { text: "Core", link: "/core", match: "/core" },
-    { text: "CLI", link: "/cli", match: "/cli" },
+    {
+      text: "Scaffold Starkweb",
+      link: "/create-starkweb-app",
+      match: "/create-starkweb-app",
+    },
   ],
   sidebar: [
     {

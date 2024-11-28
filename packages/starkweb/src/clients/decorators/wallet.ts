@@ -197,8 +197,16 @@ export type WalletActions = {
   >(
     args: WriteContractParameters<abi, functionName, args>,
   ) => Promise<WriteContractReturnTypes | WriteContractErrorType>
-  writeContracts: <abi extends Abi | readonly unknown[]>(
-    args: WriteContractsParameters<abi>,
+  writeContracts: <
+    const abi extends Abi | readonly unknown[],
+    functionName extends ContractFunctionName<abi, 'external'>,
+    args extends ContractFunctionArgs<
+      abi,
+      'external',
+      functionName
+    >,
+  >(
+    args: WriteContractsParameters<abi, functionName, args>,
   ) => Promise<WriteContractsReturnTypes | WriteContractsErrorType>
 }
 
