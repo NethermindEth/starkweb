@@ -32,8 +32,8 @@ export type ConnectErrorType =
   | ErrorType
 
 /** https://wagmi.sh/core/api/actions/connect */
-export async function connect(
-  config: Config,
+export async function connect<config extends Config>(
+  config: config,
   parameters: ConnectParameters,
 ): Promise<ConnectReturnType> {
   // "Register" connector if not already created
