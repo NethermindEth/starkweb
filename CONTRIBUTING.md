@@ -4,12 +4,14 @@ First off, thanks for taking the time to contribute!
 
 ## Table of Contents
 
-- [Code of Conduct](#code-of-conduct)
-- [Getting Started](#getting-started)
-- [Development Process](#development-process)
-- [Submitting Changes](#submitting-changes)
-- [Bug Reports](#bug-reports)
-- [Feature Requests](#feature-requests)
+- [Contributing to Starkweb](#contributing-to-starkweb)
+  - [Table of Contents](#table-of-contents)
+  - [Code of Conduct](#code-of-conduct)
+  - [Getting Started](#getting-started)
+  - [Development Process](#development-process)
+  - [Submitting Changes](#submitting-changes)
+  - [Bug Reports](#bug-reports)
+  - [Feature Requests](#feature-requests)
 
 ## Code of Conduct
 
@@ -22,7 +24,7 @@ This project and everyone participating in it is governed by our Code of Conduct
 3. Install dependencies: `pnpm install`
 4. Create a branch for your changes
 5. Make your changes
-6. Run tests: `pnpm test`
+6. Run build: `pnpm build`
 
 ## Development Process
 
