@@ -49,7 +49,6 @@ export async function connect<config extends Config>(
   try {
     config.setState((x) => ({ ...x, status: 'connecting' }))
     connector.emitter.emit('message', { type: 'connecting' })
-
     const data = await connector.connect({
       chainId: parameters.chainId,
     })
