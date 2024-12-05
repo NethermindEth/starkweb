@@ -39,7 +39,7 @@ export type WatchBlockNumberParameters<
 export type WatchBlockNumberReturnType = strkjs_WatchBlockNumberReturnType
 
 // TODO: wrap in viem's `observe` to avoid duplicate invocations.
-/** https://wagmi.sh/core/api/actions/watchBlockNumber */
+/** https://starkweb.xyz/core/api/actions/watchBlockNumber */
 export function watchBlockNumber<
   config extends Config,
   chainId extends

@@ -45,7 +45,7 @@ export type GetConnectorClientErrorType =
   | BaseErrorType
   | ErrorType;
 
-/** https://wagmi.sh/core/api/actions/getConnectorClient */
+/** https://starkweb.xyz/core/api/actions/getConnectorClient */
 export async function getConnectorClient(
   config: Config,
   parameters: GetConnectorClientParameters = {}

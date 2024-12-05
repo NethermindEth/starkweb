@@ -30,7 +30,7 @@ export type SignMessageErrorType =
   // strkjs
   | strkjs_SignMessageErrorType
 
-/** https://wagmi.sh/core/api/actions/signMessage */
+/** https://starkweb.xyz/core/api/actions/signMessage */
 export async function signMessage(
   config: Config,
   parameters: SignMessageParameters,

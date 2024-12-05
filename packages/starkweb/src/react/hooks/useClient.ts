@@ -15,7 +15,7 @@ export type UseClientParameters = GetClientParameters & ConfigParameter
 
 export type UseClientReturnType = GetClientReturnType
 
-/** https://wagmi.sh/react/api/hooks/useClient */
+/** https://starkweb.xyz/react/api/hooks/useClient */
 export function useClient(
   parameters: UseClientParameters = {},
 ): UseClientReturnType {

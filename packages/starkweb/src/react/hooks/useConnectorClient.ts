@@ -49,7 +49,7 @@ export type UseConnectorClientParameters<
 
 export type UseConnectorClientReturnType<selectData = GetConnectorClientData> = UseQueryReturnType<selectData, GetConnectorClientErrorType>
 
-/** https://wagmi.sh/react/api/hooks/useConnectorClient */
+/** https://starkweb.xyz/react/api/hooks/useConnectorClient */
 export function useConnectorClient<
   config extends Config = ResolvedRegister['config'],
   selectData = GetConnectorClientData,

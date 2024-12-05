@@ -15,7 +15,7 @@ export type GetBlockNumberReturnType = strkjs_GetBlockNumberReturnType;
 
 export type GetBlockNumberErrorType = strkjs_GetBlockNumberErrorType;
 
-/** https://wagmi.sh/core/api/actions/getBlockNumber */
+/** https://starkweb.xyz/core/api/actions/getBlockNumber */
 export function getBlockNumber(
   config: Config,
   parameters: GetBlockNumberParameters = {}

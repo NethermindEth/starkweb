@@ -31,9 +31,9 @@ export type ConnectErrorType =
   | BaseErrorType
   | ErrorType
 
-/** https://wagmi.sh/core/api/actions/connect */
-export async function connect(
-  config: Config,
+/** https://starkweb.xyz/core/api/actions/connect */
+export async function connect<config extends Config>(
+  config: config,
   parameters: ConnectParameters,
 ): Promise<ConnectReturnType> {
   // "Register" connector if not already created
@@ -49,7 +49,6 @@ export async function connect(
   try {
     config.setState((x) => ({ ...x, status: 'connecting' }))
     connector.emitter.emit('message', { type: 'connecting' })
-
     const data = await connector.connect({
       chainId: parameters.chainId,
     })

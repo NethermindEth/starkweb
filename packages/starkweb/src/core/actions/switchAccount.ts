@@ -21,7 +21,7 @@ export type SwitchAccountErrorType =
   | BaseError
   | ErrorType
 
-/** https://wagmi.sh/core/api/actions/switchAccount */
+/** https://starkweb.xyz/core/api/actions/switchAccount */
 export async function switchAccount(
   config: Config,
   parameters: SwitchAccountParameters,

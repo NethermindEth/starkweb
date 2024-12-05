@@ -31,7 +31,7 @@ export type UseTransactionReceiptParameters<
 export type UseTransactionReceiptReturnType<selectData = GetTransactionReceiptData> =
   UseQueryReturnType<selectData, GetTransactionReceiptErrorType>
 
-/** https://wagmi.sh/react/api/hooks/useTransactionReceipt */
+/** https://starkweb.xyz/react/api/hooks/useTransactionReceipt */
 export function useTransactionReceipt<
   config extends Config = ResolvedRegister['config'],
   selectData = GetTransactionReceiptData,

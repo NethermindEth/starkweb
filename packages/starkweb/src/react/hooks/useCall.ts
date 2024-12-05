@@ -28,7 +28,7 @@ export type UseCallReturnType = UseQueryReturnType<
   CallErrorType
 >
 
-/** https://wagmi.sh/react/api/hooks/useCall */
+/** https://starkweb.xyz/react/api/hooks/useCall */
 export function useCall(
   parameters: UseCallParameters = {},
 ): UseCallReturnType {

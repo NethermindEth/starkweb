@@ -16,7 +16,7 @@ export type VerifyTypedDataReturnType = strkjs_VerifyTypedDataReturnType
 
 export type VerifyTypedDataErrorType = strkjs_VerifyTypedDataErrorType
 
-/** https://wagmi.sh/core/api/actions/verifyTypedData */
+/** https://starkweb.xyz/core/api/actions/verifyTypedData */
 export function verifyTypedData(
   config: Config,
   parameters: VerifyTypedDataParameters,

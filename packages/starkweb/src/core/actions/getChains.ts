@@ -6,7 +6,7 @@ export type GetChainsReturnType = readonly Chain[]
 
 let previousChains: readonly Chain[] = []
 
-/** https://wagmi.sh/core/api/actions/getChains */
+/** https://starkweb.xyz/core/api/actions/getChains */
 export function getChains(
   config: Config,
 ): GetChainsReturnType {

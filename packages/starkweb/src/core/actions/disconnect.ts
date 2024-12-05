@@ -17,7 +17,7 @@ export type DisconnectErrorType =
   | BaseErrorType
   | ErrorType;
 
-/** https://wagmi.sh/core/api/actions/disconnect */
+/** https://starkweb.xyz/core/api/actions/disconnect */
 export async function disconnect(
   config: Config,
   parameters: DisconnectParameters = {}

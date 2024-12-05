@@ -53,7 +53,7 @@ export type SwitchChainErrorType =
   // viem
   // | strkjs_SwitchChainErrorType
 
-/** https://wagmi.sh/core/api/actions/switchChain */
+/** https://starkweb.xyz/core/api/actions/switchChain */
 export async function switchChain<
   config extends Config,
   chainId extends config['chains'][number]['chain_id'],

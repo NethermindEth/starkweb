@@ -16,7 +16,7 @@ export type ReadContractsReturnType = strkjs_ReadContractsReturnTypes
 
 export type ReadContractsErrorType = strkjs_ReadContractsErrorType
 
-/** https://wagmi.sh/core/api/actions/readContracts */
+/** https://starkweb.xyz/core/api/actions/readContracts */
 export function readContracts(
   config: Config,
   parameters: ReadContractsParameters,

@@ -63,7 +63,7 @@
 
 // export type SimulateTransactionErrorType = BaseErrorType | GetConnectorClientErrorType;
 
-// /** https://wagmi.sh/core/api/actions/simulateTransaction */
+// /** https://starkweb.xyz/core/api/actions/simulateTransaction */
 // export async function simulateTransaction<
 //   config extends Config,
 //   const abi extends Abi | readonly unknown[],

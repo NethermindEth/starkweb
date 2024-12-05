@@ -42,7 +42,7 @@ export type UseConnectReturnType = UseMutationReturnType<
     connectors: UseConnectorsReturnType
   }
 
-/** https://wagmi.sh/react/api/hooks/useConnect */
+/** https://starkweb.xyz/react/api/hooks/useConnect */
 export function useConnect(
   parameters: UseConnectParameters = {},
 ): UseConnectReturnType {

@@ -16,7 +16,7 @@ export type GetBalanceOptions = Evaluate<
   ExactPartial<GetBalanceParameters> & ScopeKeyParameter
 >;
 
-/** https://wagmi.sh/core/api/actions/getBalance */
+/** https://starkweb.xyz/core/api/actions/getBalance */
 export function getBalanceQueryOptions<
   config extends Config,
 >(

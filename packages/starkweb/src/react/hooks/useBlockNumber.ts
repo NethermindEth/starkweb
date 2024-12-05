@@ -56,7 +56,7 @@ export type UseBlockNumberParameters<
 export type UseBlockNumberReturnType<selectData = GetBlockNumberData> =
   UseQueryReturnType<selectData, GetBlockNumberErrorType>;
 
-/** https://wagmi.sh/react/api/hooks/useBlockNumber */
+/** https://starkweb.xyz/react/api/hooks/useBlockNumber */
 export function useBlockNumber<
   config extends Config = Config,
   chainId extends config["chains"][number]["chain_id"] = config["chains"][number]["chain_id"],
