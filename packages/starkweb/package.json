@@ -20,6 +20,11 @@
             "import": "./dist/esm/exports/starkweb.js",
             "default": "./dist/cjs/exports/starkweb.js"
         },
+        "./abi": {
+            "types": "./dist/types/exports/abi.d.ts",
+            "import": "./dist/esm/exports/abi.js",
+            "default": "./dist/cjs/exports/abi.js"
+        },
         "./accounts": {
             "types": "./dist/types/exports/accounts.d.ts",
             "import": "./dist/esm/exports/accounts.js",
