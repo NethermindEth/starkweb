@@ -1,0 +1,138 @@
+---
+title: getStorageAt
+description: Action for getting contract storage value
+---
+
+# getStorageAt
+
+Action for getting Starknet contract storage value at a specific key.
+
+## Import
+
+```ts
+import { getStorageAt } from "starkweb/core";
+```
+
+## Usage
+
+:::code-group
+
+```ts [index.ts]
+import { getStorageAt } from "starkweb/core";
+import { config } from "./config";
+
+const value = await getStorageAt(config, {
+  contractAddress: "0x123...", // [!code focus]
+  key: "0x456...", // [!code focus]
+});
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Parameters
+
+```ts
+import { type GetStorageAtParameters } from "starkweb/core";
+```
+
+### contractAddress
+
+`Hex`
+
+The address of the contract to read storage from.
+
+### key
+
+`Hex`
+
+The storage key to read.
+
+```ts [index.ts]
+import { getStorageAt } from "starkweb/core";
+import { config } from "./config";
+
+const value = await getStorageAt(config, {
+  contractAddress: "0x123...", // [!code focus]
+  key: "0x456...", // [!code focus]
+});
+```
+
+### chainId (optional)
+
+`Hex | undefined`
+
+The chain ID to read from. If not provided, uses the current chain.
+
+```ts [index.ts]
+import { getStorageAt } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+const value = await getStorageAt(config, {
+  contractAddress: "0x123...",
+  key: "0x456...",
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Return Type
+
+```ts
+import { type GetStorageAtReturnType } from "starkweb/core";
+```
+
+`Hex`
+
+The value stored at the given key.
+
+## Example
+
+```ts [example.ts]
+import { getStorageAt } from "starkweb/core";
+import { mainnet, testnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+// Read storage on current chain
+const value = await getStorageAt(config, {
+  contractAddress: "0x123...", // [!code focus]
+  key: "0x456...", // [!code focus]
+});
+console.log("Storage value:", value);
+
+// Read storage on specific chain
+const mainnetValue = await getStorageAt(config, {
+  contractAddress: "0x123...",
+  key: "0x456...",
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Error
+
+```ts
+import { type GetStorageAtErrorType } from "starkweb/core";
+```
+
+## TanStack Query
+
+```ts
+import {
+  type GetStorageAtData,
+  type GetStorageAtQueryFnData,
+  type GetStorageAtQueryKey,
+  getStorageAtQueryKey,
+  getStorageAtQueryOptions,
+} from "starkweb/query";
+``` 
