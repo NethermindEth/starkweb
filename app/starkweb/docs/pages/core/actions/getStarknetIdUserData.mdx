@@ -1,0 +1,139 @@
+---
+title: getStarknetIdUserData
+description: Action for getting user data from Starknet ID
+---
+
+# getStarknetIdUserData
+
+Action for getting user data associated with a Starknet ID.
+
+## Import
+
+```ts
+import { getStarknetIdUserData } from "starkweb/core";
+```
+
+## Usage
+
+:::code-group
+
+```ts [index.ts]
+import { getStarknetIdUserData } from "starkweb/core";
+import { config } from "./config";
+
+const userData = await getStarknetIdUserData(config, {
+  starknetId: "0x123...", // [!code focus]
+  field: "discord", // [!code focus]
+});
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Parameters
+
+```ts
+import { type GetStarknetIdUserDataParameters } from "starkweb/core";
+```
+
+### starknetId
+
+`Hex`
+
+The Starknet ID to get user data for.
+
+### field
+
+`string`
+
+The specific field of user data to retrieve (e.g., "discord", "twitter", "github").
+
+```ts [index.ts]
+import { getStarknetIdUserData } from "starkweb/core";
+import { config } from "./config";
+
+const userData = await getStarknetIdUserData(config, {
+  starknetId: "0x123...", // [!code focus]
+  field: "discord", // [!code focus]
+});
+```
+
+### chainId (optional)
+
+`Hex | undefined`
+
+The chain ID to query. If not provided, uses the current chain.
+
+```ts [index.ts]
+import { getStarknetIdUserData } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+const userData = await getStarknetIdUserData(config, {
+  starknetId: "0x123...",
+  field: "discord",
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Return Type
+
+```ts
+import { type GetStarknetIdUserDataReturnType } from "starkweb/core";
+```
+
+`string`
+
+The user data value for the specified field.
+
+## Example
+
+```ts [example.ts]
+import { getStarknetIdUserData } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+// Get user data on current chain
+const discordHandle = await getStarknetIdUserData(config, {
+  starknetId: "0x123...", // [!code focus]
+  field: "discord", // [!code focus]
+});
+console.log("Discord handle:", discordHandle);
+
+// Get user data on specific chain
+const twitterHandle = await getStarknetIdUserData(config, {
+  starknetId: "0x123...",
+  field: "twitter",
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Error
+
+```ts
+import { type GetStarknetIdUserDataErrorType } from "starkweb/core";
+```
+
+## TanStack Query
+
+```ts
+import {
+  type GetStarknetIdUserDataData,
+  type GetStarknetIdUserDataOptions,
+  type GetStarknetIdUserDataQueryFnData,
+  type GetStarknetIdUserDataQueryKey,
+  getStarknetIdUserDataQueryKey,
+  getStarknetIdUserDataQueryOptions,
+} from "starkweb/query";
+```
