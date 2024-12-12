@@ -1,0 +1,76 @@
+---
+title: getChainId
+description: Action for getting the current chain ID
+---
+
+# getChainId
+
+Action for getting the current Starknet chain ID.
+
+## Import
+
+```ts
+import { getChainId } from "starkweb/core";
+```
+
+## Usage
+
+:::code-group
+
+```ts [index.ts]
+import { getChainId } from "starkweb/core";
+import { config } from "./config";
+
+const chainId = getChainId(config); // [!code focus]
+
+// Check if on mainnet
+if (chainId === mainnet.chain_id) {
+  console.log("Connected to mainnet");
+}
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Return Type
+
+```ts
+import { type GetChainIdReturnType } from "starkweb/core";
+```
+
+`Hex`
+
+The chain ID of the current network in hexadecimal format.
+
+## Example
+
+```ts [example.ts]
+import { getChainId } from "starkweb/core";
+import { mainnet, testnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+const chainId = getChainId(config); // [!code focus]
+
+// Check which network we're on
+switch (chainId) {
+  case mainnet.chain_id: // [!code focus]
+    console.log("Connected to mainnet");
+    break;
+  case testnet.chain_id: // [!code focus]
+    console.log("Connected to testnet");
+    break;
+  default:
+    console.log("Connected to chain:", chainId);
+}
+```
