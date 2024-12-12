@@ -1,0 +1,163 @@
+---
+title: getBlockWithTxs
+description: Action for getting block details with transactions
+---
+
+# getBlockWithTxs
+
+Action for getting Starknet block information including transactions.
+
+## Import
+
+```ts
+import { getBlockWithTxs } from "starkweb/core";
+```
+
+## Usage
+
+:::code-group
+
+```ts [index.ts]
+import { getBlockWithTxs } from "starkweb/core";
+import { config } from "./config";
+
+const block = await getBlockWithTxs(config, {
+  blockIdentifier: "latest", // [!code focus]
+});
+console.log("Block transactions:", block.transactions);
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Parameters
+
+```ts
+import { type GetBlockWithTxsParameters } from "starkweb/core";
+```
+
+### blockIdentifier
+
+`BlockIdentifier`
+
+The block identifier (number, hash, or 'latest').
+
+```ts [index.ts]
+import { getBlockWithTxs } from "starkweb/core";
+import { config } from "./config";
+
+// Get latest block
+const latestBlock = await getBlockWithTxs(config, {
+  blockIdentifier: "latest", // [!code focus]
+});
+
+// Get block by number
+const blockByNumber = await getBlockWithTxs(config, {
+  blockIdentifier: 123456n, // [!code focus]
+});
+
+// Get block by hash
+const blockByHash = await getBlockWithTxs(config, {
+  blockIdentifier: "0xabcdef...", // [!code focus]
+});
+```
+
+### chainId (optional)
+
+`Hex | undefined`
+
+The chain ID to get the block for. If not provided, uses the current chain.
+
+```ts [index.ts]
+import { getBlockWithTxs } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+const block = await getBlockWithTxs(config, {
+  blockIdentifier: "latest",
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Return Type
+
+```ts
+import { type GetBlockWithTxsReturnType } from "starkweb/core";
+```
+
+Returns block information including all transactions and chain ID:
+
+### transactions
+
+`Transaction[]`
+
+Array of transactions included in the block.
+
+### chainId
+
+`Hex`
+
+The chain ID of the network.
+
+### block_hash
+
+`Hex`
+
+The hash of the block.
+
+### parent_hash
+
+`Hex`
+
+The hash of the parent block.
+
+### block_number
+
+`bigint`
+
+The number of the block.
+
+## Example
+
+```ts [example.ts]
+import { getBlockWithTxs } from "starkweb/core";
+import { mainnet, testnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+// Get latest block with transactions
+const latestBlock = await getBlockWithTxs(config, {
+  blockIdentifier: "latest", // [!code focus]
+});
+console.log({
+  blockNumber: latestBlock.block_number,
+  transactionCount: latestBlock.transactions.length,
+});
+
+// Get specific block from mainnet
+const mainnetBlock = await getBlockWithTxs(config, {
+  blockIdentifier: 123456n,
+  chainId: mainnet.chain_id, // [!code focus]
+});
+
+// Process block transactions
+mainnetBlock.transactions.forEach((tx, index) => {
+  console.log(`Transaction ${index + 1}:`, tx.transaction_hash);
+});
+```
+
+## Error
+
+```ts
+import { type GetBlockWithTxsErrorType } from "starkweb/core";
+```

@@ -1,0 +1,131 @@
+---
+title: getClassAt
+description: Action for getting contract class at an address
+---
+
+# getClassAt
+
+Action for getting Starknet contract class at a specific address.
+
+## Import
+
+```ts
+import { getClassAt } from "starkweb/core";
+```
+
+## Usage
+
+:::code-group
+
+```ts [index.ts]
+import { getClassAt } from "starkweb/core";
+import { config } from "./config";
+
+const classInfo = await getClassAt(config, {
+  contractAddress: "0x123...", // [!code focus]
+});
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Parameters
+
+```ts
+import { type GetClassAtParameters } from "starkweb/core";
+```
+
+### contractAddress
+
+`Hex`
+
+The address of the contract to get the class for.
+
+```ts [index.ts]
+import { getClassAt } from "starkweb/core";
+import { config } from "./config";
+
+const classInfo = await getClassAt(config, {
+  contractAddress: "0x123...", // [!code focus]
+});
+```
+
+### chainId (optional)
+
+`Hex | undefined`
+
+The chain ID to get the class from. If not provided, uses the current chain.
+
+```ts [index.ts]
+import { getClassAt } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+const classInfo = await getClassAt(config, {
+  contractAddress: "0x123...",
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Return Type
+
+```ts
+import { type GetClassAtReturnType } from "starkweb/core";
+```
+
+Returns the contract class information including:
+
+### chainId
+
+`Hex`
+
+The chain ID of the network.
+
+### abi
+
+`Abi`
+
+The contract's ABI.
+
+### program
+
+`string`
+
+The contract's Cairo program.
+
+## Example
+
+```ts [example.ts]
+import { getClassAt } from "starkweb/core";
+import { mainnet, testnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+// Get class at address on current chain
+const classInfo = await getClassAt(config, {
+  contractAddress: "0x123...", // [!code focus]
+});
+console.log("Contract ABI:", classInfo.abi);
+
+// Get class at address on specific chain
+const mainnetClass = await getClassAt(config, {
+  contractAddress: "0x456...",
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Error
+
+```ts
+import { type GetClassAtErrorType } from "starkweb/core";
+``` 

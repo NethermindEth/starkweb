@@ -1,0 +1,100 @@
+---
+title: getConnections
+description: Action for getting all active wallet connections
+---
+
+# getConnections
+
+Action for getting all active StarkNet wallet connections.
+
+## Import
+
+```ts
+import { getConnections } from "starkweb/core";
+```
+
+## Usage
+
+:::code-group
+
+```ts [index.ts]
+import { getConnections } from "starkweb/core";
+import { config } from "./config";
+
+const connections = getConnections(config); // [!code focus]
+
+// Access connection details
+connections.forEach(connection => {
+  console.log("Connected accounts:", connection.accounts);
+  console.log("Chain ID:", connection.chainId);
+  console.log("Connector:", connection.connector);
+});
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Return Type
+
+```ts
+import { type GetConnectionsReturnType } from "starkweb/core";
+```
+
+Returns an array of connections, where each connection contains:
+
+### accounts
+
+`readonly [Address, ...Address[]]`
+
+Array of account addresses for each connection.
+
+### chainId
+
+`Hex`
+
+The chain ID for each connection.
+
+### connector
+
+`Connector`
+
+The connector instance used for each connection.
+
+## Example
+
+```ts [example.ts]
+import { getConnections } from "starkweb/core";
+import { config } from "./config";
+
+const connections = getConnections(config); // [!code focus]
+
+// Check if there are any active connections
+if (connections.length > 0) {
+  // Get the first connection
+  const [primaryConnection] = connections; // [!code focus]
+  console.log("Primary connection:", {
+    accounts: primaryConnection.accounts,
+    chainId: primaryConnection.chainId,
+  });
+
+  // List all connections
+  connections.forEach((connection, index) => { // [!code focus]
+    console.log(`Connection ${index + 1}:`, {
+      accounts: connection.accounts,
+      chainId: connection.chainId,
+    });
+  });
+}
+```
+

@@ -1,0 +1,125 @@
+---
+title: getTraceTransaction
+description: Action for getting transaction trace
+---
+
+# getTraceTransaction
+
+Action for getting a Starknet transaction trace.
+
+## Import
+
+```ts
+import { getTraceTransaction } from "starkweb/core";
+```
+
+## Usage
+
+:::code-group
+
+```ts [index.ts]
+import { getTraceTransaction } from "starkweb/core";
+import { config } from "./config";
+
+const trace = await getTraceTransaction(config, {
+  transactionHash: "0x123...", // [!code focus]
+});
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Parameters
+
+```ts
+import { type GetTraceTransactionParameters } from "starkweb/core";
+```
+
+### transactionHash
+
+`Hex`
+
+The hash of the transaction to get the trace for.
+
+```ts [index.ts]
+import { getTraceTransaction } from "starkweb/core";
+import { config } from "./config";
+
+const trace = await getTraceTransaction(config, {
+  transactionHash: "0x123...", // [!code focus]
+});
+```
+
+### chainId (optional)
+
+`Hex | undefined`
+
+The chain ID to get the trace from. If not provided, uses the current chain.
+
+```ts [index.ts]
+import { getTraceTransaction } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+const trace = await getTraceTransaction(config, {
+  transactionHash: "0x123...",
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Return Type
+
+```ts
+import { type GetTraceTransactionReturnType } from "starkweb/core";
+```
+
+Returns the transaction trace information including:
+
+### chainId
+
+`Hex`
+
+The chain ID of the network.
+
+### trace
+
+`TransactionTrace`
+
+The detailed trace of the transaction execution.
+
+## Example
+
+```ts [example.ts]
+import { getTraceTransaction } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+// Get trace on current chain
+const trace = await getTraceTransaction(config, {
+  transactionHash: "0x123...", // [!code focus]
+});
+console.log("Transaction trace:", trace);
+
+// Get trace on specific chain
+const mainnetTrace = await getTraceTransaction(config, {
+  transactionHash: "0x456...",
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Error
+
+```ts
+import { type GetTraceTransactionErrorType } from "starkweb/core";
+``` 

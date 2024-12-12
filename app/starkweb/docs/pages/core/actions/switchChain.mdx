@@ -1,0 +1,155 @@
+---
+title: switchChain
+description: Action for switching between chains
+---
+
+# switchChain
+
+Action for switching to a different Starknet chain.
+
+## Import
+
+```ts
+import { switchChain } from "starkweb/core";
+```
+
+## Usage
+
+:::code-group
+
+```ts [index.ts]
+import { switchChain } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+await switchChain(config, {
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet, testnet } from "starkweb/chains";
+
+export const config = createConfig({
+  chains: [mainnet, testnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+    [testnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Parameters
+
+```ts
+import { type SwitchChainParameters } from "starkweb/core";
+```
+
+### chainId
+
+`Hex`
+
+The ID of the chain to switch to.
+
+```ts [index.ts]
+import { switchChain } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+await switchChain(config, {
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+### connector (optional)
+
+`Connector | undefined`
+
+The connector to use for switching chains. If not provided, uses the current connector.
+
+```ts [index.ts]
+import { switchChain } from "starkweb/core";
+import { injected } from "starkweb/connectors"; // [!code focus]
+import { config } from "./config";
+
+const connector = injected();
+await switchChain(config, {
+  chainId: mainnet.chain_id,
+  connector, // [!code focus]
+});
+```
+
+### addStarknetChainParameter (optional)
+
+`Partial<AddStarknetChainParameters> | undefined`
+
+Optional parameters for adding a new chain to the wallet.
+
+## Return Type
+
+```ts
+import { type SwitchChainReturnType } from "starkweb/core";
+```
+
+Returns the chain object that was switched to, containing:
+
+### chain_id
+
+`Hex`
+
+The ID of the chain that was switched to.
+
+### name
+
+`string`
+
+The name of the chain.
+
+### rpcUrls
+
+`RpcUrls`
+
+The RPC URLs for the chain.
+
+## Example
+
+```ts [example.ts]
+import { switchChain } from "starkweb/core";
+import { mainnet, testnet } from "starkweb/chains"; // [!code focus]
+import { injected } from "starkweb/connectors"; // [!code focus]
+import { config } from "./config";
+
+// Switch to mainnet
+const result = await switchChain(config, {
+  chainId: mainnet.chain_id, // [!code focus]
+});
+console.log("Switched to chain:", result.name);
+
+// Switch using specific connector
+const connector = injected();
+await switchChain(config, {
+  chainId: testnet.chain_id, // [!code focus]
+  connector, // [!code focus]
+});
+```
+
+## Error
+
+```ts
+import { type SwitchChainErrorType } from "starkweb/core";
+```
+
+## TanStack Query
+
+```ts
+import {
+  type SwitchChainData,
+  type SwitchChainVariables,
+  type SwitchChainMutate,
+  type SwitchChainMutateAsync,
+  switchChainMutationOptions,
+} from "starkweb/query";
+```

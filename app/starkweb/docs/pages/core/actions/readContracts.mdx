@@ -1,0 +1,161 @@
+---
+title: readContracts
+description: Action for reading from multiple contracts
+---
+
+# readContracts
+
+Action for reading data from multiple Starknet contracts in a single call.
+
+## Import
+
+```ts
+import { readContracts } from "starkweb/core";
+```
+
+## Usage
+
+:::code-group
+
+```ts [index.ts]
+import { readContracts } from "starkweb/core";
+import { config } from "./config";
+
+const results = await readContracts(config, {
+  contracts: [
+    {
+      address: "0x123...",
+      abi: [...],
+      functionName: "balanceOf",
+      args: ["0x456..."]
+    },
+    {
+      address: "0x789...",
+      abi: [...],
+      functionName: "totalSupply"
+    }
+  ]
+});
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Parameters
+
+```ts
+import { type ReadContractsParameters } from "starkweb/core";
+```
+
+### contracts
+
+`ReadContractParameters[]`
+
+Array of contract read parameters, where each parameter contains:
+
+- `address`: Contract address
+- `abi`: Contract ABI
+- `functionName`: Name of the function to call
+- `args`: Function arguments (optional)
+
+```ts [index.ts]
+import { readContracts } from "starkweb/core";
+import { erc20Abi } from "./abis/erc20";
+import { config } from "./config";
+
+const results = await readContracts(config, {
+  contracts: [
+    {
+      address: "0x123...",
+      abi: erc20Abi,
+      functionName: "balanceOf",
+      args: ["0x456..."],
+    },
+  ],
+});
+```
+
+### chainId (optional)
+
+`Hex | undefined`
+
+The chain ID to read from. If not provided, uses the current chain.
+
+```ts [index.ts]
+import { readContracts } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+import { config } from "./config";
+
+const results = await readContracts(config, {
+  contracts: [...],
+  chainId: mainnet.chain_id,
+});
+```
+
+## Return Type
+
+```ts
+import { type ReadContractsReturnType } from "starkweb/core";
+```
+
+Returns an array of results matching the order of the input contracts.
+
+## Example
+
+```ts [example.ts]
+import { readContracts } from "starkweb/core";
+import { erc20Abi } from "./abis/erc20";
+import { config } from "./config";
+
+// Read multiple ERC20 token balances
+const balances = await readContracts(config, {
+  contracts: [
+    {
+      address: "0x123...",
+      abi: erc20Abi,
+      functionName: "balanceOf",
+      args: ["0x456..."],
+    },
+    {
+      address: "0x789...",
+      abi: erc20Abi,
+      functionName: "balanceOf",
+      args: ["0x456..."],
+    },
+  ],
+});
+
+// Process results
+balances.forEach((balance, index) => {
+  console.log(`Token ${index + 1} balance:`, balance);
+});
+```
+
+## Error
+
+```ts
+import { type ReadContractsErrorType } from "starkweb/core";
+```
+
+## TanStack Query
+
+```ts
+import {
+  type ReadContractsData,
+  type ReadContractsQueryFnData,
+  type ReadContractsQueryKey,
+  readContractsQueryKey,
+  readContractsQueryOptions,
+} from "starkweb/query";
+```

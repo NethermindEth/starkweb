@@ -1,0 +1,81 @@
+---
+title: getConnectors
+description: Action for getting available wallet connectors
+---
+
+# getConnectors
+
+Action for getting all available Starknet wallet connectors.
+
+## Import
+
+```ts
+import { getConnectors } from "starkweb/core";
+```
+
+## Usage
+
+:::code-group
+
+```ts [index.ts]
+import { getConnectors } from "starkweb/core";
+import { config } from "./config";
+
+const connectors = getConnectors(config); // [!code focus]
+
+// Access available connectors
+connectors.forEach(connector => {
+  console.log("Connector ID:", connector.id);
+  console.log("Connector Name:", connector.name);
+});
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Return Type
+
+```ts
+import { type GetConnectorsReturnType } from "starkweb/core";
+```
+
+`readonly Connector[]`
+
+Array of available connector instances that can be used to connect to wallets.
+
+## Example
+
+```ts [example.ts]
+import { getConnectors } from "starkweb/core";
+import { config } from "./config";
+
+const connectors = getConnectors(config); // [!code focus]
+
+// Find a specific connector
+const injectedConnector = connectors.find( // [!code focus]
+  connector => connector.id === 'injected'
+);
+
+// Check available connectors
+if (connectors.length > 0) { // [!code focus]
+  console.log("Available connectors:");
+  connectors.forEach(connector => {
+    console.log({
+      id: connector.id,
+      name: connector.name,
+      ready: connector.ready,
+    });
+  });
+}
+```

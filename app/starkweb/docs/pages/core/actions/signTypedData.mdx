@@ -1,0 +1,169 @@
+---
+title: signTypedData
+description: Action for signing typed data
+---
+
+# signTypedData
+
+Action for signing typed data with a Starknet account.
+
+## Import
+
+```ts
+import { signTypedData } from "starkweb/core";
+```
+
+## Usage
+
+:::code-group
+
+```ts [index.ts]
+import { signTypedData } from "starkweb/core";
+import { config } from "./config";
+
+const signature = await signTypedData(config, {
+  types: { // [!code focus]
+    StarknetMessage: [
+      { name: "message", type: "felt" },
+    ],
+  },
+  primaryType: "StarknetMessage", // [!code focus]
+  message: { // [!code focus]
+    message: "Hello Starknet!",
+  },
+});
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Parameters
+
+```ts
+import { type SignTypedDataParameters } from "starkweb/core";
+```
+
+### types
+
+`TypedData`
+
+The type definitions for the structured data.
+
+### primaryType
+
+`string`
+
+The primary type to sign.
+
+### message
+
+`Record<string, unknown>`
+
+The structured data to sign.
+
+```ts [index.ts]
+import { signTypedData } from "starkweb/core";
+import { config } from "./config";
+
+const signature = await signTypedData(config, {
+  types: { // [!code focus]
+    StarknetMessage: [
+      { name: "message", type: "felt" },
+    ],
+  },
+  primaryType: "StarknetMessage", // [!code focus]
+  message: { // [!code focus]
+    message: "Hello Starknet!",
+  },
+});
+```
+
+### connector (optional)
+
+`Connector | undefined`
+
+The connector to use for signing. If not provided, uses the current connector.
+
+```ts [index.ts]
+import { signTypedData } from "starkweb/core";
+import { injected } from "starkweb/connectors"; // [!code focus]
+import { config } from "./config";
+
+const connector = injected();
+const signature = await signTypedData(config, {
+  types: {...},
+  primaryType: "StarknetMessage",
+  message: {...},
+  connector, // [!code focus]
+});
+```
+
+## Return Type
+
+```ts
+import { type SignTypedDataReturnType } from "starkweb/core";
+```
+
+`Hex[]`
+
+Array of signature components.
+
+## Example
+
+```ts [example.ts]
+import { signTypedData } from "starkweb/core";
+import { injected } from "starkweb/connectors"; // [!code focus]
+import { config } from "./config";
+
+// Sign with current connector
+const signature = await signTypedData(config, {
+  types: { // [!code focus]
+    StarknetMessage: [
+      { name: "message", type: "felt" },
+    ],
+  },
+  primaryType: "StarknetMessage",
+  message: {
+    message: "Hello Starknet!",
+  },
+});
+console.log("Signature:", signature);
+
+// Sign with specific connector
+const connector = injected();
+const injectedSignature = await signTypedData(config, {
+  types: {...},
+  primaryType: "StarknetMessage",
+  message: {...},
+  connector, // [!code focus]
+});
+```
+
+## Error
+
+```ts
+import { type SignTypedDataErrorType } from "starkweb/core";
+```
+
+## TanStack Query
+
+```ts
+import {
+  type SignTypedDataData,
+  type SignTypedDataMutate,
+  type SignTypedDataMutateAsync,
+  type SignTypedDataVariables,
+  signTypedDataMutationOptions,
+} from "starkweb/query";
+``` 

@@ -1,0 +1,159 @@
+---
+title: getStarknetIdUnboundedUserData
+description: Action for getting unbounded user data from Starknet ID
+---
+
+# getStarknetIdUnboundedUserData
+
+Action for getting unbounded user data associated with a Starknet ID.
+
+## Import
+
+```ts
+import { getStarknetIdUnboundedUserData } from "starkweb/core";
+```
+
+## Usage
+
+:::code-group
+
+```ts [index.ts]
+import { getStarknetIdUnboundedUserData } from "starkweb/core";
+import { config } from "./config";
+
+const userData = await getStarknetIdUnboundedUserData(config, {
+  starknetId: "0x123...", // [!code focus]
+  field: "profile", // [!code focus]
+  domain: "app", // [!code focus]
+  selector: "avatar", // [!code focus]
+});
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Parameters
+
+```ts
+import { type GetStarknetIdUnboundedUserDataParameters } from "starkweb/core";
+```
+
+### starknetId
+
+`Hex`
+
+The Starknet ID to get unbounded user data for.
+
+### field
+
+`string`
+
+The specific field of user data to retrieve.
+
+### domain
+
+`string`
+
+The domain for the unbounded data.
+
+### selector
+
+`string`
+
+The selector for the specific data field.
+
+```ts [index.ts]
+import { getStarknetIdUnboundedUserData } from "starkweb/core";
+import { config } from "./config";
+
+const userData = await getStarknetIdUnboundedUserData(config, {
+  starknetId: "0x123...", // [!code focus]
+  field: "profile", // [!code focus]
+  domain: "app", // [!code focus]
+  selector: "avatar", // [!code focus]
+});
+```
+
+### chainId (optional)
+
+`Hex | undefined`
+
+The chain ID to query. If not provided, uses the current chain.
+
+```ts [index.ts]
+import { getStarknetIdUnboundedUserData } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+const userData = await getStarknetIdUnboundedUserData(config, {
+  starknetId: "0x123...",
+  field: "profile",
+  domain: "app",
+  selector: "avatar",
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Return Type
+
+```ts
+import { type GetStarknetIdUnboundedUserDataReturnType } from "starkweb/core";
+```
+
+Returns the unbounded user data value for the specified field, domain, and selector.
+
+## Example
+
+```ts [example.ts]
+import { getStarknetIdUnboundedUserData } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+// Get unbounded user data on current chain
+const userData = await getStarknetIdUnboundedUserData(config, {
+  starknetId: "0x123...", // [!code focus]
+  field: "profile", // [!code focus]
+  domain: "app", // [!code focus]
+  selector: "avatar", // [!code focus]
+});
+console.log("Unbounded user data:", userData);
+
+// Get unbounded user data on specific chain
+const mainnetData = await getStarknetIdUnboundedUserData(config, {
+  starknetId: "0x123...",
+  field: "profile",
+  domain: "app",
+  selector: "avatar",
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Error
+
+```ts
+import { type GetStarknetIdUnboundedUserDataErrorType } from "starkweb/core";
+```
+
+## TanStack Query
+
+```ts
+import {
+  type GetStarknetIdUnboundedUserDataData,
+  type GetStarknetIdUnboundedUserDataOptions,
+  type GetStarknetIdUnboundedUserDataQueryFnData,
+  type GetStarknetIdUnboundedUserDataQueryKey,
+  getStarknetIdUnboundedUserDataQueryKey,
+  getStarknetIdUnboundedUserDataQueryOptions,
+} from "starkweb/query";
+```

@@ -1,0 +1,106 @@
+---
+title: getPublicClient
+description: Action for getting a Public Client instance
+---
+
+# getPublicClient
+
+Action for getting a configured Public Client instance for interacting with Starknet.
+
+## Import
+
+```ts
+import { getPublicClient } from "starkweb/core";
+```
+
+## Usage
+
+:::code-group
+
+```ts [index.ts]
+import { getPublicClient } from "starkweb/core";
+import { config } from "./config";
+
+const client = getPublicClient(config);
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Parameters
+
+```ts
+import { type GetPublicClientParameters } from "starkweb/core";
+```
+
+### chainId (optional)
+
+`Hex | undefined`
+
+ID of chain to get client for. If not provided, uses the current chain.
+
+```ts [index.ts]
+import { getPublicClient } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+const client = getPublicClient(config, {
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Return Type
+
+```ts
+import { type GetPublicClientReturnType } from "starkweb/core";
+```
+
+`PublicClient`
+
+A configured public client instance with public actions for interacting with Starknet.
+
+## Example
+
+```ts [example.ts]
+import { getPublicClient } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+// Get public client for specific chain
+const client = getPublicClient(config, {
+  chainId: mainnet.chain_id, // [!code focus]
+});
+
+// Use public client
+const blockNumber = await client.getBlockNumber(); // [!code focus]
+const balance = await client.getBalance({ address: "0x123..." }); // [!code focus]
+```
+
+## Error
+
+Throws when:
+- Chain is not configured
+- Transport is not found
+
+## TanStack Query
+
+```ts
+import {
+  type GetPublicClientData,
+  type GetPublicClientQueryFnData,
+  type GetPublicClientQueryKey,
+  getPublicClientQueryKey,
+  getPublicClientQueryOptions,
+} from "starkweb/query";
+``` 

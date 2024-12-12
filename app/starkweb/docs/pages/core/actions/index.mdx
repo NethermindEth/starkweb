@@ -1,0 +1,102 @@
+---
+title: Actions
+description: Core actions for interacting with Starknet
+---
+
+# Actions
+
+Actions for accounts, wallets, contracts, transactions, signing, and more.
+
+## Import
+
+```ts
+import { getAccount } from "starkweb/core";
+```
+
+## Available Actions
+
+### Account & Connection
+
+- [getAccount](/core/actions/getAccount)
+- [connect](/core/actions/connect)
+- [disconnect](/core/actions/disconnect)
+- [reconnect](/core/actions/reconnect)
+- [switchAccount](/core/actions/switchAccount)
+- [getConnections](/core/actions/getConnections)
+- [getConnectors](/core/actions/getConnectors)
+- [getConnectorClient](/core/actions/getConnectorClient)
+
+### Network & Chain
+
+- [getChainId](/core/actions/getChainId)
+- [getChains](/core/actions/getChains)
+- [switchChain](/core/actions/switchChain)
+- [getBlockNumber](/core/actions/getBlockNumber)
+- [getBlockHashAndNumber](/core/actions/getBlockHashAndNumber)
+- [getBlockWithTxs](/core/actions/getBlockWithTxs)
+- [syncing](/core/actions/syncing)
+
+### Contract Interactions
+
+- [readContracts](/core/actions/readContracts)
+- [writeContract](/core/actions/writeContract)
+- [call](/core/actions/call)
+- [getClass](/core/actions/getClass)
+- [getClassAt](/core/actions/getClassAt)
+- [getStorageAt](/core/actions/getStorageAt)
+- [getEvents](/core/actions/getEvents)
+- [getNonce](/core/actions/getNonce)
+- [getBalance](/core/actions/getBalance)
+
+### Transactions
+
+- [getTransaction](/core/actions/getTransaction)
+- [getTransactionReceipt](/core/actions/getTransactionReceipt)
+- [getTransactionStatus](/core/actions/getTransactionStatus)
+- [getTransactionByBlockIdAndIndex](/core/actions/getTransactionByBlockIdAndIndex)
+- [getBlockTransactionsTraces](/core/actions/getBlockTransactionsTraces)
+- [getTraceTransaction](/core/actions/getTraceTransaction)
+
+### Transaction Submission
+
+- [addInvokeTransaction](/core/actions/addInvokeTransaction)
+- [addDeclareTransaction](/core/actions/addDeclareTransaction)
+- [addDeployAccountTransaction](/core/actions/addDeployAccountTransaction)
+
+### Signing
+
+- [signMessage](/core/actions/signMessage)
+- [signTypedData](/core/actions/signTypedData)
+- [verifyMessage](/core/actions/verifyMessage)
+- [verifyTypedData](/core/actions/verifyTypedData)
+
+### Starknet ID
+
+- [getStarknetId](/core/actions/getStarknetId)
+- [getStarknetIdAddress](/core/actions/getStarknetIdAddress)
+- [getStarknetIdName](/core/actions/getStarknetIdName)
+- [getStarknetIdNames](/core/actions/getStarknetIdNames)
+- [getStarknetIdUserData](/core/actions/getStarknetIdUserData)
+- [getStarknetIdVerifierData](/core/actions/getStarknetIdVerifierData)
+- [getStarknetIdProfileData](/core/actions/getStarknetIdProfileData)
+- [getStarknetIdStarkProfiles](/core/actions/getStarknetIdStarkProfiles)
+- [getStarknetIdExtendedUserData](/core/actions/getStarknetIdExtendedUserData)
+- [getStarknetIdExtendedVerifierData](/core/actions/getStarknetIdExtendedVerifierData)
+- [getStarknetIdUnboundedUserData](/core/actions/getStarknetIdUnboundedUserData)
+- [getStarknetIdUnboundedVerifierData](/core/actions/getStarknetIdUnboundedVerifierData)
+- [getStarknetIdPfpVerifierData](/core/actions/getStarknetIdPfpVerifierData)
+
+### Watchers
+
+- [watchAccount](/core/actions/watchAccount)
+- [watchBlockNumber](/core/actions/watchBlockNumber)
+- [watchChainId](/core/actions/watchChainId)
+- [watchChains](/core/actions/watchChains)
+- [watchClient](/core/actions/watchClient)
+- [watchConnectors](/core/actions/watchConnectors)
+- [watchConnections](/core/actions/watchConnections)
+
+### Client Management
+
+- [getClient](/core/actions/getClient)
+- [getPublicClient](/core/actions/getPublicClient)

@@ -1,0 +1,113 @@
+---
+title: disconnect
+description: Action for disconnecting from a wallet
+---
+
+# disconnect
+
+Action for disconnecting from a StarkNet wallet.
+
+## Import
+
+```ts
+import { disconnect } from "starkweb/core";
+```
+
+## Usage
+
+:::code-group
+
+```ts [index.ts]
+import { disconnect } from "starkweb/core";
+import { config } from "./config";
+
+await disconnect(config);
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Parameters
+
+```ts
+import { type DisconnectParameters } from "starkweb/core";
+```
+
+### connector (optional)
+
+`Connector | undefined`
+
+The specific connector to disconnect from. If not provided, will disconnect from the current connector.
+
+```ts [index.ts]
+import { disconnect } from "starkweb/core";
+import { injected } from "starkweb/connectors"; // [!code focus]
+import { config } from "./config";
+
+const connector = injected();
+await disconnect(config, {
+  connector, // [!code focus]
+});
+```
+
+## Return Type
+
+```ts
+import { type DisconnectReturnType } from "starkweb/core";
+```
+
+`void`
+
+The disconnect action doesn't return any value.
+
+## Example
+
+```ts [example.ts]
+import { disconnect, getAccount } from "starkweb/core";
+import { config } from "./config";
+
+// Check if connected before disconnecting
+const account = getAccount(config);
+if (account.isConnected) {
+  // Disconnect from current connector
+  await disconnect(config);
+  console.log("Wallet disconnected");
+}
+
+// Disconnect from a specific connector
+import { injected } from "starkweb/connectors";
+const connector = injected();
+
+await disconnect(config, {
+  connector, // [!code focus]
+});
+```
+
+## Error
+
+```ts
+import { type DisconnectErrorType } from "starkweb/core";
+```
+
+## TanStack Query
+
+```ts
+import {
+  type DisconnectData,
+  type DisconnectVariables,
+  type DisconnectMutate,
+  type DisconnectMutateAsync,
+  disconnectMutationOptions,
+} from "starkweb/query";
+```

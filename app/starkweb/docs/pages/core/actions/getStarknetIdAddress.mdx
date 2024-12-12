@@ -1,0 +1,128 @@
+---
+title: getStarknetIdAddress
+description: Action for getting address from Starknet ID
+---
+
+# getStarknetIdAddress
+
+Action for getting an address associated with a Starknet ID.
+
+## Import
+
+```ts
+import { getStarknetIdAddress } from "starkweb/core";
+```
+
+## Usage
+
+:::code-group
+
+```ts [index.ts]
+import { getStarknetIdAddress } from "starkweb/core";
+import { config } from "./config";
+
+const address = await getStarknetIdAddress(config, {
+  starknetId: "vitalik.stark", // [!code focus]
+});
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Parameters
+
+```ts
+import { type GetStarknetIdAddressParameters } from "starkweb/core";
+```
+
+### starknetId
+
+`string`
+
+The Starknet ID to resolve.
+
+```ts [index.ts]
+import { getStarknetIdAddress } from "starkweb/core";
+import { config } from "./config";
+
+const address = await getStarknetIdAddress(config, {
+  starknetId: "vitalik.stark", // [!code focus]
+});
+```
+
+### chainId (optional)
+
+`Hex | undefined`
+
+The chain ID to query. If not provided, uses the current chain.
+
+```ts [index.ts]
+import { getStarknetIdAddress } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+const address = await getStarknetIdAddress(config, {
+  starknetId: "vitalik.stark",
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Return Type
+
+```ts
+import { type GetStarknetIdAddressReturnType } from "starkweb/core";
+```
+
+`Hex`
+
+The address associated with the Starknet ID.
+
+## Example
+
+```ts [example.ts]
+import { getStarknetIdAddress } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+// Get address on current chain
+const address = await getStarknetIdAddress(config, {
+  starknetId: "vitalik.stark", // [!code focus]
+});
+console.log("Address:", address);
+
+// Get address on specific chain
+const mainnetAddress = await getStarknetIdAddress(config, {
+  starknetId: "vitalik.stark",
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Error
+
+```ts
+import { type GetStarknetIdAddressErrorType } from "starkweb/core";
+```
+
+## TanStack Query
+
+```ts
+import {
+  type GetStarknetIdAddressData,
+  type GetStarknetIdAddressOptions,
+  type GetStarknetIdAddressQueryFnData,
+  type GetStarknetIdAddressQueryKey,
+  getStarknetIdAddressQueryKey,
+  getStarknetIdAddressQueryOptions,
+} from "starkweb/query";
+```

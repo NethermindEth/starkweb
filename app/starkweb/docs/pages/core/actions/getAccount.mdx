@@ -1,0 +1,127 @@
+---
+title: getAccount
+description: Action for getting the connected account
+---
+
+# getAccount
+
+Action for getting the connected account information.
+
+## Import
+
+```ts
+import { getAccount } from "starkweb/core";
+```
+
+## Usage
+
+:::code-group
+
+```ts [index.ts]
+import { getAccount } from "starkweb/core";
+import { config } from "./config";
+
+const account = getAccount(config);
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Return Type
+
+```ts
+import { type GetAccountReturnType } from "starkweb/core";
+```
+
+### address
+
+`Address | undefined`
+
+Connected address from connector.
+Defaults to first address in `addresses`.
+
+### addresses
+
+`readonly Address[] | undefined`
+
+Connected addresses from connector.
+
+### chain
+
+`Chain | undefined`
+
+Connected chain from connector. If chain is not configured by config, it will be `undefined`.
+
+### chainId
+
+`number | undefined`
+
+Connected chain ID from connector.
+
+### connector
+
+`Connector | undefined`
+
+The active connector instance.
+
+### isConnected
+
+`boolean`
+
+Whether a wallet is connected.
+
+### isConnecting
+
+`boolean`
+
+Whether a wallet is in the process of connecting.
+
+### isDisconnected
+
+`boolean`
+
+Whether a wallet is disconnected.
+
+### isReconnecting
+
+`boolean`
+
+Whether a wallet is in the process of reconnecting.
+
+### status
+
+`'connected' | 'connecting' | 'disconnected' | 'reconnecting'`
+
+The connection status.
+
+## Example
+
+```ts [example.ts]
+import { getAccount } from "starkweb/core";
+import { config } from "./config";
+
+const account = getAccount(config);
+
+// Check if connected
+if (account.isConnected) {
+  console.log("Connected to", account.address);
+}
+
+// Get connection status
+const status = account.status;
+console.log("Status:", status); // Can be 'connected', 'connecting', 'disconnected', or 'reconnecting'
+
+// Access multiple addresses if available
+const addresses = account.addresses;
+```

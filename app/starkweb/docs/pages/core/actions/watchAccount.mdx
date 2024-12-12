@@ -1,0 +1,99 @@
+---
+title: watchAccount
+description: Action for watching account changes
+---
+
+# watchAccount
+
+Action for watching changes to the connected Starknet account.
+
+## Import
+
+```ts
+import { watchAccount } from "starkweb/core";
+```
+
+## Usage
+
+:::code-group
+
+```ts [index.ts]
+import { watchAccount } from "starkweb/core";
+import { config } from "./config";
+
+const unwatch = watchAccount(config, {
+  onChange(account, prevAccount) { // [!code focus]
+    console.log('Account changed:', account); // [!code focus]
+    console.log('Previous account:', prevAccount); // [!code focus]
+  }, // [!code focus]
+});
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Parameters
+
+```ts
+import { type WatchAccountParameters } from "starkweb/core";
+```
+
+### onChange
+
+`(account: GetAccountReturnType, prevAccount: GetAccountReturnType) => void`
+
+Callback function that is called when the account changes. Receives the new account and previous account as arguments.
+
+```ts [index.ts]
+import { watchAccount } from "starkweb/core";
+import { config } from "./config";
+
+const unwatch = watchAccount(config, {
+  onChange(account, prevAccount) { // [!code focus]
+    console.log('Account changed:', account); // [!code focus]
+    console.log('Previous account:', prevAccount); // [!code focus]
+  }, // [!code focus]
+});
+```
+
+## Return Type
+
+```ts
+import { type WatchAccountReturnType } from "starkweb/core";
+```
+
+`() => void`
+
+Function to stop watching for account changes.
+
+## Example
+
+```ts [example.ts]
+import { watchAccount } from "starkweb/core";
+import { config } from "./config";
+
+// Start watching account changes
+const unwatch = watchAccount(config, {
+  onChange(account, prevAccount) { // [!code focus]
+    if (account.address !== prevAccount.address) {
+      console.log('Address changed:', account.address);
+    }
+    if (account.chainId !== prevAccount.chainId) {
+      console.log('Chain changed:', account.chainId);
+    }
+  }, // [!code focus]
+});
+
+// Later: stop watching
+unwatch();
