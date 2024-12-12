@@ -1,0 +1,129 @@
+---
+title: signMessage
+description: Action for signing a message
+---
+
+# signMessage
+
+Action for signing a message with a Starknet account.
+
+## Import
+
+```ts
+import { signMessage } from "starkweb/core";
+```
+
+## Usage
+
+:::code-group
+
+```ts [index.ts]
+import { signMessage } from "starkweb/core";
+import { config } from "./config";
+
+const signature = await signMessage(config, {
+  message: "Hello Starknet!", // [!code focus]
+});
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Parameters
+
+```ts
+import { type SignMessageParameters } from "starkweb/core";
+```
+
+### message
+
+`string`
+
+The message to sign.
+
+```ts [index.ts]
+import { signMessage } from "starkweb/core";
+import { config } from "./config";
+
+const signature = await signMessage(config, {
+  message: "Hello Starknet!", // [!code focus]
+});
+```
+
+### connector (optional)
+
+`Connector | undefined`
+
+The connector to use for signing. If not provided, uses the current connector.
+
+```ts [index.ts]
+import { signMessage } from "starkweb/core";
+import { injected } from "starkweb/connectors"; // [!code focus]
+import { config } from "./config";
+
+const connector = injected();
+const signature = await signMessage(config, {
+  message: "Hello Starknet!",
+  connector, // [!code focus]
+});
+```
+
+## Return Type
+
+```ts
+import { type SignMessageReturnType } from "starkweb/core";
+```
+
+`Hex[]`
+
+Array of signature components.
+
+## Example
+
+```ts [example.ts]
+import { signMessage } from "starkweb/core";
+import { injected } from "starkweb/connectors"; // [!code focus]
+import { config } from "./config";
+
+// Sign with current connector
+const signature = await signMessage(config, {
+  message: "Hello Starknet!", // [!code focus]
+});
+console.log("Signature:", signature);
+
+// Sign with specific connector
+const connector = injected();
+const injectedSignature = await signMessage(config, {
+  message: "Hello Starknet!",
+  connector, // [!code focus]
+});
+```
+
+## Error
+
+```ts
+import { type SignMessageErrorType } from "starkweb/core";
+```
+
+## TanStack Query
+
+```ts
+import {
+  type SignMessageData,
+  type SignMessageMutate,
+  type SignMessageMutateAsync,
+  type SignMessageVariables,
+  signMessageMutationOptions,
+} from "starkweb/query";
+``` 
