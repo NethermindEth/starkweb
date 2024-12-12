@@ -11,12 +11,12 @@ export default defineConfig({
   topNav: [
     { text: "Core", link: "/core", match: "/core" },
     { text: "React", link: "/react", match: "/react" },
-    { text: "Connect", link: "/connect", match: "/connect" },
-    {
-      text: "Scaffold Starkweb",
-      link: "/create-starkweb-app",
-      match: "/create-starkweb-app",
-    },
+    // { text: "Connect", link: "/connect", match: "/connect" },
+    // {
+    //   text: "Scaffold Starkweb",
+    //   link: "/create-starkweb-app",
+    //   match: "/create-starkweb-app",
+    // },
   ],
   sidebar: [
     {
@@ -41,7 +41,7 @@ export default defineConfig({
       items: [
         {
           text: "Getting Started",
-          link: "/react",
+          link: "/react/",
         },
         {
           text: "Configuration",
@@ -98,34 +98,34 @@ export default defineConfig({
         },
       ],
     },
-    {
-      text: "Connect",
-      items: [],
-    },
+    // {
+    //   text: "Connect",
+    //   items: [],
+    // },
     {
       text: "Core",
       items: [
         {
           text: "Getting Started",
-          link: "/core/getting-started",
+          link: "/core/",
         },
-        {
-          text: "Configuration",
-          items: [
-            {
-              text: "createConfig",
-              link: "/core/configuration/createConfig",
-            },
-            {
-              text: "chains",
-              link: "/core/configuration/chains",
-            },
-            {
-              text: "transports",
-              link: "/core/configuration/transports",
-            },
-          ],
-        },
+        // {
+        //   text: "Configuration",
+        //   items: [
+        //     {
+        //       text: "createConfig",
+        //       link: "/core/configuration/createConfig",
+        //     },
+        //     {
+        //       text: "chains",
+        //       link: "/core/configuration/chains",
+        //     },
+        //     {
+        //       text: "transports",
+        //       link: "/core/configuration/transports",
+        //     },
+        //   ],
+        // },
         {
           text: "Actions",
           link: "/core/actions",
@@ -337,10 +337,6 @@ export default defineConfig({
           ],
         },
       ],
-    },
-    {
-      text: "CLI",
-      items: [],
     },
   ],
 });
