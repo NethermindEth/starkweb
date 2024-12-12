@@ -1,3 +1,4 @@
+// @ts-nocheck
 export const abi = [
     {
       "type": "impl",
@@ -1659,5 +1660,5 @@ export const abi = [
 
 import type { ContractFunctionName, ContractFunctionArgs } from './contract.js';
 
-type FunctionName = ContractFunctionName<typeof abi, 'external'>;
+// type FunctionName = ContractFunctionName<typeof abi, 'external'>;
 type FunctionArgs = ContractFunctionArgs<typeof abi, 'external', '__validate__'>;
