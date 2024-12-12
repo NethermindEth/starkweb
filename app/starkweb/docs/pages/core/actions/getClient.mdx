@@ -1,0 +1,122 @@
+---
+title: getClient
+description: Action for getting a Client instance
+---
+
+# getClient
+
+Action for getting a configured Client instance for interacting with StarkNet.
+
+## Import
+
+```ts
+import { getClient } from "starkweb/core";
+```
+
+## Parameters
+
+```ts
+import { type GetClientParameters } from "starkweb/core";
+```
+
+### chainId
+
+`Hex | undefined`
+
+ID of chain to get client for. If not provided, uses the current chain.
+
+```ts [index.tsx]
+import { getClient } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+
+const client = getClient(config, {
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Return Value
+
+```ts
+import { type GetClientReturnType } from "starkweb/core";
+```
+
+```ts
+Client<Transport, Chain>;
+```
+
+A configured client instance for interacting with StarkNet.
+
+## Usage
+
+:::code-group
+
+```ts [index.tsx]
+import { getClient } from "starkweb/core";
+import { config } from "./config";
+
+const client = getClient(config);
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Example
+
+```ts [example.ts]
+import { getClient } from "starkweb/core";
+import { config } from "./config";
+import { mainnet } from "starkweb/chains";
+
+// Get client for specific chain
+const client = getClient(config, {
+  chainId: mainnet.chain_id, // [!code focus]
+});
+
+// Use client
+const blockNumber = await client.getBlockNumber(); // [!code focus]
+```
+
+## Error
+
+Throws when:
+
+- Chain is not configured (`ChainNotConfiguredError`)
+- Transport is not found (`TransportNotFoundError`)
+
+## TanStack Query
+
+```ts
+import {
+  type GetClientData,
+  type GetClientQueryFnData,
+  type GetClientQueryKey,
+  getClientQueryKey,
+  getClientQueryOptions,
+} from "starkweb/query";
+```
+
+### Query Key
+
+```ts
+["client", { chainId: Hex }] as const;
+```
+
+### Query Options
+
+```ts [query.ts]
+import { getClientQueryOptions } from "starkweb/query";
+import { config } from "./config";
+
+const queryOptions = getClientQueryOptions(config); // [!code focus]
+```
