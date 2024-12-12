@@ -1,0 +1,168 @@
+---
+title: writeContract
+description: Action for writing to a contract
+---
+
+# writeContract
+
+Action for writing data to a Starknet contract.
+
+## Import
+
+```ts
+import { writeContract } from "starkweb/core";
+```
+
+## Usage
+
+:::code-group
+
+```ts [index.ts]
+import { writeContract } from "starkweb/core";
+import { erc20Abi } from "./abis/erc20"; // [!code focus]
+import { config } from "./config";
+
+const hash = await writeContract(config, {
+  address: "0x123...", // [!code focus]
+  abi: erc20Abi, // [!code focus]
+  functionName: "transfer", // [!code focus]
+  args: ["0x456...", "1000"], // [!code focus]
+});
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Parameters
+
+```ts
+import { type WriteContractParameters } from "starkweb/core";
+```
+
+### address
+
+`Address`
+
+The address of the contract.
+
+### abi
+
+`Abi`
+
+The ABI of the contract.
+
+### functionName
+
+`string`
+
+The name of the function to call.
+
+### args (optional)
+
+`readonly unknown[]`
+
+The arguments to pass to the function.
+
+```ts [index.ts]
+import { writeContract } from "starkweb/core";
+import { erc20Abi } from "./abis/erc20"; // [!code focus]
+import { config } from "./config";
+
+const hash = await writeContract(config, {
+  address: "0x123...",
+  abi: erc20Abi, // [!code focus]
+  functionName: "transfer",
+  args: ["0x456...", "1000"], // [!code focus]
+});
+```
+
+### chainId (optional)
+
+`Hex | undefined`
+
+The chain ID to send the transaction to.
+
+```ts [index.ts]
+import { writeContract } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+const hash = await writeContract(config, {
+  address: "0x123...",
+  abi: erc20Abi,
+  functionName: "transfer",
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+### connector (optional)
+
+`Connector | undefined`
+
+The connector to use for the transaction. If not provided, uses the current connector.
+
+## Return Type
+
+```ts
+import { type WriteContractReturnType } from "starkweb/core";
+```
+
+`Hex`
+
+The transaction hash.
+
+## Example
+
+```ts [example.ts]
+import { writeContract } from "starkweb/core";
+import { erc20Abi } from "./abis/erc20"; // [!code focus]
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+// Transfer tokens
+const hash = await writeContract(config, {
+  address: "0x123...",
+  abi: erc20Abi, // [!code focus]
+  functionName: "transfer",
+  args: ["0x456...", "1000"], // [!code focus]
+});
+console.log("Transaction hash:", hash);
+
+// Write to specific chain
+const approveHash = await writeContract(config, {
+  address: "0x123...",
+  abi: erc20Abi,
+  functionName: "approve",
+  args: ["0x789...", "1000"],
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Error
+
+```ts
+import { type WriteContractErrorType } from "starkweb/core";
+```
+
+## TanStack Query
+
+```ts
+import {
+  type WriteContractData,
+  type WriteContractVariables,
+  type WriteContractMutate,
+  type WriteContractMutateAsync,
+  writeContractMutationOptions,
+} from "starkweb/query";
+``` 
