@@ -1,0 +1,143 @@
+---
+title: addInvokeTransaction
+description: Action for adding an invoke transaction
+---
+
+# addInvokeTransaction
+
+Action for adding a Starknet invoke transaction.
+
+## Import
+
+```ts
+import { addInvokeTransaction } from "starkweb/core";
+```
+
+## Usage
+
+:::code-group
+
+```ts [index.ts]
+import { addInvokeTransaction } from "starkweb/core";
+import { config } from "./config";
+
+const result = await addInvokeTransaction(config, {
+  calls: [ // [!code focus]
+    {
+      contractAddress: "0x123...",
+      entrypoint: "transfer",
+      calldata: ["0x456...", "1000"],
+    },
+  ],
+});
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Parameters
+
+```ts
+import { type AddInvokeTransactionParameters } from "starkweb/core";
+```
+
+### calls
+
+`Call[]`
+
+Array of contract calls to invoke.
+
+```ts [index.ts]
+import { addInvokeTransaction } from "starkweb/core";
+import { config } from "./config";
+
+const result = await addInvokeTransaction(config, {
+  calls: [ // [!code focus]
+    {
+      contractAddress: "0x123...",
+      entrypoint: "transfer",
+      calldata: ["0x456...", "1000"],
+    },
+  ],
+});
+```
+
+### chainId (optional)
+
+`Hex | undefined`
+
+The chain ID to add the transaction to. If not provided, uses the current chain.
+
+```ts [index.ts]
+import { addInvokeTransaction } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+const result = await addInvokeTransaction(config, {
+  calls: [...],
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Return Type
+
+```ts
+import { type AddInvokeTransactionReturnType } from "starkweb/core";
+```
+
+Returns the transaction information including:
+
+### chainId
+
+`Hex`
+
+The chain ID of the network.
+
+### transaction_hash
+
+`Hex`
+
+The hash of the submitted transaction.
+
+## Example
+
+```ts [example.ts]
+import { addInvokeTransaction } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+// Add invoke transaction on current chain
+const result = await addInvokeTransaction(config, {
+  calls: [ // [!code focus]
+    {
+      contractAddress: "0x123...",
+      entrypoint: "transfer",
+      calldata: ["0x456...", "1000"],
+    },
+  ],
+});
+console.log("Transaction hash:", result.transaction_hash);
+
+// Add invoke transaction on specific chain
+const mainnetResult = await addInvokeTransaction(config, {
+  calls: [...],
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Error
+
+```ts
+import { type AddInvokeTransactionErrorType } from "starkweb/core";
+``` 
