@@ -1,0 +1,143 @@
+---
+title: getConnectorClient
+description: Action for getting a connector's client instance
+---
+
+# getConnectorClient
+
+Action for getting a Starknet connector's client instance.
+
+## Import
+
+```ts
+import { getConnectorClient } from "starkweb/core";
+```
+
+## Usage
+
+:::code-group
+
+```ts [index.ts]
+import { getConnectorClient } from "starkweb/core";
+import { config } from "./config";
+
+const client = await getConnectorClient(config); // [!code focus]
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Parameters
+
+```ts
+import { type GetConnectorClientParameters } from "starkweb/core";
+```
+
+### chainId (optional)
+
+`Hex | undefined`
+
+The chain ID to get the client for.
+
+```ts [index.ts]
+import { getConnectorClient } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+const client = await getConnectorClient(config, {
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+### connector (optional)
+
+`Connector | undefined`
+
+The specific connector to get the client for. If not provided, uses the current connector.
+
+```ts [index.ts]
+import { getConnectorClient } from "starkweb/core";
+import { injected } from "starkweb/connectors"; // [!code focus]
+import { config } from "./config";
+
+const connector = injected();
+const client = await getConnectorClient(config, {
+  connector, // [!code focus]
+});
+```
+
+### account (optional)
+
+`Address | Account | undefined`
+
+The account to get the client for. If not provided, uses the first account.
+
+```ts [index.ts]
+import { getConnectorClient } from "starkweb/core";
+import { config } from "./config";
+
+const client = await getConnectorClient(config, {
+  account: "0x1234...", // [!code focus]
+});
+```
+
+## Return Type
+
+```ts
+import { type GetConnectorClientReturnType } from "starkweb/core";
+```
+
+`Client<Transport, Chain, Account>`
+
+A configured client instance for interacting with Starknet.
+
+## Example
+
+```ts [example.ts]
+import { getConnectorClient } from "starkweb/core";
+import { injected } from "starkweb/connectors"; // [!code focus]
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+// Get client with specific chain and connector
+const connector = injected();
+const client = await getConnectorClient(config, {
+  chainId: mainnet.chain_id, // [!code focus]
+  connector, // [!code focus]
+});
+
+// Use client to interact with Starknet
+const balance = await client.getBalance({
+  address: "0x1234...",
+});
+```
+
+## Error
+
+```ts
+import { type GetConnectorClientErrorType } from "starkweb/core";
+```
+
+## TanStack Query
+
+```ts
+import {
+  type GetConnectorClientData,
+  type GetConnectorClientOptions,
+  type GetConnectorClientQueryFnData,
+  type GetConnectorClientQueryKey,
+  getConnectorClientQueryKey,
+  getConnectorClientQueryOptions,
+} from "starkweb/query";
+```
