@@ -1,0 +1,129 @@
+---
+title: watchBlockNumber
+description: Action for watching block number changes
+---
+
+# watchBlockNumber
+
+Action for watching changes to the block number on a Starknet network.
+
+## Import
+
+```ts
+import { watchBlockNumber } from "starkweb/core";
+```
+
+## Usage
+
+:::code-group
+
+```ts [index.ts]
+import { watchBlockNumber } from "starkweb/core";
+import { config } from "./config";
+
+const unwatch = watchBlockNumber(config, {
+  onBlockNumber(blockNumber) { // [!code focus]
+    console.log('New block:', blockNumber); // [!code focus]
+  }, // [!code focus]
+  pollingInterval: 1_000, // [!code focus]
+});
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Parameters
+
+```ts
+import { type WatchBlockNumberParameters } from "starkweb/core";
+```
+
+### onBlockNumber
+
+`(blockNumber: bigint) => void`
+
+Callback function that is called when a new block is detected. Receives the block number as argument.
+
+### pollingInterval (optional)
+
+`number`
+
+Polling interval in milliseconds. Defaults to 4000 (4 seconds).
+
+### syncConnectedChain (optional)
+
+`boolean`
+
+Whether to sync with the connected chain. Defaults to true.
+
+```ts [index.ts]
+import { watchBlockNumber } from "starkweb/core";
+import { config } from "./config";
+
+const unwatch = watchBlockNumber(config, {
+  onBlockNumber(blockNumber) { // [!code focus]
+    console.log('New block:', blockNumber); // [!code focus]
+  }, // [!code focus]
+  pollingInterval: 1_000, // [!code focus]
+  syncConnectedChain: true, // [!code focus]
+});
+```
+
+### chainId (optional)
+
+`Hex | undefined`
+
+The chain ID to watch. If not provided, uses the current chain.
+
+```ts [index.ts]
+import { watchBlockNumber } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+const unwatch = watchBlockNumber(config, {
+  onBlockNumber(blockNumber) {
+    console.log('New block:', blockNumber);
+  },
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Return Type
+
+```ts
+import { type WatchBlockNumberReturnType } from "starkweb/core";
+```
+
+`() => void`
+
+Function to stop watching for block number changes.
+
+## Example
+
+```ts [example.ts]
+import { watchBlockNumber } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+// Start watching block number changes
+const unwatch = watchBlockNumber(config, {
+  onBlockNumber(blockNumber) { // [!code focus]
+    console.log('New block:', blockNumber);
+  },
+  pollingInterval: 1_000, // [!code focus]
+  chainId: mainnet.chain_id, // [!code focus]
+});
+
+// Later: stop watching
+unwatch();
