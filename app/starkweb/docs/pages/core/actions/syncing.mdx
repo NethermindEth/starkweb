@@ -1,0 +1,121 @@
+---
+title: syncing
+description: Action for checking if node is syncing
+---
+
+# syncing
+
+Action for checking if the Starknet node is currently syncing.
+
+## Import
+
+```ts
+import { syncing } from "starkweb/core";
+```
+
+## Usage
+
+:::code-group
+
+```ts [index.ts]
+import { syncing } from "starkweb/core";
+import { config } from "./config";
+
+const syncStatus = await syncing(config); // [!code focus]
+console.log("Sync status:", syncStatus);
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Parameters
+
+```ts
+import { type SyncingParameters } from "starkweb/core";
+```
+
+### chainId (optional)
+
+`Hex | undefined`
+
+The chain ID to check sync status for. If not provided, uses the current chain.
+
+```ts [index.ts]
+import { syncing } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+const syncStatus = await syncing(config, {
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Return Type
+
+```ts
+import { type SyncingReturnTypes } from "starkweb/core";
+```
+
+Returns the syncing status object containing:
+
+### chainId
+
+`Hex`
+
+The chain ID of the network.
+
+### starting_block_hash
+
+`Hex`
+
+Hash of the starting block in the sync range.
+
+### current_block_hash
+
+`Hex`
+
+Hash of the current block in the sync process.
+
+### highest_block_hash
+
+`Hex`
+
+Hash of the highest known block to sync to.
+
+## Example
+
+```ts [example.ts]
+import { syncing } from "starkweb/core";
+import { mainnet, testnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+// Check sync status for current chain
+const currentStatus = await syncing(config); // [!code focus]
+console.log("Current chain sync status:", currentStatus);
+
+// Check sync status for specific chain
+const mainnetStatus = await syncing(config, {
+  chainId: mainnet.chain_id, // [!code focus]
+});
+console.log("Mainnet sync status:", {
+  current: mainnetStatus.current_block_hash,
+  target: mainnetStatus.highest_block_hash,
+});
+```
+
+## Error
+
+```ts
+import { type SyncingErrorType } from "starkweb/core";
+``` 
