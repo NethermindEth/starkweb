@@ -8,7 +8,7 @@ Starkweb is designed to be as type-safe as possible! Things to keep in mind:
 - [TypeScript doesn't follow semver](https://www.learningtypescript.com/articles/why-typescript-doesnt-follow-strict-semantic-versioning) and often introduces breaking changes in minor releases.
 - Changes to types in this repository are considered non-breaking and are usually released as patch changes (otherwise every type enhancement would be a major version!).
 - It is highly recommended that you lock your `starkweb/react` and `typescript` versions to specific patch releases and upgrade with the expectation that types may be fixed or upgraded between any release.
-- The non-type-related public API of Wagmi still follows semver very strictly.
+- The non-type-related public API of Starkweb still follows semver very strictly.
 
 To ensure everything works correctly, make sure your `tsconfig.json` has [`strict`](https://www.typescriptlang.org/tsconfig#strict) mode set to `true`.
 
@@ -58,7 +58,7 @@ Since the `Register` type is global, you only need to add it once in your projec
 
 ### Hook `config` Property
 
-For cases where you have more than one Wagmi `config` or don't want to use the declaration merging approach, you can pass a specific `config` directly to hooks via the `config` property.
+For cases where you have more than one Starkweb `config` or don't want to use the declaration merging approach, you can pass a specific `config` directly to hooks via the `config` property.
 
 ```ts
 import { createConfig, http } from "starkweb";
