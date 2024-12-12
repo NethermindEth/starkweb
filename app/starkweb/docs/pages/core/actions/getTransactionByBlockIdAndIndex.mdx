@@ -1,0 +1,148 @@
+---
+title: getTransactionByBlockIdAndIndex
+description: Action for getting transaction by block ID and index
+---
+
+# getTransactionByBlockIdAndIndex
+
+Action for getting a Starknet transaction using block identifier and index.
+
+## Import
+
+```ts
+import { getTransactionByBlockIdAndIndex } from "starkweb/core";
+```
+
+## Usage
+
+:::code-group
+
+```ts [index.ts]
+import { getTransactionByBlockIdAndIndex } from "starkweb/core";
+import { config } from "./config";
+
+const transaction = await getTransactionByBlockIdAndIndex(config, {
+  blockIdentifier: "latest", // [!code focus]
+  index: 0, // [!code focus]
+});
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Parameters
+
+```ts
+import { type GetTransactionByBlockIdAndIndexParameters } from "starkweb/core";
+```
+
+### blockIdentifier
+
+`BlockIdentifier`
+
+The block identifier (number, hash, or 'latest').
+
+### index
+
+`number`
+
+The index of the transaction in the block.
+
+```ts [index.ts]
+import { getTransactionByBlockIdAndIndex } from "starkweb/core";
+import { config } from "./config";
+
+const transaction = await getTransactionByBlockIdAndIndex(config, {
+  blockIdentifier: "latest", // [!code focus]
+  index: 0, // [!code focus]
+});
+```
+
+### chainId (optional)
+
+`Hex | undefined`
+
+The chain ID to get the transaction from. If not provided, uses the current chain.
+
+```ts [index.ts]
+import { getTransactionByBlockIdAndIndex } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+const transaction = await getTransactionByBlockIdAndIndex(config, {
+  blockIdentifier: "latest",
+  index: 0,
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Return Type
+
+```ts
+import { type GetTransactionByBlockIdAndIndexReturnType } from "starkweb/core";
+```
+
+Returns the transaction information including:
+
+### chainId
+
+`Hex`
+
+The chain ID of the network.
+
+### transaction_hash
+
+`Hex`
+
+The hash of the transaction.
+
+### type
+
+`TransactionType`
+
+The type of the transaction.
+
+### block_number
+
+`bigint`
+
+The block number containing the transaction.
+
+## Example
+
+```ts [example.ts]
+import { getTransactionByBlockIdAndIndex } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+// Get first transaction from latest block
+const transaction = await getTransactionByBlockIdAndIndex(config, {
+  blockIdentifier: "latest", // [!code focus]
+  index: 0, // [!code focus]
+});
+console.log("Transaction hash:", transaction.transaction_hash);
+
+// Get transaction from specific block on mainnet
+const mainnetTransaction = await getTransactionByBlockIdAndIndex(config, {
+  blockIdentifier: 123456n,
+  index: 1,
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Error
+
+```ts
+import { type GetTransactionByBlockIdAndIndexErrorType } from "starkweb/core";
+``` 
