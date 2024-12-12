@@ -1,0 +1,125 @@
+---
+title: reconnect
+description: Action for reconnecting to a previously connected wallet
+---
+
+# reconnect
+
+Action for reconnecting to a previously connected StarkNet wallet.
+
+## Import
+
+```ts
+import { reconnect } from "starkweb/core";
+```
+
+## Usage
+
+:::code-group
+
+```ts [index.ts]
+import { reconnect } from "starkweb/core";
+import { config } from "./config";
+
+await reconnect(config);
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Parameters
+
+```ts
+import { type ReconnectParameters } from "starkweb/core";
+```
+
+### connectors (optional)
+
+`readonly (CreateConnectorFn | Connector)[] | undefined`
+
+Array of connectors to attempt reconnection with. If not provided, will attempt to reconnect using all configured connectors.
+
+```ts [index.ts]
+import { reconnect } from "starkweb/core";
+import { injected } from "starkweb/connectors"; // [!code focus]
+import { config } from "./config";
+
+await reconnect(config, {
+  connectors: [injected()], // [!code focus]
+});
+```
+
+## Return Type
+
+```ts
+import { type ReconnectReturnType } from "starkweb/core";
+```
+
+Returns an array of successful connections, where each connection contains:
+
+### accounts
+
+`readonly [Address, ...Address[]]`
+
+Array of account addresses that were reconnected.
+
+### chainId
+
+`Hex`
+
+The chain ID that was reconnected to.
+
+### connector
+
+`Connector`
+
+The connector instance that was used for reconnection.
+
+## Example
+
+```ts [example.ts]
+import { reconnect, getAccount } from "starkweb/core";
+import { injected } from "starkweb/connectors";
+import { config } from "./config";
+
+// Attempt to reconnect with all available connectors
+const connections = await reconnect(config);
+if (connections.length > 0) {
+  console.log("Reconnected successfully");
+  console.log("Connected accounts:", connections[0].accounts);
+}
+
+// Reconnect with specific connectors
+const specificConnections = await reconnect(config, {
+  connectors: [injected()], // [!code focus]
+});
+```
+
+## Error
+
+```ts
+import { type ReconnectErrorType } from "starkweb/core";
+```
+
+## TanStack Query
+
+```ts
+import {
+  type ReconnectData,
+  type ReconnectVariables,
+  type ReconnectMutate,
+  type ReconnectMutateAsync,
+  reconnectMutationOptions,
+} from "starkweb/query";
+```
