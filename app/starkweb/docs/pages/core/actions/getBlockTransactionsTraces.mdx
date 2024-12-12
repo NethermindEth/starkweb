@@ -1,0 +1,125 @@
+---
+title: getBlockTransactionsTraces
+description: Action for getting block transaction traces
+---
+
+# getBlockTransactionsTraces
+
+Action for getting Starknet block transaction traces.
+
+## Import
+
+```ts
+import { getBlockTransactionsTraces } from "starkweb/core";
+```
+
+## Usage
+
+:::code-group
+
+```ts [index.ts]
+import { getBlockTransactionsTraces } from "starkweb/core";
+import { config } from "./config";
+
+const traces = await getBlockTransactionsTraces(config, {
+  blockIdentifier: "latest", // [!code focus]
+});
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Parameters
+
+```ts
+import { type GetBlockTransactionsTracesParameters } from "starkweb/core";
+```
+
+### blockIdentifier
+
+`BlockIdentifier`
+
+The block identifier (number, hash, or 'latest').
+
+```ts [index.ts]
+import { getBlockTransactionsTraces } from "starkweb/core";
+import { config } from "./config";
+
+const traces = await getBlockTransactionsTraces(config, {
+  blockIdentifier: "latest", // [!code focus]
+});
+```
+
+### chainId (optional)
+
+`Hex | undefined`
+
+The chain ID to get the traces from. If not provided, uses the current chain.
+
+```ts [index.ts]
+import { getBlockTransactionsTraces } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+const traces = await getBlockTransactionsTraces(config, {
+  blockIdentifier: "latest",
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Return Type
+
+```ts
+import { type GetBlockTransactionsTracesReturnType } from "starkweb/core";
+```
+
+Returns the block transaction traces information including:
+
+### chainId
+
+`Hex`
+
+The chain ID of the network.
+
+### traces
+
+`TransactionTrace[]`
+
+Array of transaction traces in the block.
+
+## Example
+
+```ts [example.ts]
+import { getBlockTransactionsTraces } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+// Get traces from latest block
+const traces = await getBlockTransactionsTraces(config, {
+  blockIdentifier: "latest", // [!code focus]
+});
+console.log("Number of traces:", traces.traces.length);
+
+// Get traces from specific block on mainnet
+const mainnetTraces = await getBlockTransactionsTraces(config, {
+  blockIdentifier: 123456n,
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Error
+
+```ts
+import { type GetBlockTransactionsTracesErrorType } from "starkweb/core";
+``` 

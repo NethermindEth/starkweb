@@ -1,0 +1,147 @@
+---
+title: getStarknetIdProfileData
+description: Action for getting profile data from Starknet ID
+---
+
+# getStarknetIdProfileData
+
+Action for getting profile data associated with a Starknet ID.
+
+## Import
+
+```ts
+import { getStarknetIdProfileData } from "starkweb/core";
+```
+
+## Usage
+
+:::code-group
+
+```ts [index.ts]
+import { getStarknetIdProfileData } from "starkweb/core";
+import { config } from "./config";
+
+const profileData = await getStarknetIdProfileData(config, {
+  starknetId: "0x123...", // [!code focus]
+});
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Parameters
+
+```ts
+import { type GetStarknetIdProfileDataParameters } from "starkweb/core";
+```
+
+### starknetId
+
+`Hex`
+
+The Starknet ID to get profile data for.
+
+```ts [index.ts]
+import { getStarknetIdProfileData } from "starkweb/core";
+import { config } from "./config";
+
+const profileData = await getStarknetIdProfileData(config, {
+  starknetId: "0x123...", // [!code focus]
+});
+```
+
+### chainId (optional)
+
+`Hex | undefined`
+
+The chain ID to query. If not provided, uses the current chain.
+
+```ts [index.ts]
+import { getStarknetIdProfileData } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+const profileData = await getStarknetIdProfileData(config, {
+  starknetId: "0x123...",
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Return Type
+
+```ts
+import { type GetStarknetIdProfileDataReturnType } from "starkweb/core";
+```
+
+Returns an object containing profile data including:
+
+### name
+
+`string`
+
+The name associated with the Starknet ID.
+
+### description
+
+`string`
+
+The profile description.
+
+### profilePicture
+
+`string`
+
+URL of the profile picture.
+
+## Example
+
+```ts [example.ts]
+import { getStarknetIdProfileData } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+// Get profile data on current chain
+const profileData = await getStarknetIdProfileData(config, {
+  starknetId: "0x123...", // [!code focus]
+});
+console.log("Profile:", {
+  name: profileData.name,
+  description: profileData.description,
+});
+
+// Get profile data on specific chain
+const mainnetProfile = await getStarknetIdProfileData(config, {
+  starknetId: "0x123...",
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Error
+
+```ts
+import { type GetStarknetIdProfileDataErrorType } from "starkweb/core";
+```
+
+## TanStack Query
+
+```ts
+import {
+  type GetStarknetIdProfileDataData,
+  type GetStarknetIdProfileDataOptions,
+  type GetStarknetIdProfileDataQueryFnData,
+  type GetStarknetIdProfileDataQueryKey,
+  getStarknetIdProfileDataQueryKey,
+  getStarknetIdProfileDataQueryOptions,
+} from "starkweb/query";
+```

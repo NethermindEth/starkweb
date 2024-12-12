@@ -1,0 +1,116 @@
+---
+title: Getting Started
+description: Getting started with StarkWeb Core
+---
+
+# Getting Started
+
+## Overview
+
+StarkWeb Core is a lightweight, composable, and type-safe library for Starknet. It provides everything you need to start working with Starknet:
+
+- First-class APIs for interacting with [Smart Contracts](https://docs.Starknet.io/documentation/architecture_and_concepts/Smart_Contracts/cairo-intro/)
+- Built-in support for popular wallets via [Connectors](/core/connectors/injected)
+- Caching, request deduplication, and persistence
+- Auto-refresh data on wallet, block, and network changes
+- Powerful data-fetching through [Actions](/core/actions/getAccount)
+
+## Installation
+
+Install StarkWeb Core and its peer dependencies:
+
+```bash
+npm install starkweb @Starknet-react/core Starknet
+```
+
+## Quick Start
+
+```ts
+import { createConfig, http } from "starkweb/core";
+import { mainnet, sepolia } from "starkweb/chains";
+
+// Create a config instance
+const config = createConfig({
+  chains: [mainnet, sepolia],
+  transports: {
+    [mainnet.chain_id]: http(),
+    [sepolia.chain_id]: http(),
+  },
+});
+
+// Start using StarkWeb Core!
+const balance = await config.getBalance({
+  address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
+});
+```
+
+## Core Concepts
+
+### Config
+
+The `Config` instance is the heart of StarkWeb Core. It manages:
+
+- Chain configurations
+- Transport clients (HTTP/WebSocket)
+- Connector state
+- Account state
+
+```ts
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+```
+
+### Chains
+
+Chains represent different Starknet networks. StarkWeb comes with commonly used chains built-in:
+
+```ts
+import { mainnet, sepolia } from "starkweb/chains";
+```
+
+### Connectors
+
+Connectors are bridges between StarkWeb and wallets. They handle account management and signing:
+
+```ts
+import { injected } from "starkweb/connectors";
+
+const connector = injected();
+await connector.connect();
+```
+
+### Actions
+
+Actions are functions that interact with Starknet:
+
+```ts
+import { getBalance, readContract } from 'starkweb/core'
+
+// Read account balance
+const balance = await getBalance(config, {
+  address: '0x123...'
+})
+
+// Read contract data
+const data = await readContract(config, {
+  address: '0x456...',
+  abi: [...],
+  functionName: 'balanceOf'
+})
+```
+
+## Next Steps
+
+For more information on what to do next, check out:
+
+- [**Configuration**](/core/configuration/createConfig) - Learn how to configure StarkWeb for your app
+- [**Actions**](/core/actions/getAccount) - Browse the collection of actions and learn how to use them
+- [**Connectors**](/core/connectors/injected) - Learn about different wallet connection options
+- [**TypeScript**](/typescript) - Get the most out of StarkWeb's type-safety and inference

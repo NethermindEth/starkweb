@@ -1,0 +1,143 @@
+---
+title: addDeclareTransaction
+description: Action for declaring a contract
+---
+
+# addDeclareTransaction
+
+Action for declaring a Starknet contract.
+
+## Import
+
+```ts
+import { addDeclareTransaction } from "starkweb/core";
+```
+
+## Usage
+
+:::code-group
+
+```ts [index.ts]
+import { addDeclareTransaction } from "starkweb/core";
+import { config } from "./config";
+
+const result = await addDeclareTransaction(config, {
+  contract: { // [!code focus]
+    program: "...",
+    entry_points_by_type: {...},
+    abi: [...],
+  },
+});
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Parameters
+
+```ts
+import { type AddDeclareTransactionParameters } from "starkweb/core";
+```
+
+### contract
+
+`Contract`
+
+The contract to declare.
+
+```ts [index.ts]
+import { addDeclareTransaction } from "starkweb/core";
+import { config } from "./config";
+
+const result = await addDeclareTransaction(config, {
+  contract: { // [!code focus]
+    program: "...",
+    entry_points_by_type: {...},
+    abi: [...],
+  },
+});
+```
+
+### chainId (optional)
+
+`Hex | undefined`
+
+The chain ID to declare the contract on. If not provided, uses the current chain.
+
+```ts [index.ts]
+import { addDeclareTransaction } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+const result = await addDeclareTransaction(config, {
+  contract: {...},
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Return Type
+
+```ts
+import { type AddDeclareTransactionReturnType } from "starkweb/core";
+```
+
+Returns the transaction information including:
+
+### chainId
+
+`Hex`
+
+The chain ID of the network.
+
+### transaction_hash
+
+`Hex`
+
+The hash of the declare transaction.
+
+### class_hash
+
+`Hex`
+
+The hash of the declared contract class.
+
+## Example
+
+```ts [example.ts]
+import { addDeclareTransaction } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+// Declare contract on current chain
+const result = await addDeclareTransaction(config, {
+  contract: { // [!code focus]
+    program: "...",
+    entry_points_by_type: {...},
+    abi: [...],
+  },
+});
+console.log("Class hash:", result.class_hash);
+
+// Declare contract on specific chain
+const mainnetResult = await addDeclareTransaction(config, {
+  contract: {...},
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Error
+
+```ts
+import { type AddDeclareTransactionErrorType } from "starkweb/core";
+``` 

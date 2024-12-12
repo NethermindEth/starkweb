@@ -1,0 +1,84 @@
+---
+title: getChains
+description: Action for getting configured chains
+---
+
+# getChains
+
+Action for getting all configured Starknet chains.
+
+## Import
+
+```ts
+import { getChains } from "starkweb/core";
+```
+
+## Usage
+
+:::code-group
+
+```ts [index.ts]
+import { getChains } from "starkweb/core";
+import { config } from "./config";
+
+const chains = getChains(config); // [!code focus]
+
+// Access chain information
+chains.forEach((chain) => {
+  console.log("Chain ID:", chain.chain_id);
+  console.log("Chain Name:", chain.name);
+});
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet, testnet } from "starkweb/chains"; // [!code focus]
+
+export const config = createConfig({
+  chains: [mainnet, testnet], // [!code focus]
+  transports: {
+    [mainnet.chain_id]: http(),
+    [testnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Return Type
+
+```ts
+import { type GetChainsReturnType } from "starkweb/core";
+```
+
+`readonly Chain[]`
+
+Array of configured chain objects, where each chain contains network information like chain ID, name, and other properties.
+
+## Example
+
+```ts [example.ts]
+import { getChains } from "starkweb/core";
+import { config } from "./config";
+
+const chains = getChains(config); // [!code focus]
+
+// Find specific chain
+const mainnet = chains.find((chain) => chain.chain_id === "0x534e5f4d41494e"); // [!code focus]
+if (mainnet) {
+  console.log("Mainnet configuration:", {
+    name: mainnet.name,
+    chainId: mainnet.chain_id,
+    rpcUrls: mainnet.rpcUrls,
+  });
+}
+
+// List all configured chains
+chains.forEach((chain, index) => {
+  // [!code focus]
+  console.log(`Chain ${index + 1}:`, {
+    name: chain.name,
+    chainId: chain.chain_id,
+  });
+});
+```

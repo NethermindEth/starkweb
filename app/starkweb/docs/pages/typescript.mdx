@@ -34,12 +34,14 @@ By default React Context does not work well with type inference. To support stro
 To set this up, add the following declaration to your project. Below, we co-locate the declaration merging and the `config` set up.
 
 ```ts
-import { createConfig, http } from "starkweb"
-import { mainnet, sepolia } from "starkweb/chains"
+import { createConfig, http } from "starkweb";
+import { mainnet, sepolia } from "starkweb/chains";
 
-declare module "starkweb" { // [!code focus]
-  interface Register { // [!code focus]
-    config: typeof config // [!code focus]
+declare module "starkweb" {
+  // [!code focus]
+  interface Register {
+    // [!code focus]
+    config: typeof config; // [!code focus]
   } // [!code focus]
 } // [!code focus]
 
@@ -49,7 +51,7 @@ export const config = createConfig({
     [mainnet.chain_id]: http(),
     [sepolia.chain_id]: http(),
   },
-})
+});
 ```
 
 Since the `Register` type is global, you only need to add it once in your project. Once set up, you will get strong type-safety across your entire project. For example, query hooks will type `chainId` based on your `config`'s `chains`.
@@ -59,27 +61,31 @@ Since the `Register` type is global, you only need to add it once in your projec
 For cases where you have more than one Wagmi `config` or don't want to use the declaration merging approach, you can pass a specific `config` directly to hooks via the `config` property.
 
 ```ts
-import { createConfig, http } from "starkweb"
-import { mainnet, sepolia } from "starkweb/chains"
+import { createConfig, http } from "starkweb";
+import { mainnet, sepolia } from "starkweb/chains";
 
-export const configA = createConfig({ // [!code focus]
+export const configA = createConfig({
+  // [!code focus]
   chains: [mainnet], // [!code focus]
-  transports: { // [!code focus]
+  transports: {
+    // [!code focus]
     [mainnet.chain_id]: http(), // [!code focus]
   }, // [!code focus]
-}) // [!code focus]
+}); // [!code focus]
 
-export const configB = createConfig({ // [!code focus]
+export const configB = createConfig({
+  // [!code focus]
   chains: [sepolia], // [!code focus]
-  transports: { // [!code focus]
+  transports: {
+    // [!code focus]
     [sepolia.chain_id]: http(), // [!code focus]
   }, // [!code focus]
-}) // [!code focus]
+}); // [!code focus]
 ```
 
 ## Const-Assert ABIs & Typed Data
 
-Starkweb can infer types based on [ABIs](https://book.cairo-lang.org/ch15-01-contract-class-abi.html) and [SNIP-12](https://github.com/starknet-io/SNIPs/blob/main/SNIPS/snip-12.md) Typed Data definitions. This achieves full end-to-end type-safety from your contracts to your frontend and enlightened developer experience by autocompleting ABI item names, catching misspellings, inferring argument and return types (including overloads), and more.
+Starkweb can infer types based on [ABIs](https://book.cairo-lang.org/ch15-01-contract-class-abi.html) and [SNIP-12](https://github.com/Starknet-io/SNIPs/blob/main/SNIPS/snip-12.md) Typed Data definitions. This achieves full end-to-end type-safety from your contracts to your frontend and enlightened developer experience by autocompleting ABI item names, catching misspellings, inferring argument and return types (including overloads), and more.
 
 For this to work, you must either [const-assert](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-4.html#const-assertions) ABIs and Typed Data (more info below) or define them inline. For example, `useContractRead`'s `abi` configuration parameter:
 

@@ -1,0 +1,153 @@
+---
+title: addDeployAccountTransaction
+description: Action for deploying an account contract
+---
+
+# addDeployAccountTransaction
+
+Action for deploying a Starknet account contract.
+
+## Import
+
+```ts
+import { addDeployAccountTransaction } from "starkweb/core";
+```
+
+## Usage
+
+:::code-group
+
+```ts [index.ts]
+import { addDeployAccountTransaction } from "starkweb/core";
+import { config } from "./config";
+
+const result = await addDeployAccountTransaction(config, {
+  classHash: "0x123...", // [!code focus]
+  constructorCalldata: ["0x456..."], // [!code focus]
+  addressSalt: "0x789...", // [!code focus]
+});
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Parameters
+
+```ts
+import { type AddDeployAccountTransactionParameters } from "starkweb/core";
+```
+
+### classHash
+
+`Hex`
+
+The class hash of the account contract to deploy.
+
+### constructorCalldata
+
+`readonly unknown[]`
+
+The constructor arguments for the account contract.
+
+### addressSalt
+
+`Hex`
+
+The salt used to determine the deployed address.
+
+```ts [index.ts]
+import { addDeployAccountTransaction } from "starkweb/core";
+import { config } from "./config";
+
+const result = await addDeployAccountTransaction(config, {
+  classHash: "0x123...", // [!code focus]
+  constructorCalldata: ["0x456..."], // [!code focus]
+  addressSalt: "0x789...", // [!code focus]
+});
+```
+
+### chainId (optional)
+
+`Hex | undefined`
+
+The chain ID to deploy the account on. If not provided, uses the current chain.
+
+```ts [index.ts]
+import { addDeployAccountTransaction } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+const result = await addDeployAccountTransaction(config, {
+  classHash: "0x123...",
+  constructorCalldata: ["0x456..."],
+  addressSalt: "0x789...",
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Return Type
+
+```ts
+import { type AddDeployAccountTransactionReturnType } from "starkweb/core";
+```
+
+Returns the transaction information including:
+
+### chainId
+
+`Hex`
+
+The chain ID of the network.
+
+### transaction_hash
+
+`Hex`
+
+The hash of the deploy transaction.
+
+### contract_address
+
+`Hex`
+
+The address where the account contract will be deployed.
+
+## Example
+
+```ts [example.ts]
+import { addDeployAccountTransaction } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+// Deploy account on current chain
+const result = await addDeployAccountTransaction(config, {
+  classHash: "0x123...", // [!code focus]
+  constructorCalldata: ["0x456..."],
+  addressSalt: "0x789...",
+});
+console.log("Contract address:", result.contract_address);
+
+// Deploy account on specific chain
+const mainnetResult = await addDeployAccountTransaction(config, {
+  classHash: "0x123...",
+  constructorCalldata: ["0x456..."],
+  addressSalt: "0x789...",
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Error
+
+```ts
+import { type AddDeployAccountTransactionErrorType } from "starkweb/core";
+``` 

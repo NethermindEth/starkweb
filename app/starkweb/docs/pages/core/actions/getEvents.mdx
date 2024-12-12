@@ -1,0 +1,144 @@
+---
+title: getEvents
+description: Action for getting contract events
+---
+
+# getEvents
+
+Action for getting Starknet contract events.
+
+## Import
+
+```ts
+import { getEvents } from "starkweb/core";
+```
+
+## Usage
+
+:::code-group
+
+```ts [index.ts]
+import { getEvents } from "starkweb/core";
+import { config } from "./config";
+
+const events = await getEvents(config, {
+  address: "0x123...", // [!code focus]
+  fromBlock: 1000n, // [!code focus]
+  toBlock: 2000n, // [!code focus]
+});
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Parameters
+
+```ts
+import { type GetEventsParameters } from "starkweb/core";
+```
+
+### address (optional)
+
+`Hex`
+
+The contract address to get events for.
+
+### fromBlock (optional)
+
+`bigint`
+
+The block number to start getting events from.
+
+### toBlock (optional)
+
+`bigint`
+
+The block number to stop getting events at.
+
+```ts [index.ts]
+import { getEvents } from "starkweb/core";
+import { config } from "./config";
+
+const events = await getEvents(config, {
+  address: "0x123...", // [!code focus]
+  fromBlock: 1000n, // [!code focus]
+  toBlock: 2000n, // [!code focus]
+});
+```
+
+### chainId (optional)
+
+`Hex | undefined`
+
+The chain ID to get events from. If not provided, uses the current chain.
+
+```ts [index.ts]
+import { getEvents } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+const events = await getEvents(config, {
+  address: "0x123...",
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Return Type
+
+```ts
+import { type GetEventsReturnType } from "starkweb/core";
+```
+
+Returns an array of events and chain ID:
+
+### events
+
+`Event[]`
+
+Array of events matching the filter criteria.
+
+### chainId
+
+`Hex`
+
+The chain ID of the network.
+
+## Example
+
+```ts [example.ts]
+import { getEvents } from "starkweb/core";
+import { mainnet, testnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+// Get events on current chain
+const events = await getEvents(config, {
+  address: "0x123...", // [!code focus]
+  fromBlock: 1000n, // [!code focus]
+  toBlock: 2000n, // [!code focus]
+});
+console.log("Events found:", events.length);
+
+// Get events on specific chain
+const mainnetEvents = await getEvents(config, {
+  address: "0x123...",
+  fromBlock: 1000n,
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Error
+
+```ts
+import { type GetEventsErrorType } from "starkweb/core";
+``` 

@@ -1,0 +1,148 @@
+---
+title: getStarknetIdPfpVerifierData
+description: Action for getting PFP verifier data from Starknet ID
+---
+
+# getStarknetIdPfpVerifierData
+
+Action for getting profile picture (PFP) verifier data associated with a Starknet ID.
+
+## Import
+
+```ts
+import { getStarknetIdPfpVerifierData } from "starkweb/core";
+```
+
+## Usage
+
+:::code-group
+
+```ts [index.ts]
+import { getStarknetIdPfpVerifierData } from "starkweb/core";
+import { config } from "./config";
+
+const pfpData = await getStarknetIdPfpVerifierData(config, {
+  starknetId: "0x123...", // [!code focus]
+  field: "profile", // [!code focus]
+  verifier: "0x456...", // [!code focus]
+});
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Parameters
+
+```ts
+import { type GetStarknetIdPfpVerifierDataParameters } from "starkweb/core";
+```
+
+### starknetId
+
+`Hex`
+
+The Starknet ID to get PFP verifier data for.
+
+### field
+
+`string`
+
+The specific field of PFP data to retrieve.
+
+### verifier
+
+`Hex`
+
+The address of the verifier.
+
+```ts [index.ts]
+import { getStarknetIdPfpVerifierData } from "starkweb/core";
+import { config } from "./config";
+
+const pfpData = await getStarknetIdPfpVerifierData(config, {
+  starknetId: "0x123...", // [!code focus]
+  field: "profile", // [!code focus]
+  verifier: "0x456...", // [!code focus]
+});
+```
+
+### chainId (optional)
+
+`Hex | undefined`
+
+The chain ID to query. If not provided, uses the current chain.
+
+```ts [index.ts]
+import { getStarknetIdPfpVerifierData } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+const pfpData = await getStarknetIdPfpVerifierData(config, {
+  starknetId: "0x123...",
+  field: "profile",
+  verifier: "0x456...",
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Return Type
+
+```ts
+import { type GetStarknetIdPfpVerifierDataReturnType } from "starkweb/core";
+```
+
+Returns the PFP verifier data value for the specified field and verifier.
+
+## Example
+
+```ts [example.ts]
+import { getStarknetIdPfpVerifierData } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+// Get PFP verifier data on current chain
+const pfpData = await getStarknetIdPfpVerifierData(config, {
+  starknetId: "0x123...", // [!code focus]
+  field: "profile", // [!code focus]
+  verifier: "0x456...", // [!code focus]
+});
+console.log("PFP verifier data:", pfpData);
+
+// Get PFP verifier data on specific chain
+const mainnetPfpData = await getStarknetIdPfpVerifierData(config, {
+  starknetId: "0x123...",
+  field: "profile",
+  verifier: "0x456...",
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Error
+
+```ts
+import { type GetStarknetIdPfpVerifierDataErrorType } from "starkweb/core";
+```
+
+## TanStack Query
+
+```ts
+import {
+  type GetStarknetIdPfpVerifierDataData,
+  type GetStarknetIdPfpVerifierDataOptions,
+  type GetStarknetIdPfpVerifierDataQueryFnData,
+  type GetStarknetIdPfpVerifierDataQueryKey,
+  getStarknetIdPfpVerifierDataQueryKey,
+  getStarknetIdPfpVerifierDataQueryOptions,
+} from "starkweb/query";
+```

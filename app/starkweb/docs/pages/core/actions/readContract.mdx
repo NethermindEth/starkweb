@@ -1,0 +1,161 @@
+---
+title: readContract
+description: Action for reading from a contract
+---
+
+# readContract
+
+Action for reading data from a Starknet contract.
+
+## Import
+
+```ts
+import { readContract } from "starkweb/core";
+```
+
+## Usage
+
+:::code-group
+
+```ts [index.ts]
+import { readContract } from "starkweb/core";
+import { erc20Abi } from "./abis/erc20"; // [!code focus]
+import { config } from "./config";
+
+const balance = await readContract(config, {
+  address: "0x123...", // [!code focus]
+  abi: erc20Abi, // [!code focus]
+  functionName: "balanceOf", // [!code focus]
+  args: ["0x456..."], // [!code focus]
+});
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Parameters
+
+```ts
+import { type ReadContractParameters } from "starkweb/core";
+```
+
+### address
+
+`Address`
+
+The address of the contract to read from.
+
+### abi
+
+`Abi`
+
+The ABI of the contract.
+
+### functionName
+
+`string`
+
+The name of the function to call.
+
+### args (optional)
+
+`readonly unknown[]`
+
+The arguments to pass to the function.
+
+```ts [index.ts]
+import { readContract } from "starkweb/core";
+import { erc20Abi } from "./abis/erc20"; // [!code focus]
+import { config } from "./config";
+
+const result = await readContract(config, {
+  address: "0x123...",
+  abi: erc20Abi, // [!code focus]
+  functionName: "balanceOf",
+  args: ["0x456..."], // [!code focus]
+});
+```
+
+### chainId (optional)
+
+`Hex | undefined`
+
+The chain ID to read from. If not provided, uses the current chain.
+
+```ts [index.ts]
+import { readContract } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+const result = await readContract(config, {
+  address: "0x123...",
+  abi: [...],
+  functionName: "balanceOf",
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Return Type
+
+```ts
+import { type ReadContractReturnType } from "starkweb/core";
+```
+
+Returns the data from the contract function call. The type depends on the function's return type as defined in the ABI.
+
+## Example
+
+```ts [example.ts]
+import { readContract } from "starkweb/core";
+import { erc20Abi } from "./abis/erc20"; // [!code focus]
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+// Read ERC20 balance
+const balance = await readContract(config, {
+  address: "0x123...",
+  abi: erc20Abi, // [!code focus]
+  functionName: "balanceOf",
+  args: ["0x456..."],
+});
+console.log("Token balance:", balance);
+
+// Read from specific chain
+const totalSupply = await readContract(config, {
+  address: "0x123...",
+  abi: erc20Abi,
+  functionName: "totalSupply",
+  chainId: mainnet.chain_id, // [!code focus]
+});
+console.log("Total supply:", totalSupply);
+```
+
+## Error
+
+```ts
+import { type ReadContractErrorType } from "starkweb/core";
+```
+
+## TanStack Query
+
+```ts
+import {
+  type ReadContractData,
+  type ReadContractOptions,
+  type ReadContractQueryFnData,
+  type ReadContractQueryKey,
+  type ReadContractErrorType,
+  readContractQueryOptions,
+} from "starkweb/query";
+```

@@ -1,0 +1,155 @@
+---
+title: getTransactionReceipt
+description: Action for getting transaction receipt
+---
+
+# getTransactionReceipt
+
+Action for getting a Starknet transaction receipt.
+
+## Import
+
+```ts
+import { getTransactionReceipt } from "starkweb/core";
+```
+
+## Usage
+
+:::code-group
+
+```ts [index.ts]
+import { getTransactionReceipt } from "starkweb/core";
+import { config } from "./config";
+
+const receipt = await getTransactionReceipt(config, {
+  transactionHash: "0x123...", // [!code focus]
+});
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Parameters
+
+```ts
+import { type GetTransactionReceiptParameters } from "starkweb/core";
+```
+
+### transactionHash
+
+`Hex`
+
+The hash of the transaction to get the receipt for.
+
+```ts [index.ts]
+import { getTransactionReceipt } from "starkweb/core";
+import { config } from "./config";
+
+const receipt = await getTransactionReceipt(config, {
+  transactionHash: "0x123...", // [!code focus]
+});
+```
+
+### chainId (optional)
+
+`Hex | undefined`
+
+The chain ID to get the receipt from. If not provided, uses the current chain.
+
+```ts [index.ts]
+import { getTransactionReceipt } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+const receipt = await getTransactionReceipt(config, {
+  transactionHash: "0x123...",
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Return Type
+
+```ts
+import { type GetTransactionReceiptReturnType } from "starkweb/core";
+```
+
+Returns the transaction receipt information including:
+
+### chainId
+
+`Hex`
+
+The chain ID of the network.
+
+### transaction_hash
+
+`Hex`
+
+The hash of the transaction.
+
+### status
+
+`TransactionStatus`
+
+The status of the transaction (e.g., 'ACCEPTED_ON_L2', 'PENDING').
+
+### block_number
+
+`bigint`
+
+The block number where the transaction was included.
+
+### events
+
+`Event[]`
+
+Array of events emitted by the transaction.
+
+## Example
+
+```ts [example.ts]
+import { getTransactionReceipt } from "starkweb/core";
+import { mainnet, testnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+// Get receipt on current chain
+const receipt = await getTransactionReceipt(config, {
+  transactionHash: "0x123...", // [!code focus]
+});
+console.log("Transaction status:", receipt.status);
+
+// Get receipt on specific chain
+const mainnetReceipt = await getTransactionReceipt(config, {
+  transactionHash: "0x456...",
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Error
+
+```ts
+import { type GetTransactionReceiptErrorType } from "starkweb/core";
+```
+
+## TanStack Query
+
+```ts
+import {
+  type GetTransactionReceiptData,
+  type GetTransactionReceiptQueryFnData,
+  type GetTransactionReceiptQueryKey,
+  getTransactionReceiptQueryKey,
+  getTransactionReceiptQueryOptions,
+} from "starkweb/query";
+``` 

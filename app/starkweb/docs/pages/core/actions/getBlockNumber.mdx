@@ -1,0 +1,114 @@
+---
+title: getBlockNumber
+description: Action for getting the current block number
+---
+
+# getBlockNumber
+
+Action for getting the latest Starknet block number.
+
+## Import
+
+```ts
+import { getBlockNumber } from "starkweb/core";
+```
+
+## Usage
+
+:::code-group
+
+```ts [index.ts]
+import { getBlockNumber } from "starkweb/core";
+import { config } from "./config";
+
+const blockNumber = await getBlockNumber(config); // [!code focus]
+console.log("Current block:", blockNumber);
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Parameters
+
+```ts
+import { type GetBlockNumberParameters } from "starkweb/core";
+```
+
+### chainId (optional)
+
+`Hex | undefined`
+
+The chain ID to get the block number for. If not provided, will use the current chain.
+
+```ts [index.ts]
+import { getBlockNumber } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+const blockNumber = await getBlockNumber(config, {
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Return Type
+
+```ts
+import { type GetBlockNumberReturnType } from "starkweb/core";
+```
+
+`bigint`
+
+The current block number.
+
+## Example
+
+```ts [example.ts]
+import { getBlockNumber } from "starkweb/core";
+import { mainnet, testnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+// Get block number for current chain
+const currentBlock = await getBlockNumber(config); // [!code focus]
+console.log("Current block:", currentBlock);
+
+// Get block number for specific chain
+const mainnetBlock = await getBlockNumber(config, {
+  chainId: mainnet.chain_id, // [!code focus]
+});
+console.log("Mainnet block:", mainnetBlock);
+
+// Get block number for testnet
+const testnetBlock = await getBlockNumber(config, {
+  chainId: testnet.chain_id, // [!code focus]
+});
+console.log("Testnet block:", testnetBlock);
+```
+
+## Error
+
+```ts
+import { type GetBlockNumberErrorType } from "starkweb/core";
+```
+
+## TanStack Query
+
+```ts
+import {
+  type GetBlockNumberData,
+  type GetBlockNumberQueryFnData,
+  type GetBlockNumberQueryKey,
+  getBlockNumberQueryKey,
+  getBlockNumberQueryOptions,
+} from "starkweb/query";
+```

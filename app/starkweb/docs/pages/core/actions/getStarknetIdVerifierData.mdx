@@ -1,0 +1,150 @@
+---
+title: getStarknetIdVerifierData
+description: Action for getting verifier data from Starknet ID
+---
+
+# getStarknetIdVerifierData
+
+Action for getting verifier data associated with a Starknet ID.
+
+## Import
+
+```ts
+import { getStarknetIdVerifierData } from "starkweb/core";
+```
+
+## Usage
+
+:::code-group
+
+```ts [index.ts]
+import { getStarknetIdVerifierData } from "starkweb/core";
+import { config } from "./config";
+
+const verifierData = await getStarknetIdVerifierData(config, {
+  starknetId: "0x123...", // [!code focus]
+  field: "twitter", // [!code focus]
+  verifier: "0x456...", // [!code focus]
+});
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Parameters
+
+```ts
+import { type GetStarknetIdVerifierDataParameters } from "starkweb/core";
+```
+
+### starknetId
+
+`Hex`
+
+The Starknet ID to get verifier data for.
+
+### field
+
+`string`
+
+The specific field of verifier data to retrieve.
+
+### verifier
+
+`Hex`
+
+The address of the verifier.
+
+```ts [index.ts]
+import { getStarknetIdVerifierData } from "starkweb/core";
+import { config } from "./config";
+
+const verifierData = await getStarknetIdVerifierData(config, {
+  starknetId: "0x123...", // [!code focus]
+  field: "twitter", // [!code focus]
+  verifier: "0x456...", // [!code focus]
+});
+```
+
+### chainId (optional)
+
+`Hex | undefined`
+
+The chain ID to query. If not provided, uses the current chain.
+
+```ts [index.ts]
+import { getStarknetIdVerifierData } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+const verifierData = await getStarknetIdVerifierData(config, {
+  starknetId: "0x123...",
+  field: "twitter",
+  verifier: "0x456...",
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Return Type
+
+```ts
+import { type GetStarknetIdVerifierDataReturnType } from "starkweb/core";
+```
+
+`string`
+
+The verifier data value for the specified field.
+
+## Example
+
+```ts [example.ts]
+import { getStarknetIdVerifierData } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+// Get verifier data on current chain
+const twitterVerification = await getStarknetIdVerifierData(config, {
+  starknetId: "0x123...", // [!code focus]
+  field: "twitter", // [!code focus]
+  verifier: "0x456...", // [!code focus]
+});
+console.log("Twitter verification:", twitterVerification);
+
+// Get verifier data on specific chain
+const mainnetVerification = await getStarknetIdVerifierData(config, {
+  starknetId: "0x123...",
+  field: "twitter",
+  verifier: "0x456...",
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Error
+
+```ts
+import { type GetStarknetIdVerifierDataErrorType } from "starkweb/core";
+```
+
+## TanStack Query
+
+```ts
+import {
+  type GetStarknetIdVerifierDataData,
+  type GetStarknetIdVerifierDataOptions,
+  type GetStarknetIdVerifierDataQueryFnData,
+  type GetStarknetIdVerifierDataQueryKey,
+  getStarknetIdVerifierDataQueryKey,
+  getStarknetIdVerifierDataQueryOptions,
+} from "starkweb/query";
+```

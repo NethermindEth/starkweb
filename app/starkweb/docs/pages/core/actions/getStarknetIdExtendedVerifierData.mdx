@@ -1,0 +1,159 @@
+---
+title: getStarknetIdExtendedVerifierData
+description: Action for getting extended verifier data from Starknet ID
+---
+
+# getStarknetIdExtendedVerifierData
+
+Action for getting extended verifier data associated with a Starknet ID.
+
+## Import
+
+```ts
+import { getStarknetIdExtendedVerifierData } from "starkweb/core";
+```
+
+## Usage
+
+:::code-group
+
+```ts [index.ts]
+import { getStarknetIdExtendedVerifierData } from "starkweb/core";
+import { config } from "./config";
+
+const verifierData = await getStarknetIdExtendedVerifierData(config, {
+  starknetId: "0x123...", // [!code focus]
+  field: "twitter", // [!code focus]
+  domain: "app", // [!code focus]
+  verifier: "0x456...", // [!code focus]
+});
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Parameters
+
+```ts
+import { type GetStarknetIdExtendedVerifierDataParameters } from "starkweb/core";
+```
+
+### starknetId
+
+`Hex`
+
+The Starknet ID to get extended verifier data for.
+
+### field
+
+`string`
+
+The specific field of verifier data to retrieve.
+
+### domain
+
+`string`
+
+The domain for the extended data.
+
+### verifier
+
+`Hex`
+
+The address of the verifier.
+
+```ts [index.ts]
+import { getStarknetIdExtendedVerifierData } from "starkweb/core";
+import { config } from "./config";
+
+const verifierData = await getStarknetIdExtendedVerifierData(config, {
+  starknetId: "0x123...", // [!code focus]
+  field: "twitter", // [!code focus]
+  domain: "app", // [!code focus]
+  verifier: "0x456...", // [!code focus]
+});
+```
+
+### chainId (optional)
+
+`Hex | undefined`
+
+The chain ID to query. If not provided, uses the current chain.
+
+```ts [index.ts]
+import { getStarknetIdExtendedVerifierData } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+const verifierData = await getStarknetIdExtendedVerifierData(config, {
+  starknetId: "0x123...",
+  field: "twitter",
+  domain: "app",
+  verifier: "0x456...",
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Return Type
+
+```ts
+import { type GetStarknetIdExtendedVerifierDataReturnType } from "starkweb/core";
+```
+
+Returns the extended verifier data value for the specified field, domain, and verifier.
+
+## Example
+
+```ts [example.ts]
+import { getStarknetIdExtendedVerifierData } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+// Get extended verifier data on current chain
+const verifierData = await getStarknetIdExtendedVerifierData(config, {
+  starknetId: "0x123...", // [!code focus]
+  field: "twitter", // [!code focus]
+  domain: "app", // [!code focus]
+  verifier: "0x456...", // [!code focus]
+});
+console.log("Extended verifier data:", verifierData);
+
+// Get extended verifier data on specific chain
+const mainnetData = await getStarknetIdExtendedVerifierData(config, {
+  starknetId: "0x123...",
+  field: "twitter",
+  domain: "app",
+  verifier: "0x456...",
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Error
+
+```ts
+import { type GetStarknetIdExtendedVerifierDataErrorType } from "starkweb/core";
+```
+
+## TanStack Query
+
+```ts
+import {
+  type GetStarknetIdExtendedVerifierDataData,
+  type GetStarknetIdExtendedVerifierDataOptions,
+  type GetStarknetIdExtendedVerifierDataQueryFnData,
+  type GetStarknetIdExtendedVerifierDataQueryKey,
+  getStarknetIdExtendedVerifierDataQueryKey,
+  getStarknetIdExtendedVerifierDataQueryOptions,
+} from "starkweb/query";
+```

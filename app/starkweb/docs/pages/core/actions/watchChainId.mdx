@@ -1,0 +1,100 @@
+---
+title: watchChainId
+description: Action for watching chain ID changes
+---
+
+# watchChainId
+
+Action for watching changes to the connected Starknet chain ID.
+
+## Import
+
+```ts
+import { watchChainId } from "starkweb/core";
+```
+
+## Usage
+
+:::code-group
+
+```ts [index.ts]
+import { watchChainId } from "starkweb/core";
+import { config } from "./config";
+
+const unwatch = watchChainId(config, {
+  onChange(chainId, prevChainId) { // [!code focus]
+    console.log('Chain changed:', chainId); // [!code focus]
+    console.log('Previous chain:', prevChainId); // [!code focus]
+  }, // [!code focus]
+});
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Parameters
+
+```ts
+import { type WatchChainIdParameters } from "starkweb/core";
+```
+
+### onChange
+
+`(chainId: Hex, prevChainId: Hex) => void`
+
+Callback function that is called when the chain ID changes. Receives the new chain ID and previous chain ID as arguments.
+
+```ts [index.ts]
+import { watchChainId } from "starkweb/core";
+import { config } from "./config";
+
+const unwatch = watchChainId(config, {
+  onChange(chainId, prevChainId) { // [!code focus]
+    console.log('Chain changed:', chainId); // [!code focus]
+    console.log('Previous chain:', prevChainId); // [!code focus]
+  }, // [!code focus]
+});
+```
+
+## Return Type
+
+```ts
+import { type WatchChainIdReturnType } from "starkweb/core";
+```
+
+`() => void`
+
+Function to stop watching for chain ID changes.
+
+## Example
+
+```ts [example.ts]
+import { watchChainId } from "starkweb/core";
+import { mainnet, testnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+// Start watching chain ID changes
+const unwatch = watchChainId(config, {
+  onChange(chainId, prevChainId) { // [!code focus]
+    if (chainId === mainnet.chain_id) {
+      console.log('Switched to mainnet');
+    } else if (chainId === testnet.chain_id) {
+      console.log('Switched to testnet');
+    }
+  }, // [!code focus]
+});
+
+// Later: stop watching
+unwatch();
+``` 

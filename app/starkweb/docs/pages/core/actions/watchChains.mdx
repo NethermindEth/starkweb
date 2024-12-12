@@ -1,0 +1,99 @@
+---
+title: watchChains
+description: Action for watching chain configuration changes
+---
+
+# watchChains
+
+Action for watching changes to the configured Starknet chains.
+
+## Import
+
+```ts
+import { watchChains } from "starkweb/core";
+```
+
+## Usage
+
+:::code-group
+
+```ts [index.ts]
+import { watchChains } from "starkweb/core";
+import { config } from "./config";
+
+const unwatch = watchChains(config, {
+  onChange(chains, prevChains) { // [!code focus]
+    console.log('Chains changed:', chains); // [!code focus]
+    console.log('Previous chains:', prevChains); // [!code focus]
+  }, // [!code focus]
+});
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Parameters
+
+```ts
+import { type WatchChainsParameters } from "starkweb/core";
+```
+
+### onChange
+
+`(chains: GetChainsReturnType, prevChains: GetChainsReturnType) => void`
+
+Callback function that is called when the chain configuration changes. Receives the new chains and previous chains as arguments.
+
+```ts [index.ts]
+import { watchChains } from "starkweb/core";
+import { config } from "./config";
+
+const unwatch = watchChains(config, {
+  onChange(chains, prevChains) { // [!code focus]
+    console.log('Chains changed:', chains); // [!code focus]
+    console.log('Previous chains:', prevChains); // [!code focus]
+  }, // [!code focus]
+});
+```
+
+## Return Type
+
+```ts
+import { type WatchChainsReturnType } from "starkweb/core";
+```
+
+`() => void`
+
+Function to stop watching for chain configuration changes.
+
+## Example
+
+```ts [example.ts]
+import { watchChains } from "starkweb/core";
+import { mainnet, testnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+// Start watching chain configuration changes
+const unwatch = watchChains(config, {
+  onChange(chains, prevChains) { // [!code focus]
+    const addedChains = chains.filter(
+      chain => !prevChains.find(prev => prev.chain_id === chain.chain_id)
+    );
+    console.log('Added chains:', addedChains);
+  }, // [!code focus]
+});
+
+// Later: stop watching
+unwatch();
+``` 

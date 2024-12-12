@@ -1,0 +1,170 @@
+---
+title: getStarknetIdUnboundedVerifierData
+description: Action for getting unbounded verifier data from Starknet ID
+---
+
+# getStarknetIdUnboundedVerifierData
+
+Action for getting unbounded verifier data associated with a Starknet ID.
+
+## Import
+
+```ts
+import { getStarknetIdUnboundedVerifierData } from "starkweb/core";
+```
+
+## Usage
+
+:::code-group
+
+```ts [index.ts]
+import { getStarknetIdUnboundedVerifierData } from "starkweb/core";
+import { config } from "./config";
+
+const verifierData = await getStarknetIdUnboundedVerifierData(config, {
+  starknetId: "0x123...", // [!code focus]
+  field: "twitter", // [!code focus]
+  domain: "app", // [!code focus]
+  selector: "verified", // [!code focus]
+  verifier: "0x456...", // [!code focus]
+});
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Parameters
+
+```ts
+import { type GetStarknetIdUnboundedVerifierDataParameters } from "starkweb/core";
+```
+
+### starknetId
+
+`Hex`
+
+The Starknet ID to get unbounded verifier data for.
+
+### field
+
+`string`
+
+The specific field of verifier data to retrieve.
+
+### domain
+
+`string`
+
+The domain for the unbounded data.
+
+### selector
+
+`string`
+
+The selector for the specific data field.
+
+### verifier
+
+`Hex`
+
+The address of the verifier.
+
+```ts [index.ts]
+import { getStarknetIdUnboundedVerifierData } from "starkweb/core";
+import { config } from "./config";
+
+const verifierData = await getStarknetIdUnboundedVerifierData(config, {
+  starknetId: "0x123...", // [!code focus]
+  field: "twitter", // [!code focus]
+  domain: "app", // [!code focus]
+  selector: "verified", // [!code focus]
+  verifier: "0x456...", // [!code focus]
+});
+```
+
+### chainId (optional)
+
+`Hex | undefined`
+
+The chain ID to query. If not provided, uses the current chain.
+
+```ts [index.ts]
+import { getStarknetIdUnboundedVerifierData } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+const verifierData = await getStarknetIdUnboundedVerifierData(config, {
+  starknetId: "0x123...",
+  field: "twitter",
+  domain: "app",
+  selector: "verified",
+  verifier: "0x456...",
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Return Type
+
+```ts
+import { type GetStarknetIdUnboundedVerifierDataReturnType } from "starkweb/core";
+```
+
+Returns the unbounded verifier data value for the specified field, domain, selector, and verifier.
+
+## Example
+
+```ts [example.ts]
+import { getStarknetIdUnboundedVerifierData } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+// Get unbounded verifier data on current chain
+const verifierData = await getStarknetIdUnboundedVerifierData(config, {
+  starknetId: "0x123...", // [!code focus]
+  field: "twitter", // [!code focus]
+  domain: "app", // [!code focus]
+  selector: "verified", // [!code focus]
+  verifier: "0x456...", // [!code focus]
+});
+console.log("Unbounded verifier data:", verifierData);
+
+// Get unbounded verifier data on specific chain
+const mainnetData = await getStarknetIdUnboundedVerifierData(config, {
+  starknetId: "0x123...",
+  field: "twitter",
+  domain: "app",
+  selector: "verified",
+  verifier: "0x456...",
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Error
+
+```ts
+import { type GetStarknetIdUnboundedVerifierDataErrorType } from "starkweb/core";
+``` 
+
+## TanStack Query
+
+```ts
+import {
+  type GetStarknetIdUnboundedVerifierDataData,
+  type GetStarknetIdUnboundedVerifierDataOptions,
+  type GetStarknetIdUnboundedVerifierDataQueryFnData,
+  type GetStarknetIdUnboundedVerifierDataQueryKey,
+  getStarknetIdUnboundedVerifierDataQueryKey,
+  getStarknetIdUnboundedVerifierDataQueryOptions,
+} from "starkweb/query";
+```

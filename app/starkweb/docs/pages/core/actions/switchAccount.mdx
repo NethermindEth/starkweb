@@ -1,0 +1,122 @@
+---
+title: switchAccount
+description: Action for switching between accounts in a wallet
+---
+
+# switchAccount
+
+Action for switching between accounts in a StarkNet wallet.
+
+## Import
+
+```ts
+import { switchAccount } from "starkweb/core";
+```
+
+## Usage
+
+:::code-group
+
+```ts [index.ts]
+import { switchAccount } from "starkweb/core";
+import { injected } from "starkweb/connectors"; // [!code focus]
+import { config } from "./config";
+
+const connector = injected(); // [!code focus]
+await switchAccount(config, {
+  connector, // [!code focus]
+});
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Parameters
+
+```ts
+import { type SwitchAccountParameters } from "starkweb/core";
+```
+
+### connector
+
+`Connector`
+
+The connector instance to use for switching accounts.
+
+```ts [index.ts]
+import { switchAccount } from "starkweb/core";
+import { injected } from "starkweb/connectors"; // [!code focus]
+import { config } from "./config";
+
+const connector = injected(); // [!code focus]
+await switchAccount(config, {
+  connector, // [!code focus]
+});
+```
+
+## Return Type
+
+```ts
+import { type SwitchAccountReturnType } from "starkweb/core";
+```
+
+### accounts
+
+`readonly [Address, ...Address[]]`
+
+Array of account addresses after switching.
+
+### chainId
+
+`Hex`
+
+The chain ID of the switched account.
+
+## Example
+
+```ts [example.ts]
+import { switchAccount, getAccount } from "starkweb/core";
+import { injected } from "starkweb/connectors"; // [!code focus]
+import { config } from "./config";
+
+// Get current account info
+const account = getAccount(config);
+
+// Switch account using injected connector
+const connector = injected(); // [!code focus]
+const result = await switchAccount(config, {
+  connector, // [!code focus]
+});
+
+console.log("Switched to accounts:", result.accounts);
+console.log("Chain ID:", result.chainId);
+```
+
+## Error
+
+```ts
+import { type SwitchAccountErrorType } from "starkweb/core";
+```
+
+## TanStack Query
+
+```ts
+import {
+  type SwitchAccountData,
+  type SwitchAccountVariables,
+  type SwitchAccountMutate,
+  type SwitchAccountMutateAsync,
+  switchAccountMutationOptions,
+} from "starkweb/query";
+```

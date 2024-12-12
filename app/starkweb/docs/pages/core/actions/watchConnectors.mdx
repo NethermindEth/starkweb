@@ -1,0 +1,98 @@
+---
+title: watchConnectors
+description: Action for watching connector changes
+---
+
+# watchConnectors
+
+Action for watching changes to the available Starknet connectors.
+
+## Import
+
+```ts
+import { watchConnectors } from "starkweb/core";
+```
+
+## Usage
+
+:::code-group
+
+```ts [index.ts]
+import { watchConnectors } from "starkweb/core";
+import { config } from "./config";
+
+const unwatch = watchConnectors(config, {
+  onChange(connectors, prevConnectors) { // [!code focus]
+    console.log('Connectors changed:', connectors); // [!code focus]
+    console.log('Previous connectors:', prevConnectors); // [!code focus]
+  }, // [!code focus]
+});
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Parameters
+
+```ts
+import { type WatchConnectorsParameters } from "starkweb/core";
+```
+
+### onChange
+
+`(connectors: GetConnectorsReturnType, prevConnectors: GetConnectorsReturnType) => void`
+
+Callback function that is called when the available connectors change. Receives the new connectors and previous connectors as arguments.
+
+```ts [index.ts]
+import { watchConnectors } from "starkweb/core";
+import { config } from "./config";
+
+const unwatch = watchConnectors(config, {
+  onChange(connectors, prevConnectors) { // [!code focus]
+    console.log('Connectors changed:', connectors); // [!code focus]
+    console.log('Previous connectors:', prevConnectors); // [!code focus]
+  }, // [!code focus]
+});
+```
+
+## Return Type
+
+```ts
+import { type WatchConnectorsReturnType } from "starkweb/core";
+```
+
+`() => void`
+
+Function to stop watching for connector changes.
+
+## Example
+
+```ts [example.ts]
+import { watchConnectors } from "starkweb/core";
+import { config } from "./config";
+
+// Start watching connector changes
+const unwatch = watchConnectors(config, {
+  onChange(connectors, prevConnectors) { // [!code focus]
+    const newConnectors = connectors.filter(
+      connector => !prevConnectors.find(prev => prev.id === connector.id)
+    );
+    console.log('New connectors:', newConnectors);
+  }, // [!code focus]
+});
+
+// Later: stop watching
+unwatch();
+``` 

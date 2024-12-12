@@ -1,0 +1,122 @@
+---
+title: call
+description: Action for making a contract call
+---
+
+# call
+
+Action for making a read-only call to a Starknet contract.
+
+## Import
+
+```ts
+import { call } from 'starkweb/core'
+```
+
+## Usage
+
+```ts
+import { call } from 'starkweb/core'
+import { config } from './config'
+
+const result = await call(config, {
+  address: '0x123...',
+  abi: [...],
+  functionName: 'balanceOf',
+  args: ['0x456...']
+})
+```
+
+## Parameters
+
+```ts
+import { type CallParameters } from "starkweb/core";
+```
+
+### address
+
+`Address`
+
+The address of the contract to call.
+
+### abi
+
+`Abi`
+
+The ABI of the contract.
+
+### functionName
+
+`string`
+
+The name of the function to call.
+
+### args (optional)
+
+`readonly unknown[]`
+
+The arguments to pass to the function.
+
+### blockIdentifier (optional)
+
+`BlockIdentifier`
+
+The block at which to perform the call (number, hash, or 'latest').
+
+### chainId (optional)
+
+`Hex | undefined`
+
+The chain ID to make the call on.
+
+## Return Type
+
+```ts
+import { type CallReturnType } from "starkweb/core";
+```
+
+Returns the result of the contract call.
+
+## Example
+
+```ts [example.ts]
+import { call } from "starkweb/core";
+import { erc20Abi } from "./abis/erc20"; // [!code focus]
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+// Call at latest block
+const balance = await call(config, {
+  address: "0x123...",
+  abi: erc20Abi, // [!code focus]
+  functionName: "balanceOf",
+  args: ["0x456..."],
+});
+
+// Call on specific chain
+const supply = await call(config, {
+  address: "0x123...",
+  abi: erc20Abi,
+  functionName: "totalSupply",
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Error
+
+```ts
+import { type CallErrorType } from "starkweb/core";
+```
+
+## TanStack Query
+
+```ts
+import {
+  type CallData,
+  type CallOptions,
+  type CallQueryFnData,
+  type CallQueryKey,
+  callQueryKey,
+  callQueryOptions,
+} from "starkweb/query";
+``` 

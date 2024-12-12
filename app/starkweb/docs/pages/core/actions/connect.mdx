@@ -1,0 +1,134 @@
+---
+title: connect
+description: Action for connecting to a wallet
+---
+
+# connect
+
+Action for connecting to a StarkNet wallet.
+
+## Import
+
+```ts
+import { connect } from "starkweb/core"
+```
+
+## Usage
+
+:::code-group
+```ts [index.ts]
+import { connect } from "starkweb/core"
+import { injected } from "starkweb/connectors"
+import { config } from "./config"
+
+const result = await connect(config, {
+  connector: injected()
+})
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core"
+import { mainnet } from "starkweb/chains"
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http()
+  }
+})
+```
+:::
+
+## Parameters
+
+```ts
+import { type ConnectParameters } from "starkweb/core"
+```
+
+### connector
+
+`Connector | CreateConnectorFn`
+
+The connector instance or connector creator function to use for connecting.
+
+```ts [index.ts]
+import { connect } from "starkweb/core"
+import { injected } from "starkweb/connectors" // [!code focus]
+
+const result = await connect(config, {
+  connector: injected() // [!code focus]
+})
+```
+
+### chainId (optional)
+
+`Hex | undefined`
+
+The chain ID to connect to. If not provided, will use the connector's default chain.
+
+```ts [index.ts]
+import { connect } from "starkweb/core"
+import { mainnet } from "starkweb/chains" // [!code focus]
+
+const result = await connect(config, {
+  connector: injected(),
+  chainId: mainnet.chain_id // [!code focus]
+})
+```
+
+## Return Type
+
+```ts
+import { type ConnectReturnType } from "starkweb/core"
+```
+
+### accounts
+
+`readonly [Address, ...Address[]]`
+
+Array of account addresses that were connected.
+
+### chainId
+
+`Hex`
+
+The chain ID that was connected to.
+
+## Example
+
+```ts [example.ts]
+import { connect } from "starkweb/core"
+import { injected } from "starkweb/connectors"
+import { config } from "./config"
+
+// Connect using injected connector
+const result = await connect(config, {
+  connector: injected(), // [!code focus]
+  chainId: mainnet.chain_id
+})
+
+// Access connected accounts
+const [account] = result.accounts // [!code focus]
+console.log('Connected to:', account)
+
+// Check connected chain
+const chainId = result.chainId // [!code focus]
+```
+
+## Error
+
+```ts
+import { type ConnectErrorType } from "starkweb/core"
+```
+
+## TanStack Query
+
+```ts
+import { 
+  type ConnectData,
+  type ConnectVariables,
+  type ConnectMutate,
+  type ConnectMutateAsync,
+  connectMutationOptions,
+} from "starkweb/query"
+```

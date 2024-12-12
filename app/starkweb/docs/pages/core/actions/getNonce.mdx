@@ -1,0 +1,125 @@
+---
+title: getNonce
+description: Action for getting account nonce
+---
+
+# getNonce
+
+Action for getting a Starknet account's current nonce.
+
+## Import
+
+```ts
+import { getNonce } from "starkweb/core";
+```
+
+## Usage
+
+:::code-group
+
+```ts [index.ts]
+import { getNonce } from "starkweb/core";
+import { config } from "./config";
+
+const nonce = await getNonce(config, {
+  address: "0x123...", // [!code focus]
+});
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Parameters
+
+```ts
+import { type GetNonceParameters } from "starkweb/core";
+```
+
+### address
+
+`Hex`
+
+The address of the account to get the nonce for.
+
+```ts [index.ts]
+import { getNonce } from "starkweb/core";
+import { config } from "./config";
+
+const nonce = await getNonce(config, {
+  address: "0x123...", // [!code focus]
+});
+```
+
+### chainId (optional)
+
+`Hex | undefined`
+
+The chain ID to get the nonce from. If not provided, uses the current chain.
+
+```ts [index.ts]
+import { getNonce } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+const nonce = await getNonce(config, {
+  address: "0x123...",
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Return Type
+
+```ts
+import { type GetNonceReturnType } from "starkweb/core";
+```
+
+Returns the nonce information including:
+
+### nonce
+
+`bigint`
+
+The current nonce of the account.
+
+### chainId
+
+`Hex`
+
+The chain ID of the network.
+
+## Example
+
+```ts [example.ts]
+import { getNonce } from "starkweb/core";
+import { mainnet, testnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+// Get nonce on current chain
+const currentNonce = await getNonce(config, {
+  address: "0x123...", // [!code focus]
+});
+console.log("Current nonce:", currentNonce.nonce);
+
+// Get nonce on specific chain
+const mainnetNonce = await getNonce(config, {
+  address: "0x123...",
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Error
+
+```ts
+import { type GetNonceErrorType } from "starkweb/core";
+``` 

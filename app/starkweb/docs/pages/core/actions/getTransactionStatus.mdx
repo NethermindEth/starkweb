@@ -1,0 +1,131 @@
+---
+title: getTransactionStatus
+description: Action for getting transaction status
+---
+
+# getTransactionStatus
+
+Action for getting a Starknet transaction status.
+
+## Import
+
+```ts
+import { getTransactionStatus } from "starkweb/core";
+```
+
+## Usage
+
+:::code-group
+
+```ts [index.ts]
+import { getTransactionStatus } from "starkweb/core";
+import { config } from "./config";
+
+const status = await getTransactionStatus(config, {
+  transactionHash: "0x123...", // [!code focus]
+});
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Parameters
+
+```ts
+import { type GetTransactionStatusParameters } from "starkweb/core";
+```
+
+### transactionHash
+
+`Hex`
+
+The hash of the transaction to get the status for.
+
+```ts [index.ts]
+import { getTransactionStatus } from "starkweb/core";
+import { config } from "./config";
+
+const status = await getTransactionStatus(config, {
+  transactionHash: "0x123...", // [!code focus]
+});
+```
+
+### chainId (optional)
+
+`Hex | undefined`
+
+The chain ID to get the status from. If not provided, uses the current chain.
+
+```ts [index.ts]
+import { getTransactionStatus } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+const status = await getTransactionStatus(config, {
+  transactionHash: "0x123...",
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Return Type
+
+```ts
+import { type GetTransactionStatusReturnType } from "starkweb/core";
+```
+
+Returns the transaction status information including:
+
+### chainId
+
+`Hex`
+
+The chain ID of the network.
+
+### status
+
+`TransactionStatus`
+
+The current status of the transaction (e.g., 'ACCEPTED_ON_L2', 'PENDING').
+
+### block_hash
+
+`Hex | null`
+
+The hash of the block containing the transaction, if available.
+
+## Example
+
+```ts [example.ts]
+import { getTransactionStatus } from "starkweb/core";
+import { mainnet, testnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+// Get status on current chain
+const status = await getTransactionStatus(config, {
+  transactionHash: "0x123...", // [!code focus]
+});
+console.log("Transaction status:", status.status);
+
+// Get status on specific chain
+const mainnetStatus = await getTransactionStatus(config, {
+  transactionHash: "0x456...",
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Error
+
+```ts
+import { type GetTransactionStatusErrorType } from "starkweb/core";
+``` 

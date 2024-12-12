@@ -1,0 +1,100 @@
+---
+title: watchConnections
+description: Action for watching connection changes
+---
+
+# watchConnections
+
+Action for watching changes to the Starknet wallet connections.
+
+## Import
+
+```ts
+import { watchConnections } from "starkweb/core";
+```
+
+## Usage
+
+:::code-group
+
+```ts [index.ts]
+import { watchConnections } from "starkweb/core";
+import { config } from "./config";
+
+const unwatch = watchConnections(config, {
+  onChange(connections, prevConnections) { // [!code focus]
+    console.log('Connections changed:', connections); // [!code focus]
+    console.log('Previous connections:', prevConnections); // [!code focus]
+  }, // [!code focus]
+});
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Parameters
+
+```ts
+import { type WatchConnectionsParameters } from "starkweb/core";
+```
+
+### onChange
+
+`(connections: GetConnectionsReturnType, prevConnections: GetConnectionsReturnType) => void`
+
+Callback function that is called when the wallet connections change. Receives the new connections and previous connections as arguments.
+
+```ts [index.ts]
+import { watchConnections } from "starkweb/core";
+import { config } from "./config";
+
+const unwatch = watchConnections(config, {
+  onChange(connections, prevConnections) { // [!code focus]
+    console.log('Connections changed:', connections); // [!code focus]
+    console.log('Previous connections:', prevConnections); // [!code focus]
+  }, // [!code focus]
+});
+```
+
+## Return Type
+
+```ts
+import { type WatchConnectionsReturnType } from "starkweb/core";
+```
+
+`() => void`
+
+Function to stop watching for connection changes.
+
+## Example
+
+```ts [example.ts]
+import { watchConnections } from "starkweb/core";
+import { config } from "./config";
+
+// Start watching connection changes
+const unwatch = watchConnections(config, {
+  onChange(connections, prevConnections) { // [!code focus]
+    const newConnections = connections.filter(
+      connection => !prevConnections.find(prev => prev.id === connection.id)
+    );
+    if (newConnections.length > 0) {
+      console.log('New connections:', newConnections);
+    }
+  }, // [!code focus]
+});
+
+// Later: stop watching
+unwatch();
+``` 

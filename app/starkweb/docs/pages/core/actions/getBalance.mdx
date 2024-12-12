@@ -1,0 +1,129 @@
+---
+title: getBalance
+description: Action for getting account balance
+---
+
+# getBalance
+
+Action for getting a Starknet account's balance.
+
+## Import
+
+```ts
+import { getBalance } from "starkweb/core";
+```
+
+## Usage
+
+:::code-group
+
+```ts [index.ts]
+import { getBalance } from "starkweb/core";
+import { config } from "./config";
+
+const balance = await getBalance(config, {
+  address: "0x123...", // [!code focus]
+});
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Parameters
+
+```ts
+import { type GetBalanceParameters } from "starkweb/core";
+```
+
+### address
+
+`Hex`
+
+The address of the account to get the balance for.
+
+```ts [index.ts]
+import { getBalance } from "starkweb/core";
+import { config } from "./config";
+
+const balance = await getBalance(config, {
+  address: "0x123...", // [!code focus]
+});
+```
+
+### chainId (optional)
+
+`Hex | undefined`
+
+The chain ID to get the balance from. If not provided, uses the current chain.
+
+```ts [index.ts]
+import { getBalance } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+const balance = await getBalance(config, {
+  address: "0x123...",
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Return Type
+
+```ts
+import { type GetBalanceReturnType } from "starkweb/core";
+```
+
+`bigint`
+
+The account's balance in wei.
+
+## Example
+
+```ts [example.ts]
+import { getBalance } from "starkweb/core";
+import { mainnet, testnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+// Get balance on current chain
+const currentBalance = await getBalance(config, {
+  address: "0x123...", // [!code focus]
+});
+console.log("Current balance:", currentBalance);
+
+// Get balance on specific chain
+const mainnetBalance = await getBalance(config, {
+  address: "0x123...",
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Error
+
+```ts
+import { type GetBalanceErrorType } from "starkweb/core";
+```
+
+## TanStack Query
+
+```ts
+import {
+  type GetBalanceData,
+  type GetBalanceQueryFnData,
+  type GetBalanceQueryKey,
+  type GetBalanceErrorType,
+  type GetBalanceOptions,
+  getBalanceQueryKey,
+  getBalanceQueryOptions,
+} from "starkweb/query";
+``` 

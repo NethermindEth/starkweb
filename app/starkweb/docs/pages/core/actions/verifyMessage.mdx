@@ -1,0 +1,137 @@
+---
+title: verifyMessage
+description: Action for verifying a signed message
+---
+
+# verifyMessage
+
+Action for verifying a signed Starknet message.
+
+## Import
+
+```ts
+import { verifyMessage } from "starkweb/core";
+```
+
+## Usage
+
+:::code-group
+
+```ts [index.ts]
+import { verifyMessage } from "starkweb/core";
+import { config } from "./config";
+
+const isValid = await verifyMessage(config, {
+  message: "Hello Starknet!", // [!code focus]
+  signature: ["0x123...", "0x456..."], // [!code focus]
+  publicKey: "0x789...", // [!code focus]
+});
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Parameters
+
+```ts
+import { type VerifyMessageParameters } from "starkweb/core";
+```
+
+### message
+
+`string`
+
+The original message that was signed.
+
+### signature
+
+`Hex[]`
+
+The signature components to verify.
+
+### publicKey
+
+`Hex`
+
+The public key to verify against.
+
+```ts [index.ts]
+import { verifyMessage } from "starkweb/core";
+import { config } from "./config";
+
+const isValid = await verifyMessage(config, {
+  message: "Hello Starknet!", // [!code focus]
+  signature: ["0x123...", "0x456..."], // [!code focus]
+  publicKey: "0x789...", // [!code focus]
+});
+```
+
+### chainId (optional)
+
+`Hex | undefined`
+
+The chain ID to verify on. If not provided, uses the current chain.
+
+```ts [index.ts]
+import { verifyMessage } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+const isValid = await verifyMessage(config, {
+  message: "Hello Starknet!",
+  signature: ["0x123...", "0x456..."],
+  publicKey: "0x789...",
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Return Type
+
+```ts
+import { type VerifyMessageReturnType } from "starkweb/core";
+```
+
+`boolean`
+
+Whether the signature is valid.
+
+## Example
+
+```ts [example.ts]
+import { verifyMessage } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+// Verify on current chain
+const isValid = await verifyMessage(config, {
+  message: "Hello Starknet!", // [!code focus]
+  signature: ["0x123...", "0x456..."],
+  publicKey: "0x789...",
+});
+console.log("Is signature valid?", isValid);
+
+// Verify on specific chain
+const isValidOnMainnet = await verifyMessage(config, {
+  message: "Hello Starknet!",
+  signature: ["0x123...", "0x456..."],
+  publicKey: "0x789...",
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Error
+
+```ts
+import { type VerifyMessageErrorType } from "starkweb/core";
+``` 

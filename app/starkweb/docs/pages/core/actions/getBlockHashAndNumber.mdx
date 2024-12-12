@@ -1,0 +1,118 @@
+---
+title: getBlockHashAndNumber
+description: Action for getting current block hash and number
+---
+
+# getBlockHashAndNumber
+
+Action for getting the current Starknet block hash and number.
+
+## Import
+
+```ts
+import { getBlockHashAndNumber } from "starkweb/core";
+```
+
+## Usage
+
+:::code-group
+
+```ts [index.ts]
+import { getBlockHashAndNumber } from "starkweb/core";
+import { config } from "./config";
+
+const block = await getBlockHashAndNumber(config); // [!code focus]
+console.log("Block hash:", block.blockHash);
+console.log("Block number:", block.blockNumber);
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Parameters
+
+```ts
+import { type GetBlockHashAndNumberParameters } from "starkweb/core";
+```
+
+### chainId (optional)
+
+`Hex | undefined`
+
+The chain ID to get the block information for. If not provided, uses the current chain.
+
+```ts [index.ts]
+import { getBlockHashAndNumber } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+const block = await getBlockHashAndNumber(config, {
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Return Type
+
+```ts
+import { type GetBlockHashAndNumberReturnType } from "starkweb/core";
+```
+
+### blockHash
+
+`Hex`
+
+The hash of the current block.
+
+### blockNumber
+
+`bigint`
+
+The number of the current block.
+
+### chainId
+
+`Hex`
+
+The chain ID of the network.
+
+## Example
+
+```ts [example.ts]
+import { getBlockHashAndNumber } from "starkweb/core";
+import { mainnet, testnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+// Get block info for current chain
+const currentBlock = await getBlockHashAndNumber(config); // [!code focus]
+console.log({
+  hash: currentBlock.blockHash,
+  number: currentBlock.blockNumber,
+  chainId: currentBlock.chainId,
+});
+
+// Get block info for specific chain
+const mainnetBlock = await getBlockHashAndNumber(config, {
+  chainId: mainnet.chain_id, // [!code focus]
+});
+console.log("Mainnet block:", {
+  hash: mainnetBlock.blockHash,
+  number: mainnetBlock.blockNumber,
+});
+```
+
+## Error
+
+```ts
+import { type GetBlockHashAndNumberErrorType } from "starkweb/core";
+```

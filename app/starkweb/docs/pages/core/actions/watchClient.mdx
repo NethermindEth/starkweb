@@ -1,0 +1,99 @@
+---
+title: watchClient
+description: Action for watching client changes
+---
+
+# watchClient
+
+Action for watching changes to the Starknet client configuration.
+
+## Import
+
+```ts
+import { watchClient } from "starkweb/core";
+```
+
+## Usage
+
+:::code-group
+
+```ts [index.ts]
+import { watchClient } from "starkweb/core";
+import { config } from "./config";
+
+const unwatch = watchClient(config, {
+  onChange(client, prevClient) { // [!code focus]
+    console.log('Client changed:', client); // [!code focus]
+    console.log('Previous client:', prevClient); // [!code focus]
+  }, // [!code focus]
+});
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Parameters
+
+```ts
+import { type WatchClientParameters } from "starkweb/core";
+```
+
+### onChange
+
+`(client: GetClientReturnType, prevClient: GetClientReturnType) => void`
+
+Callback function that is called when the client configuration changes. Receives the new client and previous client as arguments.
+
+```ts [index.ts]
+import { watchClient } from "starkweb/core";
+import { config } from "./config";
+
+const unwatch = watchClient(config, {
+  onChange(client, prevClient) { // [!code focus]
+    console.log('Client changed:', client); // [!code focus]
+    console.log('Previous client:', prevClient); // [!code focus]
+  }, // [!code focus]
+});
+```
+
+## Return Type
+
+```ts
+import { type WatchClientReturnType } from "starkweb/core";
+```
+
+`() => void`
+
+Function to stop watching for client changes.
+
+## Example
+
+```ts [example.ts]
+import { watchClient } from "starkweb/core";
+import { config } from "./config";
+
+// Start watching client changes
+const unwatch = watchClient(config, {
+  onChange(client, prevClient) { // [!code focus]
+    if (client.uid !== prevClient.uid) {
+      console.log('Client instance changed');
+    }
+    if (client.chain.id !== prevClient.chain.id) {
+      console.log('Client chain changed');
+    }
+  }, // [!code focus]
+});
+
+// Later: stop watching
+unwatch();

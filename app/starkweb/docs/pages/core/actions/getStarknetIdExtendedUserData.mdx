@@ -1,0 +1,148 @@
+---
+title: getStarknetIdExtendedUserData
+description: Action for getting extended user data from Starknet ID
+---
+
+# getStarknetIdExtendedUserData
+
+Action for getting extended user data associated with a Starknet ID.
+
+## Import
+
+```ts
+import { getStarknetIdExtendedUserData } from "starkweb/core";
+```
+
+## Usage
+
+:::code-group
+
+```ts [index.ts]
+import { getStarknetIdExtendedUserData } from "starkweb/core";
+import { config } from "./config";
+
+const userData = await getStarknetIdExtendedUserData(config, {
+  starknetId: "0x123...", // [!code focus]
+  field: "discord", // [!code focus]
+  domain: "app", // [!code focus]
+});
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Parameters
+
+```ts
+import { type GetStarknetIdExtendedUserDataParameters } from "starkweb/core";
+```
+
+### starknetId
+
+`Hex`
+
+The Starknet ID to get extended user data for.
+
+### field
+
+`string`
+
+The specific field of user data to retrieve.
+
+### domain
+
+`string`
+
+The domain for the extended data.
+
+```ts [index.ts]
+import { getStarknetIdExtendedUserData } from "starkweb/core";
+import { config } from "./config";
+
+const userData = await getStarknetIdExtendedUserData(config, {
+  starknetId: "0x123...", // [!code focus]
+  field: "discord", // [!code focus]
+  domain: "app", // [!code focus]
+});
+```
+
+### chainId (optional)
+
+`Hex | undefined`
+
+The chain ID to query. If not provided, uses the current chain.
+
+```ts [index.ts]
+import { getStarknetIdExtendedUserData } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+const userData = await getStarknetIdExtendedUserData(config, {
+  starknetId: "0x123...",
+  field: "discord",
+  domain: "app",
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Return Type
+
+```ts
+import { type GetStarknetIdExtendedUserDataReturnType } from "starkweb/core";
+```
+
+Returns the extended user data value for the specified field and domain.
+
+## Example
+
+```ts [example.ts]
+import { getStarknetIdExtendedUserData } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+// Get extended user data on current chain
+const userData = await getStarknetIdExtendedUserData(config, {
+  starknetId: "0x123...", // [!code focus]
+  field: "discord", // [!code focus]
+  domain: "app", // [!code focus]
+});
+console.log("Extended user data:", userData);
+
+// Get extended user data on specific chain
+const mainnetData = await getStarknetIdExtendedUserData(config, {
+  starknetId: "0x123...",
+  field: "discord",
+  domain: "app",
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Error
+
+```ts
+import { type GetStarknetIdExtendedUserDataErrorType } from "starkweb/core";
+```
+
+## TanStack Query
+
+```ts
+import {
+  type GetStarknetIdExtendedUserDataData,
+  type GetStarknetIdExtendedUserDataOptions,
+  type GetStarknetIdExtendedUserDataQueryFnData,
+  type GetStarknetIdExtendedUserDataQueryKey,
+  getStarknetIdExtendedUserDataQueryKey,
+  getStarknetIdExtendedUserDataQueryOptions,
+} from "starkweb/query";
+```

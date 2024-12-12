@@ -1,0 +1,128 @@
+---
+title: getStarknetIdNames
+description: Action for getting multiple names from Starknet IDs
+---
+
+# getStarknetIdNames
+
+Action for getting names associated with multiple Starknet IDs.
+
+## Import
+
+```ts
+import { getStarknetIdNames } from "starkweb/core";
+```
+
+## Usage
+
+:::code-group
+
+```ts [index.ts]
+import { getStarknetIdNames } from "starkweb/core";
+import { config } from "./config";
+
+const names = await getStarknetIdNames(config, {
+  starknetIds: ["0x123...", "0x456..."], // [!code focus]
+});
+```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+```
+
+:::
+
+## Parameters
+
+```ts
+import { type GetStarknetIdNamesParameters } from "starkweb/core";
+```
+
+### starknetIds
+
+`Hex[]`
+
+Array of Starknet IDs to get names for.
+
+```ts [index.ts]
+import { getStarknetIdNames } from "starkweb/core";
+import { config } from "./config";
+
+const names = await getStarknetIdNames(config, {
+  starknetIds: ["0x123...", "0x456..."], // [!code focus]
+});
+```
+
+### chainId (optional)
+
+`Hex | undefined`
+
+The chain ID to query. If not provided, uses the current chain.
+
+```ts [index.ts]
+import { getStarknetIdNames } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+const names = await getStarknetIdNames(config, {
+  starknetIds: ["0x123...", "0x456..."],
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Return Type
+
+```ts
+import { type GetStarknetIdNamesReturnType } from "starkweb/core";
+```
+
+`string[]`
+
+Array of names associated with the provided Starknet IDs.
+
+## Example
+
+```ts [example.ts]
+import { getStarknetIdNames } from "starkweb/core";
+import { mainnet } from "starkweb/chains"; // [!code focus]
+import { config } from "./config";
+
+// Get names on current chain
+const names = await getStarknetIdNames(config, {
+  starknetIds: ["0x123...", "0x456..."], // [!code focus]
+});
+console.log("Names:", names);
+
+// Get names on specific chain
+const mainnetNames = await getStarknetIdNames(config, {
+  starknetIds: ["0x123...", "0x456..."],
+  chainId: mainnet.chain_id, // [!code focus]
+});
+```
+
+## Error
+
+```ts
+import { type GetStarknetIdNamesErrorType } from "starkweb/core";
+```
+
+## TanStack Query
+
+```ts
+import {
+  type GetStarknetIdNamesData,
+  type GetStarknetIdNamesOptions,
+  type GetStarknetIdNamesQueryFnData,
+  type GetStarknetIdNamesQueryKey,
+  getStarknetIdNamesQueryKey,
+  getStarknetIdNamesQueryOptions,
+} from "starkweb/query";
+```
