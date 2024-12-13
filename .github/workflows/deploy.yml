@@ -32,5 +32,3 @@ jobs:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
           PRODUCTION: ${{ github.ref == 'refs/heads/main' }}
-          BUILD_ENV: |
-            NEXT_PUBLIC_SITE_URL=https://starkweb.xyz 
