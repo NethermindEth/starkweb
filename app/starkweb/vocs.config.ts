@@ -3,6 +3,20 @@ import { defineConfig } from "vocs";
 export default defineConfig({
   title: "Starkweb",
   description: "all-in-one Starknet Toolkit",
+  socials: [
+    {
+      icon: "github",
+      link: "https://github.com/NethermindEth/starkweb",
+    },
+    {
+      icon: "x",
+      link: "https://x.com/NethermindStark",
+    },
+    {
+      icon: "telegram",
+      link: "https://t.me/strkweb",
+    },
+  ],
   banner: {
     content: "Join the Starkweb Telegram Channel [here](https://t.me/strkweb)",
     dismissable: true,
