@@ -1,5 +1,5 @@
 import { http, createConfig } from "starkweb/react";
-import { mainnet, sepolia } from "starkweb/react/chains";
+import { mainnet, sepolia } from "starkweb/chains";
 
 export const config = createConfig({
   chains: [mainnet, sepolia],
