@@ -10,29 +10,29 @@ Hook for signing messages.
 ## Import
 
 ```ts
-import { useSignMessage } from "starkweb/react"
+import { useSignMessage } from "starkweb/react";
 ```
 
 ## Usage
 
 ```tsx [index.tsx]
-import { useSignMessage } from "starkweb/react"
+import { useSignMessage } from "starkweb/react";
 
 function App() {
-  const { signMessage } = useSignMessage()
+  const { signMessage } = useSignMessage();
 
   return (
-    <button onClick={() => signMessage({ message: 'hello world' })}>
+    <button onClick={() => signMessage({ message: "hello world" })}>
       Sign message
     </button>
-  )
+  );
 }
 ```
 
 ## Parameters
 
 ```ts
-import { type UseSignMessageParameters } from "starkweb/react"
+import { type UseSignMessageParameters } from "starkweb/react";
 ```
 
 ### config
@@ -42,35 +42,47 @@ import { type UseSignMessageParameters } from "starkweb/react"
 [`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`StarkwebProvider`](/react/api/StarkwebProvider).
 
 :::code-group
+
 ```tsx [index.tsx]
-import { useSignMessage } from "starkweb/react"
-import { config } from "./config" // [!code focus]
+import { useSignMessage } from "starkweb/react";
+import { config } from "./config"; // [!code focus]
 
 function App() {
   const result = useSignMessage({
     config, // [!code focus]
-  })
+  });
 }
 ```
 
 ```ts [config.ts]
 // [!include ~/snippets/config.ts]
 ```
+
 :::
 
-import MutationOptions from "../../../snippets/mutation-options.mdx"
+import MutationOptions from "../../../snippets/mutation-options.mdx";
 
-<MutationOptions mutate="signMessage" TError="SignMessageErrorType" TVariables="SignMessageVariables" TData="SignMessageData" />
+<MutationOptions
+  mutate="signMessage"
+  TError="SignMessageErrorType"
+  TVariables="SignMessageVariables"
+  TData="SignMessageData"
+/>
 
 ## Return Type
 
 ```ts
-import { type UseSignMessageReturnType } from "starkweb/react"
+import { type UseSignMessageReturnType } from "starkweb/react";
 ```
 
-import MutationResult from "../../../snippets/mutation-result.mdx"
+import MutationResult from "../../../snippets/mutation-result.mdx";
 
-<MutationResult mutate="signMessage" TError="SignMessageErrorType" TVariables="SignMessageVariables" TData="SignMessageData" />
+<MutationResult
+  mutate="signMessage"
+  TError="SignMessageErrorType"
+  TVariables="SignMessageVariables"
+  TData="SignMessageData"
+/>
 
 ## TanStack Query
 
@@ -81,9 +93,119 @@ import {
   type SignMessageMutate,
   type SignMessageMutateAsync,
   signMessageMutationOptions,
-} from "starkweb/react/query"
+} from "starkweb/react/query";
 ```
 
-## Actions
+## Examples
 
-{/* - [`signMessage`](/core/actions/signMessage) */}
+### Basic Usage
+
+```tsx [basic.tsx]
+import { useSignMessage } from "starkweb/react";
+
+function MessageSigner() {
+  const { signMessage, isLoading, error } = useSignMessage();
+
+  async function handleSign() {
+    try {
+      const signature = await signMessage({ message: "Hello Starknet!" });
+      console.log("Signature:", signature);
+    } catch (err) {
+      console.error("Failed to sign message:", err);
+    }
+  }
+
+  return (
+    <div>
+      <button onClick={handleSign} disabled={isLoading}>
+        Sign Message
+      </button>
+      {error && <div>Error: {error.message}</div>}
+    </div>
+  );
+}
+```
+
+### With Custom Message Handling
+
+```tsx [custom-message.tsx]
+import { useSignMessage } from "starkweb/react";
+import { useState } from "react";
+
+function CustomMessageSigner() {
+  const [message, setMessage] = useState("");
+  const [signature, setSignature] = useState<string>();
+  const { signMessageAsync, isLoading } = useSignMessage({
+    mutation: {
+      onSuccess(data) {
+        console.log("Message signed successfully");
+      },
+      onError(error) {
+        console.error("Signing failed:", error);
+      },
+    },
+  });
+
+  async function handleSign() {
+    if (!message) return;
+    const sig = await signMessageAsync({ message });
+    setSignature(sig);
+  }
+
+  return (
+    <div>
+      <input
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
+        placeholder="Enter message to sign"
+      />
+      <button onClick={handleSign} disabled={isLoading || !message}>
+        Sign
+      </button>
+      {signature && (
+        <div>
+          <h4>Signature:</h4>
+          <pre>{signature}</pre>
+        </div>
+      )}
+    </div>
+  );
+}
+```
+
+### With Error Handling
+
+```tsx [error-handling.tsx]
+import { useSignMessage } from "starkweb/react";
+import { useState } from "react";
+
+function SafeMessageSigner() {
+  const [status, setStatus] = useState<string>();
+  const { signMessage, isError, error, reset } = useSignMessage({
+    mutation: {
+      onMutate() {
+        setStatus("Signing message...");
+      },
+      onSuccess() {
+        setStatus("Message signed successfully!");
+      },
+      onError(error) {
+        setStatus(`Failed: ${error.message}`);
+      },
+    },
+  });
+
+  return (
+    <div>
+      <button
+        onClick={() => signMessage({ message: "Test message" })}
+        disabled={isError}
+      >
+        Sign Test Message
+      </button>
+      {isError && <button onClick={() => reset()}>Reset Error</button>}
+      {status && <div>Status: {status}</div>}
+    </div>
+  );
+}
+```

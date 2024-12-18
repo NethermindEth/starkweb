@@ -32,3 +32,79 @@ import { type UseConfigReturnType } from "starkweb/react"
 import ConfigReturnType from "../../../snippets/config-return-type.mdx"
 
 <ConfigReturnType />
+
+## Examples
+
+### Basic Usage
+
+```tsx [basic.tsx]
+import { useConfig } from "starkweb/react";
+
+function ConfigInfo() {
+  const config = useConfig();
+  
+  return (
+    <div>
+      <h3>Configuration Info</h3>
+      <div>Configured Chains: {config.chains.length}</div>
+      <div>
+        Chains:{" "}
+        {config.chains.map((chain) => chain.name).join(", ")}
+      </div>
+    </div>
+  );
+}
+```
+
+### With Error Handling
+
+```tsx [error-handling.tsx]
+import { useConfig } from "starkweb/react";
+import { StarkwebProviderNotFoundError } from "starkweb/react";
+
+function SafeConfigInfo() {
+  try {
+    const config = useConfig();
+    
+    return (
+      <div>
+        <div>State Chain ID: {config.state.chainId}</div>
+        <div>
+          Available Chains:{" "}
+          {config.chains.map((chain) => chain.name).join(", ")}
+        </div>
+      </div>
+    );
+  } catch (error) {
+    if (error instanceof StarkwebProviderNotFoundError) {
+      return <div>StarkwebProvider not found in React context</div>;
+    }
+    throw error;
+  }
+}
+```
+
+### With Transport Info
+
+```tsx [transport-info.tsx]
+import { useConfig } from "starkweb/react";
+
+function TransportInfo() {
+  const config = useConfig();
+  
+  return (
+    <div>
+      <h3>Transport Configuration</h3>
+      {config.chains.map((chain) => (
+        <div key={chain.chain_id}>
+          <div>Chain: {chain.name}</div>
+          <div>
+            Transport:{" "}
+            {config.transports[chain.chain_id]?.type || "Not configured"}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+```

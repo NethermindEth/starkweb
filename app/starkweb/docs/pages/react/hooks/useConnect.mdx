@@ -10,30 +10,28 @@ Hook for connecting accounts with [connectors](#TODO/react/api/connectors).
 ## Import
 
 ```ts
-import { useConnect } from "starkweb/react"
+import { useConnect } from "starkweb/react";
 ```
 
 ## Usage
 
 ```tsx [index.tsx]
-import { useConnect } from "starkweb/react"
-import { injected } from "starkweb/react/connectors"
+import { useConnect } from "starkweb/react";
+import { injected } from "starkweb/react/connectors";
 
 function App() {
-  const { connect } = useConnect()
+  const { connect } = useConnect();
 
   return (
-    <button onClick={() => connect({ connector: injected() })}>
-      Connect
-    </button>
-  )
+    <button onClick={() => connect({ connector: injected() })}>Connect</button>
+  );
 }
 ```
 
 ## Parameters
 
 ```ts
-import { type UseConnectParameters } from "starkweb/react"
+import { type UseConnectParameters } from "starkweb/react";
 ```
 
 ### config
@@ -43,30 +41,37 @@ import { type UseConnectParameters } from "starkweb/react"
 [`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`StarkwebProvider`](/react/api/StarkwebProvider).
 
 :::code-group
+
 ```tsx [index.tsx]
-import { useConnect } from "starkweb/react"
-import { config } from "./config" // [!code focus]
+import { useConnect } from "starkweb/react";
+import { config } from "./config"; // [!code focus]
 
 function App() {
   const result = useConnect({
     config, // [!code focus]
-  })
+  });
 }
 ```
 
 ```ts [config.ts]
 // [!include ~/snippets/config.ts]
 ```
+
 :::
 
-import MutationOptions from "../../../snippets/mutation-options.mdx"
+import MutationOptions from "../../../snippets/mutation-options.mdx";
 
-<MutationOptions mutate="connect" TError="ConnectErrorType" TVariables="{ chainId?: number | undefined; connector?: CreateConnectorFn | Connector | undefined; }" TData="{ accounts: readonly [Address, ...Address[]]; chainId: number; }" />
+<MutationOptions
+  mutate="connect"
+  TError="ConnectErrorType"
+  TVariables="{ chainId?: number | undefined; connector?: CreateConnectorFn | Connector | undefined; }"
+  TData="{ accounts: readonly [Address, ...Address[]]; chainId: number; }"
+/>
 
 ## Return Type
 
 ```ts
-import { type UseConnectReturnType } from "starkweb/react"
+import { type UseConnectReturnType } from "starkweb/react";
 ```
 
 ### connectors
@@ -76,10 +81,10 @@ import { type UseConnectReturnType } from "starkweb/react"
 Globally configured connectors via [`createConfig`](/react/api/createConfig#connectors). Useful for rendering a list of available connectors.
 
 ```tsx [index.tsx]
-import { useConnect } from "starkweb/react"
+import { useConnect } from "starkweb/react";
 
 function App() {
-  const { connect, connectors } = useConnect()
+  const { connect, connectors } = useConnect();
 
   return (
     <div>
@@ -89,13 +94,18 @@ function App() {
         </button>
       ))}
     </div>
-  )
+  );
 }
 ```
 
-import MutationResult from "../../../snippets/mutation-result.mdx"
+import MutationResult from "../../../snippets/mutation-result.mdx";
 
-<MutationResult mutate="connect" TError="ConnectErrorType" TVariables="{ chainId?: number | undefined; connector?: CreateConnectorFn | Connector | undefined; }" TData="{ accounts: readonly [Address, ...Address[]]; chainId: number; }" />
+<MutationResult
+  mutate="connect"
+  TError="ConnectErrorType"
+  TVariables="{ chainId?: number | undefined; connector?: CreateConnectorFn | Connector | undefined; }"
+  TData="{ accounts: readonly [Address, ...Address[]]; chainId: number; }"
+/>
 
 :::tip
 Not all connectors support connecting directly to a `chainId` (e.g. they don't support programmatic chain switching). In those cases, the connector will connect to whatever chain the connector's provider (e.g. wallet) is connected to.
@@ -110,9 +120,102 @@ import {
   type ConnectMutate,
   type ConnectMutateAsync,
   connectMutationOptions,
-} from "starkweb/react/query"
+} from "starkweb/react/query";
 ```
 
-## Actions
+## Examples
 
-{/* - [`connect`](/core/actions/connect) */}
+### Basic Usage
+
+```tsx [basic.tsx]
+import { useConnect } from "starkweb/react";
+import { injected } from "starkweb/connectors";
+
+function ConnectButton() {
+  const { connect, connectors, isLoading, error } = useConnect();
+
+  if (error) {
+    return <div>Error connecting: {error.message}</div>;
+  }
+
+  return (
+    <div>
+      {connectors.map((connector) => (
+        <button
+          key={connector.id}
+          onClick={() => connect({ connector })}
+          disabled={isLoading}
+        >
+          Connect to {connector.name}
+        </button>
+      ))}
+    </div>
+  );
+}
+```
+
+### With Chain Selection
+
+```tsx [chain-selection.tsx]
+import { useConnect } from "starkweb/react";
+import { injected } from "starkweb/connectors";
+import { mainnet } from "starkweb/chains";
+
+function ChainConnect() {
+  const { connect, connectAsync } = useConnect({
+    mutation: {
+      onSuccess(data) {
+        console.log("Connected to chain:", data.chainId);
+        console.log("Connected accounts:", data.accounts);
+      },
+    },
+  });
+
+  return (
+    <button
+      onClick={() =>
+        connect({
+          connector: injected(),
+          chainId: mainnet.chain_id,
+        })
+      }
+    >
+      Connect to Mainnet
+    </button>
+  );
+}
+```
+
+### With Async Connection
+
+```tsx [async-connection.tsx]
+import { useConnect } from "starkweb/react";
+import { injected } from "starkweb/connectors";
+import { useState } from "react";
+
+function AsyncConnect() {
+  const [status, setStatus] = useState<string>();
+  const { connectAsync, isLoading } = useConnect();
+
+  async function handleConnect() {
+    try {
+      setStatus("Connecting...");
+      const result = await connectAsync({
+        connector: injected(),
+      });
+      setStatus(`Connected to ${result.accounts[0]}`);
+    } catch (error) {
+      setStatus(`Error: ${error.message}`);
+    }
+  }
+
+  return (
+    <div>
+      <button onClick={handleConnect} disabled={isLoading}>
+        Connect Wallet
+      </button>
+      {status && <div>{status}</div>}
+    </div>
+  );
+}
+```

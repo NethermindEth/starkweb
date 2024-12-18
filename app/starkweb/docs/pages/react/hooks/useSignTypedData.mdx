@@ -10,16 +10,16 @@ Hook for signing typed data and calculating signature.
 ## Import
 
 ```ts
-import { useSignTypedData } from "starkweb/react"
+import { useSignTypedData } from "starkweb/react";
 ```
 
 ## Usage
 
 ```tsx [index.tsx]
-import { useSignTypedData } from "starkweb/react"
+import { useSignTypedData } from "starkweb/react";
 
 function App() {
-  const { signTypedData } = useSignTypedData()
+  const { signTypedData } = useSignTypedData();
 
   return (
     <button
@@ -40,11 +40,13 @@ function App() {
           message: {
             from: {
               name: "Cow",
-              wallet: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
+              wallet:
+                "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
             },
             to: {
               name: "Bob",
-              wallet: "0x072589b1e65b5b22b746c8701aae3ecc34af6e64a378091b47188e2a52414dba",
+              wallet:
+                "0x072589b1e65b5b22b746c8701aae3ecc34af6e64a378091b47188e2a52414dba",
             },
             contents: "Hello, Bob!",
           },
@@ -53,14 +55,14 @@ function App() {
     >
       Sign message
     </button>
-  )
+  );
 }
 ```
 
 ## Parameters
 
 ```ts
-import { type UseSignTypedDataParameters } from "starkweb/react"
+import { type UseSignTypedDataParameters } from "starkweb/react";
 ```
 
 ### config
@@ -70,35 +72,47 @@ import { type UseSignTypedDataParameters } from "starkweb/react"
 [`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`StarkwebProvider`](/react/api/StarkwebProvider).
 
 :::code-group
+
 ```tsx [index.tsx]
-import { useSignTypedData } from "starkweb/react"
-import { config } from "./config" // [!code focus]
+import { useSignTypedData } from "starkweb/react";
+import { config } from "./config"; // [!code focus]
 
 function App() {
   const result = useSignTypedData({
     config, // [!code focus]
-  })
+  });
 }
 ```
 
 ```ts [config.ts]
 // [!include ~/snippets/config.ts]
 ```
+
 :::
 
-import MutationOptions from "../../../snippets/mutation-options.mdx"
+import MutationOptions from "../../../snippets/mutation-options.mdx";
 
-<MutationOptions mutate="signTypedData" TData="SignTypedDataData" TError="SignTypedDataErrorType" TVariables="SignTypedDataVariables" />
+<MutationOptions
+  mutate="signTypedData"
+  TData="SignTypedDataData"
+  TError="SignTypedDataErrorType"
+  TVariables="SignTypedDataVariables"
+/>
 
 ## Return Type
 
 ```ts
-import { type UseSignTypedDataReturnType } from "starkweb/react"
+import { type UseSignTypedDataReturnType } from "starkweb/react";
 ```
 
-import MutationResult from "../../../snippets/mutation-result.mdx"
+import MutationResult from "../../../snippets/mutation-result.mdx";
 
-<MutationResult mutate="signTypedData" TData="SignTypedDataData" TError="SignTypedDataErrorType" TVariables="SignTypedDataVariables" />
+<MutationResult
+  mutate="signTypedData"
+  TData="SignTypedDataData"
+  TError="SignTypedDataErrorType"
+  TVariables="SignTypedDataVariables"
+/>
 
 ## TanStack Query
 
@@ -109,9 +123,148 @@ import {
   type SignTypedDataMutate,
   type SignTypedDataMutateAsync,
   signTypedDataMutationOptions,
-} from "starkweb/react/query"
+} from "starkweb/react/query";
 ```
 
-## Actions
+## Examples
 
-{/* - [`signTypedData`](/core/actions/signTypedData) */}
+### Basic Usage
+
+```tsx [basic.tsx]
+import { useSignTypedData } from "starkweb/react";
+
+function TypedDataSigner() {
+  const { signTypedData, isLoading } = useSignTypedData();
+
+  const handleSign = async () => {
+    const typedData = {
+      types: {
+        Person: [
+          { name: "name", type: "string" },
+          { name: "wallet", type: "address" },
+        ],
+        Mail: [
+          { name: "from", type: "Person" },
+          { name: "to", type: "Person" },
+          { name: "contents", type: "string" },
+        ],
+      },
+      primaryType: "Mail",
+      message: {
+        from: {
+          name: "Alice",
+          wallet: "0x1234...",
+        },
+        to: {
+          name: "Bob",
+          wallet: "0x5678...",
+        },
+        contents: "Hello!",
+      },
+    };
+
+    try {
+      const signature = await signTypedData(typedData);
+      console.log("Signature:", signature);
+    } catch (error) {
+      console.error("Error signing:", error);
+    }
+  };
+
+  return (
+    <button onClick={handleSign} disabled={isLoading}>
+      Sign Typed Data
+    </button>
+  );
+}
+```
+
+### With Error Handling
+
+```tsx [error-handling.tsx]
+import { useSignTypedData } from "starkweb/react";
+import { useState } from "react";
+
+function SafeTypedDataSigner() {
+  const [error, setError] = useState<string>();
+  const { signTypedDataAsync } = useSignTypedData({
+    mutation: {
+      onError(err) {
+        setError(err.message);
+      },
+    },
+  });
+
+  const handleSign = async () => {
+    try {
+      const signature = await signTypedDataAsync({
+        types: {
+          StarknetTx: [
+            { name: "amount", type: "felt" },
+            { name: "recipient", type: "address" },
+          ],
+        },
+        primaryType: "StarknetTx",
+        message: {
+          amount: "1000000000000000000",
+          recipient: "0x1234...",
+        },
+      });
+      console.log("Success:", signature);
+      setError(undefined);
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  return (
+    <div>
+      <button onClick={handleSign}>Sign Transaction Data</button>
+      {error && <div className="error">Error: {error}</div>}
+    </div>
+  );
+}
+```
+
+### With Custom Types
+
+```tsx [custom-types.tsx]
+import { useSignTypedData } from "starkweb/react";
+
+function CustomTypedDataSigner() {
+  const { signTypedData, isLoading } = useSignTypedData();
+
+  const handleSignOrder = async () => {
+    const orderData = {
+      types: {
+        Order: [
+          { name: "maker", type: "address" },
+          { name: "tokenId", type: "felt" },
+          { name: "amount", type: "felt" },
+          { name: "expiry", type: "felt" },
+        ],
+      },
+      primaryType: "Order",
+      message: {
+        maker: "0x1234...",
+        tokenId: "123",
+        amount: "1000000000000000000",
+        expiry: "1234567890",
+      },
+    };
+
+    try {
+      const signature = await signTypedData(orderData);
+      console.log("Order signed:", signature);
+    } catch (error) {
+      console.error("Failed to sign order:", error);
+    }
+  };
+
+  return (
+    <button onClick={handleSignOrder} disabled={isLoading}>
+      Sign Order
+    </button>
+  );
+}
+```

@@ -23,6 +23,27 @@ function App() {
 }
 ```
 
+## Parameters
+
+```ts
+import { type UseConnectorsParameters } from "starkweb/react"
+```
+
+### config
+
+`Config | undefined`
+
+[`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`StarkwebProvider`](/react/api/StarkwebProvider).
+
+```tsx [config.tsx]
+import { useConnectors } from "starkweb/react"
+import { config } from "./config"
+
+function App() {
+  const connectors = useConnectors({ config })
+}
+```
+
 ## Return Type
 
 ```ts
@@ -33,6 +54,83 @@ import { type UseConnectorsReturnType } from "starkweb/react"
 
 Connectors from [`config.connectors`](/react/api/createConfig#connectors-1).
 
-## Action
+## Examples
 
-{/* - [`getConnectors`](/core/actions/getConnectors) */}
+### Basic Usage
+
+```tsx [basic.tsx]
+import { useConnectors } from "starkweb/react"
+
+function ConnectorList() {
+  const connectors = useConnectors()
+
+  return (
+    <div>
+      <h3>Available Connectors</h3>
+      <ul>
+        {connectors.map((connector) => (
+          <li key={connector.id}>
+            {connector.name} ({connector.id})
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+```
+
+### With Connection Status
+
+```tsx [connection-status.tsx]
+import { useConnectors } from "starkweb/react"
+import { useAccount } from "starkweb/react"
+
+function ConnectorStatus() {
+  const connectors = useConnectors()
+  const { connector: activeConnector } = useAccount()
+
+  return (
+    <div>
+      {connectors.map((connector) => (
+        <div key={connector.id}>
+          <h4>{connector.name}</h4>
+          <div>
+            Status:{" "}
+            {connector.id === activeConnector?.id ? "Connected" : "Not Connected"}
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+}
+```
+
+### With External Store Sync
+
+```tsx [store-sync.tsx]
+import { useConnectors } from "starkweb/react"
+import { useEffect, useState } from "react"
+
+function ConnectorMonitor() {
+  const [lastUpdate, setLastUpdate] = useState<string>()
+  const connectors = useConnectors()
+
+  useEffect(() => {
+    setLastUpdate(new Date().toLocaleTimeString())
+  }, [connectors])
+
+  return (
+    <div>
+      <div>Available Connectors: {connectors.length}</div>
+      <div>Last Updated: {lastUpdate}</div>
+      <ul>
+        {connectors.map((connector) => (
+          <li key={connector.id}>
+            {connector.name} - Ready: {connector.ready ? "Yes" : "No"}
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+```

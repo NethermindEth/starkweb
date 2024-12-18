@@ -10,21 +10,21 @@ description: Hook for reconnecting connectors.
 ## Import
 
 ```ts
-import { useReconnect } from "starkweb/react"
+import { useReconnect } from "starkweb/react";
 ```
 
 ## Usage
 
 ```tsx [index.tsx]
-import { useReconnect } from "starkweb/react"
-import { useEffect } from "react"
+import { useReconnect } from "starkweb/react";
+import { useEffect } from "react";
 
 function App() {
-  const { reconnect } = useReconnect()
+  const { reconnect } = useReconnect();
 
   useEffect(() => {
-    reconnect()
-  }, [])
+    reconnect();
+  }, []);
 }
 ```
 
@@ -35,7 +35,7 @@ When [`StarkwebProvider["reconnectOnMount"]`](/react/api/StarkwebProvider#reconn
 ## Parameters
 
 ```ts
-import { type UseReconnectParameters } from "starkweb/react"
+import { type UseReconnectParameters } from "starkweb/react";
 ```
 
 ### config
@@ -45,30 +45,37 @@ import { type UseReconnectParameters } from "starkweb/react"
 [`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`StarkwebProvider`](/react/api/StarkwebProvider).
 
 :::code-group
+
 ```tsx [index.tsx]
-import { useReconnect } from "starkweb/react"
-import { config } from "./config" // [!code focus]
+import { useReconnect } from "starkweb/react";
+import { config } from "./config"; // [!code focus]
 
 function App() {
   const result = useReconnect({
     config, // [!code focus]
-  })
+  });
 }
 ```
 
 ```ts [config.ts]
 // [!include ~/snippets/config.ts]
 ```
+
 :::
 
-import MutationOptions from "../../../snippets/mutation-options.mdx"
+import MutationOptions from "../../../snippets/mutation-options.mdx";
 
-<MutationOptions mutate="reconnect" TError="ReconnectErrorType" TVariables="{ connectors?: (CreateConnectorFn | Connector)[] | undefined; }" TData="{ accounts: readonly [Address, ...Address[]]; chainId: number; connector: Connector }" />
+<MutationOptions
+  mutate="reconnect"
+  TError="ReconnectErrorType"
+  TVariables="{ connectors?: (CreateConnectorFn | Connector)[] | undefined; }"
+  TData="{ accounts: readonly [Address, ...Address[]]; chainId: number; connector: Connector }"
+/>
 
 ## Return Type
 
 ```ts
-import { type UseReconnectReturnType } from "starkweb/react"
+import { type UseReconnectReturnType } from "starkweb/react";
 ```
 
 ### connectors
@@ -78,22 +85,27 @@ import { type UseReconnectReturnType } from "starkweb/react"
 Globally configured connectors via [`createConfig`](/react/api/createConfig#connectors).
 
 ```tsx [index.tsx]
-import { useReconnect } from "starkweb/react"
-import { mainnet } from "starkweb/react/chains"
-import { useEffect } from "react"
+import { useReconnect } from "starkweb/react";
+import { mainnet } from "starkweb/react/chains";
+import { useEffect } from "react";
 
 function App() {
-  const { reconnect, connectors } = useReconnect()
+  const { reconnect, connectors } = useReconnect();
 
   useEffect(() => {
-    reconnect({ connectors })
-  }, [])
+    reconnect({ connectors });
+  }, []);
 }
 ```
 
-import MutationResult from "../../../snippets/mutation-result.mdx"
+import MutationResult from "../../../snippets/mutation-result.mdx";
 
-<MutationResult mutate="reconnect" TError="ReconnectErrorType" TVariables="{ connectors?: (CreateConnectorFn | Connector)[] | undefined; }" TData="{ accounts: readonly [Address, ...Address[]]; chainId: number; connector: Connector }" />
+<MutationResult
+  mutate="reconnect"
+  TError="ReconnectErrorType"
+  TVariables="{ connectors?: (CreateConnectorFn | Connector)[] | undefined; }"
+  TData="{ accounts: readonly [Address, ...Address[]]; chainId: number; connector: Connector }"
+/>
 
 ## TanStack Query
 
@@ -104,9 +116,90 @@ import {
   type ReconnectMutate,
   type ReconnectMutateAsync,
   reconnectMutationOptions,
-} from "starkweb/react/query"
+} from "starkweb/react/query";
 ```
 
-## Actions
+## Examples
 
-{/* - [`reconnect`](/core/actions/reconnect) */}
+### Basic Usage
+
+```tsx [basic.tsx]
+import { useReconnect } from "starkweb/react";
+import { useEffect } from "react";
+
+function AutoReconnect() {
+  const { reconnect, isLoading, error } = useReconnect();
+
+  useEffect(() => {
+    reconnect();
+  }, []);
+
+  if (isLoading) return <div>Reconnecting...</div>;
+  if (error) return <div>Failed to reconnect: {error.message}</div>;
+
+  return <div>Wallet reconnection handled</div>;
+}
+```
+
+### With Specific Connectors
+
+```tsx [specific-connectors.tsx]
+import { useReconnect } from "starkweb/react";
+import { injected } from "starkweb/connectors";
+
+function SelectiveReconnect() {
+  const { reconnect, connectors } = useReconnect({
+    mutation: {
+      onSuccess(data) {
+        console.log("Reconnected to:", data.chainId);
+        console.log("Using accounts:", data.accounts);
+      },
+    },
+  });
+
+  return (
+    <div>
+      <h3>Available Connectors</h3>
+      {connectors.map((connector) => (
+        <button
+          key={connector.id}
+          onClick={() => reconnect({ connectors: [connector] })}
+        >
+          Reconnect {connector.name}
+        </button>
+      ))}
+    </div>
+  );
+}
+```
+
+### With Async Reconnection
+
+```tsx [async-reconnect.tsx]
+import { useReconnect } from "starkweb/react";
+import { useState } from "react";
+
+function AsyncReconnect() {
+  const [status, setStatus] = useState<string>();
+  const { reconnectAsync, isLoading } = useReconnect();
+
+  async function handleReconnect() {
+    try {
+      setStatus("Reconnecting...");
+      const result = await reconnectAsync();
+      setStatus(`Reconnected to ${result.connector.name}`);
+    } catch (error) {
+      setStatus(`Error: ${error.message}`);
+    }
+  }
+
+  return (
+    <div>
+      <button onClick={handleReconnect} disabled={isLoading}>
+        Attempt Reconnection
+      </button>
+      {status && <div>{status}</div>}
+    </div>
+  );
+}
+```
