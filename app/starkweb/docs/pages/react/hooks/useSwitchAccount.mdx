@@ -10,16 +10,16 @@ Hook for switching the current account.
 ## Import
 
 ```ts
-import { useSwitchAccount } from "starkweb/react"
+import { useSwitchAccount } from "starkweb/react";
 ```
 
 ## Usage
 
 ```tsx [index.tsx]
-import { useSwitchAccount } from "starkweb/react"
+import { useSwitchAccount } from "starkweb/react";
 
 function App() {
-  const { connectors, switchAccount } = useSwitchAccount()
+  const { connectors, switchAccount } = useSwitchAccount();
 
   return (
     <div>
@@ -29,14 +29,14 @@ function App() {
         </button>
       ))}
     </div>
-  )
+  );
 }
 ```
 
 ## Parameters
 
 ```ts
-import { type UseSwitchAccountParameters } from "starkweb/react"
+import { type UseSwitchAccountParameters } from "starkweb/react";
 ```
 
 ### config
@@ -46,30 +46,37 @@ import { type UseSwitchAccountParameters } from "starkweb/react"
 [`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`StarkwebProvider`](/react/api/StarkwebProvider).
 
 :::code-group
+
 ```tsx [index.tsx]
-import { useSwitchAccount } from "starkweb/react"
-import { config } from "./config" // [!code focus]
+import { useSwitchAccount } from "starkweb/react";
+import { config } from "./config"; // [!code focus]
 
 function App() {
   const result = useSwitchAccount({
     config, // [!code focus]
-  })
+  });
 }
 ```
 
 ```ts [config.ts]
 // [!include ~/snippets/config.ts]
 ```
+
 :::
 
-import MutationOptions from "../../../snippets/mutation-options.mdx"
+import MutationOptions from "../../../snippets/mutation-options.mdx";
 
-<MutationOptions mutate="switchAccount" TData="SwitchAccountData" TError="SwitchAccountErrorType" TVariables="SwitchAccountVariables" />
+<MutationOptions
+  mutate="switchAccount"
+  TData="SwitchAccountData"
+  TError="SwitchAccountErrorType"
+  TVariables="SwitchAccountVariables"
+/>
 
 ## Return Type
 
 ```ts
-import { type UseSwitchAccountReturnType } from "starkweb/react"
+import { type UseSwitchAccountReturnType } from "starkweb/react";
 ```
 
 ### connectors
@@ -79,10 +86,10 @@ import { type UseSwitchAccountReturnType } from "starkweb/react"
 Globally configured and actively connected connectors. Useful for rendering a list of available connectors to switch to.
 
 ```tsx [index.tsx]
-import { useSwitchAccount } from "starkweb/react"
+import { useSwitchAccount } from "starkweb/react";
 
 function App() {
-  const { connectors, switchAccount } = useSwitchAccount()
+  const { connectors, switchAccount } = useSwitchAccount();
 
   return (
     <div>
@@ -92,13 +99,18 @@ function App() {
         </button>
       ))}
     </div>
-  )
+  );
 }
 ```
 
-import MutationResult from "../../../snippets/mutation-result.mdx"
+import MutationResult from "../../../snippets/mutation-result.mdx";
 
-<MutationResult mutate="switchAccount" TData="SwitchAccountData" TError="SwitchAccountErrorType" TVariables="SwitchAccountVariables" />
+<MutationResult
+  mutate="switchAccount"
+  TData="SwitchAccountData"
+  TError="SwitchAccountErrorType"
+  TVariables="SwitchAccountVariables"
+/>
 
 ## TanStack Query
 
@@ -109,9 +121,90 @@ import {
   type SwitchAccountMutate,
   type SwitchAccountMutateAsync,
   switchAccountMutationOptions,
-} from "starkweb/react/query"
+} from "starkweb/react/query";
 ```
 
-## Actions
+## Examples
 
-{/* - [`switchAccount`](/core/actions/switchAccount) */}
+### Basic Usage
+
+```tsx [basic.tsx]
+import { useSwitchAccount } from "starkweb/react";
+
+function AccountSwitcher() {
+  const { switchAccount, connectors, isLoading } = useSwitchAccount();
+
+  return (
+    <div>
+      <h3>Switch Account</h3>
+      {connectors.map((connector) => (
+        <button
+          key={connector.id}
+          onClick={() => switchAccount({ connector })}
+          disabled={isLoading}
+        >
+          Switch to {connector.name}
+        </button>
+      ))}
+    </div>
+  );
+}
+```
+
+### With Success Handling
+
+```tsx [success-handling.tsx]
+import { useSwitchAccount } from "starkweb/react";
+import { useState } from "react";
+
+function AccountSwitchStatus() {
+  const [status, setStatus] = useState<string>();
+  const { switchAccount } = useSwitchAccount({
+    mutation: {
+      onSuccess(data) {
+        setStatus(`Switched to account: ${data.account}`);
+      },
+      onError(error) {
+        setStatus(`Failed to switch: ${error.message}`);
+      },
+    },
+  });
+
+  return (
+    <div>
+      <button onClick={() => switchAccount()}>Switch Account</button>
+      {status && <div>{status}</div>}
+    </div>
+  );
+}
+```
+
+### With Async Switching
+
+```tsx [async-switching.tsx]
+import { useSwitchAccount } from "starkweb/react";
+import { useState } from "react";
+
+function AsyncAccountSwitcher() {
+  const [currentAccount, setCurrentAccount] = useState<string>();
+  const { switchAccountAsync, isLoading } = useSwitchAccount();
+
+  async function handleSwitch() {
+    try {
+      const result = await switchAccountAsync();
+      setCurrentAccount(result.account);
+    } catch (error) {
+      console.error("Failed to switch account:", error);
+    }
+  }
+
+  return (
+    <div>
+      <button onClick={handleSwitch} disabled={isLoading}>
+        Switch Account
+      </button>
+      {currentAccount && <div>Current Account: {currentAccount}</div>}
+    </div>
+  );
+}
+```

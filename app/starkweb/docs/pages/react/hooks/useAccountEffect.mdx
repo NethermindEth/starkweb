@@ -1,39 +1,39 @@
 ---
 title: useAccountEffect
-description: Hook for listening to account lifecycle events.
+description: React hook for handling account lifecycle events
 ---
 
 # useAccountEffect
 
-Hook for listening to account lifecycle events.
+React hook for handling Starknet account connection and disconnection events.
 
 ## Import
 
 ```ts
-import { useAccountEffect } from "starkweb/react"
+import { useAccountEffect } from "starkweb/react";
 ```
 
 ## Usage
 
 ```tsx [index.tsx]
-import { useAccountEffect } from "starkweb/react"
+import { useAccountEffect } from "starkweb/react";
 
 function App() {
   useAccountEffect({
     onConnect(data) {
-      console.log("Connected!", data)
+      console.log("Connected!", data);
     },
     onDisconnect() {
-      console.log("Disconnected!")
+      console.log("Disconnected!");
     },
-  })
+  });
 }
 ```
 
 ## Parameters
 
 ```ts
-import { type UseAccountEffectParameters } from "starkweb/react"
+import { type UseAccountEffectParameters } from "starkweb/react";
 ```
 
 ### config
@@ -43,43 +43,46 @@ import { type UseAccountEffectParameters } from "starkweb/react"
 [`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`StarkwebProvider`](/react/api/StarkwebProvider).
 
 :::code-group
+
 ```tsx [index.tsx]
-import { useAccountEffect } from "starkweb/react"
-import { config } from "./config" // [!code focus]
+import { useAccountEffect } from "starkweb/react";
+import { config } from "./config"; // [!code focus]
 
 function App() {
   useAccountEffect({
     config, // [!code focus]
     onConnect(data) {
-      console.log("Connected!", data)
+      console.log("Connected!", data);
     },
     onDisconnect() {
-      console.log("Disconnected!")
+      console.log("Disconnected!");
     },
-  })
+  });
 }
 ```
 
 ```ts [config.ts]
 // [!include ~/snippets/config.ts]
 ```
+
 :::
 
 ### onConnect
 
-``((data: { address: `0x${string}`; addresses: readonly [`0x${string}`, ...`0x${string}`[]]; chain: Chain | undefined; chainId: number; connector: Connector; isReconnected: boolean }) => void) | undefined``
+`` ((data: { address: `0x${string}`; addresses: readonly [`0x${string}`, ...`0x${string}`[]]; chain: Chain | undefined; chainId: number; connector: Connector; isReconnected: boolean }) => void) | undefined ``
 
 Callback that is called when accounts are connected.
 
 ```tsx [index.tsx]
-import { useAccountEffect } from "starkweb/react"
+import { useAccountEffect } from "starkweb/react";
 
 function App() {
   useAccountEffect({
-    onConnect(data) { // [!code focus]
-      console.log("Connected!", data) // [!code focus]
+    onConnect(data) {
+      // [!code focus]
+      console.log("Connected!", data); // [!code focus]
     }, // [!code focus]
-  })
+  });
 }
 ```
 
@@ -90,18 +93,169 @@ function App() {
 Callback that is called when no more accounts are connected.
 
 ```tsx [index.tsx]
-import { useAccountEffect } from "starkweb/react"
+import { useAccountEffect } from "starkweb/react";
 
 function App() {
   useAccountEffect({
-    onDisconnect() { // [!code focus]
-      console.log("Disconnected!") // [!code focus]
+    onDisconnect() {
+      // [!code focus]
+      console.log("Disconnected!"); // [!code focus]
     }, // [!code focus]
-  })
+  });
 }
 ```
 
-## Actions
+## Examples
 
-{/* - [`getAccount`](/core/actions/getAccount) */}
-{/* - [`watchAccount`](/core/actions/watchAccount) */}
+### Basic Usage
+
+```tsx [basic.tsx]
+import { useAccountEffect } from "starkweb/react";
+
+function WalletEvents() {
+  useAccountEffect({
+    onConnect(data) {
+      const { address, chainId, isReconnected } = data;
+      console.log(`Connected to ${address} on chain ${chainId}`);
+      console.log(
+        `Connection type: ${isReconnected ? "Reconnected" : "New connection"}`
+      );
+    },
+    onDisconnect() {
+      console.log("Wallet disconnected");
+    },
+  });
+
+  return <div>Monitoring wallet events...</div>;
+}
+```
+
+### With Contract Interaction
+
+```tsx [contract-interaction.tsx]
+import { useAccountEffect } from "starkweb/react";
+import { Contract } from "starkweb/contract";
+import { useState } from "react";
+
+function TokenWatcher() {
+  const [balance, setBalance] = useState<string>();
+
+  useAccountEffect({
+    onConnect(data) {
+      // ERC20 token contract
+      const contract = new Contract(
+        "0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7",
+        [
+          {
+            name: "balanceOf",
+            type: "function",
+            inputs: [{ name: "account", type: "felt" }],
+            outputs: [{ name: "balance", type: "Uint256" }],
+            stateMutability: "view",
+          },
+        ],
+        data.connector
+      );
+
+      // Get token balance
+      contract
+        .balanceOf(data.address)
+        .then((balance) => setBalance(balance.toString()));
+    },
+    onDisconnect() {
+      setBalance(undefined);
+    },
+  });
+
+  return (
+    <div>
+      {balance ? `Token Balance: ${balance}` : "Connect wallet to view balance"}
+    </div>
+  );
+}
+```
+
+### With Connection Status
+
+```tsx [connection-status.tsx]
+import { useAccountEffect } from "starkweb/react";
+import { useState } from "react";
+
+function ConnectionTracker() {
+  const [status, setStatus] = useState<string>("Waiting for wallet...");
+  const [chainName, setChainName] = useState<string>();
+
+  useAccountEffect({
+    onConnect(data) {
+      setStatus(data.isReconnected ? "Reconnected" : "Connected");
+      setChainName(data.chain?.name);
+    },
+    onDisconnect() {
+      setStatus("Disconnected");
+      setChainName(undefined);
+    },
+  });
+
+  return (
+    <div>
+      <div>Status: {status}</div>
+      {chainName && <div>Network: {chainName}</div>}
+    </div>
+  );
+}
+```
+
+### With Error Handling
+
+```tsx [error-handling.tsx]
+import { useAccountEffect } from "starkweb/react";
+import { useState } from "react";
+
+function SafeWalletMonitor() {
+  const [error, setError] = useState<Error>();
+  const [connectionInfo, setConnectionInfo] = useState<{
+    address: string;
+    chain: string;
+  }>();
+
+  useAccountEffect({
+    onConnect(data) {
+      try {
+        // Validate chain support
+        if (!data.chain) {
+          throw new Error("Unsupported network");
+        }
+
+        // Store connection info
+        setConnectionInfo({
+          address: data.address,
+          chain: data.chain.name,
+        });
+        setError(undefined);
+      } catch (err) {
+        setError(err instanceof Error ? err : new Error("Connection failed"));
+        setConnectionInfo(undefined);
+      }
+    },
+    onDisconnect() {
+      setConnectionInfo(undefined);
+      setError(undefined);
+    },
+  });
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
+  if (connectionInfo) {
+    return (
+      <div>
+        <div>Connected to: {connectionInfo.address}</div>
+        <div>Network: {connectionInfo.chain}</div>
+      </div>
+    );
+  }
+
+  return <div>Waiting for wallet connection...</div>;
+}
+```

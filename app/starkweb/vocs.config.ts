@@ -3,6 +3,20 @@ import { defineConfig } from "vocs";
 export default defineConfig({
   title: "Starkweb",
   description: "all-in-one Starknet Toolkit",
+  socials: [
+    {
+      icon: "github",
+      link: "https://github.com/NethermindEth/starkweb",
+    },
+    {
+      icon: "x",
+      link: "https://x.com/NethermindStark",
+    },
+    {
+      icon: "telegram",
+      link: "https://t.me/strkweb",
+    },
+  ],
   banner: {
     content: "Join the Starkweb Telegram Channel [here](https://t.me/strkweb)",
     dismissable: true,
@@ -83,9 +97,9 @@ export default defineConfig({
               link: "/react/hooks/useConnectorClient",
             },
             { text: "useConnectors", link: "/react/hooks/useConnectors" },
-            { text: "useContractRead", link: "/react/hooks/useContractRead" },
-            { text: "useContractReads", link: "/react/hooks/useContractReads" },
-            { text: "useContractWrite", link: "/react/hooks/useContractWrite" },
+            { text: "useReadContract", link: "/react/hooks/useReadContract" },
+            { text: "useReadContracts", link: "/react/hooks/useReadContracts" },
+            { text: "useWriteContract", link: "/react/hooks/useWriteContract" },
             { text: "useDisconnect", link: "/react/hooks/useDisconnect" },
             { text: "useReconnect", link: "/react/hooks/useReconnect" },
             { text: "useSignMessage", link: "/react/hooks/useSignMessage" },

@@ -10,23 +10,23 @@ Hook for getting a `WalletClient` object for the current or provided connector.
 ## Import
 
 ```ts
-import { useWalletClient } from "starkweb/react"
+import { useWalletClient } from "starkweb/react";
 ```
 
 ## Usage
 
 ```tsx [index.tsx]
-import { useWalletClient } from "starkweb/react"
+import { useWalletClient } from "starkweb/react";
 
 function App() {
-  const result = useWalletClient()
+  const result = useWalletClient();
 }
 ```
 
 ## Parameters
 
 ```ts
-import { type UseWalletClientParameters } from "starkweb/react"
+import { type UseWalletClientParameters } from "starkweb/react";
 ```
 
 ### account
@@ -36,12 +36,13 @@ import { type UseWalletClientParameters } from "starkweb/react"
 Account to use with client. Throws if account is not found on [`connector`](#connector).
 
 ```ts
-import { useWalletClient } from "starkweb/react"
+import { useWalletClient } from "starkweb/react";
 
 function App() {
   const result = useWalletClient({
-    account: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4", // [!code focus]
-  })
+    account:
+      "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4", // [!code focus]
+  });
 }
 ```
 
@@ -52,12 +53,12 @@ function App() {
 ID of chain to use with client.
 
 ```ts
-import { useWalletClient } from "starkweb/react"
+import { useWalletClient } from "starkweb/react";
 
 function App() {
   const result = useWalletClient({
     chainId: mainnet.chain_id, // [!code focus]
-  })
+  });
 }
 ```
 
@@ -68,20 +69,22 @@ function App() {
 [`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`StarkwebProvider`](/react/api/StarkwebProvider).
 
 :::code-group
+
 ```tsx [index.tsx]
-import { useWalletClient } from "starkweb/react"
-import { config } from "./config" // [!code focus]
+import { useWalletClient } from "starkweb/react";
+import { config } from "./config"; // [!code focus]
 
 function App() {
   const result = useWalletClient({
     config, // [!code focus]
-  })
+  });
 }
 ```
 
 ```ts [config.ts]
 // [!include ~/snippets/config.ts]
 ```
+
 :::
 
 ### connector
@@ -92,27 +95,27 @@ function App() {
 - Defaults to current connector.
 
 ```ts
-import { useConnections, useWalletClient } from "starkweb/react"
+import { useConnections, useWalletClient } from "starkweb/react";
 
 function App() {
-  const connections = useConnections(config)
+  const connections = useConnections(config);
   const result = useWalletClient({
     connector: connections[0]?.connector, // [!code focus]
-  })
+  });
 }
 ```
 
-import QueryOptions from "../../../snippets/query-options.mdx"
+import QueryOptions from "../../../snippets/query-options.mdx";
 
 <QueryOptions TData="WalletClient" TError="GetWalletClientErrorType" />
 
 ## Return Type
 
 ```ts
-import { type UseWalletClientReturnType } from "starkweb/react"
+import { type UseWalletClientReturnType } from "starkweb/react";
 ```
 
-import QueryResult from "../../../snippets/query-result.mdx"
+import QueryResult from "../../../snippets/query-result.mdx";
 
 <QueryResult TData="WalletClient" TError="GetWalletClientErrorType" />
 
@@ -126,9 +129,144 @@ import {
   type GetWalletClientQueryKey,
   getWalletClientQueryKey,
   getWalletClientQueryOptions,
-} from "starkweb/react/query"
+} from "starkweb/react/query";
 ```
 
-## Actions
+## Examples
 
-{/* - [`getWalletClient`](/core/actions/getWalletClient) */}
+### Basic Usage
+
+```tsx [basic.tsx]
+import { useWalletClient } from "starkweb/react";
+
+function WalletInfo() {
+  const { data: walletClient, isError, isLoading } = useWalletClient();
+
+  if (isLoading) return <div>Loading wallet...</div>;
+  if (isError) return <div>Error loading wallet</div>;
+  if (!walletClient) return <div>Wallet not connected</div>;
+
+  return (
+    <div>
+      <div>Chain ID: {walletClient.chain.id}</div>
+      <div>Transport Type: {walletClient.transport.type}</div>
+    </div>
+  );
+}
+```
+
+### With Chain-Specific Client
+
+```tsx [chain-specific.tsx]
+import { useWalletClient } from "starkweb/react";
+import { mainnet } from "starkweb/chains";
+
+function MainnetWallet() {
+  const { data: walletClient } = useWalletClient({
+    chainId: mainnet.chain_id,
+    query: {
+      enabled: true,
+      staleTime: Infinity,
+    },
+  });
+
+  if (!walletClient) return null;
+
+  return (
+    <div>
+      <h3>Mainnet Wallet</h3>
+      <div>Connected: {walletClient.isConnected() ? "Yes" : "No"}</div>
+    </div>
+  );
+}
+```
+
+### With Account Selection
+
+```tsx [account-selection.tsx]
+import { useWalletClient } from "starkweb/react";
+import { useAccount } from "starkweb/react";
+
+function AccountSpecificWallet() {
+  const { address } = useAccount();
+  const { data: walletClient, isLoading } = useWalletClient({
+    account: address,
+  });
+
+  if (isLoading) return <div>Loading wallet...</div>;
+  if (!walletClient) return <div>No wallet available for account</div>;
+
+  return (
+    <div>
+      <h3>Account Wallet</h3>
+      <div>Account: {address}</div>
+      <div>Chain: {walletClient.chain.name}</div>
+    </div>
+  );
+}
+```
+
+### With Error Handling
+
+```tsx [error-handling.tsx]
+import { useWalletClient } from "starkweb/react";
+import { useState } from "react";
+
+function SafeWalletAccess() {
+  const [error, setError] = useState<string>();
+  const { data: walletClient, isLoading } = useWalletClient({
+    query: {
+      retry: 3,
+      onError(err) {
+        setError(err instanceof Error ? err.message : "Failed to get wallet");
+      },
+      onSuccess() {
+        setError(undefined);
+      },
+    },
+  });
+
+  if (isLoading) return <div>Loading wallet...</div>;
+  if (error) return <div>Error: {error}</div>;
+  if (!walletClient) return <div>No wallet available</div>;
+
+  return (
+    <div>
+      <div>Wallet Ready</div>
+      <div>Provider: {walletClient.transport.type}</div>
+      <div>Chain ID: {walletClient.chain.id}</div>
+    </div>
+  );
+}
+```
+
+### With Multiple Connectors
+
+```tsx [multiple-connectors.tsx]
+import { useWalletClient } from "starkweb/react";
+import { useConnections } from "starkweb/react";
+
+function MultiWalletManager() {
+  const connections = useConnections();
+  const { data: walletClient } = useWalletClient({
+    connector: connections[0]?.connector,
+  });
+
+  return (
+    <div>
+      <h3>Active Wallets</h3>
+      {connections.map((connection) => (
+        <div key={connection.connector.id}>
+          <div>Connector: {connection.connector.name}</div>
+          <div>
+            Status:{" "}
+            {connection.connector.id === walletClient?.connector.id
+              ? "Active"
+              : "Inactive"}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+```

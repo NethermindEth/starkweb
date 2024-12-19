@@ -10,26 +10,29 @@ Hook for switching the target chain for a connector or the Starkweb [`Config`](/
 ## Import
 
 ```ts
-import { useSwitchChain } from "starkweb/react"
+import { useSwitchChain } from "starkweb/react";
 ```
 
 ## Usage
 
 ```tsx [index.tsx]
-import { useSwitchChain } from "starkweb/react"
+import { useSwitchChain } from "starkweb/react";
 
 function App() {
-  const { chains, switchChain } = useSwitchChain()
+  const { chains, switchChain } = useSwitchChain();
 
   return (
     <div>
       {chains.map((chain) => (
-        <button key={chain.id} onClick={() => switchChain({ chainId: chain.id })}>
+        <button
+          key={chain.id}
+          onClick={() => switchChain({ chainId: chain.id })}
+        >
           {chain.name}
         </button>
       ))}
     </div>
-  )
+  );
 }
 ```
 
@@ -40,7 +43,7 @@ When connected, `switchChain` will switch the target chain for the connector. Wh
 ## Parameters
 
 ```ts
-import { type UseSwitchChainParameters } from "starkweb/react"
+import { type UseSwitchChainParameters } from "starkweb/react";
 ```
 
 ### config
@@ -50,30 +53,37 @@ import { type UseSwitchChainParameters } from "starkweb/react"
 [`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`StarkwebProvider`](/react/api/StarkwebProvider).
 
 :::code-group
+
 ```tsx [index.tsx]
-import { useSwitchChain } from "starkweb/react"
-import { config } from "./config" // [!code focus]
+import { useSwitchChain } from "starkweb/react";
+import { config } from "./config"; // [!code focus]
 
 function App() {
   const result = useSwitchChain({
     config, // [!code focus]
-  })
+  });
 }
 ```
 
 ```ts [config.ts]
 // [!include ~/snippets/config.ts]
 ```
+
 :::
 
-import MutationOptions from "../../../snippets/mutation-options.mdx"
+import MutationOptions from "../../../snippets/mutation-options.mdx";
 
-<MutationOptions mutate="switchChain" TData="SwitchChainData" TError="SwitchChainErrorType" TVariables="SwitchChainVariables" />
+<MutationOptions
+  mutate="switchChain"
+  TData="SwitchChainData"
+  TError="SwitchChainErrorType"
+  TVariables="SwitchChainVariables"
+/>
 
 ## Return Type
 
 ```ts
-import { type UseSwitchChainReturnType } from "starkweb/react"
+import { type UseSwitchChainReturnType } from "starkweb/react";
 ```
 
 ### chains
@@ -83,26 +93,34 @@ import { type UseSwitchChainReturnType } from "starkweb/react"
 Globally configured chains. Useful for rendering a list of available chains to switch to.
 
 ```tsx [index.tsx]
-import { useSwitchChain } from "starkweb/react"
+import { useSwitchChain } from "starkweb/react";
 
 function App() {
-  const { chains, switchChain } = useSwitchChain()
+  const { chains, switchChain } = useSwitchChain();
 
   return (
     <div>
       {chains.map((chain) => (
-        <button key={chain.id} onClick={() => switchChain({ chainId: chain.id })}>
+        <button
+          key={chain.id}
+          onClick={() => switchChain({ chainId: chain.id })}
+        >
           {chain.name}
         </button>
       ))}
     </div>
-  )
+  );
 }
 ```
 
-import MutationResult from "../../../snippets/mutation-result.mdx"
+import MutationResult from "../../../snippets/mutation-result.mdx";
 
-<MutationResult mutate="switchChain" TData="SwitchChainData" TError="SwitchChainErrorType" TVariables="SwitchChainVariables" />
+<MutationResult
+  mutate="switchChain"
+  TData="SwitchChainData"
+  TError="SwitchChainErrorType"
+  TVariables="SwitchChainVariables"
+/>
 
 ## TanStack Query
 
@@ -113,9 +131,112 @@ import {
   type SwitchChainMutate,
   type SwitchChainMutateAsync,
   switchChainMutationOptions,
-} from "starkweb/react/query"
+} from "starkweb/react/query";
 ```
 
-## Actions
+## Examples
 
-{/* - [`switchChain`](/core/actions/switchChain) */}
+### Basic Usage
+
+```tsx [basic.tsx]
+import { useSwitchChain } from "starkweb/react";
+
+function ChainSwitcher() {
+  const { chains, switchChain, isLoading } = useSwitchChain();
+
+  return (
+    <div>
+      <h3>Available Networks</h3>
+      {chains.map((chain) => (
+        <button
+          key={chain.id}
+          onClick={() => switchChain({ chainId: chain.id })}
+          disabled={isLoading}
+        >
+          Switch to {chain.name}
+        </button>
+      ))}
+    </div>
+  );
+}
+```
+
+### With Network Status
+
+```tsx [network-status.tsx]
+import { useSwitchChain } from "starkweb/react";
+import { mainnet, testnet } from "starkweb/chains";
+import { useState } from "react";
+
+function NetworkSwitcher() {
+  const [status, setStatus] = useState<string>();
+  const { switchChain } = useSwitchChain({
+    mutation: {
+      onMutate() {
+        setStatus("Switching network...");
+      },
+      onSuccess(data) {
+        setStatus(`Switched to chain ID: ${data.chainId}`);
+      },
+      onError(error) {
+        setStatus(`Error: ${error.message}`);
+      },
+    },
+  });
+
+  return (
+    <div>
+      <div>
+        <button onClick={() => switchChain({ chainId: mainnet.chain_id })}>
+          Switch to Mainnet
+        </button>
+        <button onClick={() => switchChain({ chainId: testnet.chain_id })}>
+          Switch to Testnet
+        </button>
+      </div>
+      {status && <div>{status}</div>}
+    </div>
+  );
+}
+```
+
+### With Error Recovery
+
+```tsx [error-recovery.tsx]
+import { useSwitchChain } from "starkweb/react";
+import { useState } from "react";
+
+function SafeChainSwitcher() {
+  const [error, setError] = useState<string>();
+  const { switchChainAsync, chains } = useSwitchChain({
+    mutation: {
+      retry: 3,
+    },
+  });
+
+  async function handleSwitch(chainId: number) {
+    try {
+      setError(undefined);
+      await switchChainAsync({ chainId });
+    } catch (err) {
+      setError(`Failed to switch chain: ${err.message}`);
+    }
+  }
+
+  return (
+    <div>
+      {chains.map((chain) => (
+        <button key={chain.id} onClick={() => handleSwitch(chain.id)}>
+          Switch to {chain.name}
+        </button>
+      ))}
+      {error && (
+        <div className="error">
+          {error}
+          <button onClick={() => setError(undefined)}>Dismiss</button>
+        </div>
+      )}
+    </div>
+  );
+}
+```

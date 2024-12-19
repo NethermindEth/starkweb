@@ -1,22 +1,22 @@
 ---
-title: useContractReads
+title: useReadContracts
 description: Hook for calling multiple read methods on a contract.
 ---
 
-# useContractReads
+# useReadContracts
 
 Hook for calling multiple read methods on a contract.
 
 ## Import
 
 ```ts
-import { useContractReads } from "starkweb/react"
+import { useReadContracts } from "starkweb/react"
 ```
 
 ## Usage
 
 ```tsx [index.tsx]
-import { useContractReads } from "starkweb/react"
+import { useReadContracts } from "starkweb/react"
 
 const gotchiContract = {
   address: "0x072589b1e65b5b22b746c8701aae3ecc34af6e64a378091b47188e2a52414dba",
@@ -28,7 +28,7 @@ const mlootContract = {
 } as const
 
 function App() {
-  const result = useContractReads({
+  const result = useReadContracts({
     contracts: [
       {
         ...gotchiContract,
@@ -72,10 +72,10 @@ Set of contracts to call.
 The contract's ABI.
 
 ```tsx [index.tsx]
-import { useContractReads } from "starkweb/react"
+import { useReadContracts } from "starkweb/react"
 
 function App() {
-  const result = useContractReads({
+  const result = useReadContracts({
     contracts: [
       {
         address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
@@ -96,10 +96,10 @@ function App() {
 The contract's address.
 
 ```tsx [index.tsx]
-import { useContractReads } from "starkweb/react"
+import { useReadContracts } from "starkweb/react"
 
 function App() {
-  const result = useContractReads({
+  const result = useReadContracts({
     contracts: [
       {
         address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",  // [!code focus]
@@ -121,10 +121,10 @@ function App() {
 - Inferred from [`abi`](#abi).
 
 ```tsx [index.tsx]
-import { useContractReads } from "starkweb/react"
+import { useReadContracts } from "starkweb/react"
 
 function App() {
-  const result = useContractReads({
+  const result = useReadContracts({
     contracts: [
       {
         address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
@@ -146,10 +146,10 @@ function App() {
 - Inferred from [`abi`](#abi) and [`functionName`](#functionname).
 
 ```tsx [index.tsx]
-import { useContractReads } from "starkweb/react"
+import { useReadContracts } from "starkweb/react"
 
 function App() {
-  const result = useContractReads({
+  const result = useReadContracts({
     contracts: [
       {
         address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
@@ -170,10 +170,10 @@ function App() {
 ID of chain to use when fetching data.
 
 ```tsx [index.tsx]
-import { useContractReads } from "starkweb/react"
+import { useReadContracts } from "starkweb/react"
 
 function App() {
-  const result = useContractReads({
+  const result = useReadContracts({
     contracts: [
       {
         address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
@@ -192,13 +192,13 @@ function App() {
 
 `boolean`
 
-Whether or not the Hook should throw if a call reverts. If set to `true` (default), and a call reverts, then `useContractReads` will fail silently and its error will be logged in the results array. Defaults to `true`.
+Whether or not the Hook should throw if a call reverts. If set to `true` (default), and a call reverts, then `useReadContracts` will fail silently and its error will be logged in the results array. Defaults to `true`.
 
 ```tsx [index.tsx]
-import { useContractReads } from "starkweb/react"
+import { useReadContracts } from "starkweb/react"
 
 function App() {
-  const result = useContractReads({
+  const result = useReadContracts({
     allowFailure: false, // [!code focus]
     contracts: [
       {
@@ -220,10 +220,10 @@ function App() {
 The maximum size (in bytes) for each calldata chunk. Set to `0` to disable the size limit. Defaults to `1024`.
 
 ```tsx [index.tsx]
-import { useContractReads } from "starkweb/react"
+import { useReadContracts } from "starkweb/react"
 
 function App() {
-  const result = useContractReads({
+  const result = useReadContracts({
     batchSize: 1024, // [!code focus]
     contracts: [
       {
@@ -245,10 +245,10 @@ function App() {
 The block number to perform the read against.
 
 ```tsx [index.tsx]
-import { useContractReads } from "starkweb/react"
+import { useReadContracts } from "starkweb/react"
 
 function App() {
-  const result = useContractReads({
+  const result = useReadContracts({
     blockNumber: 69420n, // [!code focus]
     contracts: [
       {
@@ -270,10 +270,10 @@ function App() {
 Block tag to read against.
 
 ```tsx [index.tsx]
-import { useContractReads } from "starkweb/react"
+import { useReadContracts } from "starkweb/react"
 
 function App() {
-  const result = useContractReads({
+  const result = useReadContracts({
     blockTag: 'safe', // [!code focus]
     contracts: [
       {
@@ -296,11 +296,11 @@ function App() {
 
 :::code-group
 ```tsx [index.tsx]
-import { useContractReads } from "starkweb/react"
+import { useReadContracts } from "starkweb/react"
 import { config } from "./config"
 
 function App() {
-  const result = useContractReads({
+  const result = useReadContracts({
     config, // [!code focus]
     contracts: [
       {
@@ -327,10 +327,10 @@ function App() {
 Address of multicall contract.
 
 ```tsx [index.tsx]
-import { useContractReads } from "starkweb/react"
+import { useReadContracts } from "starkweb/react"
 
 function App() {
-  const result = useContractReads({
+  const result = useReadContracts({
     contracts: [
       {
         address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",

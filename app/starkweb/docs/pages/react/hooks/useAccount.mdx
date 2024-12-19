@@ -1,11 +1,11 @@
 ---
 title: useAccount
-description: Hook for getting current account.
+description: Hook for getting current account
 ---
 
 # useAccount
 
-Hook for getting current account.
+Hook for getting current account information.
 
 ## Import
 
@@ -15,13 +15,35 @@ import { useAccount } from "starkweb/react"
 
 ## Usage
 
-```ts
+:::code-group
+
+```tsx [index.tsx]
 import { useAccount } from "starkweb/react"
 
 function App() {
   const account = useAccount()
+  
+  if (account.isConnected) {
+    return <div>Connected to {account.address}</div>
+  }
+  
+  return <div>Not connected</div>
 }
 ```
+
+```ts [config.ts]
+import { createConfig, http } from "starkweb/core"
+import { mainnet } from "starkweb/chains"
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+})
+```
+
+:::
 
 ## Parameters
 
@@ -48,7 +70,15 @@ function App() {
 ```
 
 ```ts [config.ts]
-// [!include ~/snippets/config.ts]
+import { createConfig, http } from "starkweb/core"
+import { mainnet } from "starkweb/chains"
+
+export const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+})
 ```
 :::
 
@@ -62,6 +92,99 @@ import GetAccountReturn from "../../../snippets/getAccount-return-type.mdx"
 
 <GetAccountReturn />
 
-## Actions
+## Examples
 
-{/* - [`getAccount`](/core/actions/getAccount) */}
+### Basic Usage
+
+```tsx [basic.tsx]
+import { useAccount } from "starkweb/react"
+
+function AccountInfo() {
+  const { address, isConnected, status } = useAccount()
+
+  if (!isConnected) {
+    return <div>Not connected</div>
+  }
+
+  return (
+    <div>
+      <div>Address: {address}</div>
+      <div>Status: {status}</div>
+    </div>
+  )
+}
+```
+
+### With Multiple Addresses
+
+```tsx [multiple-addresses.tsx]
+import { useAccount } from "starkweb/react"
+
+function MultipleAccountsInfo() {
+  const { addresses, isConnected } = useAccount()
+
+  if (!isConnected) {
+    return <div>Not connected</div>
+  }
+
+  return (
+    <div>
+      <h2>Connected Accounts:</h2>
+      <ul>
+        {addresses.map((address, index) => (
+          <li key={address}>
+            Account {index + 1}: {address}
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+```
+
+### With Connection Status Handling
+
+```tsx [status-handling.tsx]
+import { useAccount } from "starkweb/react"
+
+function AccountStatus() {
+  const { status, address } = useAccount()
+
+  switch (status) {
+    case 'connecting':
+      return <div>Connecting...</div>
+    case 'reconnecting':
+      return <div>Reconnecting...</div>
+    case 'connected':
+      return <div>Connected to {address}</div>
+    case 'disconnected':
+      return <div>Disconnected</div>
+    default:
+      return <div>Unknown status</div>
+  }
+}
+```
+
+### With Error Handling
+
+```tsx [error-handling.tsx]
+import { useAccount } from "starkweb/react"
+
+function AccountWithError() {
+  const { address, isConnected, isError, error } = useAccount()
+
+  if (isError) {
+    return (
+      <div>
+        Error connecting to account: {error.message}
+      </div>
+    )
+  }
+
+  if (!isConnected) {
+    return <div>Not connected</div>
+  }
+
+  return <div>Connected to {address}</div>
+}
+```
