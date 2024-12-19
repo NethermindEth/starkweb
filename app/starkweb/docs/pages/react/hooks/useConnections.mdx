@@ -10,23 +10,23 @@ Hook for getting active connections.
 ## Import
 
 ```ts
-import { useConnections } from "starkweb/react"
+import { useConnections } from "starkweb/react";
 ```
 
 ## Usage
 
 ```tsx [index.tsx]
-import { useConnections } from "starkweb/react"
+import { useConnections } from "starkweb/react";
 
 function App() {
-  const connections = useConnections()
+  const connections = useConnections();
 }
 ```
 
 ## Parameters
 
 ```ts
-import { type UseConnectionsParameters } from "starkweb/react"
+import { type UseConnectionsParameters } from "starkweb/react";
 ```
 
 ### config
@@ -36,29 +36,112 @@ import { type UseConnectionsParameters } from "starkweb/react"
 [`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`StarkwebProvider`](/react/api/StarkwebProvider).
 
 :::code-group
+
 ```tsx [index.tsx]
-import { useConnections } from "starkweb/react"
-import { config } from "./config" // [!code focus]
+import { useConnections } from "starkweb/react";
+import { config } from "./config"; // [!code focus]
 
 function App() {
   const connections = useConnections({
     config, // [!code focus]
-  })
+  });
 }
 ```
 
 ```ts [config.ts]
 // [!include ~/snippets/config.ts]
 ```
+
 :::
 
 ## Return Type
 
 ```ts
-import { type UseConnectionsReturnType } from "starkweb/react"
+import { type UseConnectionsReturnType } from "starkweb/react";
 ```
 
-## Actions
+## Examples
 
-{/* - [`getConnections`](/core/actions/getConnections) */}
-{/* - [`watchConnections`](/core/actions/watchConnections) */}
+### Basic Usage
+
+```tsx [basic.tsx]
+import { useConnections } from "starkweb/react";
+
+function ConnectionsList() {
+  const connections = useConnections();
+
+  if (connections.length === 0) {
+    return <div>No active connections</div>;
+  }
+
+  return (
+    <div>
+      <h3>Active Connections</h3>
+      {connections.map((connection) => (
+        <div key={connection.connector.id}>
+          <div>Connector: {connection.connector.name}</div>
+          <div>Chain ID: {connection.chainId}</div>
+          <div>Accounts: {connection.accounts.join(", ")}</div>
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
+### With Connection Status
+
+```tsx [connection-status.tsx]
+import { useConnections } from "starkweb/react";
+import { mainnet } from "starkweb/chains";
+
+function ConnectionStatus() {
+  const connections = useConnections();
+
+  const mainnetConnection = connections.find(
+    (connection) => connection.chainId === mainnet.chain_id
+  );
+
+  return (
+    <div>
+      <h3>Mainnet Connection Status</h3>
+      {mainnetConnection ? (
+        <div>
+          <div>Connected via: {mainnetConnection.connector.name}</div>
+          <div>Account: {mainnetConnection.accounts[0]}</div>
+        </div>
+      ) : (
+        <div>Not connected to Mainnet</div>
+      )}
+    </div>
+  );
+}
+```
+
+### With Multiple Connectors
+
+```tsx [multiple-connectors.tsx]
+import { useConnections } from "starkweb/react";
+
+function ConnectorStatus() {
+  const connections = useConnections();
+
+  const connectorCounts = connections.reduce((acc, connection) => {
+    const type = connection.connector.type;
+    acc[type] = (acc[type] || 0) + 1;
+    return acc;
+  }, {} as Record<string, number>);
+
+  return (
+    <div>
+      <h3>Connected Wallets</h3>
+      {Object.entries(connectorCounts).map(([type, count]) => (
+        <div key={type}>
+          {type}: {count} connection(s)
+        </div>
+      ))}
+      <div>Total Connections: {connections.length}</div>
+    </div>
+  );
+}
+```

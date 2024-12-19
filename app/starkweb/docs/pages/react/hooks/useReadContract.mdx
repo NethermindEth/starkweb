@@ -1,9 +1,9 @@
 ---
-title: useContractRead
+title: useReadContract
 description: Hook for calling a read-only function on a contract, and returning the response.
 ---
 
-# useContractRead
+# useReadContract
 
 Hook for calling a **read-only** function on a contract, and returning the response.
 
@@ -12,34 +12,37 @@ A **read-only** function (constant function) on a Cairo contract is denoted by a
 ## Import
 
 ```ts
-import { useContractRead } from "starkweb/react"
+import { useReadContract } from "starkweb/react";
 ```
 
 ## Usage
 
 :::code-group
+
 ```tsx [index.tsx]
-import { useContractRead } from "starkweb/react"
-import { abi } from "./abi"
+import { useReadContract } from "starkweb/react";
+import { abi } from "./abi";
 
 function App() {
-  const result = useContractRead({
+  const result = useReadContract({
     abi,
-    address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
+    address:
+      "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
     functionName: "totalSupply",
-  })
+  });
 }
 ```
 
 ```ts [abi.ts]
 // [!include ~/snippets/abi-read.ts]
 ```
+
 :::
 
 ## Parameters
 
 ```ts
-import { type UseReadContractParameters } from "starkweb/react"
+import { type UseReadContractParameters } from "starkweb/react";
 ```
 
 ### abi
@@ -49,22 +52,25 @@ import { type UseReadContractParameters } from "starkweb/react"
 The contract's ABI.
 
 :::code-group
+
 ```tsx [index.tsx]
-import { useContractRead } from "starkweb/react"
-import { abi } from "./abi" // [!code focus]
+import { useReadContract } from "starkweb/react";
+import { abi } from "./abi"; // [!code focus]
 
 function App() {
-  const result = useContractRead({
+  const result = useReadContract({
     abi, // [!code focus]
-    address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
+    address:
+      "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
     functionName: "totalSupply",
-  })
+  });
 }
 ```
 
 ```ts [abi.ts]
 // [!include ~/snippets/abi-read.ts]
 ```
+
 :::
 
 ### account
@@ -74,24 +80,30 @@ function App() {
 Account to use when calling the contract (`msg.sender`).
 
 :::code-group
+
 ```tsx [index.tsx]
-import { useContractRead } from "starkweb/react"
-import { abi } from "./abi"
+import { useReadContract } from "starkweb/react";
+import { abi } from "./abi";
 
 function App() {
-  const result = useContractRead({
+  const result = useReadContract({
     abi,
-    address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
+    address:
+      "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
     functionName: "balanceOf",
-    args: ["0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4"],
-    account: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4", // [!code focus]
-  })
+    args: [
+      "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
+    ],
+    account:
+      "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4", // [!code focus]
+  });
 }
 ```
 
 ```ts [abi.ts]
 // [!include ~/snippets/abi-read.ts]
 ```
+
 :::
 
 ### address
@@ -101,22 +113,25 @@ function App() {
 The contract's address.
 
 :::code-group
+
 ```tsx [index.tsx]
-import { useContractRead } from "starkweb/react"
-import { abi } from "./abi"
+import { useReadContract } from "starkweb/react";
+import { abi } from "./abi";
 
 function App() {
-  const result = useContractRead({
+  const result = useReadContract({
     abi,
-    address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4", // [!code focus]
+    address:
+      "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4", // [!code focus]
     functionName: "totalSupply",
-  })
+  });
 }
 ```
 
 ```ts [abi.ts]
 // [!include ~/snippets/abi-read.ts]
 ```
+
 :::
 
 ### args
@@ -127,23 +142,28 @@ function App() {
 - Inferred from [`abi`](#abi) and [`functionName`](#functionname).
 
 :::code-group
+
 ```tsx [index.tsx]
-import { useContractRead } from "starkweb/react"
-import { abi } from "./abi"
+import { useReadContract } from "starkweb/react";
+import { abi } from "./abi";
 
 function App() {
-  const result = useContractRead({
+  const result = useReadContract({
     abi,
-    address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
+    address:
+      "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
     functionName: "balanceOf",
-    args: ["0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4"], // [!code focus]
-  })
+    args: [
+      "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
+    ], // [!code focus]
+  });
 }
 ```
 
 ```ts [abi.ts]
 // [!include ~/snippets/abi-read.ts]
 ```
+
 :::
 
 ---
@@ -155,23 +175,26 @@ function App() {
 Block number to call contract at.
 
 :::code-group
+
 ```tsx [index.tsx]
-import { useContractRead } from "starkweb/react"
-import { abi } from "./abi"
+import { useReadContract } from "starkweb/react";
+import { abi } from "./abi";
 
 function App() {
-  const result = useContractRead({
+  const result = useReadContract({
     abi,
-    address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
+    address:
+      "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
     functionName: "totalSupply",
     blockNumber: 892408, // [!code focus]
-  })
+  });
 }
 ```
 
 ```ts [abi.ts]
 // [!include ~/snippets/abi-read.ts]
 ```
+
 :::
 
 ### blockTag
@@ -181,23 +204,26 @@ function App() {
 Block tag to call contract at.
 
 :::code-group
+
 ```tsx [index.tsx]
-import { useContractRead } from "starkweb/react"
-import { abi } from "./abi"
+import { useReadContract } from "starkweb/react";
+import { abi } from "./abi";
 
 function App() {
-  const result = useContractRead({
+  const result = useReadContract({
     abi,
-    address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
+    address:
+      "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
     functionName: "totalSupply",
     blockTag: "safe", // [!code focus]
-  })
+  });
 }
 ```
 
 ```ts [abi.ts]
 // [!include ~/snippets/abi-read.ts]
 ```
+
 :::
 
 ---
@@ -209,24 +235,27 @@ function App() {
 ID of chain to use when fetching data.
 
 :::code-group
+
 ```tsx [index.tsx]
-import { useContractRead } from "starkweb/react"
-import { mainnet } from "starkweb/react/chains" // [!code focus]
-import { abi } from "./abi"
+import { useReadContract } from "starkweb/react";
+import { mainnet } from "starkweb/react/chains"; // [!code focus]
+import { abi } from "./abi";
 
 function App() {
-  const result = useContractRead({
+  const result = useReadContract({
     abi,
-    address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
+    address:
+      "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
     functionName: "totalSupply",
     chainId: mainnet.chain_id, // [!code focus]
-  })
+  });
 }
 ```
 
 ```ts [abi.ts]
 // [!include ~/snippets/abi-read.ts]
 ```
+
 :::
 
 ### config
@@ -236,18 +265,20 @@ function App() {
 [`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`StarkwebProvider`](/react/api/StarkwebProvider).
 
 :::code-group
+
 ```tsx [index.tsx]
-import { useContractRead } from "starkweb/react"
-import { abi } from "./abi"
-import { config } from "./config" // [!code focus]
+import { useReadContract } from "starkweb/react";
+import { abi } from "./abi";
+import { config } from "./config"; // [!code focus]
 
 function App() {
-  const result = useContractRead({
+  const result = useReadContract({
     abi,
-    address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
+    address:
+      "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
     functionName: "totalSupply",
     config, // [!code focus]
-  })
+  });
 }
 ```
 
@@ -258,6 +289,7 @@ function App() {
 ```ts [config.ts]
 // [!include ~/snippets/config.ts]
 ```
+
 :::
 
 ### functionName
@@ -268,23 +300,28 @@ function App() {
 - Inferred from [`abi`](#abi).
 
 :::code-group
+
 ```tsx [index.tsx]
-import { useContractRead } from "starkweb/react"
-import { abi } from './abi'
+import { useReadContract } from "starkweb/react";
+import { abi } from "./abi";
 
 function App() {
-  const result = useContractRead({
+  const result = useReadContract({
     abi,
-    address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
+    address:
+      "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
     functionName: "balanceOf", // [!code focus]
-    args: ["0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4"],
-  })
+    args: [
+      "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
+    ],
+  });
 }
 ```
 
 ```ts [abi.ts]
 // [!include ~/snippets/abi-read.ts]
 ```
+
 :::
 
 ### scopeKey
@@ -294,39 +331,44 @@ function App() {
 Scopes the cache to a given context. Hooks that have identical context will share the same cache.
 
 :::code-group
+
 ```tsx [index.tsx]
-import { useContractRead } from "starkweb/react"
-import { abi } from "./abi"
+import { useReadContract } from "starkweb/react";
+import { abi } from "./abi";
 
 function App() {
-  const result = useContractRead({
+  const result = useReadContract({
     abi,
-    address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
+    address:
+      "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
     functionName: "balanceOf",
-    args: ["0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4"],
+    args: [
+      "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
+    ],
     scopeKey: "foo", // [!code focus]
-  })
+  });
 }
 ```
 
 ```ts [abi.ts]
 // [!include ~/snippets/abi-read.ts]
 ```
+
 :::
 
-import QueryOptions from "../../../snippets/query-options.mdx"
+import QueryOptions from "../../../snippets/query-options.mdx";
 
 <QueryOptions TData="ReadContractReturnType" TError="ReadContractErrorType" />
 
 ## Return Type
 
 ```ts
-import { type UseReadContractReturnType } from "starkweb/react"
+import { type UseReadContractReturnType } from "starkweb/react";
 ```
 
 The return type [`data`](#data) property is inferrable via the combination of [`abi`](#abi), [`functionName`](#functionname), and [`args`](#args).
 
-import QueryResult from "../../../snippets/query-result.mdx"
+import QueryResult from "../../../snippets/query-result.mdx";
 
 <QueryResult TData="ReadContractReturnType" TError="ReadContractErrorType" />
 
@@ -340,9 +382,5 @@ import {
   type ReadContractQueryKey,
   readContractQueryKey,
   readContractQueryOptions,
-} from "starkweb/react/query"
+} from "starkweb/react/query";
 ```
-
-## Actions
-
-{/* - [`readContract`](/core/actions/readContract) */}

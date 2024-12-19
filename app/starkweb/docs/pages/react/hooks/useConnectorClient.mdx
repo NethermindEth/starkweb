@@ -10,23 +10,23 @@ Hook for getting a `Client` object for the current or provided connector.
 ## Import
 
 ```ts
-import { useConnectorClient } from "starkweb/react"
+import { useConnectorClient } from "starkweb/react";
 ```
 
 ## Usage
 
 ```tsx [index.tsx]
-import { useConnectorClient } from "starkweb/react"
+import { useConnectorClient } from "starkweb/react";
 
 function App() {
-  const result = useConnectorClient()
+  const result = useConnectorClient();
 }
 ```
 
 ## Parameters
 
 ```ts
-import { type UseConnectorClientParameters } from "starkweb/react"
+import { type UseConnectorClientParameters } from "starkweb/react";
 ```
 
 ### account
@@ -36,12 +36,13 @@ import { type UseConnectorClientParameters } from "starkweb/react"
 Account to use with client. Throws if account is not found on [`connector`](#connector).
 
 ```ts
-import { useConnectorClient } from "starkweb/react"
+import { useConnectorClient } from "starkweb/react";
 
 function App() {
   const result = useConnectorClient({
-    account: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4", // [!code focus]
-  })
+    account:
+      "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4", // [!code focus]
+  });
 }
 ```
 
@@ -52,12 +53,12 @@ function App() {
 ID of chain to use with client.
 
 ```ts
-import { useConnectorClient } from "starkweb/react"
+import { useConnectorClient } from "starkweb/react";
 
 function App() {
   const result = useConnectorClient({
     chainId: mainnet.chain_id, // [!code focus]
-  })
+  });
 }
 ```
 
@@ -68,20 +69,22 @@ function App() {
 [`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`StarkwebProvider`](/react/api/StarkwebProvider).
 
 :::code-group
+
 ```tsx [index.tsx]
-import { useConnectorClient } from "starkweb/react"
-import { config } from "./config" // [!code focus]
+import { useConnectorClient } from "starkweb/react";
+import { config } from "./config"; // [!code focus]
 
 function App() {
   const result = useConnectorClient({
     config, // [!code focus]
-  })
+  });
 }
 ```
 
 ```ts [config.ts]
 // [!include ~/snippets/config.ts]
 ```
+
 :::
 
 ### connector
@@ -92,27 +95,27 @@ function App() {
 - Defaults to current connector.
 
 ```ts
-import { useConnections, useConnectorClient } from "starkweb/react"
+import { useConnections, useConnectorClient } from "starkweb/react";
 
 function App() {
-  const connections = useConnections(config)
+  const connections = useConnections(config);
   const result = useConnectorClient({
     connector: connections[0]?.connector, // [!code focus]
-  })
+  });
 }
 ```
 
-import QueryOptions from "../../../snippets/query-options.mdx"
+import QueryOptions from "../../../snippets/query-options.mdx";
 
 <QueryOptions TData="Client" TError="GetConnectorClientErrorType" />
 
 ## Return Type
 
 ```ts
-import { type UseConnectorClientReturnType } from "starkweb/react"
+import { type UseConnectorClientReturnType } from "starkweb/react";
 ```
 
-import QueryResult from "../../../snippets/query-result.mdx"
+import QueryResult from "../../../snippets/query-result.mdx";
 
 <QueryResult TData="Client" TError="GetConnectorClientErrorType" />
 
@@ -126,9 +129,92 @@ import {
   type GetConnectorClientQueryKey,
   getConnectorClientQueryKey,
   getConnectorClientQueryOptions,
-} from "starkweb/react/query"
+} from "starkweb/react/query";
 ```
 
-## Actions
+## Examples
 
-- [`getConnectorClient`](#TODO/core/actions/getConnectorClient)
+### Basic Usage
+
+```tsx [basic.tsx]
+import { useConnectorClient } from "starkweb/react";
+
+function ClientInfo() {
+  const { data: client, isError, isLoading } = useConnectorClient();
+
+  if (isLoading) return <div>Loading client...</div>;
+  if (isError) return <div>Error loading client</div>;
+  if (!client) return <div>No client available</div>;
+
+  return (
+    <div>
+      <div>Client UID: {client.uid}</div>
+      <div>Transport Type: {client.transport.type}</div>
+    </div>
+  );
+}
+```
+
+### With Chain-Specific Operations
+
+```tsx [chain-operations.tsx]
+import { useConnectorClient } from "starkweb/react";
+import { mainnet } from "starkweb/chains";
+import { useState } from "react";
+
+function BlockFetcher() {
+  const [blockNumber, setBlockNumber] = useState<bigint>();
+  const { data: client } = useConnectorClient({
+    chainId: mainnet.chain_id,
+  });
+
+  async function fetchLatestBlock() {
+    if (!client) return;
+    try {
+      const block = await client.getBlockNumber();
+      setBlockNumber(block);
+    } catch (error) {
+      console.error("Failed to fetch block:", error);
+    }
+  }
+
+  return (
+    <div>
+      <button onClick={fetchLatestBlock} disabled={!client}>
+        Fetch Latest Block
+      </button>
+      {blockNumber && <div>Latest Block: {blockNumber.toString()}</div>}
+    </div>
+  );
+}
+```
+
+### With Error Handling
+
+```tsx [error-handling.tsx]
+import { useConnectorClient } from "starkweb/react";
+import { useState } from "react";
+
+function SafeClientOperations() {
+  const [error, setError] = useState<string>();
+  const { data: client, isLoading } = useConnectorClient({
+    query: {
+      retry: 3,
+      onError(err) {
+        setError(err instanceof Error ? err.message : "Failed to get client");
+      },
+    },
+  });
+
+  if (isLoading) return <div>Loading client...</div>;
+  if (error) return <div>Error: {error}</div>;
+  if (!client) return <div>No client available</div>;
+
+  return (
+    <div>
+      <div>Client Ready</div>
+      <div>Chain ID: {client.chain.id}</div>
+    </div>
+  );
+}
+```

@@ -10,25 +10,26 @@ Hook for fetching native currency or token balance.
 ## Import
 
 ```ts
-import { useBalance } from "starkweb/react"
+import { useBalance } from "starkweb/react";
 ```
 
 ## Usage
 
 ```tsx [index.tsx]
-import { useBalance } from "starkweb/react"
+import { useBalance } from "starkweb/react";
 
 function App() {
   const result = useBalance({
-    address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
-  })
+    address:
+      "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
+  });
 }
 ```
 
 ## Parameters
 
 ```ts
-import { type UseBalanceParameters } from "starkweb/react"
+import { type UseBalanceParameters } from "starkweb/react";
 ```
 
 ### address
@@ -38,13 +39,14 @@ import { type UseBalanceParameters } from "starkweb/react"
 Address to get balance for. [`enabled`](#enabled) set to `false` if `address` is `undefined`.
 
 ```tsx [index.tsx]
-import { useBalance } from "starkweb/react"
-import { mainnet } from "starkweb/react/chains"
+import { useBalance } from "starkweb/react";
+import { mainnet } from "starkweb/react/chains";
 
 function App() {
   const result = useBalance({
-    address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4", // [!code focus]
-  })
+    address:
+      "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4", // [!code focus]
+  });
 }
 ```
 
@@ -55,13 +57,14 @@ function App() {
 Block number to get balance at.
 
 ```ts [index.ts]
-import { useBalance } from "starkweb/react"
+import { useBalance } from "starkweb/react";
 
 function App() {
   const result = useBalance({
-    address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
+    address:
+      "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
     blockNumber: 892408, // [!code focus]
-  })
+  });
 }
 ```
 
@@ -72,13 +75,14 @@ function App() {
 Block tag to get balance at.
 
 ```ts [index.ts]
-import { useBalance } from "starkweb/react"
+import { useBalance } from "starkweb/react";
 
 function App() {
   const result = useBalance({
-    address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
+    address:
+      "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
     blockTag: "latest", // [!code focus]
-  })
+  });
 }
 ```
 
@@ -89,14 +93,15 @@ function App() {
 ID of chain to use when fetching data.
 
 ```tsx [index.tsx]
-import { useBalance } from "starkweb/react"
-import { mainnet } from "starkweb/react/chains" // [!code focus]
+import { useBalance } from "starkweb/react";
+import { mainnet } from "starkweb/react/chains"; // [!code focus]
 
 function App() {
   const result = useBalance({
-    address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
+    address:
+      "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
     chainId: mainnet.chain_id, // [!code focus]
-  })
+  });
 }
 ```
 
@@ -107,21 +112,24 @@ function App() {
 [`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`StarkwebProvider`](/react/api/StarkwebProvider).
 
 :::code-group
+
 ```tsx [index.tsx]
-import { useBalance } from "starkweb/react"
-import { config } from "./config" // [!code focus]
+import { useBalance } from "starkweb/react";
+import { config } from "./config"; // [!code focus]
 
 function App() {
   const result = useBalance({
-    address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
+    address:
+      "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
     config, // [!code focus]
-  })
+  });
 }
 ```
 
 ```ts [config.ts]
 // [!include ~/snippets/config.ts]
 ```
+
 :::
 
 ### scopeKey
@@ -131,29 +139,36 @@ function App() {
 Scopes the cache to a given context. Hooks that have identical context will share the same cache.
 
 ```tsx [index.tsx]
-import { useBalance } from "starkweb/react"
+import { useBalance } from "starkweb/react";
 
 function App() {
   const result = useBalance({
-    address: "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
+    address:
+      "0x06707675cd7dd9256667eca8284e46f4546711ee0054bc2dd02f0ce572056cf4",
     scopeKey: "foo", // [!code focus]
-  })
+  });
 }
 ```
 
-import QueryOptions from "../../../snippets/query-options.mdx"
+import QueryOptions from "../../../snippets/query-options.mdx";
 
-<QueryOptions TData="{ decimals: number; formatted: string; symbol: string; value: bigint; }" TError="GetBalanceErrorType" />
+<QueryOptions
+  TData="{ decimals: number; formatted: string; symbol: string; value: bigint; }"
+  TError="GetBalanceErrorType"
+/>
 
 ## Return Type
 
 ```ts
-import { type UseBalanceReturnType } from "starkweb/react"
+import { type UseBalanceReturnType } from "starkweb/react";
 ```
 
-import QueryResult from "../../../snippets/query-result.mdx"
+import QueryResult from "../../../snippets/query-result.mdx";
 
-<QueryResult TData="{ decimals: number; formatted: string; symbol: string; value: bigint; }" TError="GetBalanceErrorType" />
+<QueryResult
+  TData="{ decimals: number; formatted: string; symbol: string; value: bigint; }"
+  TError="GetBalanceErrorType"
+/>
 
 ## TanStack Query
 
@@ -165,9 +180,163 @@ import {
   type GetBalanceQueryKey,
   getBalanceQueryKey,
   getBalanceQueryOptions,
-} from "starkweb/react/query"
+} from "starkweb/react/query";
 ```
 
-## Actions
+## Examples
 
-{/* - [`getBalance`](/core/actions/getBalance) */}
+### Basic Usage
+
+```tsx [basic.tsx]
+import { useBalance } from "starkweb/react";
+
+function WalletBalance() {
+  const {
+    data: balance,
+    isError,
+    isLoading,
+  } = useBalance({
+    address: "0x1234...",
+  });
+
+  if (isLoading) return <div>Loading balance...</div>;
+  if (isError) return <div>Error fetching balance</div>;
+
+  return <div>Balance: {balance?.toString()} wei</div>;
+}
+```
+
+### With Formatting
+
+```tsx [formatted.tsx]
+import { useBalance } from "starkweb/react";
+import { formatUnits } from "starkweb/utils";
+
+function FormattedBalance() {
+  const { data: balance } = useBalance({
+    address: "0x1234...",
+  });
+
+  const formatted = balance ? formatUnits(balance, 18) : "0";
+
+  return (
+    <div>
+      <div>Raw Balance: {balance?.toString()} wei</div>
+      <div>Formatted Balance: {formatted} ETH</div>
+    </div>
+  );
+}
+```
+
+### With Connected Account
+
+```tsx [connected-account.tsx]
+import { useBalance, useAccount } from "starkweb/react";
+
+function AccountBalance() {
+  const { address, isConnected } = useAccount();
+  const { data: balance, isLoading } = useBalance({
+    address,
+    enabled: isConnected,
+  });
+
+  if (!isConnected) return <div>Connect wallet to view balance</div>;
+  if (isLoading) return <div>Loading...</div>;
+
+  return <div>Your Balance: {balance?.toString()} wei</div>;
+}
+```
+
+### With Auto-Refresh
+
+```tsx [auto-refresh.tsx]
+import { useBalance } from "starkweb/react";
+import { useState } from "react";
+
+function LiveBalance() {
+  const [address, setAddress] = useState<string>();
+  const { data: balance, refetch } = useBalance({
+    address,
+    watch: true,
+    refetchInterval: 10_000, // Refetch every 10 seconds
+  });
+
+  return (
+    <div>
+      <input
+        value={address}
+        onChange={(e) => setAddress(e.target.value)}
+        placeholder="Enter address"
+      />
+      <div>Balance: {balance?.toString() ?? "Enter address"}</div>
+      <button onClick={() => refetch()}>Refresh Balance</button>
+    </div>
+  );
+}
+```
+
+### With Error Handling
+
+```tsx [error-handling.tsx]
+import { useBalance } from "starkweb/react";
+import { useState } from "react";
+
+function BalanceWithError() {
+  const [error, setError] = useState<string>();
+  const {
+    data: balance,
+    isError,
+    error: balanceError,
+  } = useBalance({
+    address: "0x1234...",
+    onError(err) {
+      setError(err instanceof Error ? err.message : "Failed to fetch balance");
+    },
+    onSuccess() {
+      setError(undefined);
+    },
+  });
+
+  if (isError || error) {
+    return (
+      <div className="error">
+        Error: {error || balanceError?.message || "Unknown error"}
+      </div>
+    );
+  }
+
+  return <div>Balance: {balance?.toString() ?? "Loading..."}</div>;
+}
+```
+
+### With Multiple Tokens
+
+```tsx [multiple-tokens.tsx]
+import { useBalance } from "starkweb/react";
+import { formatUnits } from "starkweb/utils";
+
+function MultiTokenBalance() {
+  const address = "0x1234...";
+
+  const { data: ethBalance } = useBalance({
+    address,
+  });
+
+  const { data: tokenBalance } = useBalance({
+    address,
+    token: "0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7", // ETH contract
+  });
+
+  return (
+    <div>
+      <h3>Account Balances</h3>
+      <div>
+        ETH: {ethBalance ? formatUnits(ethBalance, 18) : "Loading..."} ETH
+      </div>
+      <div>
+        Token: {tokenBalance ? formatUnits(tokenBalance, 18) : "Loading..."} TKN
+      </div>
+    </div>
+  );
+}
+```

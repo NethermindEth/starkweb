@@ -10,23 +10,23 @@ Hook for fetching the number of the most recent block seen.
 ## Import
 
 ```ts
-import { useBlockNumber } from "starkweb/react"
+import { useBlockNumber } from "starkweb/react";
 ```
 
 ## Usage
 
 ```tsx [index.tsx]
-import { useBlockNumber } from "starkweb/react"
+import { useBlockNumber } from "starkweb/react";
 
 function App() {
-  const result = useBlockNumber()
+  const result = useBlockNumber();
 }
 ```
 
 ## Parameters
 
 ```ts
-import { type UseBlockNumberParameters } from "starkweb/react"
+import { type UseBlockNumberParameters } from "starkweb/react";
 ```
 
 ### cacheTime
@@ -36,12 +36,12 @@ import { type UseBlockNumberParameters } from "starkweb/react"
 Time in milliseconds that cached block number will remain in memory.
 
 ```tsx [index.tsx]
-import { useBlockNumber } from "starkweb/react"
+import { useBlockNumber } from "starkweb/react";
 
 function App() {
   const result = useBlockNumber({
     cacheTime: 4_000, // [!code focus]
-  })
+  });
 }
 ```
 
@@ -52,13 +52,13 @@ function App() {
 ID of chain to use when fetching data.
 
 ```tsx [index.tsx]
-import { useBlockNumber } from "starkweb/react"
-import { mainnet } from "starkweb/react/chains" // [!code focus]
+import { useBlockNumber } from "starkweb/react";
+import { mainnet } from "starkweb/react/chains"; // [!code focus]
 
 function App() {
   const result = useBlockNumber({
     chainId: mainnet.chain_id, // [!code focus]
-  })
+  });
 }
 ```
 
@@ -69,20 +69,22 @@ function App() {
 [`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`StarkwebProvider`](/react/api/StarkwebProvider).
 
 :::code-group
+
 ```tsx [index.tsx]
-import { useBlockNumber } from "starkweb/react"
-import { config } from "./config" // [!code focus]
+import { useBlockNumber } from "starkweb/react";
+import { config } from "./config"; // [!code focus]
 
 function App() {
   const result = useBlockNumber({
     config, // [!code focus]
-  })
+  });
 }
 ```
 
 ```ts [config.ts]
 // [!include ~/snippets/config.ts]
 ```
+
 :::
 
 ### scopeKey
@@ -92,13 +94,13 @@ function App() {
 Scopes the cache to a given context. Hooks that have identical context will share the same cache.
 
 ```tsx [index.tsx]
-import { useBlockNumber } from "starkweb/react"
-import { config } from "./config" // [!code focus]
+import { useBlockNumber } from "starkweb/react";
+import { config } from "./config"; // [!code focus]
 
 function App() {
   const result = useBlockNumber({
     scopeKey: "foo", // [!code focus]
-  })
+  });
 }
 ```
 
@@ -109,26 +111,26 @@ function App() {
 Enables/disables listening for block number changes.
 
 ```tsx [index.tsx]
-import { useBlockNumber } from "starkweb/react"
+import { useBlockNumber } from "starkweb/react";
 
 function App() {
   const result = useBlockNumber({
     watch: true, // [!code focus]
-  })
+  });
 }
 ```
 
-import QueryOptions from "../../../snippets/query-options.mdx"
+import QueryOptions from "../../../snippets/query-options.mdx";
 
 <QueryOptions TData="bigint" TError="GetBlockNumberErrorType" />
 
 ## Return Type
 
 ```ts
-import { type UseBlockNumberReturnType } from "starkweb/react"
+import { type UseBlockNumberReturnType } from "starkweb/react";
 ```
 
-import QueryResult from "../../../snippets/query-result.mdx"
+import QueryResult from "../../../snippets/query-result.mdx";
 
 <QueryResult TData="bigint" TError="GetBlockNumberErrorType" />
 
@@ -142,10 +144,156 @@ import {
   type GetBlockNumberQueryKey,
   getBlockNumberQueryKey,
   getBlockNumberQueryOptions,
-} from "starkweb/react/query"
+} from "starkweb/react/query";
 ```
 
-## Actions
+## Examples
 
-{/* - [`getBlockNumber`](/core/actions/getBlockNumber) */}
-{/* - [`watchBlockNumber`](/core/actions/watchBlockNumber) */}
+### Basic Usage
+
+```tsx [basic.tsx]
+import { useBlockNumber } from "starkweb/react";
+
+function BlockInfo() {
+  const { data: blockNumber, isError, isLoading } = useBlockNumber();
+
+  if (isLoading) return <div>Loading block number...</div>;
+  if (isError) return <div>Error fetching block number</div>;
+
+  return <div>Current Block: {blockNumber?.toString()}</div>;
+}
+```
+
+### With Live Updates
+
+```tsx [live-updates.tsx]
+import { useBlockNumber } from "starkweb/react";
+import { useState, useEffect } from "react";
+
+function LiveBlockMonitor() {
+  const [blockCount, setBlockCount] = useState(0);
+  const { data: blockNumber } = useBlockNumber({
+    watch: true, // Enable live updates
+    query: {
+      onSuccess(newBlock) {
+        setBlockCount((count) => count + 1);
+      },
+    },
+  });
+
+  return (
+    <div>
+      <div>Current Block: {blockNumber?.toString()}</div>
+      <div>Blocks Seen: {blockCount}</div>
+    </div>
+  );
+}
+```
+
+### With Custom Watch Parameters
+
+```tsx [custom-watch.tsx]
+import { useBlockNumber } from "starkweb/react";
+
+function CustomBlockWatcher() {
+  const { data: blockNumber } = useBlockNumber({
+    watch: true,
+    cacheTime: 4_000,
+    query: {
+      refetchInterval: 1_000, // Poll every second
+    },
+  });
+
+  return <div>Block: {blockNumber?.toString()}</div>;
+}
+```
+
+### With Chain Selection
+
+```tsx [chain-selection.tsx]
+import { useBlockNumber } from "starkweb/react";
+import { mainnet, testnet } from "starkweb/react/chains";
+import { useState } from "react";
+
+function MultiChainBlocks() {
+  const [selectedChain, setSelectedChain] = useState(mainnet.chain_id);
+
+  const { data: blockNumber } = useBlockNumber({
+    chainId: selectedChain,
+    watch: true,
+  });
+
+  return (
+    <div>
+      <select
+        value={selectedChain}
+        onChange={(e) => setSelectedChain(e.target.value)}
+      >
+        <option value={mainnet.chain_id}>Mainnet</option>
+        <option value={testnet.chain_id}>Testnet</option>
+      </select>
+      <div>Block: {blockNumber?.toString()}</div>
+    </div>
+  );
+}
+```
+
+### With Error Handling
+
+```tsx [error-handling.tsx]
+import { useBlockNumber } from "starkweb/react";
+
+function BlockNumberWithError() {
+  const {
+    data: blockNumber,
+    isError,
+    error,
+    refetch,
+  } = useBlockNumber({
+    query: {
+      retry: 3,
+      onError(error) {
+        console.error("Failed to fetch block:", error);
+      },
+    },
+  });
+
+  if (isError) {
+    return (
+      <div>
+        <div>Error: {error.message}</div>
+        <button onClick={() => refetch()}>Retry</button>
+      </div>
+    );
+  }
+
+  return <div>Block: {blockNumber?.toString()}</div>;
+}
+```
+
+### With Multiple Networks
+
+```tsx [multiple-networks.tsx]
+import { useBlockNumber } from "starkweb/react";
+import { mainnet, testnet } from "starkweb/react/chains";
+
+function NetworkComparison() {
+  const { data: mainnetBlock } = useBlockNumber({
+    chainId: mainnet.chain_id,
+    watch: true,
+  });
+
+  const { data: testnetBlock } = useBlockNumber({
+    chainId: testnet.chain_id,
+    watch: true,
+  });
+
+  return (
+    <div>
+      <h3>Network Block Numbers</h3>
+      <div>Mainnet: {mainnetBlock?.toString() ?? "Loading..."}</div>
+      <div>Testnet: {testnetBlock?.toString() ?? "Loading..."}</div>
+    </div>
+  );
+}
+```

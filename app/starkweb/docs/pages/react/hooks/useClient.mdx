@@ -10,23 +10,23 @@ Hook for getting `Client` instance.
 ## Import
 
 ```ts
-import { useClient } from "starkweb/react"
+import { useClient } from "starkweb/react";
 ```
 
 ## Usage
 
 ```tsx [index.tsx]
-import { useClient } from "starkweb/react"
+import { useClient } from "starkweb/react";
 
 function App() {
-  const client = useClient()
+  const client = useClient();
 }
 ```
 
 ## Parameters
 
 ```ts
-import { type UseClientParameters } from "starkweb/react"
+import { type UseClientParameters } from "starkweb/react";
 ```
 
 ### chainId
@@ -36,13 +36,13 @@ import { type UseClientParameters } from "starkweb/react"
 ID of chain to use when getting `Client`.
 
 ```ts [index.ts]
-import { useClient } from "starkweb/react"
-import { mainnet } from "starkweb/react/chains" // [!code focus]
+import { useClient } from "starkweb/react";
+import { mainnet } from "starkweb/react/chains"; // [!code focus]
 
 function App() {
   const client = useClient({
     chainId: mainnet.chain_id, // [!code focus]
-  })
+  });
 }
 ```
 
@@ -53,33 +53,110 @@ function App() {
 [`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`StarkwebProvider`](/react/api/StarkwebProvider).
 
 :::code-group
+
 ```tsx [index.tsx]
-import { useClient } from "starkweb/react"
-import { config } from "./config" // [!code focus]
+import { useClient } from "starkweb/react";
+import { config } from "./config"; // [!code focus]
 
 function App() {
   const client = useClient({
     config, // [!code focus]
-  })
+  });
 }
 ```
 
 ```ts [config.ts]
 // [!include ~/snippets/config.ts]
 ```
+
 :::
 
 ## Return Type
 
 ```ts
-import { type UseClientReturnType } from "starkweb/react"
+import { type UseClientReturnType } from "starkweb/react";
 ```
 
 `Client | undefined`
 
 `Client` instance.
 
-## Actions
+## Examples
 
-{/* - [`getClient`](/core/actions/getClient) */}
-{/* - [`watchClient`](/core/actions/watchClient) */}
+### Basic Usage
+
+```tsx [basic.tsx]
+import { useClient } from "starkweb/react";
+
+function ClientInfo() {
+  const client = useClient();
+
+  if (!client) return <div>No client available</div>;
+
+  return (
+    <div>
+      <div>Client UID: {client.uid}</div>
+      <div>Transport Type: {client.transport.type}</div>
+    </div>
+  );
+}
+```
+
+### With Chain Selection
+
+```tsx [chain-selection.tsx]
+import { useClient } from "starkweb/react";
+import { mainnet } from "starkweb/chains";
+import { useState } from "react";
+
+function BlockFetcher() {
+  const [blockNumber, setBlockNumber] = useState<bigint>();
+  const client = useClient({
+    chainId: mainnet.chain_id,
+  });
+
+  async function fetchLatestBlock() {
+    if (!client) return;
+    const block = await client.getBlockNumber();
+    setBlockNumber(block);
+  }
+
+  return (
+    <div>
+      <button onClick={fetchLatestBlock}>Fetch Latest Block</button>
+      {blockNumber && <div>Latest Block: {blockNumber.toString()}</div>}
+    </div>
+  );
+}
+```
+
+### With Custom Config
+
+```tsx [custom-config.tsx]
+import { useClient } from "starkweb/react";
+import { createConfig, http } from "starkweb/core";
+import { mainnet } from "starkweb/chains";
+
+const config = createConfig({
+  chains: [mainnet],
+  transports: {
+    [mainnet.chain_id]: http(),
+  },
+});
+
+function CustomClientInfo() {
+  const client = useClient({
+    config,
+  });
+
+  return (
+    <div>
+      {client ? (
+        <div>Custom client connected</div>
+      ) : (
+        <div>Custom client not available</div>
+      )}
+    </div>
+  );
+}
+```

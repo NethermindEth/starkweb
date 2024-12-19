@@ -29,7 +29,7 @@ import { type CreateConfigParameters } from "starkweb/react"
 
 ```ts
 import { createConfig, http } from "starkweb/react"
-import { mainnet, sepolia } from "starkweb/react/chains"
+import { mainnet, sepolia } from "starkweb/chains"
 
 const config = createConfig({
   chains: [mainnet, sepolia], // [!code focus]
@@ -70,7 +70,7 @@ const config = createConfig({
 
 ```ts
 import { createConfig, http } from "starkweb/react"
-import { mainnet, sepolia } from "starkweb/react/chains"
+import { mainnet, sepolia } from "starkweb/chains"
 
 const config = createConfig({
   chains: [mainnet, sepolia],
@@ -90,7 +90,7 @@ Flag to indicate if the config is being used in a server-side rendering environm
 
 ```ts
 import { createConfig, http } from "starkweb/react" // [!code focus]
-import { mainnet, sepolia } from "starkweb/react/chains"
+import { mainnet, sepolia } from "starkweb/chains"
 
 const config = createConfig({
   chains: [mainnet, sepolia],
@@ -111,7 +111,7 @@ const config = createConfig({
 
 ```ts
 import { createConfig, createStorage, http } from "starkweb/react" // [!code focus]
-import { mainnet, sepolia } from "starkweb/react/chains"
+import { mainnet, sepolia } from "starkweb/chains"
 
 const config = createConfig({
   chains: [mainnet, sepolia],
@@ -132,7 +132,7 @@ const config = createConfig({
 
 ```ts
 import { createConfig, http } from "starkweb/react"
-import { mainnet, sepolia } from "starkweb/react/chains"
+import { mainnet, sepolia } from "starkweb/chains"
 
 const config = createConfig({
   chains: [mainnet, sepolia],
@@ -155,7 +155,7 @@ const config = createConfig({
 
 ```ts
 import { createConfig, http } from "starkweb/react"
-import { mainnet, sepolia } from "starkweb/react/chains"
+import { mainnet, sepolia } from "starkweb/chains"
 
 const config = createConfig({
   chains: [mainnet, sepolia],
@@ -176,7 +176,7 @@ const config = createConfig({
 
 ```ts
 import { createConfig, http } from "starkweb/react"
-import { mainnet, sepolia } from "starkweb/react/chains"
+import { mainnet, sepolia } from "starkweb/chains"
 
 const config = createConfig({
   chains: [mainnet, sepolia],
@@ -197,7 +197,7 @@ const config = createConfig({
 
 ```ts
 import { createConfig, http } from "starkweb/react"
-import { mainnet, sepolia } from "starkweb/react/chains"
+import { mainnet, sepolia } from "starkweb/chains"
 
 const config = createConfig({
   chains: [mainnet, sepolia],
@@ -217,7 +217,7 @@ Mapping of [chain IDs](#chains) to [`Transport`](#TODO/react/transports). This m
 
 ```ts
 import { createConfig, fallback, http } from "starkweb/react" // [!code focus]
-import { mainnet, sepolia } from "starkweb/react/chains"
+import { mainnet, sepolia } from "starkweb/chains"
 
 const config = createConfig({
   chains: [mainnet, sepolia],
@@ -239,7 +239,7 @@ Function for creating new `Client` to be used internally. Exposes more control o
 
 ```ts
 import { createClient, http, createConfig } from "starkweb/react" // [!code focus]
-import { mainnet, sepolia } from "starkweb/react/chains"
+import { mainnet, sepolia } from "starkweb/chains"
 
 const config = createConfig({
   chains: [mainnet, sepolia],

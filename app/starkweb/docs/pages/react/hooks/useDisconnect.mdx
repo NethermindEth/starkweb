@@ -10,29 +10,25 @@ Hook for disconnecting connections.
 ## Import
 
 ```ts
-import { useDisconnect } from "starkweb/react"
+import { useDisconnect } from "starkweb/react";
 ```
 
 ## Usage
 
 ```tsx [index.tsx]
-import { useDisconnect } from "starkweb/react"
+import { useDisconnect } from "starkweb/react";
 
 function App() {
-  const { disconnect } = useDisconnect()
+  const { disconnect } = useDisconnect();
 
-  return (
-    <button onClick={() => disconnect()}>
-      Disconnect
-    </button>
-  )
+  return <button onClick={() => disconnect()}>Disconnect</button>;
 }
 ```
 
 ## Parameters
 
 ```ts
-import { type UseDisconnectParameters } from "starkweb/react"
+import { type UseDisconnectParameters } from "starkweb/react";
 ```
 
 ### config
@@ -42,30 +38,37 @@ import { type UseDisconnectParameters } from "starkweb/react"
 [`Config`](/react/api/createConfig#config) to use instead of retrieving from the nearest [`StarkwebProvider`](/react/api/StarkwebProvider).
 
 :::code-group
+
 ```tsx [index.tsx]
-import { useDisconnect } from "starkweb/react"
-import { config } from "./config" // [!code focus]
+import { useDisconnect } from "starkweb/react";
+import { config } from "./config"; // [!code focus]
 
 function App() {
   const result = useDisconnect({
     config, // [!code focus]
-  })
+  });
 }
 ```
 
 ```ts [config.ts]
 // [!include ~/snippets/config.ts]
 ```
+
 :::
 
-import MutationOptions from "../../../snippets/mutation-options.mdx"
+import MutationOptions from "../../../snippets/mutation-options.mdx";
 
-<MutationOptions mutate="disconnect" TError="DisconnectErrorType" TVariables="{ connector?: Connector | undefined; }" TData="void" />
+<MutationOptions
+  mutate="disconnect"
+  TError="DisconnectErrorType"
+  TVariables="{ connector?: Connector | undefined; }"
+  TData="void"
+/>
 
 ## Return Type
 
 ```ts
-import { type UseDisconnectReturnType } from "starkweb/react"
+import { type UseDisconnectReturnType } from "starkweb/react";
 ```
 
 ### connectors
@@ -75,11 +78,11 @@ import { type UseDisconnectReturnType } from "starkweb/react"
 Connectors that are currently connected. Useful for rendering a list of connectors to disconnect.
 
 ```tsx [index.tsx]
-import { useDisconnect } from "starkweb/react"
-import { mainnet } from "starkweb/react/chains"
+import { useDisconnect } from "starkweb/react";
+import { mainnet } from "starkweb/react/chains";
 
 function App() {
-  const { connectors, disconnect } = useDisconnect()
+  const { connectors, disconnect } = useDisconnect();
 
   return (
     <div>
@@ -89,13 +92,18 @@ function App() {
         </button>
       ))}
     </div>
-  )
+  );
 }
 ```
 
-import MutationResult from "../../../snippets/mutation-result.mdx"
+import MutationResult from "../../../snippets/mutation-result.mdx";
 
-<MutationResult mutate="disconnect" TError="DisconnectErrorType" TVariables="{ connector?: Connector | undefined; }" TData="void" />
+<MutationResult
+  mutate="disconnect"
+  TError="DisconnectErrorType"
+  TVariables="{ connector?: Connector | undefined; }"
+  TData="void"
+/>
 
 ## TanStack Query
 
@@ -106,9 +114,86 @@ import {
   type DisconnectMutate,
   type DisconnectMutateAsync,
   disconnectMutationOptions,
-} from "starkweb/react/query"
+} from "starkweb/react/query";
 ```
 
-## Actions
+## Examples
 
-{/* - [`disconnect`](/core/actions/connect) */}
+### Basic Usage
+
+```tsx [basic.tsx]
+import { useDisconnect } from "starkweb/react";
+
+function DisconnectButton() {
+  const { disconnect, isLoading } = useDisconnect();
+
+  return (
+    <button onClick={() => disconnect()} disabled={isLoading}>
+      Disconnect Wallet
+    </button>
+  );
+}
+```
+
+### With Multiple Connectors
+
+```tsx [multiple-connectors.tsx]
+import { useDisconnect } from "starkweb/react";
+
+function ConnectorDisconnect() {
+  const { disconnect, connectors } = useDisconnect({
+    mutation: {
+      onSuccess() {
+        console.log("Successfully disconnected");
+      },
+    },
+  });
+
+  return (
+    <div>
+      <h3>Connected Wallets</h3>
+      {connectors.map((connector) => (
+        <button key={connector.id} onClick={() => disconnect({ connector })}>
+          Disconnect {connector.name}
+        </button>
+      ))}
+    </div>
+  );
+}
+```
+
+### With Error Handling
+
+```tsx [error-handling.tsx]
+import { useDisconnect } from "starkweb/react";
+import { useState } from "react";
+
+function SafeDisconnect() {
+  const [error, setError] = useState<string>();
+  const { disconnect, disconnectAsync, isLoading } = useDisconnect({
+    mutation: {
+      onError(err) {
+        setError(err.message);
+      },
+    },
+  });
+
+  async function handleDisconnect() {
+    try {
+      await disconnectAsync();
+      setError(undefined);
+    } catch (err) {
+      setError(err.message);
+    }
+  }
+
+  return (
+    <div>
+      <button onClick={handleDisconnect} disabled={isLoading}>
+        Disconnect
+      </button>
+      {error && <div>Error: {error}</div>}
+    </div>
+  );
+}
+```
