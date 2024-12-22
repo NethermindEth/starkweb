@@ -1,6 +1,6 @@
 {
   "name": "play",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -15,7 +15,7 @@
     "postcss": "^8.4.14",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "starkweb": "0.0.15",
+    "starkweb": "0.0.16",
     "starkwebkit": "latest",
     "starkwebkit-next-siwe": "latest",
     "tailwindcss": "^3.3.2"
