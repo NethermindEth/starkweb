@@ -3,7 +3,7 @@
 import { useAccount, useConnect, useDisconnect, useReadContract, useWriteContract } from 'starkweb/react'
 
 import { getConfig } from '@/wagmi'
-import { createPublicClient, createWalletClient, custom, http, SNIP1193EventMap, SNIP1193RequestFn } from 'starkweb'
+import { createWalletClient, custom, SNIP1193EventMap, SNIP1193RequestFn } from 'starkweb'
 import { sepolia } from 'starkweb/chains'
 import { testAbi } from '@/utils/testAbi'
 
@@ -34,8 +34,8 @@ const config = getConfig()
 
 function App() {
   const account = useAccount()
-  // const { connectors, connect, status, error } = useConnect()
-  // const { disconnect } = useDisconnect()
+  const { connectors, connect, status, error } = useConnect()
+  const { disconnect } = useDisconnect()
 
   // const getBal = publicClient.readContract({
   //   address: '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
@@ -144,7 +144,7 @@ const wagmiAbi = [
 ] as const
 
 
-export async function Example() {
+async function Example() {
   const walletClient =  createWalletClient({
     chain: sepolia,
     transport: custom((window as any).starknet),

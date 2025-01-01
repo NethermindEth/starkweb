@@ -12,8 +12,8 @@ export function getConfig() {
     }),
     ssr: true,
     transports: {
-      [mainnet.id]: http(),
-      [sepolia.id]: http(),
+      [mainnet.chain_id]: http(),
+      [sepolia.chain_id]: http(),
     },
   })
 }
