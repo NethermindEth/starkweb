@@ -51,7 +51,7 @@ export interface StarknetAbi {
 export interface StarknetStruct {
   type: 'struct';
   name: string;
-  members: {
+  members: readonly {
     name: string;
     type: string;
   }[];
@@ -97,12 +97,33 @@ export interface StarknetEvent {
   variants: any[];
 }
 
+
 export type StarknetAbiEntry = 
-  | StarknetStruct 
-  | StarknetEnum 
-  | StarknetFunction 
-  | StarknetL1Handler 
-  | StarknetEvent; 
+| StarknetStruct 
+| StarknetEnum 
+| StarknetFunction 
+| StarknetL1Handler 
+| StarknetEvent
+
+
+export type StarknetAbiEntryType = 
+| Readonly<StarknetStruct> 
+| Readonly<StarknetEnum> 
+| Readonly<StarknetFunction> 
+| Readonly<StarknetL1Handler> 
+| Readonly<StarknetEvent>
+| Readonly<StarknetImpl>
+| {
+  type: "constructor"
+}
+
+
+export interface StarknetImpl {
+  type: 'impl';
+  name: string;
+  interface_name: string;
+}
+export type Abi = readonly StarknetAbiEntryType[];
 
 
   /**
