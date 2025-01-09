@@ -1,5 +1,7 @@
+import type { Abi, AbiStateMutability } from 'abitype';
 import { testAbi } from './testabi.js'
 
+type Extract<T, U> = T extends U ? T : never;
 
 export type ExtractFunctions<T> = T extends readonly (infer U)[]
   ? ExtractFunctions<U>
@@ -46,5 +48,10 @@ export type ContractFunctions<TAbi extends readonly {
 
 
         type testContractFunctions = ContractFunctions<typeof testAbi>;
-        
-        
+
+export type ExtractAbiFunctionNames<
+   abi extends Abi,
+   abiStateMutability extends AbiStateMutability = AbiStateMutability
+> =  Extract<ExtractFunctions<abi>, {state_mutability: abiStateMutability}>["name"];
+
+type testExtractAbiFunctionNames = ExtractAbiFunctionNames<typeof testAbi, "external">;
