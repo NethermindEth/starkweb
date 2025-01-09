@@ -1,17 +1,20 @@
-import type { Abi, AbiStateMutability } from 'abitype';
+import type { AbiStateMutability } from '../strk-types/abi.js';
 import { testAbi } from './testabi.js'
+import type { Abi } from '../strk-types/abi.js';
+import type { AbiParametersToPrimitiveTypes } from 'abitype';
+
 
 type Extract<T, U> = T extends U ? T : never;
 
 export type ExtractFunctions<T> = T extends readonly (infer U)[]
-  ? ExtractFunctions<U>
-  : T extends { type: "function" }
-    ?  T
+    ? ExtractFunctions<U>
+    : T extends { type: "function" }
+    ? T
     : T extends { type: "interface"; items: infer Items }
-      ? ExtractFunctions<Items>
-      : never;
+    ? ExtractFunctions<Items>
+    : never;
 
-      
+
 export function parseAbiFunctions<T>(abi: T): ExtractFunctions<T>[] {
     const functions: any[] = [];
 
@@ -28,30 +31,47 @@ export function parseAbiFunctions<T>(abi: T): ExtractFunctions<T>[] {
     extract(abi);
     return functions;
 }
-        
+
 type _testExtractFunctions2 = ExtractFunctions<typeof testAbi>;
-        
-        // export type ContractFunctions<TAbi extends readonly StarknetAbiEntry[]> = {
-        //   [K in ExtractFunctions<TAbi[number]> as K["name"]]: K;
-        // };
-        
-export type ContractFunctions<TAbi extends readonly {
-    type: "impl" | "struct" | "enum" | "interface" | "constructor" | "event";
-    name: string;
-    interface_name?: string;
-    members?: readonly any[];
-    variants?: readonly any[];
-    items?: readonly any[];
-}[]> = {
-[K in ExtractFunctions<TAbi[number]> as K["name"]]: K;
-};
 
 
-        type testContractFunctions = ContractFunctions<typeof testAbi>;
+
+
 
 export type ExtractAbiFunctionNames<
-   abi extends Abi,
-   abiStateMutability extends AbiStateMutability = AbiStateMutability
-> =  Extract<ExtractFunctions<abi>, {state_mutability: abiStateMutability}>["name"];
+    abi extends Abi,
+    abiStateMutability extends AbiStateMutability = AbiStateMutability
+> = Extract<ExtractFunctions<abi>, { state_mutability: abiStateMutability }>["name"];
 
 type testExtractAbiFunctionNames = ExtractAbiFunctionNames<typeof testAbi, "external">;
+
+
+
+export type ContractFunctions<TAbi extends Abi> = {
+    [K in ExtractFunctions<TAbi[number]> as K["name"]]: K;
+};
+type testContractFunctions = ContractFunctions<typeof testAbi>;
+
+export type ContractFunctionName<abi extends Abi,
+    abiStateMutability extends AbiStateMutability = AbiStateMutability
+> = ExtractAbiFunctionNames<abi, abiStateMutability>;
+
+type testContractFunctionName = ContractFunctionName<typeof testAbi, 'external'>;
+type testContractFunctionName2 = ContractFunctionName<typeof testAbi, 'view'>;
+
+export type ContractFunctionParameters<abi extends Abi,
+    abiStateMutability extends AbiStateMutability = AbiStateMutability,
+    functionName extends ContractFunctionName<abi, abiStateMutability> = ContractFunctionName<abi, abiStateMutability>,
+> = ExtractFunctions<abi>[functionName]["inputs"];
+
+
+type testContractFunctionParameters = ContractFunctionParameters<typeof testAbi, 'external', 'testFunction'>;
+
+export type ContractFunctionArgs<
+    abi extends Abi,
+    abiStateMutability extends AbiStateMutability = AbiStateMutability,
+    functionName extends ContractFunctionName<abi, abiStateMutability> = 
+        ContractFunctionName<abi, abiStateMutability>,
+> = AbiParametersToPrimitiveTypes<ExtractFunctions<abi>[functionName]["inputs"], 'inputs'>;
+
+type testContractFunctionArgs = ContractFunctionArgs<typeof testAbi, 'external', 'testFunction'>;
