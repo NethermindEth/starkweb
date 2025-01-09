@@ -11,7 +11,7 @@ import type {
   ResolvedRegister,
 } from 'abitype'
 
-import type { Hex, LogTopic } from './misc.js'
+import type { Hex, LogTopic } from './misc.js' 
 import type {
   Filter,
   IsUnion,

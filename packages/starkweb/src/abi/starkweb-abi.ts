@@ -1,10 +1,12 @@
+import type { AbiStateMutability } from 'abitype'
 import type { ResolvedRegister } from './register.js'
 import type { Pretty, Range } from './types.js'
 
 export type Address = ResolvedRegister['addressType']
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// Solidity Types
+// Cairo Types
+// https://book.cairo-lang.org/ch02-02-data-types.html
 
 // Could use `Range`, but listed out for zero overhead
 // biome-ignore format: no formatting
@@ -21,13 +23,13 @@ export type MBits =
   | 240 | 248 | 256
 
 // From https://docs.soliditylang.org/en/latest/abi-spec.html#types
-export type SolidityAddress = 'address'
-export type SolidityBool = 'bool'
-export type SolidityBytes = `bytes${MBytes}` // `bytes<M>`: binary type of `M` bytes, `0 < M <= 32`
-export type SolidityFunction = 'function'
-export type SolidityString = 'string'
-export type SolidityTuple = 'tuple'
-export type SolidityInt = `${'u' | ''}int${MBits}` // `(u)int<M>`: (un)signed integer type of `M` bits, `0 < M <= 256`, `M % 8 == 0`
+export type CairoAddress = 'address'
+export type CairoBool = 'bool'
+export type CairoBytes = `bytes${MBytes}` // `bytes<M>`: binary type of `M` bytes, `0 < M <= 32`
+export type CairoFunction = 'function'
+export type CairoString = 'string'
+export type CairoTuple = 'tuple'
+export type CairoInt = `${'u' | ''}int${MBits}` // `(u)int<M>`: (un)signed integer type of `M` bits, `0 < M <= 256`, `M % 8 == 0`
 // No need to support "fixed" until Solidity does
 // https://github.com/ethereum/solidity/issues/409
 // `(u)fixed<M>x<N>`: (un)signed fixed-point decimal number of `M` bits, `8 <= M <= 256`, `M % 8 == 0`,
@@ -36,12 +38,12 @@ export type SolidityInt = `${'u' | ''}int${MBits}` // `(u)int<M>`: (un)signed in
 //   | `${'u' | ''}fixed`
 //   | `${'u' | ''}fixed${MBits}x${Range<1, 20>[number]}`
 
-export type SolidityFixedArrayRange = Range<
+export type CairoFixedArrayRange = Range<
   ResolvedRegister['fixedArrayMinLength'],
   ResolvedRegister['fixedArrayMaxLength']
 >[number]
-export type SolidityFixedArraySizeLookup = {
-  [Prop in SolidityFixedArrayRange as `${Prop}`]: Prop
+export type CairoFixedArraySizeLookup = {
+  [Prop in CairoFixedArrayRange as `${Prop}`]: Prop
 }
 
 /**
@@ -55,43 +57,43 @@ type _BuildArrayTypes<
   ? `${T}[${string}]`
   : Depth['length'] extends ResolvedRegister['arrayMaxDepth']
     ? T
-    : T extends `${any}[${SolidityFixedArrayRange | ''}]`
+    : T extends `${any}[${CairoFixedArrayRange | ''}]`
       ? _BuildArrayTypes<
-          T | `${T}[${SolidityFixedArrayRange | ''}]`,
+          T | `${T}[${CairoFixedArrayRange | ''}]`,
           [...Depth, 1]
         >
-      : _BuildArrayTypes<`${T}[${SolidityFixedArrayRange | ''}]`, [...Depth, 1]>
+      : _BuildArrayTypes<`${T}[${CairoFixedArrayRange | ''}]`, [...Depth, 1]>
 
 // Modeling fixed-length (`<type>[M]`) and dynamic (`<type>[]`) arrays
 // Tuple and non-tuple versions are separated out for narrowing anywhere structs show up
-export type SolidityArrayWithoutTuple = _BuildArrayTypes<
-  | SolidityAddress
-  | SolidityBool
-  | SolidityBytes
-  | SolidityFunction
-  | SolidityInt
-  | SolidityString
+export type CairoArrayWithoutTuple = _BuildArrayTypes<
+  | CairoAddress
+  | CairoBool
+  | CairoBytes
+  | CairoFunction
+  | CairoInt
+  | CairoString
 >
-export type SolidityArrayWithTuple = _BuildArrayTypes<SolidityTuple>
-export type SolidityArray = SolidityArrayWithoutTuple | SolidityArrayWithTuple
+export type CairoArrayWithTuple = _BuildArrayTypes<CairoTuple>
+export type CairoArray = CairoArrayWithoutTuple | CairoArrayWithTuple
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // Abi Types
 
 export type AbiType =
-  | SolidityArray
-  | SolidityAddress
-  | SolidityBool
-  | SolidityBytes
-  | SolidityFunction
-  | SolidityInt
-  | SolidityString
-  | SolidityTuple
+  | CairoArray
+  | CairoAddress
+  | CairoBool
+  | CairoBytes
+  | CairoFunction
+  | CairoInt
+  | CairoString
+  | CairoTuple
 type ResolvedAbiType = ResolvedRegister['strictAbiType'] extends true
   ? AbiType
   : string
 
-export type AbiInternalType =
+export type CairoAbiInternalType =
   | ResolvedAbiType
   | `address ${string}`
   | `contract ${string}`
@@ -103,30 +105,30 @@ export type AbiParameter = Pretty<
     type: ResolvedAbiType
     name?: string | undefined
     /** Representation used by Solidity compiler */
-    internalType?: AbiInternalType | undefined
+    internalType?: CairoAbiInternalType | undefined
   } & (
-    | { type: Exclude<ResolvedAbiType, SolidityTuple | SolidityArrayWithTuple> }
+    | { type: Exclude<ResolvedAbiType, CairoTuple | CairoArrayWithTuple> }
     | {
-        type: SolidityTuple | SolidityArrayWithTuple
+        type: CairoTuple | CairoArrayWithTuple
         components: readonly AbiParameter[]
       }
   )
 >
 
-export type AbiEventParameter = AbiParameter & { indexed?: boolean | undefined }
+export type CairoAbiEventParameter = AbiParameter & { indexed?: boolean | undefined }
 
 /**
- * State mutability for {@link AbiFunction}
+ * State mutability for {@link CairoAbiFunction}
  *
  * @see https://docs.soliditylang.org/en/latest/contracts.html#state-mutability
  */
-export type AbiStateMutability = 'pure' | 'view' | 'nonpayable' | 'payable'
+export type CairoAbiStateMutability = 'external' | 'view'
 
 /** Kind of {@link AbiParameter} */
-export type AbiParameterKind = 'inputs' | 'outputs'
+export type CairoAbiParameterKind = 'inputs' | 'outputs'
 
 /** ABI ["function"](https://docs.soliditylang.org/en/latest/abi-spec.html#json) type */
-export type AbiFunction = {
+export type CairoAbiFunction = {
   type: 'function'
   /**
    * @deprecated use `pure` or `view` from {@link AbiStateMutability} instead
@@ -146,11 +148,11 @@ export type AbiFunction = {
    * @see https://github.com/ethereum/solidity/issues/992
    */
   payable?: boolean | undefined
-  stateMutability: AbiStateMutability
+  stateMutability: CairoAbiStateMutability
 }
 
 /** ABI ["constructor"](https://docs.soliditylang.org/en/latest/abi-spec.html#json) type */
-export type AbiConstructor = {
+export type CairoAbiConstructor = {
   type: 'constructor'
   inputs: readonly AbiParameter[]
   /**
@@ -158,36 +160,36 @@ export type AbiConstructor = {
    * @see https://github.com/ethereum/solidity/issues/992
    */
   payable?: boolean | undefined
-  stateMutability: Extract<AbiStateMutability, 'payable' | 'nonpayable'>
+  stateMutability: Extract<CairoAbiStateMutability, 'payable' | 'nonpayable'>
 }
 
-/** ABI ["fallback"](https://docs.soliditylang.org/en/latest/abi-spec.html#json) type */
-export type AbiFallback = {
+/** Cairo ["fallback"](https://docs.soliditylang.org/en/latest/abi-spec.html#json) type */
+export type CairoAbiFallback = {
   type: 'fallback'
   /**
    * @deprecated use `payable` or `nonpayable` from {@link AbiStateMutability} instead
    * @see https://github.com/ethereum/solidity/issues/992
    */
   payable?: boolean | undefined
-  stateMutability: Extract<AbiStateMutability, 'payable' | 'nonpayable'>
+  stateMutability: Extract<CairoAbiStateMutability, 'payable' | 'nonpayable'>
 }
 
-/** ABI ["receive"](https://docs.soliditylang.org/en/latest/contracts.html#receive-ether-function) type */
-export type AbiReceive = {
+/** Cairo ["receive"](https://docs.soliditylang.org/en/latest/contracts.html#receive-ether-function) type */
+export type CairoAbiReceive = {
   type: 'receive'
-  stateMutability: Extract<AbiStateMutability, 'payable'>
+  stateMutability: Extract<CairoAbiStateMutability, 'payable'>
 }
 
-/** ABI ["event"](https://docs.soliditylang.org/en/latest/abi-spec.html#events) type */
-export type AbiEvent = {
+/** Cairo ["event"](https://docs.soliditylang.org/en/latest/abi-spec.html#events) type */
+export type CairoAbiEvent = {
   type: 'event'
   anonymous?: boolean | undefined
-  inputs: readonly AbiEventParameter[]
+  inputs: readonly CairoAbiEventParameter[]
   name: string
 }
 
-/** ABI ["error"](https://docs.soliditylang.org/en/latest/abi-spec.html#errors) type */
-export type AbiError = {
+/** Cairo ["error"](https://docs.soliditylang.org/en/latest/abi-spec.html#errors) type */
+export type CairoAbiError = {
   type: 'error'
   inputs: readonly AbiParameter[]
   name: string
@@ -206,12 +208,12 @@ export type AbiItemType =
  * Contract [ABI Specification](https://docs.soliditylang.org/en/latest/abi-spec.html#json)
  */
 export type Abi = readonly (
-  | AbiConstructor
-  | AbiError
-  | AbiEvent
-  | AbiFallback
-  | AbiFunction
-  | AbiReceive
+  | CairoAbiConstructor
+  | CairoAbiError
+  | CairoAbiEvent
+  | CairoAbiFallback
+  | CairoAbiFunction
+  | CairoAbiReceive
 )[]
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -228,7 +230,7 @@ export type TypedDataDomain = {
 // Subset of `AbiType` that excludes `tuple`, `function`, and dynamic aliases `int` and `uint`
 export type TypedDataType = Exclude<
   AbiType,
-  SolidityFunction | SolidityTuple | SolidityArrayWithTuple | 'int' | 'uint'
+  CairoFunction | CairoTuple | CairoArrayWithTuple | 'int' | 'uint'
 >
 
 export type TypedDataParameter = {

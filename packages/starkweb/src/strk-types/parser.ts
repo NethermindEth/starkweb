@@ -1,4 +1,5 @@
 import type { Abi, AbiStateMutability, FunctionAbi } from "./abi.js";
+import { testAbi } from "../abi/testabi.js";
 
 type ExtractFunctions<T> = T extends { type: "function" }
   ? T
@@ -7,6 +8,8 @@ type ExtractFunctions<T> = T extends { type: "function" }
     ? Items[number]
     : never
   : never;
+
+  type testExtractFunctions = ExtractFunctions<typeof testAbi>
 
 export type ContractFunctions<TAbi extends Abi> = {
   [K in ExtractFunctions<TAbi[number]> as K["name"]]: K;

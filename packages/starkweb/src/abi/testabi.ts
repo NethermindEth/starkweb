@@ -1,4 +1,3 @@
-
 // TEST ABI
 
 export const testAbi = [
@@ -1656,5 +1655,5 @@ export const testAbi = [
           "kind": "nested"
         }
       ]
-    }
-  ] as const
+  }
+] as const;
