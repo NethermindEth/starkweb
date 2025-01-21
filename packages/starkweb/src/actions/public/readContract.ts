@@ -1,13 +1,28 @@
-import type { ContractFunctionArgs, ContractFunctionName, ContractFunctionParameters } from '../../types/contract.js'
-import type { Client } from '../../clients/createClient.js'
-import type { Transport } from '../../clients/transports/createTransport.js'
-import type { Abi } from '../../strk-types/abi.js'
-import type { BlockTag } from '../../strk-types/lib.js'
-import { calldataToHex, compile } from '../../strk-utils/calldata/compile.js'
-import { getSelectorFromName } from '../../strk-utils/hash/selector.js'
-import type { Chain } from '../../types/chain.js'
-import type { Hash } from '../../types/misc.js'
-import { type CallParameters, call } from './call.js'
+import { mainnet } from 'src/chains/definitions/mainnet.js';
+import { createPublicClient } from 'src/clients/createPublicClient.js';
+import { http } from 'src/clients/transports/http.js';
+
+import type {
+  ContractFunctionArgs,
+  ContractFunctionParameters,
+} from '../../abi/parser.js';
+import { testAbi } from '../../abi/testabi.js';
+import type { Client } from '../../clients/createClient.js';
+import type { Transport } from '../../clients/transports/createTransport.js';
+import type { Abi } from '../../strk-types/abi.js';
+import type { BlockTag } from '../../strk-types/lib.js';
+import {
+  calldataToHex,
+  compile,
+} from '../../strk-utils/calldata/compile.js';
+import { getSelectorFromName } from '../../strk-utils/hash/selector.js';
+import type { Chain } from '../../types/chain.js';
+import type { ContractFunctionName } from '../../types/contract.js';
+import type { Hash } from '../../types/misc.js';
+import {
+  call,
+  type CallParameters,
+} from './call.js';
 
 // export type PrimaryReadContractParameters = {
 //   address: string
@@ -34,11 +49,10 @@ export type PrimaryReadContractParameters<
   allFunctionNames = ContractFunctionName<abi, 'view'>
 > = ContractFunctionParameters<
   abi,
-  'external',
+  'view',
   functionName,
-  args,
-  false,
-  allFunctionNames
+  allFunctionNames,
+  args
 >
 
 export type SecondaryReadContractParameters =
@@ -124,3 +138,27 @@ export async function readContract<
 
   return call(client, txCall)
 }
+
+
+// readContract(createPublicClient({
+//   chain: mainnet,
+//   transport: http(),
+// }), {
+//   address: '0x0000000000000000000000000000000000000000',
+//   abi: testAbi,
+//   functionName: '__validate_deploy__',
+//   args: {
+//     class_hash: '0x0000000000000000000000000000000000000000' as 'felt252' ,
+//     contract_address_salt: '0x0000000000000000000000000000000000000000' as 'felt252' ,
+//     owner: {
+//       eth_address: {
+//         address: '0x0000000000000000000000000000000000000000' as 'felt252' ,
+//       }
+
+//     } ,
+//     guardian: {
+//       address: '0x0000000000000000000000000000000000000000' as 'felt252' ,
+//       signature: '0x0000000000000000000000000000000000000000' as 'felt252' ,
+//     } ,
+//   },
+// })

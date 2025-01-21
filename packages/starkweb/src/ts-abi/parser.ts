@@ -1,7 +1,6 @@
 import type { AbiStateMutability } from '../strk-types/abi.js';
 // import { testAbi } from './testabi.js'
 import type { Abi } from '../strk-types/abi.js';
-import type { AbiTypeToPrimitiveType } from './abitype.js';
 import type { Address } from './starkweb-abi.js';
 import type { testAbi } from './testabi.js';
 
@@ -91,7 +90,7 @@ export type ContractFunctionArgs<
     functionName extends ContractFunctionName<abi, abiStateMutability> = 
         ContractFunctionName<abi, abiStateMutability>,
 > = {
-    [K in Extract<ExtractFunctions<abi>, {name: functionName}>["inputs"][number] as K["name"]]: AbiTypeToPrimitiveType<K["type"], 'inputs', abi>
+    [K in Extract<ExtractFunctions<abi>, {name: functionName}>["inputs"][number] as K["name"]]: K["type"]
 };
 
 // Example usage:

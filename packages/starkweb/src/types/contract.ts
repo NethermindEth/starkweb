@@ -1,4 +1,4 @@
-import { testAbi } from '../abi/testabi.js'
+// import { testAbi } from '../abi/testabi.js'
 import type {
   AbiParameter,
   AbiParameterToPrimitiveType,
@@ -74,7 +74,7 @@ export type ContractFunctionArgs<
     : args  // Return the extracted args
   : readonly unknown[]    // Fallback if type inference fails
 
-  type fn = ContractFunctionArgs<typeof testAbi, 'external', '__execute__'>;
+  // type fn = ContractFunctionArgs<typeof testAbi, 'external', '__execute__'>;
 
 export type ContractConstructorArgs<
   abi extends Abi | readonly unknown[] = Abi,
