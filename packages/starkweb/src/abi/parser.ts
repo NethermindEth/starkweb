@@ -3,7 +3,7 @@ import type { AbiStateMutability } from '../strk-types/abi.js';
 import type { Abi } from '../strk-types/abi.js';
 import type { AbiTypeToPrimitiveType } from './abitype.js';
 import type { Address } from './starkweb-abi.js';
-import type { testAbi } from './testabi.js';
+// import type { testAbi } from './testabi.js';
 
 
 type Extract<T, U> = T extends U ? T : never;
