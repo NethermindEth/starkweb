@@ -1,12 +1,12 @@
-import { mainnet } from 'src/chains/definitions/mainnet.js';
-import { createPublicClient } from 'src/clients/createPublicClient.js';
-import { http } from 'src/clients/transports/http.js';
+// import { mainnet } from 'src/chains/definitions/mainnet.js';
+// import { createPublicClient } from 'src/clients/createPublicClient.js';
+// import { http } from 'src/clients/transports/http.js';
 
 import type {
   ContractFunctionArgs,
   ContractFunctionParameters,
 } from '../../abi/parser.js';
-import { testAbi } from '../../abi/testabi.js';
+// import { testAbi } from '../../abi/testabi.js';
 import type { Client } from '../../clients/createClient.js';
 import type { Transport } from '../../clients/transports/createTransport.js';
 import type { Abi } from '../../strk-types/abi.js';
@@ -130,15 +130,16 @@ export async function readContract<
 }
 
 
-readContract(createPublicClient({
-  chain: mainnet,
-  transport: http(),
-}), {
-  address: '0x0000000000000000000000000000000000000000',
-  abi: testAbi,
-  functionName: 'is_valid_signature',
-  args: {
-    hash: '0x1' as 'felt252',
-    signature: ['0x1' as 'felt252']
-  }
-})
+// readContract(createPublicClient({
+//   chain: mainnet,
+//   transport: http(),
+// }), {
+//   address: '0x0000000000000000000000000000000000000000',
+//   abi: testAbi,
+//   functionName: 'is_guardian',
+//   args: {
+//     guardian: {
+//       pubkey: '0x1' as 'felt252',
+//     }
+//   }
+// })
