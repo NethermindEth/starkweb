@@ -129,7 +129,7 @@ export type ContractFunctionArgs<
 //     : never
 //   : never;
 // Example usage:
-type TestIsValidSignature = ContractFunctionArgs<typeof testAbi, 'view', 'is_valid_signature'>;
+// type TestIsValidSignature = ContractFunctionArgs<typeof testAbi, 'view', 'is_valid_signature'>;
 // Should result in: { hash: felt252, signature: felt252[] }
 
 
@@ -154,4 +154,4 @@ export type ContractFunctionParameters<
   address: Address
 } 
 // test
-type TestIsValidSignatureParams = ContractFunctionParameters<typeof testAbi, 'view', 'is_valid_signature'>['args'];
+// type TestIsValidSignatureParams = ContractFunctionParameters<typeof testAbi, 'view', 'is_valid_signature'>['args'];
