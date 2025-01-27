@@ -5,6 +5,7 @@
 import type {
   ContractFunctionArgs,
   ContractFunctionParameters,
+  ContractFunctionReturnType,
 } from '../../abi/parser.js';
 // import { testAbi } from '../../abi/testabi.js';
 import type { Client } from '../../clients/createClient.js';
@@ -99,11 +100,10 @@ export type ReadContractParameters<
   args?: TArgs
 } & SecondaryReadContractParameters
 
-export type ReadContractReturnTypes<
+export type ReadContractReturnType<
   abi extends Abi | readonly unknown[],
   functionName extends ContractFunctionName<abi, 'view'>,
-  args extends ContractFunctionArgs<abi, 'view', functionName>,
-> = any | args 
+> = ContractFunctionReturnType<abi, 'view', functionName>
 export type ReadContractErrorType = any 
 
 export async function readContract<
@@ -112,7 +112,7 @@ export async function readContract<
 >(
   client: Client<Transport, Chain>,
   parameters: ReadContractParameters<TAbi, TFunctionName>
-) {
+) : Promise<ReadContractReturnType<TAbi, TFunctionName>> {
   const { address, functionName, args, blockHash, blockNumber, blockTag } =
     parameters as ReadContractParameters<TAbi, TFunctionName>
   const calldata: string[] = args ? compile(args as any) : []
@@ -126,7 +126,7 @@ export async function readContract<
     block_tag: blockTag,
   }
 
-  return call(client, txCall)
+  return call(client, txCall) as Promise<ReadContractReturnType<TAbi, TFunctionName>>
 }
 
 

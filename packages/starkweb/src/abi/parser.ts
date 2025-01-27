@@ -1,5 +1,4 @@
 import type { AbiStateMutability } from '../strk-types/abi.js';
-// import { testAbi } from './testabi.js'
 import type { Abi } from '../strk-types/abi.js';
 import type { AbiTypeToPrimitiveType } from './abitype.js';
 import type { Address } from './starkweb-abi.js';
@@ -155,3 +154,55 @@ export type ContractFunctionParameters<
 } 
 // test
 // type TestIsValidSignatureParams = ContractFunctionParameters<typeof testAbi, 'view', 'is_valid_signature'>['args'];
+
+export type ContractFunctionReturnType<
+  TAbi extends Abi | readonly unknown[],
+  TMode extends 'view' | 'external',
+  TFunctionName extends ContractFunctionName<TAbi, TMode>
+> = TAbi extends Abi
+  ? Extract<ExtractFunctions<TAbi>, { name: TFunctionName }>['outputs'] extends infer Outputs
+    ? Outputs extends readonly { name: string; type: string }[]
+      ? {
+          [K in Outputs[number] as K['name']]: AbiTypeToPrimitiveType<K['type'], 'outputs', TAbi>
+        }
+      : Outputs extends readonly { type: string }[]
+        ? {
+            [K in Outputs[number] as 'data']: AbiTypeToPrimitiveType<K['type'], 'outputs', TAbi>
+          }
+        : never
+    : never
+  : never;
+
+// test
+// type TestIsValidSignatureReturnType = ContractFunctionReturnType<typeof testAbi, 'view', 'is_valid_signature'>;
+
+// export type ContractFunctionReturnType1<
+//   abi extends Abi | readonly unknown[] = Abi,
+//   mutability extends AbiStateMutability = AbiStateMutability,
+//   functionName extends ContractFunctionName<
+//     abi,
+//     mutability
+//   > = ContractFunctionName<abi, mutability>,
+//   args extends ContractFunctionArgs<
+//     abi,
+//     mutability,
+//     functionName
+//   > = ContractFunctionArgs<abi, mutability, functionName>,
+// > = abi extends Abi
+//   ? Abi extends abi
+//     ? unknown
+//     : AbiTypeToPrimitiveType<
+//           ExtractAbiFunctionForArgs<
+//             abi,
+//             mutability,
+//             functionName,
+//             args
+//           >['outputs']
+//         > extends infer types
+//       ? types extends readonly []
+//         ? void
+//         : types extends readonly [infer type]
+//           ? type
+//           : types
+//       : never
+//   : unknown
