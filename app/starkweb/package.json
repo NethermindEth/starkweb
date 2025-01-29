@@ -12,8 +12,8 @@
     "@types/react": "latest",
     "react": "latest",
     "react-dom": "latest",
+    "starkweb": "latest",
     "typescript": "latest",
-    "vocs": "latest",
-    "starkweb": "latest"
+    "vocs": "^1.0.0-alpha.62"
   }
 }
