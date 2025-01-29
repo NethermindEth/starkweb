@@ -1,0 +1,56 @@
+{
+  "type": "contract",
+  "name": "ERC20",
+  "functions": [
+    {
+      "name": "name",
+      "type": "function",
+      "inputs": [],
+      "outputs": [{"name": "name", "type": "felt"}]
+    },
+    {
+      "name": "symbol",
+      "type": "function",
+      "inputs": [],
+      "outputs": [{"name": "symbol", "type": "felt"}]
+    },
+    {
+      "name": "decimals",
+      "type": "function",
+      "inputs": [],
+      "outputs": [{"name": "decimals", "type": "felt"}]
+    },
+    {
+      "name": "totalSupply",
+      "type": "function",
+      "inputs": [],
+      "outputs": [{"name": "totalSupply", "type": "u256"}]
+    },
+    {
+      "name": "balanceOf",
+      "type": "function",
+      "inputs": [{"name": "account", "type": "contract_address"}],
+      "outputs": [{"name": "balance", "type": "u256"}]
+    },
+    {
+      "name": "transfer",
+      "type": "function",
+      "inputs": [
+        {"name": "recipient", "type": "contract_address"},
+        {"name": "amount", "type": "u256"}
+      ],
+      "outputs": [{"name": "success", "type": "bool"}]
+    }
+  ],
+  "events": [
+    {
+      "name": "Transfer",
+      "type": "event",
+      "inputs": [
+        {"name": "from", "type": "contract_address"},
+        {"name": "to", "type": "contract_address"},
+        {"name": "value", "type": "u256"}
+      ]
+    }
+  ]
+} 

@@ -2,6 +2,7 @@
 // import { createPublicClient } from 'src/clients/createPublicClient.js';
 // import { http } from 'src/clients/transports/http.js';
 
+import { decodeFunctionResult } from 'src/abi/decode.js';
 import type {
   ContractFunctionArgs,
   ContractFunctionParameters,
@@ -125,8 +126,19 @@ export async function readContract<
     block_number: blockNumber,
     block_tag: blockTag,
   }
+  const result = await call(client, txCall) as unknown as string[]
+  console.log("result - ", result)
 
-  return call(client, txCall) as Promise<ReadContractReturnType<TAbi, TFunctionName>>
+  // Get outputs from ABI definition
+  const outputs = parameters.abi.find(
+    entry => entry.name === functionName && entry.type === 'function'
+  )?.outputs || [];
+
+  // Pass outputs to decoder
+  const decoded = decodeFunctionResult(result, outputs)
+  console.log("decoded - ", decoded)
+  return decoded
+  // return decodeFunctionResult<ReadContractReturnType<TAbi, TFunctionName>>(result) as ReadContractReturnType<TAbi, TFunctionName>
 }
 
 

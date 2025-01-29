@@ -1,4 +1,5 @@
-import { type StarknetType, StarknetCoreType, type AbiParameter } from './types.js';
+import type { StarknetCoreType } from 'dist/types/abi/types.js';
+import { type StarknetType, type AbiParameter, type StarknetStruct } from './types.js';
 import { BigNumber } from '@0x/utils';
 
 export function decodeFromTypes(
@@ -36,10 +37,29 @@ export function decodeFromParams(
 export function decodeCoreType(
   type: StarknetType,
   values: BigNumber[],
-  offset: number
+  offset: number,
+  structs: Map<string, StarknetStruct> = new Map()
 ): [any, number] {
+  if (typeof type === 'object' && type.type === 'struct') {
+    const structDef = structs.get(type.name);
+    if (!structDef) throw new Error(`Undefined struct: ${type.name}`);
+    
+    const result: Record<string, any> = {};
+    for (const member of structDef.members) {
+      const [value, newOffset] = decodeCoreType(
+        member.type as StarknetType,
+        values,
+        offset,
+        structs
+      );
+      result[member.name] = value;
+      offset = newOffset;
+    }
+    return [result, offset];
+  }
+
   if (isArrayType(type)) {
-    const length = values[offset]?.toNumber() ?? 0;
+    const length = Number(values[offset]) || 0;
     const array: any[] = [];
     let currentOffset = offset + 1;
 
@@ -53,21 +73,24 @@ export function decodeCoreType(
   }
 
   switch (type) {
-    case StarknetCoreType.Bool:
-      return [!values[offset]?.isZero(), offset + 1];
-    case StarknetCoreType.U256:
+    case 'bool':
+      if (!values[offset]) {
+        throw new Error('Invalid Bool value');
+      }
+      return [values[offset]?.toNumber() !== 0, offset + 1];
+    case 'u256':
       if (!values[offset] || !values[offset + 1]) {
         throw new Error('Invalid U256 value');
       }
       return [
-        values[offset]!.plus(values[offset + 1]!.times(new BigNumber(2).pow(128))),
+        BigInt(values[offset]?.toString() || '0') + (BigInt(values[offset + 1]?.toString() || '0') << 128n),
         offset + 2
       ];
-    case StarknetCoreType.Felt:
+    case 'felt':
       if (!values[offset]) {
-        throw new Error('Invalid Felt value'); 
+        throw new Error('Invalid Felt value');
       }
-      return [values[offset].toString(16), offset + 1];
+      return [BigInt(values[offset]?.toString() || '0').toString(16), offset + 1];
     default:
       throw new Error(`Unsupported type: ${type}`);
   }
@@ -76,3 +99,16 @@ export function decodeCoreType(
 function isArrayType(type: StarknetType): type is { type: 'array', elementType: StarknetCoreType } {
   return typeof type === 'object' && 'type' in type && type.type === 'array';
 } 
+
+// function decodeFunctionResult<T>(type: T, values: BigNumber[]): T {
+//   const [value, newOffset] = decodeCoreType(type, values, 0);
+//   return value;
+// }
+
+// export function decodeFunctionResult(
+//   values: string[],
+//   outputs: { type: string }[]
+// ) {
+//   const types = outputs.map(output => TypeMap[output.type as keyof typeof TypeMap]);
+//   return decodeFromTypes(types, values.map(v => new BigNumber(v)));
+// }

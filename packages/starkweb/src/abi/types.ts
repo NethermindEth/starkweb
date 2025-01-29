@@ -1,50 +1,63 @@
-export enum StarknetCoreType {
-  Bool = 'bool',
-  Felt = 'felt',
-  U8 = 'u8',
-  U16 = 'u16',
-  U32 = 'u32',
-  U64 = 'u64',
-  U128 = 'u128',
-  U256 = 'u256',
-  ContractAddress = 'contract_address',
-}
+export type StarknetCoreType =
+  | 'bool'
+  | 'felt'
+  | 'u8'
+  | 'u16'
+  | 'u32'
+  | 'u64'
+  | 'u128'
+  | 'u256'
+  | 'contract_address'
+  | 'felt252'
+  | 'core::felt252'
+
 
 export type StarknetArray = {
   type: 'array';
   elementType: StarknetCoreType;
 };
 
-export type StarknetType = StarknetCoreType | StarknetArray;
+export type StarknetType = 
+  | StarknetCoreType 
+  | StarknetArray
+  | { type: 'struct', name: string, members: { name: string, type: StarknetType }[] };
 
 export interface AbiParameter {
   name: string;
   type: StarknetType;
 }
 
-export interface StarknetAbiFunction {
-  name: string;
+export interface StarknetAbiFunction<N extends string = string> {
+  type: 'function';
+  name: N;
   inputs: AbiParameter[];
   outputs: AbiParameter[];
 }
 
 export interface StarknetAbiEvent {
+  type: 'event';
   name: string;
   inputs: AbiParameter[];
+  kind: 'enum';
+  variants:   {
+    name: string;
+    type: StarknetType;
+  }[];
 }
 
 export interface StarknetAbiInterface {
   name: string;
-  functions: StarknetAbiFunction[];
-  events: StarknetAbiEvent[];
+  items: (StarknetAbiFunction | StarknetAbiEvent)[];
 }
 
 export interface StarknetAbi {
   name: string;
   address: string;
-  functions: StarknetAbiFunction[];
-  events: StarknetAbiEvent[];
-  implementedInterfaces: StarknetAbiInterface[];
+  functions: ReadonlyArray<StarknetAbiFunction> ;
+  events: ReadonlyArray<StarknetAbiEvent>;
+  implementedInterfaces: ReadonlyArray<StarknetAbiInterface>;
+  structs: ReadonlyArray<StarknetStruct>;
+  enums: ReadonlyArray<StarknetEnum>;
 }
 
 // New type definitions for ABI parsing
@@ -93,8 +106,8 @@ export interface StarknetL1Handler {
 export interface StarknetEvent {
   type: 'event';
   name: string;
-  kind: 'enum';
-  variants: any[];
+  kind: 'struct' | 'enum';
+  inputs: AbiParameter[];
 }
 
 

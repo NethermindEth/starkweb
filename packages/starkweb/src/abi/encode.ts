@@ -1,4 +1,4 @@
-import { type StarknetType, StarknetCoreType, type AbiParameter } from './types.js';
+import { type StarknetType, type AbiParameter } from './types.js';
 import { BigNumber } from '@0x/utils';
 
 export function encodeFromTypes(
@@ -34,16 +34,25 @@ export function encodeCoreType(
       ...value.flatMap(v => encodeCoreType(type.elementType, v))
     ];
   }
+  if (typeof type === 'object' && type.type === 'struct') {
+    if (!type.members?.[0]?.type) {
+      throw new Error('Invalid struct type - missing members');
+    }
+    if (!Array.isArray(value)) {
+      throw new Error('Expected array value for struct type');
+    }
+    return value.flatMap((v: any) => encodeCoreType(type.members[0].type, v));
+  }
 
   switch (type) {
-    case StarknetCoreType.Bool:
+    case 'bool':
       return [new BigNumber(value ? 1 : 0)];
-    case StarknetCoreType.U256:
+    case 'u256':
       return [
         new BigNumber(value).mod(new BigNumber(2).pow(128)),
         new BigNumber(value).div(new BigNumber(2).pow(128)).integerValue()
       ];
-    case StarknetCoreType.Felt:
+    case 'felt':
       return [new BigNumber(value)];
     default:
       throw new Error(`Unsupported type: ${type}`);

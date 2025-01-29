@@ -1,0 +1,21 @@
+{
+  "type": "contract",
+  "name": "Account",
+  "functions": [
+    {
+      "name": "__execute__",
+      "type": "function",
+      "inputs": [
+        {"name": "calls", "type": "felt*"},
+        {"name": "nonce", "type": "felt"}
+      ],
+      "outputs": [{"name": "response", "type": "felt*"}]
+    },
+    {
+      "name": "get_nonce",
+      "type": "function",
+      "inputs": [],
+      "outputs": [{"name": "nonce", "type": "felt"}]
+    }
+  ]
+} 
