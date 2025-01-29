@@ -3,6 +3,10 @@ import { defineConfig } from "vocs";
 export default defineConfig({
   title: "Starkweb",
   description: "all-in-one Starknet Toolkit",
+    editLink: {
+          pattern: 'https://github.com/NethermindEth/starkweb/tree/main/app/starkweb/docs/pages/:path',
+          text: 'Edit this Page',
+      },
   socials: [
     {
       icon: "github",
