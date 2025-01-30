@@ -40,7 +40,7 @@ export type GetStorageAtErrorType = RequestErrorType | ErrorType
 /**
  * Returns the value from a storage slot at a given address.
  *
- * - Docs: https://viem.sh/docs/contract/getStorageAt
+ * - Docs: https://starkweb.xyz/docs/contract/getStorageAt
  * - JSON-RPC Methods: [`eth_getStorageAt`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getstorageat)
  *
  * @param client - Client to use

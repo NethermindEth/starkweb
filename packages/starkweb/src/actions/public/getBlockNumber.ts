@@ -31,7 +31,7 @@ export function getBlockNumberCache(id: string) {
 /**
  * Returns the number of the most recent block seen.
  *
- * - Docs: https://viem.sh/docs/actions/public/getBlockNumber
+ * - Docs: https://starkweb.xyz/docs/actions/public/getBlockNumber
  * - Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/blocks/fetching-blocks
  * - JSON-RPC Methods: [`starknet_blockNumber`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_blocknumber)
  *

@@ -39,7 +39,7 @@ export class BaseError extends Error {
       ...(args.metaMessages ? [...args.metaMessages, ''] : []),
       ...(docsPath
         ? [
-            `Docs: ${args.docsBaseUrl ?? 'https://viem.sh'}${docsPath}${
+            `Docs: ${args.docsBaseUrl ?? 'https://starkweb.xyz'}${docsPath}${
               args.docsSlug ? `#${args.docsSlug}` : ''
             }`,
           ]

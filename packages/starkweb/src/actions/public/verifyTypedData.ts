@@ -30,7 +30,7 @@ export type VerifyTypedDataErrorType = HashTypedDataErrorType | ErrorType
 /**
  * Verify that typed data was signed by the provided address.
  *
- * - Docs {@link https://viem.sh/docs/actions/public/verifyTypedData}
+ * - Docs {@link https://starkweb.xyz/docs/actions/public/verifyTypedData}
  *
  * @param client - Client to use.
  * @param parameters - {@link VerifyTypedDataParameters}

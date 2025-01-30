@@ -36,7 +36,7 @@ export type GetClassAtErrorType = RequestErrorType | ErrorType
 /**
  * Retrieves the bytecode at an address.
  *
- * - Docs: https://viem.sh/docs/contract/getCode
+ * - Docs: https://starkweb.xyz/docs/contract/getCode
  * - JSON-RPC Methods: [`eth_getCode`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_getcode)
  *
  * @param client - Client to use

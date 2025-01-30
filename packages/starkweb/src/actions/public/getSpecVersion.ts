@@ -12,7 +12,7 @@ export type GetSpecVersionErrorType = RequestErrorType | ErrorType
 /**
  * Returns the current spec version.
  *
- * - Docs: https://viem.sh/docs/actions/public/getChainId
+ * - Docs: https://starkweb.xyz/docs/actions/public/getChainId
  * - JSON-RPC Methods: [`starknet_specVersion`](https://docs.starknet.io/reference/rpc-api/#starknet_specversion)
  *
  * @param client - Client to use

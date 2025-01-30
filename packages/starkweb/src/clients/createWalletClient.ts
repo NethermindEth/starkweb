@@ -58,15 +58,15 @@ export type WalletClient<
 export type CreateWalletClientErrorType = CreateClientErrorType | ErrorType
 
 /**
- * Creates a Wallet Client with a given [Transport](https://viem.sh/docs/clients/intro) configured for a [Chain](https://viem.sh/docs/clients/chains).
+ * Creates a Wallet Client with a given [Transport](https://starkweb.xyz/docs/clients/intro) configured for a [Chain](https://starkweb.xyz/docs/clients/chains).
  *
- * - Docs: https://viem.sh/docs/clients/wallet
+ * - Docs: https://starkweb.xyz/docs/clients/wallet
  *
- * A Wallet Client is an interface to interact with [Ethereum Account(s)](https://ethereum.org/en/glossary/#account) and provides the ability to retrieve accounts, execute transactions, sign messages, etc. through [Wallet Actions](https://viem.sh/docs/actions/wallet/introduction).
+ * A Wallet Client is an interface to interact with [Ethereum Account(s)](https://ethereum.org/en/glossary/#account) and provides the ability to retrieve accounts, execute transactions, sign messages, etc. through [Wallet Actions](https://starkweb.xyz/docs/actions/wallet/introduction).
  *
  * The Wallet Client supports signing over:
- * - [JSON-RPC Accounts](https://viem.sh/docs/clients/wallet#json-rpc-accounts) (e.g. Browser Extension Wallets, WalletConnect, etc).
- * - [Local Accounts](https://viem.sh/docs/clients/wallet#local-accounts-private-key-mnemonic-etc) (e.g. private key/mnemonic wallets).
+ * - [JSON-RPC Accounts](https://starkweb.xyz/docs/clients/wallet#json-rpc-accounts) (e.g. Browser Extension Wallets, WalletConnect, etc).
+ * - [Local Accounts](https://starkweb.xyz/docs/clients/wallet#local-accounts-private-key-mnemonic-etc) (e.g. private key/mnemonic wallets).
  *
  * @param config - {@link WalletClientConfig}
  * @returns A Wallet Client. {@link WalletClient}

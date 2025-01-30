@@ -27,8 +27,8 @@ export type ToHexErrorType =
 /**
  * Encodes a string, number, bigint, or ByteArray into a hex string
  *
- * - Docs: https://viem.sh/docs/utilities/toHex
- * - Example: https://viem.sh/docs/utilities/toHex#usage
+ * - Docs: https://starkweb.xyz/docs/utilities/toHex
+ * - Example: https://starkweb.xyz/docs/utilities/toHex#usage
  *
  * @param value Value to encode.
  * @param opts Options.
@@ -72,7 +72,7 @@ export type BoolToHexErrorType = AssertSizeErrorType | PadErrorType | ErrorType
 /**
  * Encodes a boolean into a hex string
  *
- * - Docs: https://viem.sh/docs/utilities/toHex#booltohex
+ * - Docs: https://starkweb.xyz/docs/utilities/toHex#booltohex
  *
  * @param value Value to encode.
  * @param opts Options.
@@ -112,7 +112,7 @@ export type BytesToHexErrorType = AssertSizeErrorType | PadErrorType | ErrorType
 /**
  * Encodes a bytes array into a hex string
  *
- * - Docs: https://viem.sh/docs/utilities/toHex#bytestohex
+ * - Docs: https://starkweb.xyz/docs/utilities/toHex#bytestohex
  *
  * @param value Value to encode.
  * @param opts Options.
@@ -163,7 +163,7 @@ export type NumberToHexErrorType =
 /**
  * Encodes a number or bigint into a hex string
  *
- * - Docs: https://viem.sh/docs/utilities/toHex#numbertohex
+ * - Docs: https://starkweb.xyz/docs/utilities/toHex#numbertohex
  *
  * @param value Value to encode.
  * @param opts Options.
@@ -226,7 +226,7 @@ const encoder = /*#__PURE__*/ new TextEncoder()
 /**
  * Encodes a UTF-8 string into a hex string
  *
- * - Docs: https://viem.sh/docs/utilities/toHex#stringtohex
+ * - Docs: https://starkweb.xyz/docs/utilities/toHex#stringtohex
  *
  * @param value Value to encode.
  * @param opts Options.

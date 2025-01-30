@@ -34,7 +34,7 @@ export type GetBlockWithTxHashesErrorType = RequestErrorType | ErrorType
 /**
  * Returns the number of Transactions at a block number, hash, or tag.
  *
- * - Docs: https://viem.sh/docs/actions/public/getBlockWithTxHashes
+ * - Docs: https://starkweb.xyz/docs/actions/public/getBlockWithTxHashes
  * - JSON-RPC Methods:
  *   - Calls [`starknet_getBlockWithTxHashes`](https://docs.starknet.io/reference/rpc-api/#starknet_getblockwithtxhashes)
  *
