@@ -8,7 +8,7 @@ export type ParseUnitsErrorType = ErrorType
  * - Docs: https://starkweb.xyz/docs/utilities/parseUnits
  *
  * @example
- * import { parseUnits } from 'viem'
+ * import { parseUnits } from 'starkweb'
  *
  * parseUnits('420', 9)
  * // 420000000000n

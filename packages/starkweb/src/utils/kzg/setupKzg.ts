@@ -18,8 +18,8 @@ export type SetupKzgErrorType = DefineKzgErrorType | ErrorType
  * @example
  * ```ts
  * import * as cKzg from 'c-kzg'
- * import { setupKzg } from 'viem'
- * import { mainnetTrustedSetupPath } from 'viem/node'
+ * import { setupKzg } from 'starkweb'
+ * import { mainnetTrustedSetupPath } from 'starkweb/node'
  *
  * const kzg = setupKzg(cKzg, mainnetTrustedSetupPath)
  * ```

@@ -43,9 +43,9 @@ export type GetBlockWithTxHashesErrorType = RequestErrorType | ErrorType
  * @returns The block transaction count. {@link GetBlockWithTxHashesReturnType}
  *
  * @example
- * import { createPublicClient, http } from 'viem'
- * import { mainnet } from 'viem/chains'
- * import { getBlockWithTxHashes } from 'viem/public'
+ * import { createPublicClient, http } from 'starkweb'
+ * import { mainnet } from 'starkweb/chains'
+ * import { getBlockWithTxHashes } from 'starkweb/public'
  *
  * const client = createPublicClient({
  *   chain: mainnet,

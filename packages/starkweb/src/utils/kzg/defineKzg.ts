@@ -11,8 +11,8 @@ export type DefineKzgErrorType = ErrorType
  * @example
  * ```ts
  * import * as cKzg from 'c-kzg'
- * import { defineKzg } from 'viem'
- * import { mainnetTrustedSetupPath } from 'viem/node'
+ * import { defineKzg } from 'starkweb'
+ * import { mainnetTrustedSetupPath } from 'starkweb/node'
  *
  * cKzg.loadTrustedSetup(mainnetTrustedSetupPath)
  *

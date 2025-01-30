@@ -35,17 +35,17 @@ export type ToHexErrorType =
  * @returns Hex value.
  *
  * @example
- * import { toHex } from 'viem'
+ * import { toHex } from 'starkweb'
  * const data = toHex('Hello world')
  * // '0x48656c6c6f20776f726c6421'
  *
  * @example
- * import { toHex } from 'viem'
+ * import { toHex } from 'starkweb'
  * const data = toHex(420)
  * // '0x1a4'
  *
  * @example
- * import { toHex } from 'viem'
+ * import { toHex } from 'starkweb'
  * const data = toHex('Hello world', { size: 32 })
  * // '0x48656c6c6f20776f726c64210000000000000000000000000000000000000000'
  */
@@ -79,17 +79,17 @@ export type BoolToHexErrorType = AssertSizeErrorType | PadErrorType | ErrorType
  * @returns Hex value.
  *
  * @example
- * import { boolToHex } from 'viem'
+ * import { boolToHex } from 'starkweb'
  * const data = boolToHex(true)
  * // '0x1'
  *
  * @example
- * import { boolToHex } from 'viem'
+ * import { boolToHex } from 'starkweb'
  * const data = boolToHex(false)
  * // '0x0'
  *
  * @example
- * import { boolToHex } from 'viem'
+ * import { boolToHex } from 'starkweb'
  * const data = boolToHex(true, { size: 32 })
  * // '0x0000000000000000000000000000000000000000000000000000000000000001'
  */
@@ -119,12 +119,12 @@ export type BytesToHexErrorType = AssertSizeErrorType | PadErrorType | ErrorType
  * @returns Hex value.
  *
  * @example
- * import { bytesToHex } from 'viem'
+ * import { bytesToHex } from 'starkweb'
  * const data = bytesToHex(Uint8Array.from([72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100, 33])
  * // '0x48656c6c6f20576f726c6421'
  *
  * @example
- * import { bytesToHex } from 'viem'
+ * import { bytesToHex } from 'starkweb'
  * const data = bytesToHex(Uint8Array.from([72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100, 33]), { size: 32 })
  * // '0x48656c6c6f20576f726c64210000000000000000000000000000000000000000'
  */
@@ -170,12 +170,12 @@ export type NumberToHexErrorType =
  * @returns Hex value.
  *
  * @example
- * import { numberToHex } from 'viem'
+ * import { numberToHex } from 'starkweb'
  * const data = numberToHex(420)
  * // '0x1a4'
  *
  * @example
- * import { numberToHex } from 'viem'
+ * import { numberToHex } from 'starkweb'
  * const data = numberToHex(420, { size: 32 })
  * // '0x00000000000000000000000000000000000000000000000000000000000001a4'
  */
@@ -233,12 +233,12 @@ const encoder = /*#__PURE__*/ new TextEncoder()
  * @returns Hex value.
  *
  * @example
- * import { stringToHex } from 'viem'
+ * import { stringToHex } from 'starkweb'
  * const data = stringToHex('Hello World!')
  * // '0x48656c6c6f20576f726c6421'
  *
  * @example
- * import { stringToHex } from 'viem'
+ * import { stringToHex } from 'starkweb'
  * const data = stringToHex('Hello World!', { size: 32 })
  * // '0x48656c6c6f20576f726c64210000000000000000000000000000000000000000'
  */

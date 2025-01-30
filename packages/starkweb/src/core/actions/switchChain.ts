@@ -50,7 +50,7 @@ export type SwitchChainErrorType =
   // base
   | BaseErrorType
   | ErrorType
-  // viem
+  // starkweb
   // | strkjs_SwitchChainErrorType
 
 /** https://starkweb.xyz/core/api/actions/switchChain */

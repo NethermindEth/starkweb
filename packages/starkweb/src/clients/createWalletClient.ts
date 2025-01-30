@@ -73,8 +73,8 @@ export type CreateWalletClientErrorType = CreateClientErrorType | ErrorType
  *
  * @example
  * // JSON-RPC Account
- * import { createWalletClient, custom } from 'viem'
- * import { mainnet } from 'viem/chains'
+ * import { createWalletClient, custom } from 'starkweb'
+ * import { mainnet } from 'starkweb/chains'
  *
  * const client = createWalletClient({
  *   chain: mainnet,
@@ -83,9 +83,9 @@ export type CreateWalletClientErrorType = CreateClientErrorType | ErrorType
  *
  * @example
  * // Local Account
- * import { createWalletClient, custom } from 'viem'
- * import { privateKeyToAccount } from 'viem/accounts'
- * import { mainnet } from 'viem/chains'
+ * import { createWalletClient, custom } from 'starkweb'
+ * import { privateKeyToAccount } from 'starkweb/accounts'
+ * import { mainnet } from 'starkweb/chains'
  *
  * const client = createWalletClient({
  *   account: privateKeyToAccount('0x…')

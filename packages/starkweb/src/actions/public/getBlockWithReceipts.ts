@@ -43,9 +43,9 @@ export type GetBlockWithReceiptsErrorType = RequestErrorType | ErrorType
  * @returns The block with transactions. {@link GetBlockWithReceiptsReturnType}
  *
  * @example
- * import { createPublicClient, http } from 'viem'
- * import { mainnet } from 'viem/chains'
- * import { getBlockWithReceipts } from 'viem/public'
+ * import { createPublicClient, http } from 'starkweb'
+ * import { mainnet } from 'starkweb/chains'
+ * import { getBlockWithReceipts } from 'starkweb/public'
  *
  * const client = createPublicClient({
  *   chain: mainnet,

@@ -10,7 +10,7 @@ export type FormatGweiErrorType = FormatUnitsErrorType
  * - Docs: https://starkweb.xyz/docs/utilities/formatGwei
  *
  * @example
- * import { formatGwei } from 'viem'
+ * import { formatGwei } from 'starkweb'
  *
  * formatGwei(1000000000n)
  * // '1'

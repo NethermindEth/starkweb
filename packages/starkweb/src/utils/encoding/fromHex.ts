@@ -69,17 +69,17 @@ export type FromHexErrorType =
  * @returns Decoded value.
  *
  * @example
- * import { fromHex } from 'viem'
+ * import { fromHex } from 'starkweb'
  * const data = fromHex('0x1a4', 'number')
  * // 420
  *
  * @example
- * import { fromHex } from 'viem'
+ * import { fromHex } from 'starkweb'
  * const data = fromHex('0x48656c6c6f20576f726c6421', 'string')
  * // 'Hello world'
  *
  * @example
- * import { fromHex } from 'viem'
+ * import { fromHex } from 'starkweb'
  * const data = fromHex('0x48656c6c6f20576f726c64210000000000000000000000000000000000000000', {
  *   size: 32,
  *   to: 'string'
@@ -118,12 +118,12 @@ export type HexToBigIntErrorType = AssertSizeErrorType | ErrorType
  * @returns BigInt value.
  *
  * @example
- * import { hexToBigInt } from 'viem'
+ * import { hexToBigInt } from 'starkweb'
  * const data = hexToBigInt('0x1a4', { signed: true })
  * // 420n
  *
  * @example
- * import { hexToBigInt } from 'viem'
+ * import { hexToBigInt } from 'starkweb'
  * const data = hexToBigInt('0x00000000000000000000000000000000000000000000000000000000000001a4', { size: 32 })
  * // 420n
  */
@@ -163,12 +163,12 @@ export type HexToBoolErrorType =
  * @returns Boolean value.
  *
  * @example
- * import { hexToBool } from 'viem'
+ * import { hexToBool } from 'starkweb'
  * const data = hexToBool('0x01')
  * // true
  *
  * @example
- * import { hexToBool } from 'viem'
+ * import { hexToBool } from 'starkweb'
  * const data = hexToBool('0x0000000000000000000000000000000000000000000000000000000000000001', { size: 32 })
  * // true
  */
@@ -197,12 +197,12 @@ export type HexToNumberErrorType = HexToBigIntErrorType | ErrorType
  * @returns Number value.
  *
  * @example
- * import { hexToNumber } from 'viem'
+ * import { hexToNumber } from 'starkweb'
  * const data = hexToNumber('0x1a4')
  * // 420
  *
  * @example
- * import { hexToNumber } from 'viem'
+ * import { hexToNumber } from 'starkweb'
  * const data = hexToBigInt('0x00000000000000000000000000000000000000000000000000000000000001a4', { size: 32 })
  * // 420
  */
@@ -231,12 +231,12 @@ export type HexToStringErrorType =
  * @returns String value.
  *
  * @example
- * import { hexToString } from 'viem'
+ * import { hexToString } from 'starkweb'
  * const data = hexToString('0x48656c6c6f20576f726c6421')
  * // 'Hello world!'
  *
  * @example
- * import { hexToString } from 'viem'
+ * import { hexToString } from 'starkweb'
  * const data = hexToString('0x48656c6c6f20576f726c64210000000000000000000000000000000000000000', {
  *  size: 32,
  * })

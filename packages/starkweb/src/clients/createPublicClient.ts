@@ -63,8 +63,8 @@ export type CreatePublicClientErrorType = CreateClientErrorType | ErrorType
  * @returns A Public Client. {@link PublicClient}
  *
  * @example
- * import { createPublicClient, http } from 'viem'
- * import { mainnet } from 'viem/chains'
+ * import { createPublicClient, http } from 'starkweb'
+ * import { mainnet } from 'starkweb/chains'
  *
  * const client = createPublicClient({
  *   chain: mainnet,

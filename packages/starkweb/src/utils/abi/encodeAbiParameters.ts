@@ -56,7 +56,7 @@ export type EncodeAbiParametersErrorType =
  * @param values - a set of values (values) that correspond to the given params.
  * @example
  * ```typescript
- * import { encodeAbiParameters } from 'viem'
+ * import { encodeAbiParameters } from 'starkweb'
  *
  * const encodedData = encodeAbiParameters(
  *   [
@@ -72,7 +72,7 @@ export type EncodeAbiParametersErrorType =
  *
  * @example
  * ```typescript
- * import { encodeAbiParameters, parseAbiParameters } from 'viem'
+ * import { encodeAbiParameters, parseAbiParameters } from 'starkweb'
  *
  * const encodedData = encodeAbiParameters(
  *   parseAbiParameters('string x, uint y, bool z'),

@@ -11,7 +11,7 @@ export type ParseEtherErrorType = ParseUnitsErrorType | ErrorType
  * - Docs: https://starkweb.xyz/docs/utilities/parseEther
  *
  * @example
- * import { parseEther } from 'viem'
+ * import { parseEther } from 'starkweb'
  *
  * parseEther('420')
  * // 420000000000000000000n

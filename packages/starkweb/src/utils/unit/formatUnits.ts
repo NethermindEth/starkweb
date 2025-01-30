@@ -8,7 +8,7 @@ export type FormatUnitsErrorType = ErrorType
  * - Docs: https://starkweb.xyz/docs/utilities/formatUnits
  *
  * @example
- * import { formatUnits } from 'viem'
+ * import { formatUnits } from 'starkweb'
  *
  * formatUnits(420000000000n, 9)
  * // '420'

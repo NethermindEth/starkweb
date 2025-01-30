@@ -10,7 +10,7 @@ export type FormatEtherErrorType = FormatUnitsErrorType
  * - Docs: https://starkweb.xyz/docs/utilities/formatEther
  *
  * @example
- * import { formatEther } from 'viem'
+ * import { formatEther } from 'starkweb'
  *
  * formatEther(1000000000000000000n)
  * // '1'

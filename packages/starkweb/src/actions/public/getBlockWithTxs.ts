@@ -43,9 +43,9 @@ export type GetBlockWithTxsErrorType = RequestErrorType | ErrorType
  * @returns The block with transactions. {@link GetBlockWithTxsReturnType}
  *
  * @example
- * import { createPublicClient, http } from 'viem'
- * import { mainnet } from 'viem/chains'
- * import { getBlockWithTxs } from 'viem/public'
+ * import { createPublicClient, http } from 'starkweb'
+ * import { mainnet } from 'starkweb/chains'
+ * import { getBlockWithTxs } from 'starkweb/public'
  *
  * const client = createPublicClient({
  *   chain: mainnet,

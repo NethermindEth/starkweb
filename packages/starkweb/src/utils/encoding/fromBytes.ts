@@ -55,12 +55,12 @@ export type FromBytesErrorType =
  * @returns Decoded value.
  *
  * @example
- * import { fromBytes } from 'viem'
+ * import { fromBytes } from 'starkweb'
  * const data = fromBytes(new Uint8Array([1, 164]), 'number')
  * // 420
  *
  * @example
- * import { fromBytes } from 'viem'
+ * import { fromBytes } from 'starkweb'
  * const data = fromBytes(
  *   new Uint8Array([72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100, 33]),
  *   'string'
@@ -109,7 +109,7 @@ export type BytesToBigIntErrorType =
  * @returns BigInt value.
  *
  * @example
- * import { bytesToBigInt } from 'viem'
+ * import { bytesToBigInt } from 'starkweb'
  * const data = bytesToBigInt(new Uint8Array([1, 164]))
  * // 420n
  */
@@ -142,7 +142,7 @@ export type BytesToBoolErrorType =
  * @returns Boolean value.
  *
  * @example
- * import { bytesToBool } from 'viem'
+ * import { bytesToBool } from 'starkweb'
  * const data = bytesToBool(new Uint8Array([1]))
  * // true
  */
@@ -177,7 +177,7 @@ export type BytesToNumberErrorType =
  * @returns Number value.
  *
  * @example
- * import { bytesToNumber } from 'viem'
+ * import { bytesToNumber } from 'starkweb'
  * const data = bytesToNumber(new Uint8Array([1, 164]))
  * // 420
  */
@@ -210,7 +210,7 @@ export type BytesToStringErrorType =
  * @returns String value.
  *
  * @example
- * import { bytesToString } from 'viem'
+ * import { bytesToString } from 'starkweb'
  * const data = bytesToString(new Uint8Array([72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100, 33]))
  * // 'Hello world'
  */

@@ -48,9 +48,9 @@ export type GetStorageAtErrorType = RequestErrorType | ErrorType
  * @returns The value of the storage slot. {@link GetStorageAtReturnType}
  *
  * @example
- * import { createPublicClient, http } from 'viem'
- * import { mainnet } from 'viem/chains'
- * import { getStorageAt } from 'viem/contract'
+ * import { createPublicClient, http } from 'starkweb'
+ * import { mainnet } from 'starkweb/chains'
+ * import { getStorageAt } from 'starkweb/contract'
  *
  * const client = createPublicClient({
  *   chain: mainnet,

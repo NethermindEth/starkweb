@@ -44,9 +44,9 @@ export type GetClassAtErrorType = RequestErrorType | ErrorType
  * @returns The contract's bytecode. {@link GetCodeReturnType}
  *
  * @example
- * import { createPublicClient, http } from 'viem'
- * import { mainnet } from 'viem/chains'
- * import { getClassAt } from 'viem/contract'
+ * import { createPublicClient, http } from 'starkweb'
+ * import { mainnet } from 'starkweb/chains'
+ * import { getClassAt } from 'starkweb/contract'
  *
  * const client = createPublicClient({
  *   chain: mainnet,

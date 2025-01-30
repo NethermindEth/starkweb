@@ -48,9 +48,9 @@ export type CallErrorType = RequestErrorType | ErrorType
  * @returns The contract's bytecode. {@link CallReturnType}
  *
  * @example
- * import { createPublicClient, http } from 'viem'
- * import { mainnet } from 'viem/chains'
- * import { getClassAt } from 'viem/contract'
+ * import { createPublicClient, http } from 'starkweb'
+ * import { mainnet } from 'starkweb/chains'
+ * import { getClassAt } from 'starkweb/contract'
  *
  * const client = createPublicClient({
  *   chain: mainnet,

@@ -267,7 +267,7 @@ export type PublicActions = {
    * Returns the number of the most recent block seen.
    *
    * - Docs: https://strk.sh/docs/actions/public/getBlockNumber
-   * - Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/blocks/fetching-blocks
+   * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/blocks/fetching-blocks
    * - JSON-RPC Methods: [`starknet_blockNumber`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_blocknumber)
    *
    * @param args - {@link CallParameters}
@@ -294,7 +294,7 @@ export type PublicActions = {
    * Returns the number of the most recent block seen.
    *
    * - Docs: https://strk.sh/docs/actions/public/getBlockNumber
-   * - Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/blocks/fetching-blocks
+   * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/blocks/fetching-blocks
    * - JSON-RPC Methods: [`starknet_blockNumber`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_blocknumber)
    *
    * @param args - {@link GetBlockNumberParameters}
@@ -319,7 +319,7 @@ export type PublicActions = {
    * Returns the block with transaction hashes.
    *
    * - Docs: https://strk.sh/docs/actions/public/getBlockWithTxHashes
-   * - Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/blocks/fetching-blocks-with-tx-hashes
+   * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/blocks/fetching-blocks-with-tx-hashes
    * - JSON-RPC Methods: [`starknet_getBlockWithTxHashes`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_getblockwithtxhashes)
    *
    * @param args - {@link GetBlockWithTxHashesParameters}
@@ -343,7 +343,7 @@ export type PublicActions = {
    * Returns the block with transaction hashes.
    *
    * - Docs: https://strk.sh/docs/actions/public/getBlockWithTxHashes
-   * - Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/blocks/fetching-blocks-with-tx-hashes
+   * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/blocks/fetching-blocks-with-tx-hashes
    * - JSON-RPC Methods: [`starknet_getBlockWithTxHashes`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_getblockwithtxhashes)
    *
    * @param args - {@link GetBlockWithTxHashesParameters}
@@ -367,7 +367,7 @@ export type PublicActions = {
    * Returns the block with transactions.
    *
    * - Docs: https://strk.sh/docs/actions/public/getBlockWithTxHashes
-   * - Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/blocks/fetching-blocks-with-tx-hashes
+   * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/blocks/fetching-blocks-with-tx-hashes
    * - JSON-RPC Methods: [`starknet_getBlockWithTxHashes`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_getblockwithtxhashes)
    *
    * @param args - {@link GetBlockWithTxHashesParameters}
@@ -392,7 +392,7 @@ export type PublicActions = {
    * Returns the class at a specific address.
    *
    * - Docs: https://strk.sh/docs/actions/public/getClassAt
-   * - Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/classes/fetching-class-at
+   * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/classes/fetching-class-at
    * - JSON-RPC Methods: [`starknet_getClassAt`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_getclassat)
    *
    * @param args - {@link GetClassAtParameters}
@@ -415,7 +415,7 @@ export type PublicActions = {
    * Returns the spec version.
    *
    * - Docs: https://strk.sh/docs/actions/public/getSpecVersion
-   * - Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/spec/fetching-spec-version
+   * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/spec/fetching-spec-version
    * - JSON-RPC Methods: [`starknet_getSpecVersion`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_getspecversion)
    *
    * @returns The spec version. {@link GetSpecVersionReturnType}
@@ -437,7 +437,7 @@ export type PublicActions = {
    * Returns the chain ID.
    *
    * - Docs: https://strk.sh/docs/actions/public/getChainId
-   * - Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/chains/fetching-chain-id
+   * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/chains/fetching-chain-id
    * - JSON-RPC Methods: [`starknet_chainId`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_chainid)
    *
    * @returns The chain ID. {@link GetChainIdReturnType}
@@ -459,7 +459,7 @@ export type PublicActions = {
    * Returns the block state update.
    *
    * - Docs: https://strk.sh/docs/actions/public/getBlockStateUpdate
-   * - Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/blocks/fetching-block-state-update
+   * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/blocks/fetching-block-state-update
    * - JSON-RPC Methods: [`starknet_getBlockStateUpdate`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_getblockstateupdate)
    *
    * @param args - {@link GetBlockStateUpdateParameters}
@@ -474,7 +474,7 @@ export type PublicActions = {
    * Returns the transaction by hash.
    *
    * - Docs: https://strk.sh/docs/actions/public/getTransactionByHash
-   * - Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/transactions/fetching-transaction-by-hash
+   * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/transactions/fetching-transaction-by-hash
    * - JSON-RPC Methods: [`starknet_getTransactionByHash`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_blocknumber)
    *
    * @param args - {@link GetTransactionByHashParameters}
@@ -500,7 +500,7 @@ export type PublicActions = {
    * Returns the transaction by hash.
    *
    * - Docs: https://strk.sh/docs/actions/public/getTransactionByHash
-   * - Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/transactions/fetching-transaction-by-hash
+   * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/transactions/fetching-transaction-by-hash
    * - JSON-RPC Methods: [`starknet_getTransactionByHash`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_blocknumber)
    *
    * @param args - {@link GetTransactionByHashParameters}
@@ -526,7 +526,7 @@ export type PublicActions = {
    * Returns the transaction by hash.
    *
    * - Docs: https://strk.sh/docs/actions/public/getTransactionByHash
-   * - Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/transactions/fetching-transaction-by-hash
+   * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/transactions/fetching-transaction-by-hash
    * - JSON-RPC Methods: [`starknet_getTransactionByHash`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_blocknumber)
    *
    * @param args - {@link GetTransactionByHashParameters}
@@ -553,7 +553,7 @@ export type PublicActions = {
    * Returns the transaction receipt.
    *
    * - Docs: https://strk.sh/docs/actions/public/getTransactionReceipt
-   * - Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/transactions/fetching-transaction-receipt
+   * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/transactions/fetching-transaction-receipt
    * - JSON-RPC Methods: [`starknet_getTransactionReceipt`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_gettransactionreceipt)
    *
    * @param args - {@link GetTransactionReceiptParameters}
@@ -580,7 +580,7 @@ export type PublicActions = {
    * Returns the transaction by block id and index.
    *
    * - Docs: https://strk.sh/docs/actions/public/getTransactionByBlockIdAndIndex
-   * - Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/transactions/fetching-transaction-by-hash
+   * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/transactions/fetching-transaction-by-hash
    * - JSON-RPC Methods: [`starknet_getTransactionByHash`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_blocknumber)
    *
    * @param args - {@link GetTransactionByBlockIdAndIndexParameters}
@@ -607,7 +607,7 @@ export type PublicActions = {
    * Returns the class.
    *
    * - Docs: https://strk.sh/docs/actions/public/getClass
-   * - Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/classes/fetching-class
+   * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/classes/fetching-class
    * - JSON-RPC Methods: [`starknet_getClass`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_getclass)
    *
    * @param args - {@link GetClassParameters}
@@ -630,7 +630,7 @@ export type PublicActions = {
    * Returns the class hash at a specific address.
    *
    * - Docs: https://strk.sh/docs/actions/public/getClassHashAt
-   * - Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/classes/fetching-class-hash-at
+   * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/classes/fetching-class-hash-at
    * - JSON-RPC Methods: [`starknet_getClassHashAt`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_getclasshashat)
    *
    * @param args - {@link GetClassHashAtParameters}
@@ -655,7 +655,7 @@ export type PublicActions = {
    * Estimates the fee for a transaction.
    *
    * - Docs: https://strk.sh/docs/actions/public/estimateFee
-   * - Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/transactions/estimating-fee
+   * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/transactions/estimating-fee
    * - JSON-RPC Methods: [`starknet_estimateFee`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_estimatefee)
    *
    * @param args - {@link EstimateFeeParameters}
@@ -678,7 +678,7 @@ export type PublicActions = {
    * Estimates the fee for a message.
    *
    * - Docs: https://strk.sh/docs/actions/public/estimateMessageFee
-   * - Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/messages/estimating-message-fee
+   * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/messages/estimating-message-fee
    * - JSON-RPC Methods: [`starknet_estimateMessageFee`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_estimatemessagefee)
    *
    * @param args - {@link EstimateMessageFeeParameters}
@@ -703,7 +703,7 @@ export type PublicActions = {
    * Returns the block hash and number.
    *
    * - Docs: https://strk.sh/docs/actions/public/getBlockHashAndNumber
-   * - Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/blocks/fetching-block-hash-and-number
+   * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/blocks/fetching-block-hash-and-number
    * - JSON-RPC Methods: [`starknet_getBlockHashAndNumber`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_getblockhashandnumber)
    *
    * @returns The block hash and number. {@link GetBlockHashAndNumberReturnTypes}
@@ -725,7 +725,7 @@ export type PublicActions = {
    * Returns the syncing status.
    *
    * - Docs: https://strk.sh/docs/actions/public/syncing
-   * - Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/syncing/fetching-syncing-status
+   * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/syncing/fetching-syncing-status
    * - JSON-RPC Methods: [`starknet_syncing`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_syncing)
    *
    * @returns The syncing status. {@link SyncingReturnTypes}
@@ -747,7 +747,7 @@ export type PublicActions = {
    * Returns the events.
    *
    * - Docs: https://strk.sh/docs/actions/public/getEvents
-   * - Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/events/fetching-events
+   * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/events/fetching-events
    * - JSON-RPC Methods: [`starknet_getEvents`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_getevents)
    *
    * @param args - {@link GetEventsParameters}
@@ -770,7 +770,7 @@ export type PublicActions = {
    * Returns the nonce.
    *
    * - Docs: https://strk.sh/docs/actions/public/getNonce
-   * - Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/nonce/fetching-nonce
+   * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/nonce/fetching-nonce
    * - JSON-RPC Methods: [`starknet_getNonce`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_getnonce)
    *
    * @param args - {@link GetNonceParameters}
@@ -793,7 +793,7 @@ export type PublicActions = {
    * Returns the number of transactions in a block.
    *
    * - Docs: https://strk.sh/docs/actions/public/getBlockTransactionCount
-   * - Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/transactions/fetching-transaction-receipt
+   * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/transactions/fetching-transaction-receipt
    * - JSON-RPC Methods: [`starknet_getTransactionReceipt`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_gettransactionreceipt)
    *
    * @param args - {@link GetBlockTransactionCountParameters}
@@ -820,7 +820,7 @@ export type PublicActions = {
    * Returns the trace of a transaction.
    *
    * - Docs: https://strk.sh/docs/actions/public/getTraceTransaction
-   * - Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/transactions/fetching-trace-transaction
+   * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/transactions/fetching-trace-transaction
    * - JSON-RPC Methods: [`starknet_getTraceTransaction`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_gettracetransaction)
    *
    * @param args - {@link GetTraceTransactionParameters}
@@ -845,7 +845,7 @@ export type PublicActions = {
    * Returns the traces of transactions in a block.
    *
    * - Docs: https://strk.sh/docs/actions/public/getBlockTransactionsTraces
-   * - Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/blocks/fetching-block-transactions-traces
+   * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/blocks/fetching-block-transactions-traces
    * - JSON-RPC Methods: [`starknet_getBlockTransactionsTraces`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_getblocktransactionstraces)
    *
    * @param args - {@link GetBlockTransactionsTracesParameters}
@@ -870,7 +870,7 @@ export type PublicActions = {
    * Simulates a transaction.
    *
    * - Docs: https://strk.sh/docs/actions/public/simulateTransaction
-   * - Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/transactions/simulating-transaction
+   * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/transactions/simulating-transaction
    * - JSON-RPC Methods: [`starknet_simulateTransaction`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_simulatetransaction)
    *
    * @param args - {@link SimulateTransactionParameters}
@@ -895,7 +895,7 @@ export type PublicActions = {
    * Adds an invoke transaction.
    *
    * - Docs: https://strk.sh/docs/actions/public/addInvokeTransaction
-   * - Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/transactions/adding-invoke-transaction
+   * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/transactions/adding-invoke-transaction
    * - JSON-RPC Methods: [`starknet_addInvokeTransaction`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_addinvoketransaction)
    *
    * @param args - {@link AddInvokeTransactionParameters}
@@ -920,7 +920,7 @@ export type PublicActions = {
    * Adds a declare transaction.
    *
    * - Docs: https://strk.sh/docs/actions/public/addDeclareTransaction
-   * - Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/transactions/adding-declare-transaction
+   * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/transactions/adding-declare-transaction
    * - JSON-RPC Methods: [`starknet_addDeclareTransaction`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_adddeclaretransaction)
    *
    * @param args - {@link AddDeclareTransactionParameters}
@@ -945,7 +945,7 @@ export type PublicActions = {
    * Adds a deploy account transaction.
    *
    * - Docs: https://strk.sh/docs/actions/public/addDeployAccountTransaction
-   * - Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/transactions/adding-deploy-account-transaction
+   * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/transactions/adding-deploy-account-transaction
    * - JSON-RPC Methods: [`starknet_addDeployAccountTransaction`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_adddeployaccounttransaction)
    *
    * @param args - {@link AddDeployAccountTransactionParameters}
@@ -970,7 +970,7 @@ export type PublicActions = {
    * Watches and returns incoming block numbers.
    *
    * - Docs: https://strk.sh/docs/actions/public/watchBlockNumber
-   * - Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/blocks/watching-blocks
+   * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/blocks/watching-blocks
    * - JSON-RPC Methods:
    *   - When `poll: true`, calls [`eth_blockNumber`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_blocknumber) on a polling interval.
    *   - When `poll: false` & WebSocket Transport, uses a WebSocket subscription via [`eth_subscribe`](https://docs.alchemy.com/reference/eth-subscribe-polygon) and the `"newHeads"` event.

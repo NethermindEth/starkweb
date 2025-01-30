@@ -42,9 +42,9 @@ export type GetBlockTransactionCountErrorType = RequestErrorType | ErrorType
  * @returns The block transaction count. {@link GetBlockTransactionCountReturnType}
  *
  * @example
- * import { createPublicClient, http } from 'viem'
- * import { mainnet } from 'viem/chains'
- * import { getBlockTransactionCount } from 'viem/public'
+ * import { createPublicClient, http } from 'starkweb'
+ * import { mainnet } from 'starkweb/chains'
+ * import { getBlockTransactionCount } from 'starkweb/public'
  *
  * const client = createPublicClient({
  *   chain: mainnet,

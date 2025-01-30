@@ -57,7 +57,7 @@ export type ToBlobSidecarsErrorType =
  *
  * @example
  * ```ts
- * import { toBlobSidecars, stringToHex } from 'viem'
+ * import { toBlobSidecars, stringToHex } from 'starkweb'
  *
  * const sidecars = toBlobSidecars({ data: stringToHex('hello world') })
  * ```
@@ -70,7 +70,7 @@ export type ToBlobSidecarsErrorType =
  *   blobsToProofs,
  *   toBlobSidecars,
  *   stringToHex
- * } from 'viem'
+ * } from 'starkweb'
  *
  * const blobs = toBlobs({ data: stringToHex('hello world') })
  * const commitments = blobsToCommitments({ blobs, kzg })

@@ -11,7 +11,7 @@ export type ParseGweiErrorType = ParseUnitsErrorType | ErrorType
  * - Docs: https://starkweb.xyz/docs/utilities/parseGwei
  *
  * @example
- * import { parseGwei } from 'viem'
+ * import { parseGwei } from 'starkweb'
  *
  * parseGwei('420')
  * // 420000000000n

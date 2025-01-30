@@ -39,7 +39,7 @@ export type WriteContractErrorType = any
  * Executes a write function on a contract.
  *
  * - Docs: https://starkweb.xyz/docs/contract/writeContract
- * - Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/contracts/writing-to-contracts
+ * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/contracts/writing-to-contracts
  *
  * A "write" function on a Solidity contract modifies the state of the blockchain. These types of functions require gas to be executed, and hence a [Transaction](https://starkweb.xyz/docs/glossary/terms) is needed to be broadcast in order to change the state.
  *
@@ -52,9 +52,9 @@ export type WriteContractErrorType = any
  * @returns A [Transaction Hash](https://starkweb.xyz/docs/glossary/terms#hash). {@link WriteContractReturnType}
  *
  * @example
- * import { createWalletClient, custom, parseAbi } from 'viem'
- * import { mainnet } from 'viem/chains'
- * import { writeContract } from 'viem/contract'
+ * import { createWalletClient, custom, parseAbi } from 'starkweb'
+ * import { mainnet } from 'starkweb/chains'
+ * import { writeContract } from 'starkweb/contract'
  *
  * const client = createWalletClient({
  *   chain: mainnet,
@@ -69,9 +69,9 @@ export type WriteContractErrorType = any
  *
  * @example
  * // With Validation
- * import { createWalletClient, http, parseAbi } from 'viem'
- * import { mainnet } from 'viem/chains'
- * import { simulateContract, writeContract } from 'viem/contract'
+ * import { createWalletClient, http, parseAbi } from 'starkweb'
+ * import { mainnet } from 'starkweb/chains'
+ * import { simulateContract, writeContract } from 'starkweb/contract'
  *
  * const client = createWalletClient({
  *   chain: mainnet,
