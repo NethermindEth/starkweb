@@ -1,64 +1,49 @@
-export type StarknetCoreType =
-  | 'bool' | 'core::bool'
-  | 'felt' | 'felt252' | 'core::felt252'
-  | 'u8' | 'core::integer::u8'
-  | 'u16' | 'core::integer::u16'
-  | 'u32' | 'core::integer::u32'
-  | 'u64' | 'core::integer::u64'
-  | 'u128' | 'core::integer::u128'
-  | 'u256' | 'core::integer::u256'
-  | 'contract_address' | 'core::starknet::contract_address::ContractAddress'
-  
-  
-  
-
+export type StarknetCoreType = 
+| 'felt252' 
+| 'bool' 
+| 'u8' 
+| 'u16' 
+| 'u32' 
+| 'u64' 
+| 'u128' 
+| 'u256' 
+| 'contract_address'
 
 export type StarknetArray = {
   type: 'array';
   elementType: StarknetCoreType;
 };
 
-export type StarknetType = 
-  | StarknetCoreType 
-  | StarknetArray
-  | { type: 'struct', name: string, members: { name: string, type: StarknetType }[] };
+export type StarknetType = StarknetCoreType | StarknetArray;
 
 export interface AbiParameter {
   name: string;
   type: StarknetType;
 }
 
-export interface StarknetAbiFunction<N extends string = string> {
-  type: 'function';
-  name: N;
+export interface StarknetAbiFunction {
+  name: string;
   inputs: AbiParameter[];
   outputs: AbiParameter[];
 }
 
 export interface StarknetAbiEvent {
-  type: 'event';
   name: string;
   inputs: AbiParameter[];
-  kind: 'enum';
-  variants:   {
-    name: string;
-    type: StarknetType;
-  }[];
 }
 
 export interface StarknetAbiInterface {
   name: string;
-  items: (StarknetAbiFunction | StarknetAbiEvent)[];
+  functions: StarknetAbiFunction[];
+  events: StarknetAbiEvent[];
 }
 
 export interface StarknetAbi {
   name: string;
   address: string;
-  functions: ReadonlyArray<StarknetAbiFunction> ;
-  events: ReadonlyArray<StarknetAbiEvent>;
-  implementedInterfaces: ReadonlyArray<StarknetAbiInterface>;
-  structs: ReadonlyArray<StarknetStruct>;
-  enums: ReadonlyArray<StarknetEnum>;
+  functions: StarknetAbiFunction[];
+  events: StarknetAbiEvent[];
+  implementedInterfaces: StarknetAbiInterface[];
 }
 
 // New type definitions for ABI parsing
@@ -107,8 +92,8 @@ export interface StarknetL1Handler {
 export interface StarknetEvent {
   type: 'event';
   name: string;
-  kind: 'struct' | 'enum';
-  inputs: AbiParameter[];
+  kind: 'enum';
+  variants: any[];
 }
 
 

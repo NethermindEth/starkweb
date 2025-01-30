@@ -1,0 +1,105 @@
+[
+    {
+      "type": "struct",
+      "name": "core::integer::u256",
+      "members": [
+        {
+          "name": "low",
+          "type": "core::integer::u128"
+        },
+        {
+          "name": "high",
+          "type": "core::integer::u128"
+        }
+      ]
+    },
+    {
+      "type": "enum",
+      "name": "abi_types::abi_types::AbiTypes::ExampleEnum",
+      "variants": [
+        {
+          "name": "variant_a",
+          "type": "core::felt252"
+        },
+        {
+          "name": "variant_b",
+          "type": "core::integer::u256"
+        }
+      ]
+    },
+    {
+      "type": "function",
+      "name": "example_view_function",
+      "inputs": [],
+      "outputs": [
+        {
+          "type": "abi_types::abi_types::AbiTypes::ExampleEnum"
+        }
+      ],
+      "state_mutability": "view"
+    },
+    {
+      "type": "struct",
+      "name": "abi_types::abi_types::AbiTypes::ExampleStruct",
+      "members": [
+        {
+          "name": "field_a",
+          "type": "core::felt252"
+        },
+        {
+          "name": "field_b",
+          "type": "core::felt252"
+        },
+        {
+          "name": "field_c",
+          "type": "abi_types::abi_types::AbiTypes::ExampleEnum"
+        },
+        {
+          "name": "field_d",
+          "type": "()"
+        }
+      ]
+    },
+    {
+      "type": "function",
+      "name": "example_external_function",
+      "inputs": [
+        {
+          "name": "recipient",
+          "type": "core::starknet::contract_address::ContractAddress"
+        },
+        {
+          "name": "amount",
+          "type": "core::integer::u256"
+        }
+      ],
+      "outputs": [
+        {
+          "type": "abi_types::abi_types::AbiTypes::ExampleStruct"
+        }
+      ],
+      "state_mutability": "external"
+    },
+    {
+      "type": "l1_handler",
+      "name": "example_l1_handler",
+      "inputs": [
+        {
+          "name": "from_address",
+          "type": "core::felt252"
+        },
+        {
+          "name": "arg1",
+          "type": "core::felt252"
+        }
+      ],
+      "outputs": [],
+      "state_mutability": "external"
+    },
+    {
+      "type": "event",
+      "name": "abi_types::abi_types::AbiTypes::Event",
+      "kind": "enum",
+      "variants": []
+    }
+  ]

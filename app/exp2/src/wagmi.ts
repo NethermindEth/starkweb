@@ -1,15 +1,16 @@
-import { createConfig, createStorage, cookieStorage } from 'starkweb/core'
-import { mainnet, sepolia } from 'starkweb/chains'
-import { argentX, braavos } from 'starkweb/connectors'
 import { http } from 'starkweb'
+import {  createConfig, createStorage } from 'starkweb/react'
+import { mainnet, sepolia } from 'starkweb/chains'
+import { injected , argentX, braavos } from 'starkweb/connectors'
 
 export function getConfig() {
   return createConfig({
     chains: [mainnet, sepolia],
-    connectors: [argentX(), braavos()],
-    storage: createStorage({
-      storage: cookieStorage,
-    }),
+    connectors: [
+      injected(),
+      argentX(),
+      braavos(),
+    ],
     ssr: true,
     transports: {
       [mainnet.chain_id]: http(),

@@ -1,3 +1,4 @@
+// import { testAbi } from '../abi/testabi.js'
 import type {
   AbiParameter,
   AbiParameterToPrimitiveType,
@@ -10,7 +11,7 @@ import type {
   ResolvedRegister,
 } from 'abitype'
 
-import type { Hex, LogTopic } from './misc.js'
+import type { Hex, LogTopic } from './misc.js' 
 import type {
   Filter,
   IsUnion,
@@ -33,7 +34,11 @@ export type ContractFunctionName<
     : functionName
   : string
 
-export type ContractErrorName<abi extends Abi | readonly unknown[] = Abi> =
+  // type fn = ContractFunctionName<typeof testAbi, 'external'>;
+
+
+// TODO: fix this
+  export type ContractErrorName<abi extends Abi | readonly unknown[] = Abi> =
   ExtractAbiErrorNames<
     abi extends Abi ? abi : Abi
   > extends infer errorName extends string
@@ -41,8 +46,11 @@ export type ContractErrorName<abi extends Abi | readonly unknown[] = Abi> =
       ? string
       : errorName
     : string
+// this is not working yet    
+// type errorNames = ContractErrorName<typeof testAbi>;
 
-export type ContractEventName<abi extends Abi | readonly unknown[] = Abi> =
+
+    export type ContractEventName<abi extends Abi | readonly unknown[] = Abi> =
   ExtractAbiEventNames<
     abi extends Abi ? abi : Abi
   > extends infer eventName extends string
@@ -50,26 +58,23 @@ export type ContractEventName<abi extends Abi | readonly unknown[] = Abi> =
       ? string
       : eventName
     : string
+// This is working
+// type eventNames = ContractEventName<typeof testAbi>;
 
 export type ContractFunctionArgs<
   abi extends Abi | readonly unknown[] = Abi,
   mutability extends AbiStateMutability = AbiStateMutability,
-  functionName extends ContractFunctionName<
-    abi,
-    mutability
-  > = ContractFunctionName<abi, mutability>,
+  functionName extends ContractFunctionName<abi, mutability> = ContractFunctionName<abi, mutability>,
 > = AbiParametersToPrimitiveTypes<
-  ExtractAbiFunction<
-    abi extends Abi ? abi : Abi,
-    functionName,
-    mutability
-  >['inputs'],
+  ExtractAbiFunction<abi extends Abi ? abi : Abi, functionName, mutability>['inputs'],
   'inputs'
 > extends infer args
   ? [args] extends [never]
-    ? readonly unknown[]
-    : args
-  : readonly unknown[]
+    ? readonly unknown[]  // Fallback if no args found
+    : args  // Return the extracted args
+  : readonly unknown[]    // Fallback if type inference fails
+
+  // type fn = ContractFunctionArgs<typeof testAbi, 'external', '__execute__'>;
 
 export type ContractConstructorArgs<
   abi extends Abi | readonly unknown[] = Abi,
@@ -446,3 +451,6 @@ export type ContractClass = {
   address: Address
   abi: Abi
 }
+
+
+

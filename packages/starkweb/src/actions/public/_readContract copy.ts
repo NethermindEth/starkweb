@@ -1,11 +1,14 @@
-import { decodeFunctionCall } from '../../abi/output.js';
 import type {
   ContractFunctionArgs,
+  ContractFunctionName,
   ContractFunctionParameters,
-  ContractFunctionReturnType,
 } from '../../abi/parser.js';
+import { testAbi } from '../../abi/testabi.js';
+import { mainnet } from '../../chains/definitions/mainnet.js';
 import type { Client } from '../../clients/createClient.js';
+import { createPublicClient } from '../../clients/createPublicClient.js';
 import type { Transport } from '../../clients/transports/createTransport.js';
+import { http } from '../../clients/transports/http.js';
 import type { Abi } from '../../strk-types/abi.js';
 import type { BlockTag } from '../../strk-types/lib.js';
 import {
@@ -14,15 +17,21 @@ import {
 } from '../../strk-utils/calldata/compile.js';
 import { getSelectorFromName } from '../../strk-utils/hash/selector.js';
 import type { Chain } from '../../types/chain.js';
-import type { ContractFunctionName } from '../../types/contract.js';
 import type { Hash } from '../../types/misc.js';
 import {
   call,
   type CallParameters,
 } from './call.js';
 
+// export type PrimaryReadContractParameters = {
+//   address: string
+//   abi: Abi
+//   functionName: string
+//   args?: any[]
+// }
+
 export type PrimaryReadContractParameters<
-  abi extends Abi | readonly unknown[] = Abi,
+  abi extends Abi = Abi,
   functionName extends ContractFunctionName<
     abi,
     'view'
@@ -36,12 +45,10 @@ export type PrimaryReadContractParameters<
     'view',
     functionName
   >,
-  allFunctionNames = ContractFunctionName<abi, 'view'>
 > = ContractFunctionParameters<
   abi,
   'view',
   functionName,
-  allFunctionNames,
   args
 >
 
@@ -68,42 +75,52 @@ export type SecondaryReadContractParameters =
     }
 
 export type ReadContractParameters<
-  TAbi extends Abi | readonly unknown[] = Abi,
-  TFunctionName extends ContractFunctionName<
-    TAbi,
+  abi extends Abi = Abi,
+  functionName extends ContractFunctionName<
+    abi,
     'view'
-  > = ContractFunctionName<TAbi, 'view'>,
-  TArgs extends ContractFunctionArgs<
-    TAbi,
+  > = ContractFunctionName<abi, 'view'>,
+  args extends ContractFunctionArgs<
+    abi,
     'view',
-    TFunctionName
+    functionName
   > = ContractFunctionArgs<
-    TAbi,
+    abi,
     'view',
-    TFunctionName
+    functionName
   >,
-> = {
-  address: string
-  abi: TAbi
-  functionName: TFunctionName
-  args?: TArgs
-} & SecondaryReadContractParameters
+> = PrimaryReadContractParameters<abi, functionName, args> &
+  SecondaryReadContractParameters
 
-export type ReadContractReturnType<
+export type ReadContractReturnTypes<
   abi extends Abi | readonly unknown[],
   functionName extends ContractFunctionName<abi, 'view'>,
-> = ContractFunctionReturnType<abi, 'view', functionName>
+  args extends ContractFunctionArgs<abi, 'view', functionName>,
+> = any | args 
 export type ReadContractErrorType = any 
 
 export async function readContract<
-  TAbi extends Abi | readonly unknown[],
-  TFunctionName extends ContractFunctionName<TAbi, 'view'>,
+  TChain extends Chain | undefined,
+  abi extends Abi | readonly unknown[] = Abi,
+  functionName extends ContractFunctionName<
+    abi,
+    'view'
+  > = ContractFunctionName<abi, 'view'>,
+  args extends ContractFunctionArgs<
+    abi,
+    'view',
+    functionName
+  > = ContractFunctionArgs<
+    abi,
+    'view',
+    functionName
+  >
 >(
-  client: Client<Transport, Chain>,
-  parameters: ReadContractParameters<TAbi, TFunctionName>
-) : Promise<ReadContractReturnType<TAbi, TFunctionName>> {
+  client: Client<Transport, TChain>,
+  parameters: ReadContractParameters<abi, functionName, args>,
+): Promise<ReadContractReturnTypes<abi, functionName, args> | ReadContractErrorType> {
   const { address, functionName, args, blockHash, blockNumber, blockTag } =
-    parameters as ReadContractParameters<TAbi, TFunctionName>
+    parameters as ReadContractParameters<abi, functionName, args>
   const calldata: string[] = args ? compile(args as any) : []
 
   const txCall: CallParameters = {
@@ -114,7 +131,18 @@ export async function readContract<
     block_number: blockNumber,
     block_tag: blockTag,
   }
-  const result = await call(client, txCall) as unknown as string[]
-  const decoded = decodeFunctionCall(result, functionName, parameters.abi as any)
-  return decoded as ReadContractReturnType<TAbi, TFunctionName>
+
+  return call(client, txCall)
 }
+
+
+readContract(
+  createPublicClient({
+  chain: mainnet,
+  transport: http(),
+}), {
+  address: '0x0000000000000000000000000000000000000000',
+  abi: testAbi,
+  functionName: '',
+  args: ['0x1', ['0x1']]
+})
