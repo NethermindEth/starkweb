@@ -47,7 +47,7 @@ export type ToBlobsErrorType =
  *
  * @example
  * ```ts
- * import { toBlobs, stringToHex } from 'viem'
+ * import { toBlobs, stringToHex } from 'starkweb'
  *
  * const blobs = toBlobs({ data: stringToHex('hello world') })
  * ```

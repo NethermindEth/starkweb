@@ -5,10 +5,10 @@ export type FormatUnitsErrorType = ErrorType
 /**
  *  Divides a number by a given exponent of base 10 (10exponent), and formats it into a string representation of the number..
  *
- * - Docs: https://viem.sh/docs/utilities/formatUnits
+ * - Docs: https://starkweb.xyz/docs/utilities/formatUnits
  *
  * @example
- * import { formatUnits } from 'viem'
+ * import { formatUnits } from 'starkweb'
  *
  * formatUnits(420000000000n, 9)
  * // '420'

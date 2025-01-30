@@ -7,10 +7,10 @@ export type FormatEtherErrorType = FormatUnitsErrorType
 /**
  * Converts numerical wei to a string representation of ether.
  *
- * - Docs: https://viem.sh/docs/utilities/formatEther
+ * - Docs: https://starkweb.xyz/docs/utilities/formatEther
  *
  * @example
- * import { formatEther } from 'viem'
+ * import { formatEther } from 'starkweb'
  *
  * formatEther(1000000000000000000n)
  * // '1'

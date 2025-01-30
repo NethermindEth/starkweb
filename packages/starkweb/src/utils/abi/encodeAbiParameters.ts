@@ -48,7 +48,7 @@ export type EncodeAbiParametersErrorType =
 /**
  * @description Encodes a list of primitive values into an ABI-encoded hex value.
  *
- * - Docs: https://viem.sh/docs/abi/encodeAbiParameters#encodeabiparameters
+ * - Docs: https://starkweb.xyz/docs/abi/encodeAbiParameters#encodeabiparameters
  *
  *   Generates ABI encoded data using the [ABI specification](https://docs.soliditylang.org/en/latest/abi-spec), given a set of ABI parameters (inputs/outputs) and their corresponding values.
  *
@@ -56,7 +56,7 @@ export type EncodeAbiParametersErrorType =
  * @param values - a set of values (values) that correspond to the given params.
  * @example
  * ```typescript
- * import { encodeAbiParameters } from 'viem'
+ * import { encodeAbiParameters } from 'starkweb'
  *
  * const encodedData = encodeAbiParameters(
  *   [
@@ -72,7 +72,7 @@ export type EncodeAbiParametersErrorType =
  *
  * @example
  * ```typescript
- * import { encodeAbiParameters, parseAbiParameters } from 'viem'
+ * import { encodeAbiParameters, parseAbiParameters } from 'starkweb'
  *
  * const encodedData = encodeAbiParameters(
  *   parseAbiParameters('string x, uint y, bool z'),

@@ -38,7 +38,7 @@ export type CommitmentsToVersionedHashesErrorType =
  *   blobsToCommitments,
  *   commitmentsToVersionedHashes,
  *   toBlobs
- * } from 'viem'
+ * } from 'starkweb'
  * import { kzg } from './kzg'
  *
  * const blobs = toBlobs({ data: '0x1234' })

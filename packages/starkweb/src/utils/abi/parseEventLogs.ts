@@ -61,9 +61,9 @@ export type ParseEventLogsErrorType = DecodeEventLogErrorType | ErrorType
  * @returns The logs. {@link ParseEventLogsReturnType}
  *
  * @example
- * import { createClient, http } from 'viem'
- * import { mainnet } from 'viem/chains'
- * import { parseEventLogs } from 'viem/op-stack'
+ * import { createClient, http } from 'starkweb'
+ * import { mainnet } from 'starkweb/chains'
+ * import { parseEventLogs } from 'starkweb/op-stack'
  *
  * const client = createClient({
  *   chain: mainnet,

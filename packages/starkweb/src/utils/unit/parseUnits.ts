@@ -5,10 +5,10 @@ export type ParseUnitsErrorType = ErrorType
 /**
  * Multiplies a string representation of a number by a given exponent of base 10 (10exponent).
  *
- * - Docs: https://viem.sh/docs/utilities/parseUnits
+ * - Docs: https://starkweb.xyz/docs/utilities/parseUnits
  *
  * @example
- * import { parseUnits } from 'viem'
+ * import { parseUnits } from 'starkweb'
  *
  * parseUnits('420', 9)
  * // 420000000000n

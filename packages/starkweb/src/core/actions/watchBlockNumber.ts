@@ -38,7 +38,7 @@ export type WatchBlockNumberParameters<
 
 export type WatchBlockNumberReturnType = strkjs_WatchBlockNumberReturnType
 
-// TODO: wrap in viem's `observe` to avoid duplicate invocations.
+// TODO: wrap in starkweb's `observe` to avoid duplicate invocations.
 /** https://starkweb.xyz/core/api/actions/watchBlockNumber */
 export function watchBlockNumber<
   config extends Config,

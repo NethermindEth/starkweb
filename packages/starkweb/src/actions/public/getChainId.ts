@@ -17,7 +17,7 @@ export type GetChainIdErrorType =
 /**
  * Returns the chain ID associated with the current network.
  *
- * - Docs: https://viem.sh/docs/actions/public/getChainId
+ * - Docs: https://starkweb.xyz/docs/actions/public/getChainId
  * - JSON-RPC Methods: [`eth_chainId`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_chainid)
  *
  * @param client - Client to use

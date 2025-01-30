@@ -34,7 +34,7 @@ export type BlobsToCommitmentsErrorType =
  *
  * @example
  * ```ts
- * import { blobsToCommitments, toBlobs } from 'viem'
+ * import { blobsToCommitments, toBlobs } from 'starkweb'
  * import { kzg } from './kzg'
  *
  * const blobs = toBlobs({ data: '0x1234' })

@@ -55,8 +55,8 @@ async function webSocketAsync(
  * @deprecated use `getSocketClient` instead.
  *
  * ```diff
- * -import { getSocket } from 'viem/utils'
- * +import { getSocketClient } from 'viem/utils'
+ * -import { getSocket } from 'starkweb/utils'
+ * +import { getSocketClient } from 'starkweb/utils'
  *
  * -const socket = await getSocket(url)
  * +const socketClient = await getSocketClient(url)
@@ -76,8 +76,8 @@ export const rpc = {
    * @deprecated use `getHttpRpcClient` instead.
    *
    * ```diff
-   * -import { rpc } from 'viem/utils'
-   * +import { getHttpRpcClient } from 'viem/utils'
+   * -import { rpc } from 'starkweb/utils'
+   * +import { getHttpRpcClient } from 'starkweb/utils'
    *
    * -rpc.http(url, params)
    * +const httpClient = getHttpRpcClient(url)
@@ -91,8 +91,8 @@ export const rpc = {
    * @deprecated use `getWebSocketRpcClient` instead.
    *
    * ```diff
-   * -import { rpc } from 'viem/utils'
-   * +import { getWebSocketRpcClient } from 'viem/utils'
+   * -import { rpc } from 'starkweb/utils'
+   * +import { getWebSocketRpcClient } from 'starkweb/utils'
    *
    * -rpc.webSocket(url, params)
    * +const webSocketClient = getWebSocketRpcClient(url)
@@ -104,8 +104,8 @@ export const rpc = {
    * @deprecated use `getWebSocketRpcClient` instead.
    *
    * ```diff
-   * -import { rpc } from 'viem/utils'
-   * +import { getWebSocketRpcClient } from 'viem/utils'
+   * -import { rpc } from 'starkweb/utils'
+   * +import { getWebSocketRpcClient } from 'starkweb/utils'
    *
    * -const response = await rpc.webSocketAsync(url, params)
    * +const webSocketClient = getWebSocketRpcClient(url)

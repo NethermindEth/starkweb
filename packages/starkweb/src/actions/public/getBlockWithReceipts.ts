@@ -34,7 +34,7 @@ export type GetBlockWithReceiptsErrorType = RequestErrorType | ErrorType
 /**
  * Returns the block with transactions.
  *
- * - Docs: https://viem.sh/docs/actions/public/getBlockWithTxs
+ * - Docs: https://starkweb.xyz/docs/actions/public/getBlockWithTxs
  * - JSON-RPC Methods:
  *   - Calls [`starknet_getBlockWithTxs`](https://docs.starknet.io/reference/rpc-api/#starknet_getblockwithtxs)
  *
@@ -43,9 +43,9 @@ export type GetBlockWithReceiptsErrorType = RequestErrorType | ErrorType
  * @returns The block with transactions. {@link GetBlockWithReceiptsReturnType}
  *
  * @example
- * import { createPublicClient, http } from 'viem'
- * import { mainnet } from 'viem/chains'
- * import { getBlockWithReceipts } from 'viem/public'
+ * import { createPublicClient, http } from 'starkweb'
+ * import { mainnet } from 'starkweb/chains'
+ * import { getBlockWithReceipts } from 'starkweb/public'
  *
  * const client = createPublicClient({
  *   chain: mainnet,

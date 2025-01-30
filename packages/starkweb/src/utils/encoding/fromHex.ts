@@ -61,25 +61,25 @@ export type FromHexErrorType =
 /**
  * Decodes a hex string into a string, number, bigint, boolean, or byte array.
  *
- * - Docs: https://viem.sh/docs/utilities/fromHex
- * - Example: https://viem.sh/docs/utilities/fromHex#usage
+ * - Docs: https://starkweb.xyz/docs/utilities/fromHex
+ * - Example: https://starkweb.xyz/docs/utilities/fromHex#usage
  *
  * @param hex Hex string to decode.
  * @param toOrOpts Type to convert to or options.
  * @returns Decoded value.
  *
  * @example
- * import { fromHex } from 'viem'
+ * import { fromHex } from 'starkweb'
  * const data = fromHex('0x1a4', 'number')
  * // 420
  *
  * @example
- * import { fromHex } from 'viem'
+ * import { fromHex } from 'starkweb'
  * const data = fromHex('0x48656c6c6f20576f726c6421', 'string')
  * // 'Hello world'
  *
  * @example
- * import { fromHex } from 'viem'
+ * import { fromHex } from 'starkweb'
  * const data = fromHex('0x48656c6c6f20576f726c64210000000000000000000000000000000000000000', {
  *   size: 32,
  *   to: 'string'
@@ -111,19 +111,19 @@ export type HexToBigIntErrorType = AssertSizeErrorType | ErrorType
 /**
  * Decodes a hex value into a bigint.
  *
- * - Docs: https://viem.sh/docs/utilities/fromHex#hextobigint
+ * - Docs: https://starkweb.xyz/docs/utilities/fromHex#hextobigint
  *
  * @param hex Hex value to decode.
  * @param opts Options.
  * @returns BigInt value.
  *
  * @example
- * import { hexToBigInt } from 'viem'
+ * import { hexToBigInt } from 'starkweb'
  * const data = hexToBigInt('0x1a4', { signed: true })
  * // 420n
  *
  * @example
- * import { hexToBigInt } from 'viem'
+ * import { hexToBigInt } from 'starkweb'
  * const data = hexToBigInt('0x00000000000000000000000000000000000000000000000000000000000001a4', { size: 32 })
  * // 420n
  */
@@ -156,19 +156,19 @@ export type HexToBoolErrorType =
 /**
  * Decodes a hex value into a boolean.
  *
- * - Docs: https://viem.sh/docs/utilities/fromHex#hextobool
+ * - Docs: https://starkweb.xyz/docs/utilities/fromHex#hextobool
  *
  * @param hex Hex value to decode.
  * @param opts Options.
  * @returns Boolean value.
  *
  * @example
- * import { hexToBool } from 'viem'
+ * import { hexToBool } from 'starkweb'
  * const data = hexToBool('0x01')
  * // true
  *
  * @example
- * import { hexToBool } from 'viem'
+ * import { hexToBool } from 'starkweb'
  * const data = hexToBool('0x0000000000000000000000000000000000000000000000000000000000000001', { size: 32 })
  * // true
  */
@@ -190,19 +190,19 @@ export type HexToNumberErrorType = HexToBigIntErrorType | ErrorType
 /**
  * Decodes a hex string into a number.
  *
- * - Docs: https://viem.sh/docs/utilities/fromHex#hextonumber
+ * - Docs: https://starkweb.xyz/docs/utilities/fromHex#hextonumber
  *
  * @param hex Hex value to decode.
  * @param opts Options.
  * @returns Number value.
  *
  * @example
- * import { hexToNumber } from 'viem'
+ * import { hexToNumber } from 'starkweb'
  * const data = hexToNumber('0x1a4')
  * // 420
  *
  * @example
- * import { hexToNumber } from 'viem'
+ * import { hexToNumber } from 'starkweb'
  * const data = hexToBigInt('0x00000000000000000000000000000000000000000000000000000000000001a4', { size: 32 })
  * // 420
  */
@@ -224,19 +224,19 @@ export type HexToStringErrorType =
 /**
  * Decodes a hex value into a UTF-8 string.
  *
- * - Docs: https://viem.sh/docs/utilities/fromHex#hextostring
+ * - Docs: https://starkweb.xyz/docs/utilities/fromHex#hextostring
  *
  * @param hex Hex value to decode.
  * @param opts Options.
  * @returns String value.
  *
  * @example
- * import { hexToString } from 'viem'
+ * import { hexToString } from 'starkweb'
  * const data = hexToString('0x48656c6c6f20576f726c6421')
  * // 'Hello world!'
  *
  * @example
- * import { hexToString } from 'viem'
+ * import { hexToString } from 'starkweb'
  * const data = hexToString('0x48656c6c6f20576f726c64210000000000000000000000000000000000000000', {
  *  size: 32,
  * })

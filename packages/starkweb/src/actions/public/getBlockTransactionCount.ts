@@ -33,7 +33,7 @@ export type GetBlockTransactionCountErrorType = RequestErrorType | ErrorType
 /**
  * Returns the number of Transactions at a block number, hash, or tag.
  *
- * - Docs: https://viem.sh/docs/actions/public/getBlockTransactionCount
+ * - Docs: https://starkweb.xyz/docs/actions/public/getBlockTransactionCount
  * - JSON-RPC Methods:
  *   - Calls [`starknet_getBlockTransactionCount`](https://docs.starknet.io/reference/rpc-api/#starknet_getblocktransactioncount)
  *
@@ -42,9 +42,9 @@ export type GetBlockTransactionCountErrorType = RequestErrorType | ErrorType
  * @returns The block transaction count. {@link GetBlockTransactionCountReturnType}
  *
  * @example
- * import { createPublicClient, http } from 'viem'
- * import { mainnet } from 'viem/chains'
- * import { getBlockTransactionCount } from 'viem/public'
+ * import { createPublicClient, http } from 'starkweb'
+ * import { mainnet } from 'starkweb/chains'
+ * import { getBlockTransactionCount } from 'starkweb/public'
  *
  * const client = createPublicClient({
  *   chain: mainnet,

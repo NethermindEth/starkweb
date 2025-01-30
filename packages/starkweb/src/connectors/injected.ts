@@ -232,13 +232,13 @@ export function injected(parameters: InjectedParameters = {}) {
       // Experimental support for MetaMask disconnect
       // https://github.com/MetaMask/metamask-improvement-proposals/blob/main/MIPs/mip-2.md
       try {
-        // TODO: Remove explicit type for viem@3
+        // TODO: Remove explicit type for starkweb@3
         await provider.request<{
           Method: 'wallet_revokePermissions'
           Parameters: [permissions: { eth_accounts: Record<string, any> }]
           ReturnType: null
         }>({
-          // `'wallet_revokePermissions'` added in `viem@2.10.3`
+          // `'wallet_revokePermissions'` added in `starkweb@2.10.3`
           method: 'wallet_revokePermissions',
           params: [{ eth_accounts: {} }],
         })

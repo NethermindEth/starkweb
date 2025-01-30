@@ -8,10 +8,10 @@ export type ParseGweiErrorType = ParseUnitsErrorType | ErrorType
 /**
  * Converts a string representation of gwei to numerical wei.
  *
- * - Docs: https://viem.sh/docs/utilities/parseGwei
+ * - Docs: https://starkweb.xyz/docs/utilities/parseGwei
  *
  * @example
- * import { parseGwei } from 'viem'
+ * import { parseGwei } from 'starkweb'
  *
  * parseGwei('420')
  * // 420000000000n

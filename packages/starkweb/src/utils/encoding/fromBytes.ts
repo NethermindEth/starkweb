@@ -47,20 +47,20 @@ export type FromBytesErrorType =
 /**
  * Decodes a byte array into a UTF-8 string, hex value, number, bigint or boolean.
  *
- * - Docs: https://viem.sh/docs/utilities/fromBytes
- * - Example: https://viem.sh/docs/utilities/fromBytes#usage
+ * - Docs: https://starkweb.xyz/docs/utilities/fromBytes
+ * - Example: https://starkweb.xyz/docs/utilities/fromBytes#usage
  *
  * @param bytes Byte array to decode.
  * @param toOrOpts Type to convert to or options.
  * @returns Decoded value.
  *
  * @example
- * import { fromBytes } from 'viem'
+ * import { fromBytes } from 'starkweb'
  * const data = fromBytes(new Uint8Array([1, 164]), 'number')
  * // 420
  *
  * @example
- * import { fromBytes } from 'viem'
+ * import { fromBytes } from 'starkweb'
  * const data = fromBytes(
  *   new Uint8Array([72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100, 33]),
  *   'string'
@@ -102,14 +102,14 @@ export type BytesToBigIntErrorType =
 /**
  * Decodes a byte array into a bigint.
  *
- * - Docs: https://viem.sh/docs/utilities/fromBytes#bytestobigint
+ * - Docs: https://starkweb.xyz/docs/utilities/fromBytes#bytestobigint
  *
  * @param bytes Byte array to decode.
  * @param opts Options.
  * @returns BigInt value.
  *
  * @example
- * import { bytesToBigInt } from 'viem'
+ * import { bytesToBigInt } from 'starkweb'
  * const data = bytesToBigInt(new Uint8Array([1, 164]))
  * // 420n
  */
@@ -135,14 +135,14 @@ export type BytesToBoolErrorType =
 /**
  * Decodes a byte array into a boolean.
  *
- * - Docs: https://viem.sh/docs/utilities/fromBytes#bytestobool
+ * - Docs: https://starkweb.xyz/docs/utilities/fromBytes#bytestobool
  *
  * @param bytes Byte array to decode.
  * @param opts Options.
  * @returns Boolean value.
  *
  * @example
- * import { bytesToBool } from 'viem'
+ * import { bytesToBool } from 'starkweb'
  * const data = bytesToBool(new Uint8Array([1]))
  * // true
  */
@@ -170,14 +170,14 @@ export type BytesToNumberErrorType =
 /**
  * Decodes a byte array into a number.
  *
- * - Docs: https://viem.sh/docs/utilities/fromBytes#bytestonumber
+ * - Docs: https://starkweb.xyz/docs/utilities/fromBytes#bytestonumber
  *
  * @param bytes Byte array to decode.
  * @param opts Options.
  * @returns Number value.
  *
  * @example
- * import { bytesToNumber } from 'viem'
+ * import { bytesToNumber } from 'starkweb'
  * const data = bytesToNumber(new Uint8Array([1, 164]))
  * // 420
  */
@@ -203,14 +203,14 @@ export type BytesToStringErrorType =
 /**
  * Decodes a byte array into a UTF-8 string.
  *
- * - Docs: https://viem.sh/docs/utilities/fromBytes#bytestostring
+ * - Docs: https://starkweb.xyz/docs/utilities/fromBytes#bytestostring
  *
  * @param bytes Byte array to decode.
  * @param opts Options.
  * @returns String value.
  *
  * @example
- * import { bytesToString } from 'viem'
+ * import { bytesToString } from 'starkweb'
  * const data = bytesToString(new Uint8Array([72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100, 33]))
  * // 'Hello world'
  */

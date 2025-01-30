@@ -9,14 +9,14 @@ type BaseErrorParameters = {
   metaMessages?: string[] | undefined
 }
 
-export type BaseErrorType = BaseError & { name: 'ViemError' }
+export type BaseErrorType = BaseError & { name: 'starkwebError' }
 export class BaseError extends Error {
   details: string
   docsPath?: string | undefined
   metaMessages?: string[] | undefined
   shortMessage: string
 
-  override name = 'ViemError'
+  override name = 'starkwebError'
   version = getVersion()
 
   constructor(shortMessage: string, args: BaseErrorParameters = {}) {
@@ -39,7 +39,7 @@ export class BaseError extends Error {
       ...(args.metaMessages ? [...args.metaMessages, ''] : []),
       ...(docsPath
         ? [
-            `Docs: ${args.docsBaseUrl ?? 'https://viem.sh'}${docsPath}${
+            `Docs: ${args.docsBaseUrl ?? 'https://starkweb.xyz'}${docsPath}${
               args.docsSlug ? `#${args.docsSlug}` : ''
             }`,
           ]

@@ -54,8 +54,8 @@ export type WatchBlockNumberErrorType = PollErrorType | ErrorType
 /**
  * Watches and returns incoming block numbers.
  *
- * - Docs: https://viem.sh/docs/actions/public/watchBlockNumber
- * - Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/blocks/watching-blocks
+ * - Docs: https://starkweb.xyz/docs/actions/public/watchBlockNumber
+ * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/blocks/watching-blocks
  * - JSON-RPC Methods:
  *   - When `poll: true`, calls [`eth_blockNumber`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_blocknumber) on a polling interval.
  *   - When `poll: false` & WebSocket Transport, uses a WebSocket subscription via [`eth_subscribe`](https://docs.alchemy.com/reference/eth-subscribe-polygon) and the `"newHeads"` event.
@@ -65,8 +65,8 @@ export type WatchBlockNumberErrorType = PollErrorType | ErrorType
  * @returns A function that can be invoked to stop watching for new block numbers. {@link WatchBlockNumberReturnType}
  *
  * @example
- * import { createPublicClient, watchBlockNumber, http } from 'viem'
- * import { mainnet } from 'viem/chains'
+ * import { createPublicClient, watchBlockNumber, http } from 'starkweb'
+ * import { mainnet } from 'starkweb/chains'
  *
  * const client = createPublicClient({
  *   chain: mainnet,

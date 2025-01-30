@@ -33,7 +33,7 @@ export type SidecarsToVersionedHashesErrorType =
  *
  * @example
  * ```ts
- * import { toBlobSidecars, sidecarsToVersionedHashes, stringToHex } from 'viem'
+ * import { toBlobSidecars, sidecarsToVersionedHashes, stringToHex } from 'starkweb'
  *
  * const sidecars = toBlobSidecars({ data: stringToHex('hello world') })
  * const versionedHashes = sidecarsToVersionedHashes({ sidecars })

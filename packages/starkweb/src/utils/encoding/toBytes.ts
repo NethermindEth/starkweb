@@ -29,25 +29,25 @@ export type ToBytesErrorType =
 /**
  * Encodes a UTF-8 string, hex value, bigint, number or boolean to a byte array.
  *
- * - Docs: https://viem.sh/docs/utilities/toBytes
- * - Example: https://viem.sh/docs/utilities/toBytes#usage
+ * - Docs: https://starkweb.xyz/docs/utilities/toBytes
+ * - Example: https://starkweb.xyz/docs/utilities/toBytes#usage
  *
  * @param value Value to encode.
  * @param opts Options.
  * @returns Byte array value.
  *
  * @example
- * import { toBytes } from 'viem'
+ * import { toBytes } from 'starkweb'
  * const data = toBytes('Hello world')
  * // Uint8Array([72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100, 33])
  *
  * @example
- * import { toBytes } from 'viem'
+ * import { toBytes } from 'starkweb'
  * const data = toBytes(420)
  * // Uint8Array([1, 164])
  *
  * @example
- * import { toBytes } from 'viem'
+ * import { toBytes } from 'starkweb'
  * const data = toBytes(420, { size: 4 })
  * // Uint8Array([0, 0, 1, 164])
  */
@@ -75,19 +75,19 @@ export type BoolToBytesErrorType =
 /**
  * Encodes a boolean into a byte array.
  *
- * - Docs: https://viem.sh/docs/utilities/toBytes#booltobytes
+ * - Docs: https://starkweb.xyz/docs/utilities/toBytes#booltobytes
  *
  * @param value Boolean value to encode.
  * @param opts Options.
  * @returns Byte array value.
  *
  * @example
- * import { boolToBytes } from 'viem'
+ * import { boolToBytes } from 'starkweb'
  * const data = boolToBytes(true)
  * // Uint8Array([1])
  *
  * @example
- * import { boolToBytes } from 'viem'
+ * import { boolToBytes } from 'starkweb'
  * const data = boolToBytes(true, { size: 32 })
  * // Uint8Array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1])
  */
@@ -131,19 +131,19 @@ export type HexToBytesErrorType = AssertSizeErrorType | PadErrorType | ErrorType
 /**
  * Encodes a hex string into a byte array.
  *
- * - Docs: https://viem.sh/docs/utilities/toBytes#hextobytes
+ * - Docs: https://starkweb.xyz/docs/utilities/toBytes#hextobytes
  *
  * @param hex Hex string to encode.
  * @param opts Options.
  * @returns Byte array value.
  *
  * @example
- * import { hexToBytes } from 'viem'
+ * import { hexToBytes } from 'starkweb'
  * const data = hexToBytes('0x48656c6c6f20776f726c6421')
  * // Uint8Array([72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100, 33])
  *
  * @example
- * import { hexToBytes } from 'viem'
+ * import { hexToBytes } from 'starkweb'
  * const data = hexToBytes('0x48656c6c6f20776f726c6421', { size: 32 })
  * // Uint8Array([72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
  */
@@ -182,19 +182,19 @@ export type NumberToBytesErrorType =
 /**
  * Encodes a number into a byte array.
  *
- * - Docs: https://viem.sh/docs/utilities/toBytes#numbertobytes
+ * - Docs: https://starkweb.xyz/docs/utilities/toBytes#numbertobytes
  *
  * @param value Number to encode.
  * @param opts Options.
  * @returns Byte array value.
  *
  * @example
- * import { numberToBytes } from 'viem'
+ * import { numberToBytes } from 'starkweb'
  * const data = numberToBytes(420)
  * // Uint8Array([1, 164])
  *
  * @example
- * import { numberToBytes } from 'viem'
+ * import { numberToBytes } from 'starkweb'
  * const data = numberToBytes(420, { size: 4 })
  * // Uint8Array([0, 0, 1, 164])
  */
@@ -219,19 +219,19 @@ export type StringToBytesErrorType =
 /**
  * Encodes a UTF-8 string into a byte array.
  *
- * - Docs: https://viem.sh/docs/utilities/toBytes#stringtobytes
+ * - Docs: https://starkweb.xyz/docs/utilities/toBytes#stringtobytes
  *
  * @param value String to encode.
  * @param opts Options.
  * @returns Byte array value.
  *
  * @example
- * import { stringToBytes } from 'viem'
+ * import { stringToBytes } from 'starkweb'
  * const data = stringToBytes('Hello world!')
  * // Uint8Array([72, 101, 108, 108, 111, 32, 119, 111, 114, 108, 100, 33])
  *
  * @example
- * import { stringToBytes } from 'viem'
+ * import { stringToBytes } from 'starkweb'
  * const data = stringToBytes('Hello world!', { size: 32 })
  * // Uint8Array([72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
  */

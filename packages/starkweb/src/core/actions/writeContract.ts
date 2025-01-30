@@ -36,7 +36,7 @@ export type WriteContractParameters<
   chains extends readonly Chain[] = SelectChains<config, chainId>,
 > = UnionCompute<
   {
-    // TODO: Should use `UnionStrictOmit<..., 'chain'>` on `viem_WriteContractParameters` result instead
+    // TODO: Should use `UnionStrictOmit<..., 'chain'>` on `starkweb_WriteContractParameters` result instead
     // temp workaround that doesn't affect runtime behavior for for https://github.com/wevm/wagmi/issues/3981
     [key in keyof chains]: starkweb_WriteContractParameters<
       abi,

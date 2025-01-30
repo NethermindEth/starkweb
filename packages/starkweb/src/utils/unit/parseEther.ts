@@ -8,10 +8,10 @@ export type ParseEtherErrorType = ParseUnitsErrorType | ErrorType
 /**
  * Converts a string representation of ether to numerical wei.
  *
- * - Docs: https://viem.sh/docs/utilities/parseEther
+ * - Docs: https://starkweb.xyz/docs/utilities/parseEther
  *
  * @example
- * import { parseEther } from 'viem'
+ * import { parseEther } from 'starkweb'
  *
  * parseEther('420')
  * // 420000000000000000000n
