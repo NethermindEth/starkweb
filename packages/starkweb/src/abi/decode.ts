@@ -27,7 +27,7 @@ export function decodeFromParams(
 
   for (const param of params) {
     const [value, newOffset] = decodeCoreType(param.type, values, offset);
-    result[param.name] = value;
+    result[param.name ?? 'data'] = value;
     offset = newOffset;
   }
 
@@ -74,11 +74,13 @@ export function decodeCoreType(
 
   switch (type) {
     case 'bool':
+    case 'core::bool':
       if (!values[offset]) {
         throw new Error('Invalid Bool value');
       }
       return [values[offset]?.toNumber() !== 0, offset + 1];
     case 'u256':
+    case 'core::integer::u256':
       if (!values[offset] || !values[offset + 1]) {
         throw new Error('Invalid U256 value');
       }
@@ -87,6 +89,7 @@ export function decodeCoreType(
         offset + 2
       ];
     case 'felt':
+    case 'core::felt252':
       if (!values[offset]) {
         throw new Error('Invalid Felt value');
       }

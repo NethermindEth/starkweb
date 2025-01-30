@@ -1,15 +1,16 @@
 export type StarknetCoreType =
-  | 'bool'
-  | 'felt'
-  | 'u8'
-  | 'u16'
-  | 'u32'
-  | 'u64'
-  | 'u128'
-  | 'u256'
-  | 'contract_address'
-  | 'felt252'
-  | 'core::felt252'
+  | 'bool' | 'core::bool'
+  | 'felt' | 'felt252' | 'core::felt252'
+  | 'u8' | 'core::integer::u8'
+  | 'u16' | 'core::integer::u16'
+  | 'u32' | 'core::integer::u32'
+  | 'u64' | 'core::integer::u64'
+  | 'u128' | 'core::integer::u128'
+  | 'u256' | 'core::integer::u256'
+  | 'contract_address' | 'core::starknet::contract_address::ContractAddress'
+  
+  
+  
 
 
 export type StarknetArray = {

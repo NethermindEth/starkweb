@@ -1,14 +1,9 @@
-// import { mainnet } from 'src/chains/definitions/mainnet.js';
-// import { createPublicClient } from 'src/clients/createPublicClient.js';
-// import { http } from 'src/clients/transports/http.js';
-
-import { decodeFunctionResult } from 'src/abi/decode.js';
+import { decodeFunctionCall } from '../../abi/output.js';
 import type {
   ContractFunctionArgs,
   ContractFunctionParameters,
   ContractFunctionReturnType,
 } from '../../abi/parser.js';
-// import { testAbi } from '../../abi/testabi.js';
 import type { Client } from '../../clients/createClient.js';
 import type { Transport } from '../../clients/transports/createTransport.js';
 import type { Abi } from '../../strk-types/abi.js';
@@ -25,13 +20,6 @@ import {
   call,
   type CallParameters,
 } from './call.js';
-
-// export type PrimaryReadContractParameters = {
-//   address: string
-//   abi: Abi
-//   functionName: string
-//   args?: any[]
-// }
 
 export type PrimaryReadContractParameters<
   abi extends Abi | readonly unknown[] = Abi,
@@ -127,31 +115,6 @@ export async function readContract<
     block_tag: blockTag,
   }
   const result = await call(client, txCall) as unknown as string[]
-  console.log("result - ", result)
-
-  // Get outputs from ABI definition
-  const outputs = parameters.abi.find(
-    entry => entry.name === functionName && entry.type === 'function'
-  )?.outputs || [];
-
-  // Pass outputs to decoder
-  const decoded = decodeFunctionResult(result, outputs)
-  console.log("decoded - ", decoded)
-  return decoded
-  // return decodeFunctionResult<ReadContractReturnType<TAbi, TFunctionName>>(result) as ReadContractReturnType<TAbi, TFunctionName>
+  const decoded = decodeFunctionCall(result, functionName, parameters.abi as any)
+  return decoded as ReadContractReturnType<TAbi, TFunctionName>
 }
-
-
-// readContract(createPublicClient({
-//   chain: mainnet,
-//   transport: http(),
-// }), {
-//   address: '0x0000000000000000000000000000000000000000',
-//   abi: testAbi,
-//   functionName: 'is_guardian',
-//   args: {
-//     guardian: {
-//       pubkey: '0x1' as 'felt252',
-//     }
-//   }
-// })
