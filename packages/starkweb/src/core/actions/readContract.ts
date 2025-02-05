@@ -3,7 +3,7 @@ import type { Abi } from 'abitype'
 import {
   type ReadContractErrorType as starkweb_ReadContractErrorType,
   type ReadContractParameters as starkweb_ReadContractParameters,
-  type ReadContractReturnTypes as starkweb_ReadContractReturnTypes,
+  type ReadContractReturnType as starkweb_ReadContractReturnType,
   readContract as starkweb_readContract,
 } from '../../actions/public/readContract.js'
 
@@ -31,7 +31,7 @@ export type ReadContractReturnType<
   abi extends Abi | readonly unknown[],
   functionName extends ContractFunctionName<abi, 'view'>,
   args extends ContractFunctionArgs<abi, 'view', functionName>,
-> = starkweb_ReadContractReturnTypes<abi, functionName, args>
+> = starkweb_ReadContractReturnType<abi, functionName, args>
 
 export type ReadContractErrorType = starkweb_ReadContractErrorType
 
