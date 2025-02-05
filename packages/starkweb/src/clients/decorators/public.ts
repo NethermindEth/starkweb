@@ -217,7 +217,7 @@ import {
 import {
   type ReadContractErrorType,
   type ReadContractParameters,
-  type ReadContractReturnTypes,
+  type ReadContractReturnType,
   readContract,
 } from '../../actions/public/readContract.js'
 import {
@@ -1021,14 +1021,9 @@ export type PublicActions = {
   readContract: <
     const abi extends Abi | readonly unknown[],
     functionName extends ContractFunctionName<abi, 'view'>,
-    args extends ContractFunctionArgs<
-      abi,
-      'view',
-      functionName
-    >,
   >(
-    args: ReadContractParameters<abi, functionName, args>,
-  ) => Promise<ReadContractReturnTypes<abi, functionName, args> | ReadContractErrorType>
+    args: ReadContractParameters<abi, functionName>,
+  ) => Promise<ReadContractReturnType<abi, functionName> | ReadContractErrorType>
 
   readContracts: <
     const abi extends Abi | readonly unknown[],
@@ -1054,7 +1049,9 @@ export type PublicActions = {
   ) => Promise<VerifyMessageReturnType | VerifyMessageErrorType>
 }
 
-export function publicActions(client: Client): PublicActions {
+export function publicActions(
+  client: Client
+): PublicActions {
   return {
     call: (args) => call(client, args),
     getBalance: (args) => getBalance(client, args),

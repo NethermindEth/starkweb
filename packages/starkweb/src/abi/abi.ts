@@ -25,7 +25,9 @@ export function createAbi(
     address,
     functions,
     events,
-    implementedInterfaces
+    implementedInterfaces,
+    structs: [],
+    enums: []
   };
 }
 

@@ -1,4 +1,4 @@
-import type { StarknetAbi, StarknetAbiFunction, StarknetAbiEvent, StarknetAbiInterface, StarknetType, StarknetStruct, StarknetEnum, AbiParameter, StarknetCoreType } from "./types.js";
+import type { StarknetAbiFunction, StarknetAbiEvent, StarknetAbiInterface, StarknetType, StarknetStruct, StarknetEnum, AbiParameter, StarknetCoreType } from "./types.js";
 
 export function parseStarknetAbi<const T extends readonly any[]>(abi: T): {
   functions: ReadonlyArray<StarknetAbiFunction<T[number]['name']>>,
@@ -111,6 +111,6 @@ function parseBaseType(typeStr: string): StarknetCoreType {
 export type ContractFunctionName<T> = T extends { 
   functions: ReadonlyArray<StarknetAbiFunction<infer N>> 
 } ? N : never;
-import { testAbi } from "./testabi.js";
-const abinew2 = parseStarknetAbi(testAbi);
-type exp2 = ContractFunctionName<typeof abinew2>;
+// import { testAbi } from "./testabi.js";
+// const abinew2 = parseStarknetAbi(testAbi);
+// type exp2 = ContractFunctionName<typeof abinew2>;

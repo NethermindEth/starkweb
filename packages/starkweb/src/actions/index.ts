@@ -164,7 +164,7 @@ export {
   readContract,
   type ReadContractErrorType,
   type ReadContractParameters,
-  type ReadContractReturnTypes,
+  type ReadContractReturnType,
 } from './public/readContract.js'
 
 export {

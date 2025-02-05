@@ -1,5 +1,4 @@
-import type { StarknetCoreType } from 'dist/types/abi/types.js';
-import { type StarknetType, type AbiParameter, type StarknetStruct } from './types.js';
+import { type StarknetType, type AbiParameter, type StarknetStruct, type StarknetCoreType } from './types.js';
 import { BigNumber } from '@0x/utils';
 
 export function decodeFromTypes(

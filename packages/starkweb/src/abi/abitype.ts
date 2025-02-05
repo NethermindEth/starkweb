@@ -1,9 +1,9 @@
-import type { Abi } from 'src/strk-types/abi.js';
+import type { Abi } from '../strk-types/abi.js';
 
 import type {
   AbiType,
 } from './starkweb-abi.js';
-import type { testAbi } from './testabi.js';
+// import type { testAbi } from './testabi.js';
 
 export type CairoInt = 'u8' | 'u16' | 'u32' | 'u64' | 'u128' | 'u256'
 
@@ -59,7 +59,7 @@ abiType extends `core::zeroable::NonZero::<${infer T}>`
     ? AbiTypeToPrimitiveType<Extract<abi[number], { type: 'enum'; name: abiType }>['variants'][number]['type'], abiParameterKind, abi>
     : any;
 
-type testAbiTypeToPrimitiveType3 = AbiTypeToPrimitiveType<'argent::signer::signer_signature::Signer', 'inputs', typeof testAbi>;
+// type testAbiTypeToPrimitiveType3 = AbiTypeToPrimitiveType<'argent::signer::signer_signature::Signer', 'inputs', typeof testAbi>;
 
 type HasStructImplementation<
     InterfaceName extends string,
