@@ -1,5 +1,3 @@
-import type { ContractFunctionArgs } from '../../types/contract.js'
-import type { Abi } from 'abitype'
 import {
   type ReadContractErrorType as starkweb_ReadContractErrorType,
   type ReadContractParameters as starkweb_ReadContractParameters,
@@ -10,7 +8,9 @@ import {
 import type { Config } from '../createConfig.js'
 import type { ChainIdParameter } from '../types/properties.js'
 import { getAction } from '../utils/getAction.js'
+import type { ContractFunctionArgs } from '../../abi/parser.js'
 import type { ContractFunctionName } from '../../types/contract.js'
+import type { Abi } from '../../strk-types/abi.js'
 
 export type ReadContractParameters<
   abi extends Abi | readonly unknown[] = Abi,
@@ -23,8 +23,7 @@ export type ReadContractParameters<
     'view',
     functionName
   > = ContractFunctionArgs<abi, 'view', functionName>,
-  config extends Config = Config,
->  = starkweb_ReadContractParameters<abi, functionName, args, config> &
+>  = starkweb_ReadContractParameters<abi, functionName, args> &
   ChainIdParameter
 
 export type ReadContractReturnType<
