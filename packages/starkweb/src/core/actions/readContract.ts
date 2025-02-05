@@ -29,8 +29,7 @@ export type ReadContractParameters<
 export type ReadContractReturnType<
   abi extends Abi | readonly unknown[],
   functionName extends ContractFunctionName<abi, 'view'>,
-  args extends ContractFunctionArgs<abi, 'view', functionName>,
-> = starkweb_ReadContractReturnType<abi, functionName, args>
+> = starkweb_ReadContractReturnType<abi, functionName>
 
 export type ReadContractErrorType = starkweb_ReadContractErrorType
 
@@ -38,13 +37,12 @@ export type ReadContractErrorType = starkweb_ReadContractErrorType
 export function readContract<
   abi extends Abi,
   functionName extends ContractFunctionName<abi, 'view'>,
-  args extends ContractFunctionArgs<abi, 'view', functionName>,
 >(
   config: Config,
-  parameters: ReadContractParameters<abi, functionName, args>,
-): Promise<ReadContractReturnType<abi, functionName, args>> {
+  parameters: ReadContractParameters<abi, functionName>,
+): Promise<ReadContractReturnType<abi, functionName>> {
   const { chainId, ...rest } = parameters
   const client = config.getClient({ chainId })
   const action = getAction(client, starkweb_readContract, 'readContract')
-  return action(rest as any) as Promise<ReadContractReturnType<abi, functionName, args>>
+  return action(rest as any) as Promise<ReadContractReturnType<abi, functionName>>
 }
