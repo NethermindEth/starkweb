@@ -80,6 +80,7 @@ export function decodeCoreType(
       return [values[offset]?.toNumber() !== 0, offset + 1];
     case 'u256':
     case 'core::integer::u256':
+    case 'uint256':
       if (!values[offset] || !values[offset + 1]) {
         throw new Error('Invalid U256 value');
       }

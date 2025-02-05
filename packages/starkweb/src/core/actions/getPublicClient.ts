@@ -9,7 +9,7 @@ import type { Client } from '../../clients/createClient.js'
 
 export type GetPublicClientParameters = ChainIdParameter
 
-export type GetPublicClientReturnType = PublicClient<Transport, Chain>
+export type GetPublicClientReturnType = PublicClient
 
 export function getPublicClient(
   config: Config,
@@ -19,5 +19,5 @@ export function getPublicClient(
     ...getClient(config, parameters),
     account: undefined
   } as Client<Transport, Chain>
-  return client.extend(publicActions)
+  return client.extend(publicActions) as GetPublicClientReturnType
 }
