@@ -17,25 +17,23 @@ import type { UnionCompute } from '../../core/types/utils.js'
 export type UseReadContractParameters<
   abi extends Abi | readonly unknown[] = Abi,
   functionName extends ContractFunctionName<abi, 'view'> = ContractFunctionName<abi, 'view'>,
-  args extends ContractFunctionArgs<abi, 'view', functionName> = ContractFunctionArgs<abi, 'view', functionName>,
   config extends Config = Config,
-  selectData = ReadContractData<abi, functionName, args>,
+  selectData = ReadContractData<abi, functionName>,
 > = UnionCompute<
-  ReadContractOptions<abi, functionName, args, config> &
+  ReadContractOptions<abi, functionName> &
   ConfigParameter<config> &
   QueryParameter<
-    ReadContractQueryFnData<abi, functionName, args>,
+    ReadContractQueryFnData<abi, functionName>,
     ReadContractErrorType,
     selectData,
-    ReadContractQueryKey<abi, functionName, args, config>
+    ReadContractQueryKey<abi, functionName>
   >
 >
 
 export type UseReadContractReturnType<
   abi extends Abi | readonly unknown[] = Abi,
   functionName extends ContractFunctionName<abi, 'view'> = ContractFunctionName<abi, 'view'>,
-  args extends ContractFunctionArgs<abi, 'view', functionName> = ContractFunctionArgs<abi, 'view', functionName>,
-> = UseQueryReturnType<ReadContractData<abi, functionName, args>, ReadContractErrorType>
+> = UseQueryReturnType<ReadContractData<abi, functionName>, ReadContractErrorType>
 
 /** Hook for reading data from a contract */
 export function useReadContract<
@@ -46,13 +44,13 @@ export function useReadContract<
   config extends Config = Config,
 >(
   parameters: ContractFunctionParameters<abi, 'view', functionName, args, false, allFunctionNames> & ConfigParameter<config>
-): UseReadContractReturnType<abi, functionName, args> {
+): UseReadContractReturnType<abi, functionName> {
   const config = useConfig(parameters)
   const chainId = useChainId({ config })
-  const options = readContractQueryOptions<abi, functionName, args, config>(
+  const options = readContractQueryOptions<abi, functionName>(
     config,
-    { ...parameters, chainId } as ReadContractOptions<abi, functionName, args, config>
+    { ...parameters, chainId } as ReadContractOptions<abi, functionName>
   )
 
-  return useQuery(options) as UseReadContractReturnType<abi, functionName, args>
+  return useQuery(options) as UseReadContractReturnType<abi, functionName>
 }

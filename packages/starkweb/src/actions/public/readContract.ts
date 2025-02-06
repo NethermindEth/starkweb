@@ -98,8 +98,9 @@ export type ReadContractErrorType = any
 export async function readContract<
   TAbi extends Abi | readonly unknown[],
   TFunctionName extends ContractFunctionName<TAbi, 'view'>,
+  TChain extends Chain | undefined = Chain | undefined,
 >(
-  client: Client<Transport, Chain>,
+  client: Client<Transport, TChain>,
   parameters: ReadContractParameters<TAbi, TFunctionName>
 ) : Promise<ReadContractReturnType<TAbi, TFunctionName>> {
   const { address, functionName, args, blockHash, blockNumber, blockTag } =

@@ -7,8 +7,6 @@ export function decodeFunctionCall(result: string[], functionName: string, abi: 
     if (!functionCall) {
         throw new Error(`Function ${functionName} not found in ABI`);
     }
-    console.log(functionCall);
     const outputParams = functionCall.outputs;
-    console.log(outputParams);
     return decodeFromParams(outputParams, result as unknown as BigNumber[]);
 }

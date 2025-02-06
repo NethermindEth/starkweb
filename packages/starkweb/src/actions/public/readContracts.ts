@@ -9,7 +9,7 @@ import type {
   PrimaryReadContractParameters,
   SecondaryReadContractParameters,
 } from './readContract.js'
-import type { ContractFunctionArgs, ContractFunctionName } from '../../types/contract.js'
+import type { ContractFunctionName } from '../../types/contract.js'
 
 export type ReadContractsParameters<
   abi extends Abi | readonly unknown[] = Abi,
@@ -17,18 +17,8 @@ export type ReadContractsParameters<
     abi,
     'view'
   > = ContractFunctionName<abi, 'view'>,
-  args extends ContractFunctionArgs<
-    abi,
-    'view',
-    functionName
-  > = ContractFunctionArgs<
-    abi,
-    'view',
-    functionName
-  >,
-  allFunctionNames = ContractFunctionName<abi, 'view'>
 > = {
-  contracts: PrimaryReadContractParameters<abi, functionName, args, allFunctionNames>[]
+  contracts: PrimaryReadContractParameters<abi, functionName>[]
 } & SecondaryReadContractParameters
 
 export type ReadContractsReturnTypes = any[]
@@ -41,18 +31,9 @@ export async function readContracts<
     abi,
     'view'
   > = ContractFunctionName<abi, 'view'>,
-  args extends ContractFunctionArgs<
-    abi,
-    'view',
-    functionName
-  > = ContractFunctionArgs<
-  abi,
-  'view',
-  functionName
-  >
 >(
   client: Client<Transport, TChain>,
-  parameters: ReadContractsParameters<abi, functionName, args>,
+  parameters: ReadContractsParameters<abi, functionName>,
 ): Promise<ReadContractsReturnTypes | ReadContractsErrorType> {
   const { contracts, blockHash, blockNumber, blockTag } = parameters as ReadContractsParameters
 

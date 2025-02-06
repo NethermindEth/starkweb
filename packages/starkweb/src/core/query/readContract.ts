@@ -10,57 +10,47 @@ import type { UnionExactPartial } from '../types/utils.js'
 import { readContract } from '../actions/readContract.js'
 import type { ContractFunctionName } from '../../types/contract.js'
 import type { Abi } from 'abitype'
-import type { ContractFunctionArgs } from '../../exports/starkweb.js'
 
 export type ReadContractOptions<
   abi extends Abi | readonly unknown[],
   functionName extends ContractFunctionName<abi, 'view'>,
-  args extends ContractFunctionArgs<abi, 'view', functionName>,
-  config extends Config,
-> = UnionExactPartial<ReadContractParameters<abi, functionName, args, config>> &
+> = UnionExactPartial<ReadContractParameters<abi, functionName>> &
   ScopeKeyParameter
 export type ReadContractQueryKey<
   abi extends Abi | readonly unknown[],
   functionName extends ContractFunctionName<abi, 'view'>,
-  args extends ContractFunctionArgs<abi, 'view', functionName>,
-  config extends Config,
-> = ['readContract', ReadContractOptions<abi, functionName, args, config>]
+> = ['readContract', ReadContractOptions<abi, functionName>]
 export type ReadContractData<
   abi extends Abi | readonly unknown[],
   functionName extends ContractFunctionName<abi, 'view'>,
-  args extends ContractFunctionArgs<abi, 'view', functionName>,
-> = ReadContractReturnType<abi, functionName, args>
+> = ReadContractReturnType<abi, functionName>
 
 export function readContractQueryOptions<
   abi extends Abi | readonly unknown[],
   functionName extends ContractFunctionName<abi, 'view'>,
-  args extends ContractFunctionArgs<abi, 'view', functionName>,
-  config extends Config,
 >(
   config: Config,
-  options: ReadContractOptions<abi, functionName, args, config>,
+  options: ReadContractOptions<abi, functionName>,
 ) {
   return {
     queryKey: ['readContract', options] as const,
-    queryFn({ queryKey: [, options] }: QueryFunctionContext<ReadContractQueryKey<abi, functionName, args, config>>) {
-      return readContract(config, options as ReadContractParameters<Abi, string, readonly unknown[], Config>)
+    queryFn({ queryKey: [, options] }: QueryFunctionContext<ReadContractQueryKey<abi, functionName>>) {
+      return readContract(config, options as ReadContractParameters<abi, functionName>)
     },
   } as const satisfies QueryOptions<
-    ReadContractReturnType<abi, functionName, args>,
+    ReadContractReturnType<abi, functionName>,
     ReadContractErrorType,
-    ReadContractData<abi, functionName, args>,
-    ReadContractQueryKey<abi, functionName, args, config>
+    ReadContractData<abi, functionName>,
+    ReadContractQueryKey<abi, functionName>
   >
 }
 
 export type ReadContractQueryFnData<
   abi extends Abi | readonly unknown[],
   functionName extends ContractFunctionName<abi, 'view'>,
-  args extends ContractFunctionArgs<abi, 'view', functionName>,
-> = ReadContractData<abi, functionName, args>
+> = ReadContractData<abi, functionName>
 export type ReadContractQueryData<
   abi extends Abi | readonly unknown[],
   functionName extends ContractFunctionName<abi, 'view'>,
-  args extends ContractFunctionArgs<abi, 'view', functionName>,
-> = ReadContractData<abi, functionName, args>
+> = ReadContractData<abi, functionName>
 export type ReadContractErrorType = strkjs_ReadContractErrorType

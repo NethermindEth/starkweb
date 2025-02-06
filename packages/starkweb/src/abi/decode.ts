@@ -1,5 +1,4 @@
-import type { StarknetCoreType } from 'dist/types/abi/types.js';
-import { type StarknetType, type AbiParameter, type StarknetStruct } from './types.js';
+import { type StarknetType, type AbiParameter, type StarknetStruct, type StarknetCoreType } from './types.js';
 import { BigNumber } from '@0x/utils';
 
 export function decodeFromTypes(
@@ -81,6 +80,7 @@ export function decodeCoreType(
       return [values[offset]?.toNumber() !== 0, offset + 1];
     case 'u256':
     case 'core::integer::u256':
+    case 'uint256':
       if (!values[offset] || !values[offset + 1]) {
         throw new Error('Invalid U256 value');
       }

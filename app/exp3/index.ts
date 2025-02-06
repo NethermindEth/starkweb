@@ -12,7 +12,8 @@ import { http } from '../../packages/starkweb/src/clients/transports/http.js';
 import { STRKAbi } from './ether.js';
 import { decodeFromTypes, decodeFromParams, decodeCoreType } from '../../packages/starkweb/src/abi/decode.js';
 import { BigNumber } from '@0x/utils';
-import { StarknetCoreType, type AbiParameter } from '../../packages/starkweb/src/abi/types.js';
+import type { StarknetCoreType, AbiParameter } from '../../packages/starkweb/src/abi/types.js';
+import { getBalance } from '../../packages/starkweb/src/actions/public/getBalance.js';
 
 export const client = createPublicClient({
   chain: sepolia,
@@ -44,5 +45,10 @@ const result1  = await readContract(client, {
   },
 })
 
-console.log(result1)
+// console.log(result1)
 console.log(result1.data)
+
+const balance = await getBalance(client, {
+  address: '0x005c475b6089156c0CD4Fc9d64De149992431c442AF882d6332e7c736c99DE91',
+})
+console.log(balance)

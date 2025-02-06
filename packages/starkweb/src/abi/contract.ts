@@ -57,57 +57,57 @@ export function decodeCallResult(result: string[], outputs: ReadonlyArray<{name?
 
 
 // Example usage:
-const exampleAbi = [
-  {
-    "type": "function",
-    "name": "get_balance",
-    "inputs": [],
-    "outputs": [
-      {
-        "name": "balance",
-        "type": "Uint256"
-      }
-    ],
-    "state_mutability": "view"
-  }
-] as const;
+// const _exampleAbi = [
+//   {
+//     "type": "function",
+//     "name": "get_balance",
+//     "inputs": [],
+//     "outputs": [
+//       {
+//         "name": "balance",
+//         "type": "Uint256"
+//       }
+//     ],
+//     "state_mutability": "view"
+//   }
+// ] as const;
 
-const result = ['1234567890'];
-const decoded = decodeCallResult(result, exampleAbi[0].outputs);
+// const result = ['1234567890'];
+// const decoded = decodeCallResult(result, exampleAbi[0].outputs);
 // decoded = { balance: 1234567890n }
 
 // Example with multiple outputs and different types
-const complexAbi = [
-  {
-    "type": "function", 
-    "name": "get_user_info",
-    "inputs": [],
-    "outputs": [
-      {
-        "name": "name", 
-        "type": "shortString"
-      },
-      {
-        "name": "balance",
-        "type": "Uint256"  
-      },
-      {
-        "name": "token_ids",
-        "type": "felt*"
-      }
-    ],
-    "state_mutability": "view"
-  }
-] as const;
+// const _complexAbi = [
+//   {
+//     "type": "function", 
+//     "name": "get_user_info",
+//     "inputs": [],
+//     "outputs": [
+//       {
+//         "name": "name", 
+//         "type": "shortString"
+//       },
+//       {
+//         "name": "balance",
+//         "type": "Uint256"  
+//       },
+//       {
+//         "name": "token_ids",
+//         "type": "felt*"
+//       }
+//     ],
+//     "state_mutability": "view"
+//   }
+// ] as const;
 
-const complexResult = [
-  '0x416c696365', // "Alice" in hex
-  '1000000000',
-  '2',            // Array length
-  '1',            // First token ID
-  '2'             // Second token ID
-];
-const decodedComplex = decodeCallResult( complexResult, complexAbi[0].outputs);
+// const complexResult = [
+//   '0x416c696365', // "Alice" in hex
+//   '1000000000',
+//   '2',            // Array length
+//   '1',            // First token ID
+//   '2'             // Second token ID
+// ];
+// const decodedComplex = decodeCallResult( complexResult, complexAbi[0].outputs);
 // decodedComplex = {
 //   name: "Alice",
 //   balance: 1000000000n,

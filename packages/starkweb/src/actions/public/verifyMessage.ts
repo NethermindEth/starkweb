@@ -82,15 +82,23 @@ export async function verifyMessage(
   const verifyParams = {
     abi: accountABI,
     address: account as Address,
-    args: [hash, sn_signature],
     functionName: 'is_valid_signature',
+    args: {
+      hash,
+      signature: sn_signature,
+    },
   }
-  const result = await readContract(client, verifyParams)
-  if (
-    Array.isArray(result) &&
-    result.length === 1 &&
-    result[0] === '0x56414c4944'
-  ) {
+  const result = await readContract(client, {
+    abi: accountABI,
+    address: account as Address,
+    functionName: 'is_valid_signature',
+    args: {
+      hash,
+      sig_len: sn_signature.length,
+      sig: sn_signature,
+    },
+  })
+  if (result.data === '0x56414c4944') {
     return true
   }
   return false

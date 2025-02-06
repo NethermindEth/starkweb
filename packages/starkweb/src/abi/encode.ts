@@ -1,5 +1,10 @@
-import { type StarknetType, type AbiParameter } from './types.js';
 import { BigNumber } from '@0x/utils';
+
+import {
+  type AbiParameter,
+  type StarknetCoreType,
+  type StarknetType,
+} from './types.js';
 
 export function encodeFromTypes(
   types: StarknetType[],
@@ -35,13 +40,13 @@ export function encodeCoreType(
     ];
   }
   if (typeof type === 'object' && type.type === 'struct') {
-    if (!type.members?.[0]?.type) {
-      throw new Error('Invalid struct type - missing members');
+    if (!type.members || type.members.length === 0 || !type.members[0]?.type) {
+      throw new Error('Invalid struct type - missing member type');
     }
     if (!Array.isArray(value)) {
       throw new Error('Expected array value for struct type');
     }
-    return value.flatMap((v: any) => encodeCoreType(type.members[0].type, v));
+    return value.flatMap((v: any) => encodeCoreType(type.members[0]!.type, v));
   }
 
   switch (type) {

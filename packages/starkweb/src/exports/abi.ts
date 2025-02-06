@@ -1,7 +1,7 @@
 export {
     type StarknetAbi,
     type StarknetType,
- StarknetCoreType,
+    type StarknetCoreType,
     type AbiParameter,
     type StarknetAbiFunction,
     type StarknetAbiEvent,

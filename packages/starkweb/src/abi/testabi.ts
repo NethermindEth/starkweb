@@ -1658,21 +1658,21 @@ export const testAbi = [
     }
 ] as const;
 
-function getFunctionOutputType(functionName: string): string | undefined {
-  return testAbi.find(abiEntry => 
-    abiEntry.type === "interface" && 
-    abiEntry.items?.some(item => 
-      item.type === "function" && 
-      item.name === functionName
-         )
-  )?.items?.find(item => 
-    item.type === "function" && 
-    item.name === functionName
-  )?.outputs?.[0]?.type;
-}
+// function getFunctionOutputType(functionName: string): string | undefined {
+//   return testAbi.find(abiEntry => 
+//     abiEntry.type === "interface" && 
+//     abiEntry.items?.some(item => 
+//       item.type === "function" && 
+//       item.name === functionName
+//          )
+//   )?.items?.find(item => 
+//     item.type === "function" && 
+//     item.name === functionName
+//   )?.outputs?.[0]?.type;
+// }
                               
 // Example usage:
-const ownerOutputType = getFunctionOutputType("get_owner"); // Returns "core::felt252"
-const executeOutputType = getFunctionOutputType("__execute__"); // Returns "core::array::Array::<core::array::Span::<core::felt252>>"
+// const ownerOutputType = getFunctionOutputType("get_owner"); // Returns "core::felt252"
+// const executeOutputType = getFunctionOutputType("__execute__"); // Returns "core::array::Array::<core::array::Span::<core::felt252>>"
 
 

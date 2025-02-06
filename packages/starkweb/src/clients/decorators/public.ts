@@ -217,7 +217,7 @@ import {
 import {
   type ReadContractErrorType,
   type ReadContractParameters,
-  type ReadContractReturnTypes,
+  type ReadContractReturnType,
   readContract,
 } from '../../actions/public/readContract.js'
 import {
@@ -259,7 +259,7 @@ import {
   verifySiwsMessage,
 } from '../../actions/siws/verifySiwsMessage.js'
 import type { Client } from '../createClient.js'
-import type { ContractFunctionArgs, ContractFunctionName } from '../../types/contract.js'
+import type { ContractFunctionName } from '../../types/contract.js'
 import type { Abi } from '../../strk-types/abi.js'
 
 export type PublicActions = {
@@ -1021,25 +1021,15 @@ export type PublicActions = {
   readContract: <
     const abi extends Abi | readonly unknown[],
     functionName extends ContractFunctionName<abi, 'view'>,
-    args extends ContractFunctionArgs<
-      abi,
-      'view',
-      functionName
-    >,
   >(
-    args: ReadContractParameters<abi, functionName, args>,
-  ) => Promise<ReadContractReturnTypes<abi, functionName, args> | ReadContractErrorType>
+    args: ReadContractParameters<abi, functionName>,
+  ) => Promise<ReadContractReturnType<abi, functionName> | ReadContractErrorType>
 
   readContracts: <
     const abi extends Abi | readonly unknown[],
     functionName extends ContractFunctionName<abi, 'view'>,
-    args extends ContractFunctionArgs<
-      abi,
-      'view',
-      functionName
-    >,
   >(
-    args: ReadContractsParameters<abi, functionName, args>,
+    args: ReadContractsParameters<abi, functionName>,
   ) => Promise<ReadContractsReturnTypes | ReadContractsErrorType>
 
   verifySiwsData: (
@@ -1054,7 +1044,9 @@ export type PublicActions = {
   ) => Promise<VerifyMessageReturnType | VerifyMessageErrorType>
 }
 
-export function publicActions(client: Client): PublicActions {
+export function publicActions(
+  client: Client
+): PublicActions {
   return {
     call: (args) => call(client, args),
     getBalance: (args) => getBalance(client, args),

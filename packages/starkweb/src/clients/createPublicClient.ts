@@ -73,7 +73,7 @@ export type CreatePublicClientErrorType = CreateClientErrorType | ErrorType
  */
 export function createPublicClient<
   transport extends Transport,
-  chain extends Chain | undefined = undefined,
+  chain extends Chain,
   accountOrAddress extends Account | Address | undefined = undefined,
   rpcSchema extends RpcSchema | undefined = undefined,
 >(

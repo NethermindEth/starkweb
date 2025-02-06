@@ -6,7 +6,7 @@ export type StarknetCoreType =
   | 'u32' | 'core::integer::u32'
   | 'u64' | 'core::integer::u64'
   | 'u128' | 'core::integer::u128'
-  | 'u256' | 'core::integer::u256'
+  | 'u256' | 'core::integer::u256' | 'uint256'
   | 'contract_address' | 'core::starknet::contract_address::ContractAddress'
   
   

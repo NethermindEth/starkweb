@@ -3,7 +3,6 @@ import type { Transport } from '../../clients/transports/createTransport.js'
 import { erc20Abi } from '../../constants/abis.js'
 import type { BlockTag } from '../../strk-types/lib.js'
 import type { Chain } from '../../types/chain.js'
-import { hexToNumber } from '../../utils/encoding/fromHex.js'
 import { type ReadContractParameters, readContract } from './readContract.js'
 
 export type GetBalanceParameters = {
@@ -40,9 +39,9 @@ export async function getBalance<TChain extends Chain | undefined>(
   const symbol = chain?.nativeCurrency?.symbol ?? 'STRK'
 
   return {
-    balance: hexToNumber(balance[0]),
+    balance: balance.data,
     decimals: decimals,
     symbol: symbol,
-    formatted: hexToNumber(balance[0]) / 10 ** decimals,
+    formatted: Number(balance.data) / 10 ** decimals,
   }
 }
