@@ -1,3 +1,13 @@
+
+<div align="center">
+  <picture>
+    <source media="(prefers-color-scheme: light)" srcset="app/starkweb/docs/public/starkweb_horizontal_dark.svg">
+    <source media="(prefers-color-scheme: dark)" srcset="app/starkweb/docs/public/starkweb_horizontal_light.svg">
+    <img alt="StarkWeb Logo" src="app/starkweb/docs/public/starkweb_horizontal_light.svg" width="200">
+  </picture>
+</div>
+
+
 # Starkweb · all-in-one Starknet Toolkit
 
 [![npm version](https://img.shields.io/npm/v/starkweb.svg)](https://www.npmjs.com/package/starkweb)
