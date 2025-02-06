@@ -15,6 +15,9 @@ export type UseConfigReturnType = Config
 export function useConfig(
   parameters: UseConfigParameters = {},
 ): UseConfigReturnType {
+  // const config = useContext(StarkwebContext)
+  // // @ts-ignore
+  // const _parameters = parameters
   const config = parameters.config ?? useContext(StarkwebContext)
   if (!config) throw new StarkwebProviderNotFoundError()
   return config as UseConfigReturnType

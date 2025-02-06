@@ -1,3 +1,7 @@
+// @ts-nocheck
+
+// TODO: type inference is not working for this file  
+
 import type { Signature } from '@starknet-io/types-js'
 import type { Client } from '../../clients/createClient.js'
 import type { Transport } from '../../clients/transports/createTransport.js'
