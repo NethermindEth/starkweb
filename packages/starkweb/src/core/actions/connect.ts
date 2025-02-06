@@ -1,4 +1,5 @@
 import type {
+  ProviderRpcErrorType,
   ResourceUnavailableRpcErrorType,
   UserRejectedRequestErrorType,
 } from '../../errors/rpc.js'
@@ -30,7 +31,8 @@ export type ConnectErrorType =
   // base
   | BaseErrorType
   | ErrorType
-
+  | ProviderRpcErrorType
+  | ProviderRpcErrorType
 /** https://starkweb.xyz/core/api/actions/connect */
 export async function connect<config extends Config>(
   config: config,

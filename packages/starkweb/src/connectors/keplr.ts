@@ -7,6 +7,7 @@ import { UserRejectedRequestError } from "../errors/rpc.js"
 import type { Address, Hex } from "../types/misc.js"
 import type { ProviderConnectInfo, SNIP1193Provider } from "../types/snip1193.js"
 import '../window/index.js' 
+import { ProviderRpcError } from "../errors/rpc.js"
 
 
   export  type KeplrParameters = any
@@ -44,6 +45,7 @@ import '../window/index.js'
         if (typeof window === 'undefined') {
           return
         }
+        if (typeof window.starknet_keplr !== 'object') return
         const provider = await this.getProvider()
         if (provider) {
           this.onConnect.bind(this)
@@ -107,23 +109,27 @@ import '../window/index.js'
         return accounts.map((x) => getStarknetAddress(x))
       },
       async getChainId() {
-        const provider = await this.getProvider()
-        const chainId = await provider.request({ type: 'wallet_requestChainId', params: {} }) as Hex
-        return chainId
+        try {
+          const provider = await this.getProvider()
+          const chainId = await provider.request({ type: 'wallet_requestChainId', params: {} }) as Hex
+          return chainId
+        } catch (error) {
+          throw new ProviderRpcError(
+            error as Error, {
+              code: (error as RpcError).code || -32000,
+              shortMessage: 'Failed to get chain ID',
+            }
+          )
+        }
       },
       async getProvider() {
         if (typeof window === 'undefined') {
-          return undefined
+          throw new Error('Keplr provider unavailable in server environment')
         }
-        
-        // Get provider from window object
-        const provider = (window as any).starknet_argentX
-        
-        // Ensure provider exists and has required methods
+        const provider = (window as any).starknet_keplr
         if (!provider || typeof provider.request !== 'function') {
           throw new Error('Keplr provider not found')
         }
-
         return provider
       },
       async isAuthorized() {
@@ -216,10 +222,13 @@ import '../window/index.js'
           if (provider && !!(await this.getAccounts()).length) return
         }
   
-        // Remove cached SDK properties.
-        if (typeof localStorage !== 'undefined') {
-          localStorage.removeItem('keplr_cached_address')
-          localStorage.removeItem('keplr_cached_chainId')
+        try {
+          if (typeof localStorage !== 'undefined') {
+            localStorage.removeItem('keplr_cached_address')
+            localStorage.removeItem('keplr_cached_chainId')
+          }
+        } catch (storageError) {
+          console.error('LocalStorage access error:', storageError)
         }
   
         // No need to remove 'metaMaskSDK.disconnected' from storage because `onDisconnect` is typically
@@ -230,7 +239,13 @@ import '../window/index.js'
           chainId: undefined
         })
 
-        provider.on('accountsChanged', this.onAccountsChanged.bind(this) as any)
+        if (provider) {
+          provider.removeListener(
+            'accountsChanged',
+            this.onAccountsChanged.bind(this),
+          )
+          provider.removeListener('networkChanged', this.onChainChanged.bind(this))
+        }
         this.disconnect()
       },
     }))

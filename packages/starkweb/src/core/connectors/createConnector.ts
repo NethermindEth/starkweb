@@ -1,5 +1,5 @@
 import type { Emitter } from '../createEmitter.js'
-import type { Storage } from '../createStorage.js'
+import type { Storage, } from '../createStorage.js'
 import type { Evaluate, ExactPartial, Omit } from '../types/utils.js'
 import type { AddStarknetChainParameters } from '../exports/chains.js'
 import type { ProviderConnectInfo, ProviderMessage } from '../../types/snip1193.js'

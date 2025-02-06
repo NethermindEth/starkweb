@@ -65,7 +65,7 @@ export async function reconnect(
   const connections: Connection[] = []
   const providers: unknown[] = []
   for (const connector of sorted) {
-    const provider = await connector.getProvider().catch(() => undefined)
+    const provider = await (connector.getProvider?.()?.catch(() => undefined) ?? Promise.resolve(undefined))
     if (!provider) continue
 
     // If we already have an instance of this connector's provider,

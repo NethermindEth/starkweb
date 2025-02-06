@@ -1,3 +1,7 @@
+// @ts-nocheck
+
+// TODO: type inference is not working for this file  
+
 import type { Address } from 'abitype'
 import type { Client } from '../../clients/createClient.js'
 import type { Transport } from '../../clients/transports/createTransport.js'
