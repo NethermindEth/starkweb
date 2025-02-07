@@ -44,7 +44,7 @@ import { ProviderRpcError } from "../errors/rpc.js"
         if (typeof window === 'undefined') return
         if (typeof window.starknet_braavos !== 'object') return
         const provider = await this.getProvider()
-        if (provider) {
+        if (provider && window.starknet_braavos?.isConnected) {
           this.onConnect.bind(this)
           provider.on('accountsChanged', this.onAccountsChanged.bind(this))
           provider.on('networkChanged', this.onChainChanged.bind(this))

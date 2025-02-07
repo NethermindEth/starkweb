@@ -55,7 +55,7 @@ export function argentX() {
         return
       }
       const provider = await this.getProvider()
-      if (provider) {
+      if (provider && window.starknet_argentX?.isConnected) {
         this.onConnect.bind(this)
         provider.on('accountsChanged', this.onAccountsChanged.bind(this))
       }

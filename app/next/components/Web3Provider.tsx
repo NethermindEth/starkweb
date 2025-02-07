@@ -1,11 +1,28 @@
 import React from 'react';
 
-import { cookieStorage, createConfig, createStorage, type State } from 'starkweb/core';
-import { StarkwebProvider } from 'starkweb/react'; 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { argentX, braavos, keplr, metamask } from 'starkweb/connectors';
-import { mainnet, sepolia } from 'starkweb/chains';
 import { http } from 'starkweb';
+import {
+  mainnet,
+  sepolia,
+} from 'starkweb/chains';
+import {
+  argentX,
+  braavos,
+  keplr,
+  metamask,
+} from 'starkweb/connectors';
+import {
+  cookieStorage,
+  createConfig,
+  createStorage,
+  type State,
+} from 'starkweb/core';
+import { StarkwebProvider } from 'starkweb/react';
+
+import {
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query';
 
 export function getConfig() {
   return createConfig({
