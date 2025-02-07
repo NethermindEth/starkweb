@@ -375,6 +375,10 @@ export {
 
 export { type InjectedParameters, injected } from "../connectors/injected.js";
 
+export { metamask } from '../../connectors/metamask.js'
+export { braavos } from '../../connectors/braavos.js'
+export { argentX as argent } from '../../connectors/argent.js'
+export { keplr } from '../../connectors/keplr.js'
 
 ////////////////////////////////////////////////////////////////////////////////
 // createConfig

@@ -1,26 +1,56 @@
 import {
-  type Store as MipdStore,
   createStore as createMipd,
-} from 'mipd'
-import type { Transport as strkjs_Transport } from '../clients/transports/createTransport.js'
-import type { ClientConfig as strkjs_ClientConfig } from '../clients/createClient.js'
-import { persist, subscribeWithSelector } from 'zustand/middleware'
-import { type Mutate, type StoreApi, createStore } from 'zustand/vanilla'
+  type Store as MipdStore,
+} from 'mipd';
+import {
+  persist,
+  subscribeWithSelector,
+} from 'zustand/middleware';
+import {
+  createStore,
+  type Mutate,
+  type StoreApi,
+} from 'zustand/vanilla';
 
+import type {
+  ClientConfig as strkjs_ClientConfig,
+} from '../clients/createClient.js';
+import {
+  type Client,
+  createClient,
+} from '../clients/createClient.js';
+import type {
+  Transport as strkjs_Transport,
+} from '../clients/transports/createTransport.js';
+import type { Chain } from '../types/chain.js';
+import type {
+  Address,
+  Hex,
+} from '../types/misc.js';
+import { stringToHex } from '../utils/index.js';
+import { version } from '../version.js';
 import type {
   ConnectorEventMap,
   CreateConnectorFn,
-} from './connectors/createConnector.js'
-import { type Emitter, type EventData, createEmitter } from './createEmitter.js'
-import { type Storage, createStorage, noopStorage } from './createStorage.js'
-import { ChainNotConfiguredError } from './errors/config.js'
-import type { Evaluate, ExactPartial, LooseOmit, OneOf } from './types/utils.js'
-import type { Chain } from '../types/chain.js'
-import { uid } from './utils/uid.js'
-import { version } from './../version.js'
-import { type Client, createClient } from '../clients/createClient.js'
-import type { Address, Hex } from '../types/misc.js'
-import { stringToHex } from '../utils/index.js'
+} from './connectors/createConnector.js';
+import {
+  createEmitter,
+  type Emitter,
+  type EventData,
+} from './createEmitter.js';
+import {
+  createStorage,
+  noopStorage,
+  type Storage,
+} from './createStorage.js';
+import { ChainNotConfiguredError } from './errors/config.js';
+import type {
+  Evaluate,
+  ExactPartial,
+  LooseOmit,
+  OneOf,
+} from './types/utils.js';
+import { uid } from './utils/uid.js';
 
 export type CreateConfigParameters<
   chains extends readonly [Chain, ...Chain[]] = readonly [Chain, ...Chain[]],

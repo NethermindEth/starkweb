@@ -8,6 +8,7 @@ import type { ProviderConnectInfo, SNIP1193Provider } from "../types/snip1193.js
 import '../window/index.js' 
 import { ProviderRpcError } from "../errors/rpc.js"
 import { ProviderNotFoundError } from "../core/errors/connector.js"
+import { injectMetamaskBridge } from './metamask-bridge.js'
 
 
   export  type MetaMaskParameters = any
@@ -43,9 +44,14 @@ import { ProviderNotFoundError } from "../core/errors/connector.js"
         if (typeof window === 'undefined') {
           return
         }
+
+        // Initialize the MetaMask bridge before checking provider
+        await injectMetamaskBridge(window as any)
+        
         if (typeof window.starknet_metamask !== 'object') {
           return
         }
+
         const provider = await this.getProvider()
         if (provider) {
           this.onConnect.bind(this)
@@ -126,9 +132,16 @@ import { ProviderNotFoundError } from "../core/errors/connector.js"
           throw new Error('Metamask provider unavailable in server environment')
         }
         
-        const provider = (window as any).starknet_metamask
+        // Ensure bridge is initialized
+        await injectMetamaskBridge(window as any)
+        
+        const provider = window.starknet_metamask
+        if (!window.starknet_metamask?.isConnected) {
+          await window.starknet_metamask?.enable()
+        }
+        
         if (!provider) throw new ProviderNotFoundError()
-            return provider
+        return provider
       },
       async isAuthorized() {
         try {

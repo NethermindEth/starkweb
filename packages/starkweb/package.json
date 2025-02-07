@@ -171,8 +171,10 @@
         "typescript": "^5.6.3"
     },
     "dependencies": {
-        "ajv": "^8.17.1",
+        "@0x/utils": "latest",
         "@adraffy/ens-normalize": "1.10.0",
+        "@module-federation/enhanced": "^0.8.10",
+        "@module-federation/runtime": "latest",
         "@noble/curves": "1.4.0",
         "@noble/hashes": "1.4.0",
         "@scure/base": "1.1.3",
@@ -182,6 +184,7 @@
         "@starknet-io/types-js": "^0.7.7",
         "@types/use-sync-external-store": "^0.0.6",
         "abitype": "1.0.5",
+        "ajv": "^8.17.1",
         "cac": "^6.7.14",
         "cross-spawn": "^7.0.3",
         "eventemitter3": "5.0.1",
@@ -192,7 +195,6 @@
         "prompts": "^2.4.2",
         "use-sync-external-store": "1.2.2",
         "ws": "latest",
-        "zustand": "4.4.1",
-        "@0x/utils": "latest"
+        "zustand": "4.4.1"
     }
 }
