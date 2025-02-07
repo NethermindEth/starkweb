@@ -1,29 +1,46 @@
 import React from 'react';
 
-import { cookieStorage, createConfig, createStorage } from 'starkweb/core';
+import { cookieStorage, createConfig, createStorage, type State } from 'starkweb/core';
 import { StarkwebProvider } from 'starkweb/react'; 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { argentX, braavos, keplr, metamask } from 'starkweb/connectors';
 import { mainnet, sepolia } from 'starkweb/chains';
 import { http } from 'starkweb';
 
-const config = createConfig({
-  chains: [mainnet, sepolia],
-  connectors: [argentX(), braavos(), keplr(), metamask()],
-  storage: createStorage({
-    storage: cookieStorage,
-  }),
-  transports: {
-    [mainnet.chain_id]: http(),
-    [sepolia.chain_id]: http(),
-  },
-});
+export function getConfig() {
+  return createConfig({
+    chains: [mainnet, sepolia],
+    connectors: [
+      argentX(),
+      braavos(),
+      keplr(),
+      metamask(),
+    ],
+    storage: createStorage({
+      storage: cookieStorage,
+    }),
+    ssr: true,
+    transports: {
+      [mainnet.chain_id]: http(),
+      [sepolia.chain_id]: http(),
+    },
+  })
+}
+
+declare module 'starkweb/react' {
+  interface Register {
+    config: ReturnType<typeof getConfig>
+  }
+}
+
+
+const config = getConfig();
 
 const queryClient = new QueryClient();
 
-export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
+export const Web3Provider = ({ children, initialState }: { children: React.ReactNode, initialState: State }) => {
   return (
-    <StarkwebProvider config={config}>
+    <StarkwebProvider config={config} initialState={initialState}>
       <QueryClientProvider client={queryClient}>
         {children}
       </QueryClientProvider>

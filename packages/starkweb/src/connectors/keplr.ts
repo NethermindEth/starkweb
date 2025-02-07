@@ -150,12 +150,17 @@ import { ProviderRpcError } from "../errors/rpc.js"
   
         const chain = config.chains.find((x: { chain_id: Hex }) => x.chain_id === chainId)
         if (!chain) throw new SwitchChainError(new ChainNotConfiguredError())
+          const keplrChainId = (chainId: Hex) => {
+            if (chainId === '0x534e5f4d41494e') return 'starknet:SN_MAIN'
+            if (chainId === '0x534e5f5345504f4c4941') return 'starknet:SN_SEPOLIA'
+            return chainId
+          }
   
         try {
           await Promise.all([
-            provider.request({
+            provider.request<{ ReturnType: { chainId: string } }>({
               type: 'wallet_switchStarknetChain',
-              params: { chainId, api_version: undefined },
+              params: [{ chainId : keplrChainId(chainId) }],
             }),
             new Promise<void>((resolve) =>
               config.emitter.once('change', ({ chainId: currentChainId }) => {

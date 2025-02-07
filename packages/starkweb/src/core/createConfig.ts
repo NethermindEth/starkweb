@@ -1,5 +1,4 @@
 import {
-  type EIP6963ProviderDetail,
   type Store as MipdStore,
   createStore as createMipd,
 } from 'mipd'
@@ -12,7 +11,6 @@ import type {
   ConnectorEventMap,
   CreateConnectorFn,
 } from './connectors/createConnector.js'
-import { injected } from './connectors/injected.js'
 import { type Emitter, type EventData, createEmitter } from './createEmitter.js'
 import { type Storage, createStorage, noopStorage } from './createStorage.js'
 import { ChainNotConfiguredError } from './errors/config.js'
@@ -86,9 +84,6 @@ export function createConfig<
   const connectors = createStore(() =>
     [
       ...(rest.connectors ?? []),
-      ...(!ssr && typeof window !== 'undefined'
-        ? mipd?.getProviders().map(providerDetailToConnector) ?? []
-        : []),
     ].map(setup),
   )
   function setup(connectorFn: CreateConnectorFn): Connector {
@@ -112,11 +107,6 @@ export function createConfig<
     connector.setup?.()
 
     return connector
-  }
-  function providerDetailToConnector(providerDetail: EIP6963ProviderDetail) {
-    const { info } = providerDetail
-    const provider = providerDetail.provider as any
-    return injected({ target: { ...info, id: info.rdns, provider } })
   }
 
   const clients = new Map<Hex, Client<Transport, chains[number]>>()
@@ -274,23 +264,6 @@ export function createConfig<
       },
     )
 
-  // EIP-6963 subscribe for new wallet providers
-  mipd?.subscribe((providerDetails) => {
-    const currentConnectorIds = new Map()
-    for (const connector of connectors.getState()) {
-      currentConnectorIds.set(connector.id, true)
-    }
-
-    const newConnectors: Connector[] = []
-    for (const providerDetail of providerDetails) {
-      const connector = setup(providerDetailToConnector(providerDetail))
-      if (currentConnectorIds.has(connector.id)) continue
-      newConnectors.push(connector)
-    }
-
-    if (storage && !store.persist.hasHydrated()) return
-    connectors.setState((x) => [...x, ...newConnectors], true)
-  })
 
   /////////////////////////////////////////////////////////////////////////////////////////////////
   // Emitter listeners
@@ -430,7 +403,6 @@ export function createConfig<
         },
       },
       connectors: {
-        providerDetailToConnector,
         setup,
         setState(value) {
           return connectors.setState(
@@ -511,9 +483,6 @@ export type Config<
       ): () => void
     }
     connectors: {
-      providerDetailToConnector(
-        providerDetail: EIP6963ProviderDetail,
-      ): CreateConnectorFn
       setup(connectorFn: CreateConnectorFn): Connector
       setState(value: Connector[] | ((state: Connector[]) => Connector[])): void
       subscribe(

@@ -20,14 +20,6 @@ export function hydrate(config: Config, parameters: HydrateParameters) {
     async onMount() {
       if (config._internal.ssr) {
         await config._internal.store.persist.rehydrate()
-        const mipdConnectors = config._internal.mipd
-          ?.getProviders()
-          .map(config._internal.connectors.providerDetailToConnector)
-          .map(config._internal.connectors.setup)
-        config._internal.connectors.setState((connectors) => [
-          ...connectors,
-          ...(mipdConnectors ?? []),
-        ])
       }
 
       if (reconnectOnMount) reconnect(config)
