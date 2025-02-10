@@ -5,7 +5,7 @@ import { http } from '../../packages/starkweb/dist/esm/clients/transports/http'
 import { sepolia } from '../../packages/starkweb/dist/esm/chains/definitions/sepolia'
 import { accountABI } from '../../packages/starkweb/dist/esm/utils/siws/account-contract-abi';
 
-const client = createPublicClient({
+export const client = createPublicClient({
   transport: http('https://starknet-sepolia.infura.io/v3/db72641028ee47f5b18bcbb791a3f829'),
   chain: sepolia,
 })

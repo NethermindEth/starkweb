@@ -6,7 +6,7 @@ import type { ErrorType } from '../../errors/utils.js'
 import { getMessageHash } from '../../strk-utils/typedData.js'
 import type { SIGNATURE } from '../../types/components.js'
 import type { HashTypedDataErrorType } from '../../utils/signature/hashTypedData.js'
-import { accountABI } from '../../utils/siws/account-contract-abi.js'
+import { argentAccountABI } from '../../abi/argentAccountABI.js'
 import { readContract } from './readContract.js'
 
 export type VerifyMessageParameters = {
@@ -80,8 +80,9 @@ export async function verifyMessage(
 
   const account = siwsData.message.address
   const hash = getMessageHash(siwsData, account)
+  console.log('hash', hash.toString())
   const verifyParams = {
-    abi: accountABI,
+    abi: argentAccountABI,
     address: account as Address,
     functionName: 'is_valid_signature',
     args: {
@@ -90,13 +91,12 @@ export async function verifyMessage(
     },
   }
   const result = await readContract(client, {
-    abi: accountABI,
+    abi: argentAccountABI,
     address: account as Address,
     functionName: 'is_valid_signature',
     args: {
-      hash,
-      sig_len: sn_signature.length,
-      sig: sn_signature,
+      hash: '0x273ff02f97d095a15fd9a896d19fa61290de795134343798f56b25cb371b18a',
+      signature: [ 1, 0,969608340573873002548328497463227700583087900647642632826265628162355070673,354639915743344206265169349386607697226396223534042610886348629689046680946,551963605960645184979199144543147086475475685903697220736689006455357582120 ],
     },
   })
   if (result.data === '0x56414c4944') {

@@ -1,17 +1,12 @@
 'use client'
 
 import { useState } from 'react';
-
 import {
-  createPublicClient,
-  http,
-  verifyMessage,
-} from 'starkweb';
-import { sepolia } from 'starkweb/chains';
-import {
+  useAccount,
   useChainId,
   useConnect,
   useSignMessage,
+  useVerifyMessage,
 } from 'starkweb/react';
 
 export function Connect() {
@@ -39,56 +34,48 @@ export function Connect() {
 
 export function SignMessage() {
   const { signMessageAsync } = useSignMessage()
-  const [message, setMessage] = useState('')
+  const { address } = useAccount()
+  const chainId = useChainId()
+  // const { verifyMessage } = useVerifyMessage()
+  // const [message, setMessage] = useState('')
   const [signature, setSignature] = useState<string[]>([])
   const handleSignMessage = async () => { 
+    const message = 'Hello, world!';
+    // const address = '0x034abecf49cedc634d0c3145da7b1caea99d8d4f2da5b5d41e532ea05192d523';
+    // const chainId = '0x534e5f4d41494e';
+    const domain = 'localhost:3000';
+    const uri = 'http://localhost:3000';
+    const nonce = '24434';
+    const version = '1';
     const sig = await signMessageAsync({ 
       statement: message,
-      chainId: '0x534e5f4d41494e',
+      chainId: chainId,
       domain: 'localhost:3000',
       uri: 'http://localhost:3000',
-      nonce: Math.random().toString(36).slice(2),
+      nonce: nonce,
       version: '1',
-      address: '0x0' // This should be replaced with actual connected wallet address
+      address: address
     })
-    setSignature(sig.toString())
+   console.log(sig)
   }
   return <div>
-    <input type="text" value={message} onChange={(e) => setMessage(e.target.value)} />
+    {/* <input type="text" value={message} onChange={(e) => setMessage(e.target.value)} /> */}
     <button onClick={handleSignMessage}>Sign Message</button>
     <div>{signature}</div>
     <table>
       <tr>
         <td>Message</td>
-        <td>{message}</td>
+        {/* <td>{message}</td> */}
       </tr>
     </table>
     <div>{signature}</div>
     <table>
       <tr>
         <td>Message</td>
-        <td>{message}</td>
+        {/* <td>{message}</td> */}
       </tr>
     </table>
-    <VerifyMessage message={message} signature={signature} />
   </div>
 
 }
 
-export function VerifyMessage({message, signature }: { message: string, signature: string[] }) {
-  const [isValid, setIsValid] = useState(false)
-  const handleVerifyMessage = async () => {
-    const isValid = await verifyMessage(
-      createPublicClient({
-      chain: sepolia,
-      transport: http()
-    }), {
-      statement: message 
-    })
-    setIsValid(isValid)
-  }
-  return <div>
-    <button onClick={handleVerifyMessage}>Verify Message</button>
-    <div>{isValid}</div>
-  </div>
-}
