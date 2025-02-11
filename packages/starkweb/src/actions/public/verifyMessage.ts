@@ -1,4 +1,3 @@
-// @ts-nocheck
 import type { Address } from 'abitype'
 import type { Client } from '../../clients/createClient.js'
 import type { Transport } from '../../clients/transports/createTransport.js'
@@ -6,7 +5,7 @@ import type { ErrorType } from '../../errors/utils.js'
 import { getMessageHash } from '../../strk-utils/typedData.js'
 import type { SIGNATURE } from '../../types/components.js'
 import type { HashTypedDataErrorType } from '../../utils/signature/hashTypedData.js'
-import { accountABI } from '../../utils/siws/account-contract-abi.js'
+import { argentAccountABI } from '../../abi/argentAccountABI.js'
 import { readContract } from './readContract.js'
 
 export type VerifyMessageParameters = {
@@ -79,27 +78,17 @@ export async function verifyMessage(
   }
 
   const account = siwsData.message.address
-  const hash = getMessageHash(siwsData, account)
-  const verifyParams = {
-    abi: accountABI,
-    address: account as Address,
-    functionName: 'is_valid_signature',
-    args: {
-      hash,
-      signature: sn_signature,
-    },
-  }
+  const hash = getMessageHash(siwsData, account) 
   const result = await readContract(client, {
-    abi: accountABI,
+    abi: argentAccountABI,
     address: account as Address,
     functionName: 'is_valid_signature',
     args: {
-      hash,
-      sig_len: sn_signature.length,
-      sig: sn_signature,
+      hash: hash as 'felt252',
+      signature: sn_signature as 'felt252'[],
     },
   })
-  if (result.data === '0x56414c4944') {
+  if (result.data === '56414c4944' as 'felt252') {
     return true
   }
   return false

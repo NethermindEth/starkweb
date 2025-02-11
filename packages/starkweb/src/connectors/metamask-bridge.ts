@@ -115,7 +115,7 @@ async function fetchMetaMaskSnapWallet(provider: unknown) {
         name: "MetaMaskStarknetSnapWallet",
         alias: "MetaMaskStarknetSnapWallet",
         entry:
-          "https://snaps.consensys.io/starknet/get-starknet/v1/remoteEntry.js", //"http://localhost:8082/remoteEntry.js",
+          "https://snaps.consensys.io/starknet/get-starknet/v1/remoteEntry.js",
       },
     ],
   })
@@ -200,9 +200,9 @@ function createMetaMaskProviderWrapper(
 }
 
 export async function injectMetamaskBridge(windowObject: Record<string, unknown>) {
-  // if (windowObject.hasOwnProperty("starknet_metamask")) {
-  //   return
-  // }
+  if (windowObject.hasOwnProperty("starknet_metamask")) {
+    return
+  }
 
   const metamaskWalletInfo = {
     id: "metamask",

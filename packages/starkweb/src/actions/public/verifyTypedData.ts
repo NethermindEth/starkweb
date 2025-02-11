@@ -1,6 +1,4 @@
-// @ts-nocheck
 
-// TODO: type inference is not working for this file  
 
 import type { TypedData } from '../../strk-types/typedData.js'
 import type { Client } from '../../clients/createClient.js'
@@ -9,14 +7,9 @@ import type { ErrorType } from '../../errors/utils.js'
 import { getMessageHash } from '../../strk-utils/typedData.js'
 import type { ByteArray, Hex, Signature } from '../../types/misc.js'
 import type { HashTypedDataErrorType } from '../../utils/signature/hashTypedData.js'
-import { accountABI } from '../../utils/siws/account-contract-abi.js'
 import { readContract } from './readContract.js'
 import type { Address } from 'abitype'
-// import {
-//   type VerifyHashErrorType,
-//   type VerifyHashParameters,
-//   verifyHash,
-// } from '../public/verifyHash.js'
+import { argentAccountABI } from '../../abi/argentAccountABI.js'
 
 export type VerifyTypedDataParameters = {
   /** The address to verify the typed data for. */
@@ -47,14 +40,16 @@ export async function verifyTypedData(
   const { address, typedData, signature } =
     parameters as VerifyTypedDataParameters
   const hash = getMessageHash(typedData, address)
-  const verifyParams = {
+  const result = await readContract(client, {
+    abi: argentAccountABI,
     address: address as Address,
-    abi: accountABI,
-    functionName: 'isValidSignature',
-    args: [hash, signature],
-  }
-  const result = await readContract(client, verifyParams)
-  if (result === '0x56414c4944') {
+    functionName: 'is_valid_signature',
+    args: {
+      hash: hash as 'felt252',
+      signature: signature as unknown as 'felt252'[],
+    },
+  })
+  if (result.data === '56414c4944' as 'felt252') {
     return true
   }
   return false
