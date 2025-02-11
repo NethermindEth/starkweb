@@ -3,7 +3,6 @@ import type { Client } from '../../clients/createClient.js'
 import type { Transport } from '../../clients/transports/createTransport.js'
 import { getMessageHash } from '../../strk-utils/typedData.js'
 import type { Chain } from '../../types/chain.js'
-// import { accountABI } from '../../utils/siws/account-contract-abi.js'
 import { readContract } from '../public/readContract.js'
 import type { Address } from 'abitype'
 
@@ -1740,7 +1739,7 @@ export async function verifySiwsMessage<TChain extends Chain | undefined>(
     functionName: 'isValidSignature',
     args: {
       hash: hash as "felt252",
-      signatures: signature as "felt252"[],
+      signatures:signature as unknown as "felt252"[],
     },
   })
 
