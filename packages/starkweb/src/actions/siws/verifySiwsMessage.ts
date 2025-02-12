@@ -1736,10 +1736,10 @@ export async function verifySiwsMessage<TChain extends Chain | undefined>(
   const isValidSignature = await readContract(client, {
     address: account as Address,
     abi: argentX_ABI,
-    functionName: 'isValidSignature',
+    functionName: 'is_valid_signature',
     args: {
       hash: hash as "felt252",
-      signatures:signature as unknown as "felt252"[],
+      signature:signature as unknown as "felt252"[],
     },
   })
 
