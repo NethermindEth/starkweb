@@ -23,7 +23,6 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query';
-import { useToast } from '@chakra-ui/react';
 
 export function getConfig() {
   return createConfig({
@@ -55,33 +54,6 @@ declare module 'starkweb/react' {
 const config = getConfig();
 
 const queryClient = new QueryClient();
-
-const toast = useToast();
-
-const connectWallet = async () => {
-  try {
-    // ... existing connect code ...
-  } catch (error: any) {
-    if (error.message?.includes('KeyRing is locked')) {
-      toast({
-        title: 'Wallet Locked',
-        description: 'Please unlock your wallet and try again',
-        status: 'warning',
-        duration: 5000,
-        isClosable: true,
-      });
-    } else {
-      toast({
-        title: 'Connection Error',
-        description: error.message || 'Failed to connect wallet',
-        status: 'error',
-        duration: 5000,
-        isClosable: true,
-      });
-    }
-    console.error('Wallet connection error:', error);
-  }
-};
 
 export const Web3Provider = ({ children, initialState }: { children: React.ReactNode, initialState: State }) => {
   return (
