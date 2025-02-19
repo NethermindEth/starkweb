@@ -2,7 +2,7 @@ import { stringify } from 'node:querystring';
 import { argentAccountABI } from '../../packages/starkweb/dist/esm/abi/argentAccountABI.js';
 import { readContract } from '../../packages/starkweb/dist/esm/actions/public/readContract.js';
 import { verifyMessage } from '../../packages/starkweb/dist/esm/actions/public/verifyMessage.js';
-import { client } from './index.js';
+import { client } from './multicall.js';
 
 const message = 'Hello, world!';
 const address = '0x034abecf49cedc634d0c3145da7b1caea99d8d4f2da5b5d41e532ea05192d523';

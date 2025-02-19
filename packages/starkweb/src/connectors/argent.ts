@@ -55,6 +55,8 @@ export function argentX() {
         return
       }
       const provider = await this.getProvider()
+      await config.storage?.setItem('argentX.disconnected', true)
+
       if (provider && window.starknet_argentX?.isConnected) {
         this.onConnect.bind(this)
         provider.on('accountsChanged', this.onAccountsChanged.bind(this))

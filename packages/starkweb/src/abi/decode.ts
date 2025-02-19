@@ -94,6 +94,12 @@ export function decodeCoreType(
         throw new Error('Invalid Felt value');
       }
       return [BigInt(values[offset]?.toString() || '0').toString(16), offset + 1];
+    case 'contract_address':
+    case 'core::starknet::contract_address::ContractAddress':
+      if (!values[offset]) {
+        throw new Error('Invalid Contract Address value');
+      }
+      return [values[offset]?.toString() || '0', offset + 1];
     default:
       throw new Error(`Unsupported type: ${type}`);
   }

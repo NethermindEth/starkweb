@@ -44,6 +44,7 @@ import { ProviderRpcError } from "../errors/rpc.js"
         if (typeof window === 'undefined') return
         if (typeof window.starknet_braavos !== 'object') return
         const provider = await this.getProvider()
+        await config.storage?.setItem('braavos.disconnected', true)
         if (provider && window.starknet_braavos?.isConnected) {
           this.onConnect.bind(this)
           provider.on('accountsChanged', this.onAccountsChanged.bind(this))

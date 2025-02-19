@@ -10,7 +10,7 @@ import {
 
 const ValidStarknetCoreTypes = new Set([
   'bool', 'felt', 'u8', 'u16', 'u32', 'u64', 'u128', 'u256',
-  'contract_address', 'felt252', 'core::felt252'
+  'contract_address', 'felt252', 'core::felt252', 'core::starknet::contract_address::ContractAddress'
 ]);
 
 export function createAbi(

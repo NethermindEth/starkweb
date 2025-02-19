@@ -52,6 +52,7 @@ import { injectMetamaskBridge } from './metamask-bridge.js'
           return
         }
 
+        await config.storage?.setItem('metamask.disconnected', true)
         const provider = await this.getProvider()
         if (provider) {
           this.onConnect.bind(this)

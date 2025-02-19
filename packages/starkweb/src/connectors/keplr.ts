@@ -47,6 +47,7 @@ import { ProviderRpcError } from "../errors/rpc.js"
         }
         if (typeof window.starknet_keplr !== 'object') return
         const provider = await this.getProvider()
+        await config.storage?.setItem('keplr.disconnected', true)
         if (provider && window.starknet_keplr?.isConnected) {
           this.onConnect.bind(this)
           provider.on('accountsChanged', this.onAccountsChanged.bind(this))
