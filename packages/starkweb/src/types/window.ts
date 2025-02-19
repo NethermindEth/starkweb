@@ -19,5 +19,9 @@ declare global {
       enable: () => Promise<string[]>
       isConnected: boolean
     } & SNIP1193Provider | undefined
+    starknet_catridge?: {
+      enable: () => Promise<string[]>
+      isConnected: boolean
+    } & SNIP1193Provider | undefined
   }
 }

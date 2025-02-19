@@ -195,6 +195,7 @@
         "prompts": "^2.4.2",
         "use-sync-external-store": "1.2.2",
         "ws": "latest",
-        "zustand": "4.4.1"
+        "zustand": "4.4.1",
+        "@cartridge/controller": "0.6.0"
     }
 }

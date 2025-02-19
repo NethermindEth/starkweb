@@ -8,6 +8,7 @@ import {
 import {
   argentX,
   braavos,
+  catridge,
   keplr,
   metamask,
 } from 'starkweb/connectors';
@@ -32,6 +33,7 @@ export function getConfig() {
       braavos(),
       keplr(),
       metamask(),
+      catridge(),
     ],
     storage: createStorage({
       storage: cookieStorage,
