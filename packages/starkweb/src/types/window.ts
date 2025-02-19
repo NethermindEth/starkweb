@@ -22,6 +22,8 @@ declare global {
     starknet_catridge?: {
       enable: () => Promise<string[]>
       isConnected: boolean
+      connect: () => Promise<{address: string}>
+      disconnect: () => Promise<void>
     } & SNIP1193Provider | undefined
   }
 }
