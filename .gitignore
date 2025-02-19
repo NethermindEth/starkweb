@@ -32,3 +32,9 @@ storybook-static
 
 tsconfig.tsbuildinfo
 .vercel
+
+
+app/next/certificates/*
+app/next/.env
+app/next/node_modules
+*.pem

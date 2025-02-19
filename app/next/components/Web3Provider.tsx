@@ -8,6 +8,7 @@ import {
 import {
   argentX,
   braavos,
+  catridge,
   keplr,
   metamask,
 } from 'starkweb/connectors';
@@ -23,6 +24,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query';
+import { env } from 'process';
 
 export function getConfig() {
   return createConfig({
@@ -32,6 +34,21 @@ export function getConfig() {
       braavos(),
       keplr(),
       metamask(),
+      catridge({
+        defaultChainId: '0x534e5f5345504f4c4941',
+        chains: [
+          {
+            id: '0x534e5f5345504f4c4941',
+            name: 'Sepolia',
+            rpcUrl: 'https://api.cartridge.gg/x/starknet/sepolia',
+          },
+          {
+            id: '0x534e5f4d41494e',
+            name: 'Mainnet',
+            rpcUrl: 'https://api.cartridge.gg/x/starknet/mainnet',
+          },
+        ],
+      }),
     ],
     storage: createStorage({
       storage: cookieStorage,
