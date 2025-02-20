@@ -1,6 +1,6 @@
 {
     "name": "starkweb",
-    "version": "0.0.18",
+    "version": "0.0.19",
     "private": false,
     "type": "module",
     "main": "./dist/cjs/exports/starkweb.js",
@@ -8,7 +8,7 @@
     "types": "./dist/types/exports/starkweb.d.ts",
     "typings": "./dist/types/exports/starkweb.d.ts",
     "bin": {
-        "starkweb": "./dist/esm/create-starkweb/cli.js"
+        "starkweb": "./dist/esm/cli/bin.js"
     },
     "repository": {
         "type": "git",
@@ -64,11 +64,6 @@
             "types": "./dist/types/exports/window.d.ts",
             "import": "./dist/esm/exports/window.js",
             "default": "./dist/cjs/exports/window.js"
-        },
-        "./cli": {
-            "types": "./dist/types/cli/bin.d.ts",
-            "import": "./dist/esm/cli/bin.js",
-            "default": "./dist/cjs/cli/bin.js"
         },
         "./utils": {
             "types": "./dist/types/exports/utils.d.ts",
@@ -168,7 +163,8 @@
         "react": "18.3.1",
         "rimraf": "^6.0.1",
         "turbo": "^2.2.3",
-        "typescript": "^5.6.3"
+        "typescript": "^5.6.3",
+        "starknet": "6.21.0"
     },
     "dependencies": {
         "@0x/utils": "latest",

@@ -55,14 +55,14 @@ importers:
         specifier: ^18.0.0
         version: 18.3.1(react@18.3.1)
       starkweb:
-        specifier: latest
-        version: 0.0.17(@tanstack/query-core@5.66.0)(@tanstack/react-query@5.66.0(react@18.3.1))(@types/react@18.3.12)(bufferutil@4.0.8)(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.1)
+        specifier: 0.0.18
+        version: 0.0.18(@tanstack/query-core@5.66.0)(@tanstack/react-query@5.66.0(react@18.3.1))(@types/react@18.3.12)(bufferutil@4.0.8)(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(starknet@6.23.1(encoding@0.1.13))(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.1)
       starkwebkit:
         specifier: latest
-        version: 0.0.3(@babel/core@7.26.0)(@tanstack/react-query@5.66.0(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react-is@16.13.1)(react@18.3.1)(starkweb@0.0.17(@tanstack/query-core@5.66.0)(@tanstack/react-query@5.66.0(react@18.3.1))(@types/react@18.3.12)(bufferutil@4.0.8)(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.1))
+        version: 0.0.3(@babel/core@7.26.0)(@tanstack/react-query@5.66.0(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react-is@16.13.1)(react@18.3.1)(starkweb@0.0.18(@tanstack/query-core@5.66.0)(@tanstack/react-query@5.66.0(react@18.3.1))(@types/react@18.3.12)(bufferutil@4.0.8)(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(starknet@6.23.1(encoding@0.1.13))(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.1))
       starkwebkit-next-siwe:
         specifier: latest
-        version: 0.0.2(connectkit@1.8.2(@babel/core@7.26.0)(@tanstack/react-query@5.66.0(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react-is@16.13.1)(react@18.3.1)(viem@2.23.2(bufferutil@4.0.8)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.1))(wagmi@2.14.11(@tanstack/query-core@5.66.0)(@tanstack/react-query@5.66.0(react@18.3.1))(@types/react@18.3.12)(bufferutil@4.0.8)(encoding@0.1.13)(react@18.3.1)(typescript@5.7.3)(utf-8-validate@5.0.10)(viem@2.23.2(bufferutil@4.0.8)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.1))(zod@3.24.1)))(koa@2.15.3)(next@12.3.0(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(starkweb@0.0.17(@tanstack/query-core@5.66.0)(@tanstack/react-query@5.66.0(react@18.3.1))(@types/react@18.3.12)(bufferutil@4.0.8)(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.1))
+        version: 0.0.2(connectkit@1.8.2(@babel/core@7.26.0)(@tanstack/react-query@5.66.0(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react-is@16.13.1)(react@18.3.1)(viem@2.23.2(bufferutil@4.0.8)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.1))(wagmi@2.14.11(@tanstack/query-core@5.66.0)(@tanstack/react-query@5.66.0(react@18.3.1))(@types/react@18.3.12)(bufferutil@4.0.8)(encoding@0.1.13)(react@18.3.1)(typescript@5.7.3)(utf-8-validate@5.0.10)(viem@2.23.2(bufferutil@4.0.8)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.1))(zod@3.24.1)))(koa@2.15.3)(next@12.3.0(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(starkweb@0.0.18(@tanstack/query-core@5.66.0)(@tanstack/react-query@5.66.0(react@18.3.1))(@types/react@18.3.12)(bufferutil@4.0.8)(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(starknet@6.23.1(encoding@0.1.13))(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.1))
       tailwindcss:
         specifier: ^3.3.2
         version: 3.4.15
@@ -244,7 +244,7 @@ importers:
         version: 1.10.0
       '@cartridge/controller':
         specifier: 0.6.0
-        version: 0.6.0(starknet@6.23.1(encoding@0.1.13))
+        version: 0.6.0(starknet@6.21.0(encoding@0.1.13))
       '@module-federation/enhanced':
         specifier: ^0.8.10
         version: 0.8.10(@rspack/core@1.2.2(@swc/helpers@0.5.15))(bufferutil@4.0.8)(react-dom@19.0.0(react@18.3.1))(react@18.3.1)(typescript@5.6.3)(utf-8-validate@5.0.10)
@@ -339,6 +339,9 @@ importers:
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
+      starknet:
+        specifier: 6.21.0
+        version: 6.21.0(encoding@0.1.13)
       turbo:
         specifier: ^2.2.3
         version: 2.2.3
@@ -1341,8 +1344,8 @@ packages:
   '@module-federation/error-codes@0.8.10':
     resolution: {integrity: sha512-UMC/0+l8Xx2/w8LjJtiLBRaxdwrC72zDN1ZjbouQf5ujyR+HZkV/6BBj6fvvwvLKL7fZfoG0SBBBv5aE0Rh87w==}
 
-  '@module-federation/error-codes@0.8.11':
-    resolution: {integrity: sha512-mqt8/BQq11Cc/zbuHtojTwbZ78LJiy4f/cm9UsQPWf65Pqxi4Ticn40wccVFq8O9gee/QEi2Mf3XiwSf2SHl0A==}
+  '@module-federation/error-codes@0.8.12':
+    resolution: {integrity: sha512-K+F4iiV62KY+IpjK6ggn3vI5Yt/T/LUb6xuazY78bhAGwLaHe1DYr7BfSutKMpiB+Dcs6U4dYOBogSMnnl0j4Q==}
 
   '@module-federation/error-codes@0.8.4':
     resolution: {integrity: sha512-55LYmrDdKb4jt+qr8qE8U3al62ZANp3FhfVaNPOaAmdTh0jHdD8M3yf5HKFlr5xVkVO4eV/F/J2NCfpbh+pEXQ==}
@@ -1373,8 +1376,8 @@ packages:
   '@module-federation/runtime-core@0.6.18':
     resolution: {integrity: sha512-15xZm3wLq/EkvJNdtpygW83N7i7GxszRB4j6fTdd6R2fUSqk1miB7nOdVb1lBxEUYuXn049Aj2lpDWkqD0mMHg==}
 
-  '@module-federation/runtime-core@0.6.19':
-    resolution: {integrity: sha512-PDMQIkxEWlF9c1ezDl1f+DwzoNoWan/jfhtBoOjp0JiMtPNPe3ZUH0v2++Cbaxc/BRtHT+ILCSDEezC4zF98uw==}
+  '@module-federation/runtime-core@0.6.20':
+    resolution: {integrity: sha512-rX7sd/i7tpkAbfMD4TtFt/57SWNC/iv7UYS8g+ad7mnCJggWE1YEKsKSFgcvp4zU3thwR+j2y+kOCwd1sQvxEA==}
 
   '@module-federation/runtime-tools@0.8.10':
     resolution: {integrity: sha512-AWBCbtZPIOCKynmAhGVIwQI4ql7nC8HPhCacnMtG/xs0s7HNuYlJPgc0SGyWncInTVFpbgsW0tdnVvFUmXgO0g==}
@@ -1385,8 +1388,8 @@ packages:
   '@module-federation/runtime@0.8.10':
     resolution: {integrity: sha512-3LPewlMw4wSPpcJwwmG+6u/pG/D870eYwn7xlRZ16g1/ymKG3zDHEGPHCWqyIgLp7qsnjxaNLEZuPsGB5WlAvg==}
 
-  '@module-federation/runtime@0.8.11':
-    resolution: {integrity: sha512-07aBwU5AJltbspOot0gVYDA0PAMNkjBBaIRIUMsLNj9MGx01/YKl13z239UdC0Fk4hFlexpkef8ZvnMPgp4YFA==}
+  '@module-federation/runtime@0.8.12':
+    resolution: {integrity: sha512-eYohRfambj/qzxz6tEakDn459ROcixWO4zL5gmTEOmwG+jCDnxGR14j1guopyrrpjb6EKFNrPVWtYZTPPfGdQQ==}
 
   '@module-federation/runtime@0.8.4':
     resolution: {integrity: sha512-yZeZ7z2Rx4gv/0E97oLTF3V6N25vglmwXGgoeju/W2YjsFvWzVtCDI7zRRb0mJhU6+jmSM8jP1DeQGbea/AiZQ==}
@@ -1394,8 +1397,8 @@ packages:
   '@module-federation/sdk@0.8.10':
     resolution: {integrity: sha512-sU7am0SCE01Ks8Ud8wxq2Bsqzc6TBGYRys2rmi/YhTY6M6Q8sT56WdfhB5/AzsulDOAGY6V8Ug8V24/twT1eBw==}
 
-  '@module-federation/sdk@0.8.11':
-    resolution: {integrity: sha512-h9oXuOABJ5O77TeWZoLO3KNq7HywdZkX2c2rmYEQRRrkuXHgHAQu0nEs7ZuL5YDWNQLUMxoOyTH+sK+JWgvnKQ==}
+  '@module-federation/sdk@0.8.12':
+    resolution: {integrity: sha512-zFgXYBHbzwIqlrLfn6ewIRXDZCctDDQT2nFhbsZr29yWQgpmW1fm2kJCxQsG0DENGGN1KpzfDoxjjvSKJS/ZHA==}
 
   '@module-federation/sdk@0.8.4':
     resolution: {integrity: sha512-waABomIjg/5m1rPDBWYG4KUhS5r7OUUY7S+avpaVIY/tkPWB3ibRDKy2dNLLAMaLKq0u+B1qIdEp4NIWkqhqpg==}
@@ -4832,6 +4835,7 @@ packages:
 
   lodash.isequal@4.5.0:
     resolution: {integrity: sha512-pDo3lu8Jhfjqls6GkMgpahsF9kCyayhgykjyLMNFTKWrpVdAQtYyB4muAMWozBB4ig/dtWAmsMxLEI8wuz+DYQ==}
+    deprecated: This package is deprecated. Use require('node:util').isDeepStrictEqual instead.
 
   lodash.merge@4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
@@ -6142,6 +6146,9 @@ packages:
   stable-hash@0.0.4:
     resolution: {integrity: sha512-LjdcbuBeLcdETCrPn9i8AYAZ1eCtu4ECAWtP7UleOiZ9LzVxRzzUZEoZ8zB24nhkQnDWyET0I+3sWokSDS3E7g==}
 
+  starknet@6.21.0:
+    resolution: {integrity: sha512-xUSlqyE+J/S5un3TyQY0Kehilh1u7ewPaut87eOxTDS1r90SU0QvQ3JEECp5LbW/sqsaMhfb+tGTBGrKzXg7bg==}
+
   starknet@6.23.1:
     resolution: {integrity: sha512-vQV9luXpmwZZs9RVZaRwm2iD8T0PYx1AzgZeQsCvD89tR0HwUF0paty27ZzuJrdPe0CmAs/ipAYFCE55jbj0RQ==}
 
@@ -6157,8 +6164,8 @@ packages:
       typescript:
         optional: true
 
-  starkweb@0.0.17:
-    resolution: {integrity: sha512-flGjou6gr3+cPRUoT0abr81a6EAMf1h3+6datZvPZEMuI2ZX7jV/QE5Ct69wu8RUaUmh0Vk6MXXHCblvfTf3HQ==}
+  starkweb@0.0.18:
+    resolution: {integrity: sha512-TBzrklrrrZxB/OuNSiGibyjG0rJGRQD4kk1ag4RyWIFrc5m9UmZqQmjqQCKvvo2f2eM/acCdr+KMGktA+vQmxw==}
     hasBin: true
     peerDependencies:
       '@tanstack/query-core': 5.66.0
@@ -7236,6 +7243,18 @@ snapshots:
 
   '@cartridge/account-wasm@0.6.0': {}
 
+  '@cartridge/controller@0.6.0(starknet@6.21.0(encoding@0.1.13))':
+    dependencies:
+      '@cartridge/account-wasm': 0.6.0
+      '@cartridge/penpal': 6.2.4
+      '@starknet-io/types-js': 0.7.7
+      '@telegram-apps/sdk': 2.11.3
+      base64url: 3.0.1
+      cbor-x: 1.6.0
+      fast-deep-equal: 3.1.3
+      query-string: 7.1.3
+      starknet: 6.21.0(encoding@0.1.13)
+
   '@cartridge/controller@0.6.0(starknet@6.23.1(encoding@0.1.13))':
     dependencies:
       '@cartridge/account-wasm': 0.6.0
@@ -8247,7 +8266,7 @@ snapshots:
 
   '@module-federation/error-codes@0.8.10': {}
 
-  '@module-federation/error-codes@0.8.11': {}
+  '@module-federation/error-codes@0.8.12': {}
 
   '@module-federation/error-codes@0.8.4': {}
 
@@ -8331,10 +8350,10 @@ snapshots:
       '@module-federation/error-codes': 0.8.10
       '@module-federation/sdk': 0.8.10
 
-  '@module-federation/runtime-core@0.6.19':
+  '@module-federation/runtime-core@0.6.20':
     dependencies:
-      '@module-federation/error-codes': 0.8.11
-      '@module-federation/sdk': 0.8.11
+      '@module-federation/error-codes': 0.8.12
+      '@module-federation/sdk': 0.8.12
 
   '@module-federation/runtime-tools@0.8.10':
     dependencies:
@@ -8352,11 +8371,11 @@ snapshots:
       '@module-federation/runtime-core': 0.6.18
       '@module-federation/sdk': 0.8.10
 
-  '@module-federation/runtime@0.8.11':
+  '@module-federation/runtime@0.8.12':
     dependencies:
-      '@module-federation/error-codes': 0.8.11
-      '@module-federation/runtime-core': 0.6.19
-      '@module-federation/sdk': 0.8.11
+      '@module-federation/error-codes': 0.8.12
+      '@module-federation/runtime-core': 0.6.20
+      '@module-federation/sdk': 0.8.12
 
   '@module-federation/runtime@0.8.4':
     dependencies:
@@ -8367,7 +8386,7 @@ snapshots:
     dependencies:
       isomorphic-rslog: 0.0.7
 
-  '@module-federation/sdk@0.8.11':
+  '@module-federation/sdk@0.8.12':
     dependencies:
       isomorphic-rslog: 0.0.7
 
@@ -11237,7 +11256,7 @@ snapshots:
       eslint: 8.23.1
       eslint-import-resolver-node: 0.3.9
       eslint-import-resolver-typescript: 2.7.1(eslint-plugin-import@2.31.0(eslint@8.23.1))(eslint@8.23.1)
-      eslint-plugin-import: 2.31.0(@typescript-eslint/parser@5.62.0(eslint@8.23.1)(typescript@5.7.3))(eslint-import-resolver-typescript@2.7.1(eslint-plugin-import@2.31.0(eslint@8.23.1))(eslint@8.23.1))(eslint@8.23.1)
+      eslint-plugin-import: 2.31.0(@typescript-eslint/parser@5.62.0(eslint@8.23.1)(typescript@5.7.3))(eslint-import-resolver-typescript@2.7.1)(eslint@8.23.1)
       eslint-plugin-jsx-a11y: 6.10.2(eslint@8.23.1)
       eslint-plugin-react: 7.37.2(eslint@8.23.1)
       eslint-plugin-react-hooks: 4.6.2(eslint@8.23.1)
@@ -11298,7 +11317,7 @@ snapshots:
     dependencies:
       debug: 4.3.7(supports-color@5.5.0)
       eslint: 8.23.1
-      eslint-plugin-import: 2.31.0(@typescript-eslint/parser@5.62.0(eslint@8.23.1)(typescript@5.7.3))(eslint-import-resolver-typescript@2.7.1(eslint-plugin-import@2.31.0(eslint@8.23.1))(eslint@8.23.1))(eslint@8.23.1)
+      eslint-plugin-import: 2.31.0(@typescript-eslint/parser@5.62.0(eslint@8.23.1)(typescript@5.7.3))(eslint-import-resolver-typescript@2.7.1)(eslint@8.23.1)
       glob: 7.2.3
       is-glob: 4.0.3
       resolve: 1.22.8
@@ -11371,7 +11390,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-import@2.31.0(@typescript-eslint/parser@5.62.0(eslint@8.23.1)(typescript@5.7.3))(eslint-import-resolver-typescript@2.7.1(eslint-plugin-import@2.31.0(eslint@8.23.1))(eslint@8.23.1))(eslint@8.23.1):
+  eslint-plugin-import@2.31.0(@typescript-eslint/parser@5.62.0(eslint@8.23.1)(typescript@5.7.3))(eslint-import-resolver-typescript@2.7.1)(eslint@8.23.1):
     dependencies:
       '@rtsao/scc': 1.1.0
       array-includes: 3.1.8
@@ -14650,6 +14669,22 @@ snapshots:
 
   stable-hash@0.0.4: {}
 
+  starknet@6.21.0(encoding@0.1.13):
+    dependencies:
+      '@noble/curves': 1.7.0
+      '@noble/hashes': 1.6.0
+      '@scure/base': 1.2.1
+      '@scure/starknet': 1.1.0
+      abi-wan-kanabi: 2.2.4
+      fetch-cookie: 3.0.1
+      isomorphic-fetch: 3.0.0(encoding@0.1.13)
+      lossless-json: 4.0.2
+      pako: 2.1.0
+      starknet-types-07: '@starknet-io/types-js@0.7.10'
+      ts-mixer: 6.0.4
+    transitivePeerDependencies:
+      - encoding
+
   starknet@6.23.1(encoding@0.1.13):
     dependencies:
       '@noble/curves': 1.7.0
@@ -14702,19 +14737,20 @@ snapshots:
       - utf-8-validate
       - zod
 
-  starkweb@0.0.17(@tanstack/query-core@5.66.0)(@tanstack/react-query@5.66.0(react@18.3.1))(@types/react@18.3.12)(bufferutil@4.0.8)(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.1):
+  starkweb@0.0.18(@tanstack/query-core@5.66.0)(@tanstack/react-query@5.66.0(react@18.3.1))(@types/react@18.3.12)(bufferutil@4.0.8)(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(starknet@6.23.1(encoding@0.1.13))(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.1):
     dependencies:
       '@0x/utils': 7.0.0(encoding@0.1.13)
       '@adraffy/ens-normalize': 1.10.0
+      '@cartridge/controller': 0.6.0(starknet@6.23.1(encoding@0.1.13))
       '@module-federation/enhanced': 0.8.10(bufferutil@4.0.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.3)(utf-8-validate@5.0.10)
-      '@module-federation/runtime': 0.8.11
+      '@module-federation/runtime': 0.8.12
       '@noble/curves': 1.4.0
       '@noble/hashes': 1.4.0
       '@scure/base': 1.1.3
       '@scure/bip32': 1.4.0
       '@scure/bip39': 1.3.0
       '@scure/starknet': 1.0.0
-      '@starknet-io/types-js': 0.7.7
+      '@starknet-io/types-js': 0.7.10
       '@tanstack/query-core': 5.66.0
       '@tanstack/react-query': 5.66.0(react@18.3.1)
       '@types/use-sync-external-store': 0.0.6
@@ -14742,25 +14778,26 @@ snapshots:
       - encoding
       - immer
       - react-dom
+      - starknet
       - supports-color
       - utf-8-validate
       - vue-tsc
       - webpack
       - zod
 
-  starkwebkit-next-siwe@0.0.2(connectkit@1.8.2(@babel/core@7.26.0)(@tanstack/react-query@5.66.0(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react-is@16.13.1)(react@18.3.1)(viem@2.23.2(bufferutil@4.0.8)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.1))(wagmi@2.14.11(@tanstack/query-core@5.66.0)(@tanstack/react-query@5.66.0(react@18.3.1))(@types/react@18.3.12)(bufferutil@4.0.8)(encoding@0.1.13)(react@18.3.1)(typescript@5.7.3)(utf-8-validate@5.0.10)(viem@2.23.2(bufferutil@4.0.8)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.1))(zod@3.24.1)))(koa@2.15.3)(next@12.3.0(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(starkweb@0.0.17(@tanstack/query-core@5.66.0)(@tanstack/react-query@5.66.0(react@18.3.1))(@types/react@18.3.12)(bufferutil@4.0.8)(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.1)):
+  starkwebkit-next-siwe@0.0.2(connectkit@1.8.2(@babel/core@7.26.0)(@tanstack/react-query@5.66.0(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react-is@16.13.1)(react@18.3.1)(viem@2.23.2(bufferutil@4.0.8)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.1))(wagmi@2.14.11(@tanstack/query-core@5.66.0)(@tanstack/react-query@5.66.0(react@18.3.1))(@types/react@18.3.12)(bufferutil@4.0.8)(encoding@0.1.13)(react@18.3.1)(typescript@5.7.3)(utf-8-validate@5.0.10)(viem@2.23.2(bufferutil@4.0.8)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.1))(zod@3.24.1)))(koa@2.15.3)(next@12.3.0(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(starkweb@0.0.18(@tanstack/query-core@5.66.0)(@tanstack/react-query@5.66.0(react@18.3.1))(@types/react@18.3.12)(bufferutil@4.0.8)(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(starknet@6.23.1(encoding@0.1.13))(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.1)):
     dependencies:
       connectkit: 1.8.2(@babel/core@7.26.0)(@tanstack/react-query@5.66.0(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react-is@16.13.1)(react@18.3.1)(viem@2.23.2(bufferutil@4.0.8)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.1))(wagmi@2.14.11(@tanstack/query-core@5.66.0)(@tanstack/react-query@5.66.0(react@18.3.1))(@types/react@18.3.12)(bufferutil@4.0.8)(encoding@0.1.13)(react@18.3.1)(typescript@5.7.3)(utf-8-validate@5.0.10)(viem@2.23.2(bufferutil@4.0.8)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.1))(zod@3.24.1))
       iron-session: 6.3.1(koa@2.15.3)(next@12.3.0(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
       next: 12.3.0(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
-      starkweb: 0.0.17(@tanstack/query-core@5.66.0)(@tanstack/react-query@5.66.0(react@18.3.1))(@types/react@18.3.12)(bufferutil@4.0.8)(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.1)
+      starkweb: 0.0.18(@tanstack/query-core@5.66.0)(@tanstack/react-query@5.66.0(react@18.3.1))(@types/react@18.3.12)(bufferutil@4.0.8)(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(starknet@6.23.1(encoding@0.1.13))(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.1)
     transitivePeerDependencies:
       - express
       - koa
 
-  starkwebkit@0.0.3(@babel/core@7.26.0)(@tanstack/react-query@5.66.0(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react-is@16.13.1)(react@18.3.1)(starkweb@0.0.17(@tanstack/query-core@5.66.0)(@tanstack/react-query@5.66.0(react@18.3.1))(@types/react@18.3.12)(bufferutil@4.0.8)(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.1)):
+  starkwebkit@0.0.3(@babel/core@7.26.0)(@tanstack/react-query@5.66.0(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react-is@16.13.1)(react@18.3.1)(starkweb@0.0.18(@tanstack/query-core@5.66.0)(@tanstack/react-query@5.66.0(react@18.3.1))(@types/react@18.3.12)(bufferutil@4.0.8)(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(starknet@6.23.1(encoding@0.1.13))(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.1)):
     dependencies:
       '@tanstack/react-query': 5.66.0(react@18.3.1)
       buffer: 6.0.3
@@ -14772,7 +14809,7 @@ snapshots:
       react-transition-state: 1.1.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-use-measure: 2.1.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       resize-observer-polyfill: 1.5.1
-      starkweb: 0.0.17(@tanstack/query-core@5.66.0)(@tanstack/react-query@5.66.0(react@18.3.1))(@types/react@18.3.12)(bufferutil@4.0.8)(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.1)
+      starkweb: 0.0.18(@tanstack/query-core@5.66.0)(@tanstack/react-query@5.66.0(react@18.3.1))(@types/react@18.3.12)(bufferutil@4.0.8)(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(starknet@6.23.1(encoding@0.1.13))(typescript@5.7.3)(utf-8-validate@5.0.10)(zod@3.24.1)
       styled-components: 5.3.11(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react-is@16.13.1)(react@18.3.1)
     transitivePeerDependencies:
       - '@babel/core'
