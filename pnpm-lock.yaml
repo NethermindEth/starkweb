@@ -242,9 +242,6 @@ importers:
       '@adraffy/ens-normalize':
         specifier: 1.10.0
         version: 1.10.0
-      '@cartridge/controller':
-        specifier: 0.6.0
-        version: 0.6.0(starknet@6.21.0(encoding@0.1.13))
       '@module-federation/enhanced':
         specifier: ^0.8.10
         version: 0.8.10(@rspack/core@1.2.2(@swc/helpers@0.5.15))(bufferutil@4.0.8)(react-dom@19.0.0(react@18.3.1))(react@18.3.1)(typescript@5.6.3)(utf-8-validate@5.0.10)
@@ -311,9 +308,6 @@ importers:
       prompts:
         specifier: ^2.4.2
         version: 2.4.2
-      starknet:
-        specifier: 6.21.0
-        version: 6.21.0(encoding@0.1.13)
       use-sync-external-store:
         specifier: 1.2.2
         version: 1.2.2(react@18.3.1)
@@ -6146,9 +6140,6 @@ packages:
   stable-hash@0.0.4:
     resolution: {integrity: sha512-LjdcbuBeLcdETCrPn9i8AYAZ1eCtu4ECAWtP7UleOiZ9LzVxRzzUZEoZ8zB24nhkQnDWyET0I+3sWokSDS3E7g==}
 
-  starknet@6.21.0:
-    resolution: {integrity: sha512-xUSlqyE+J/S5un3TyQY0Kehilh1u7ewPaut87eOxTDS1r90SU0QvQ3JEECp5LbW/sqsaMhfb+tGTBGrKzXg7bg==}
-
   starknet@6.23.1:
     resolution: {integrity: sha512-vQV9luXpmwZZs9RVZaRwm2iD8T0PYx1AzgZeQsCvD89tR0HwUF0paty27ZzuJrdPe0CmAs/ipAYFCE55jbj0RQ==}
 
@@ -7242,18 +7233,6 @@ snapshots:
     optional: true
 
   '@cartridge/account-wasm@0.6.0': {}
-
-  '@cartridge/controller@0.6.0(starknet@6.21.0(encoding@0.1.13))':
-    dependencies:
-      '@cartridge/account-wasm': 0.6.0
-      '@cartridge/penpal': 6.2.4
-      '@starknet-io/types-js': 0.7.7
-      '@telegram-apps/sdk': 2.11.3
-      base64url: 3.0.1
-      cbor-x: 1.6.0
-      fast-deep-equal: 3.1.3
-      query-string: 7.1.3
-      starknet: 6.21.0(encoding@0.1.13)
 
   '@cartridge/controller@0.6.0(starknet@6.23.1(encoding@0.1.13))':
     dependencies:
@@ -14668,22 +14647,6 @@ snapshots:
   sprintf-js@1.0.3: {}
 
   stable-hash@0.0.4: {}
-
-  starknet@6.21.0(encoding@0.1.13):
-    dependencies:
-      '@noble/curves': 1.7.0
-      '@noble/hashes': 1.6.0
-      '@scure/base': 1.2.1
-      '@scure/starknet': 1.1.0
-      abi-wan-kanabi: 2.2.4
-      fetch-cookie: 3.0.1
-      isomorphic-fetch: 3.0.0(encoding@0.1.13)
-      lossless-json: 4.0.2
-      pako: 2.1.0
-      starknet-types-07: '@starknet-io/types-js@0.7.10'
-      ts-mixer: 6.0.4
-    transitivePeerDependencies:
-      - encoding
 
   starknet@6.23.1(encoding@0.1.13):
     dependencies:
