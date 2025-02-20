@@ -1,15 +1,12 @@
 {
     "name": "starkweb",
-    "version": "0.0.19",
+    "version": "0.0.20",
     "private": false,
     "type": "module",
     "main": "./dist/cjs/exports/starkweb.js",
     "module": "./dist/esm/exports/starkweb.js",
     "types": "./dist/types/exports/starkweb.d.ts",
     "typings": "./dist/types/exports/starkweb.d.ts",
-    "bin": {
-        "starkweb": "./dist/esm/cli/bin.js"
-    },
     "repository": {
         "type": "git",
         "url": "https://github.com/NethermindEth/starkweb"
@@ -163,8 +160,7 @@
         "react": "18.3.1",
         "rimraf": "^6.0.1",
         "turbo": "^2.2.3",
-        "typescript": "^5.6.3",
-        "starknet": "6.21.0"
+        "typescript": "^5.6.3"
     },
     "dependencies": {
         "@0x/utils": "latest",
@@ -192,6 +188,7 @@
         "use-sync-external-store": "1.2.2",
         "ws": "latest",
         "zustand": "4.4.1",
-        "@cartridge/controller": "0.6.0"
+        "@cartridge/controller": "0.6.0",
+        "starknet": "6.21.0"
     }
 }
