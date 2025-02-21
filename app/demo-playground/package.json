@@ -11,8 +11,8 @@
   "dependencies": {
     "@tanstack/react-query": "^5.61.0",
     "autoprefixer": "^10.4.7",
-    "next": "12.3.0",
-    "postcss": "^8.4.14",
+    "next": "14.2.21",
+    "postcss": "^8.5.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "starkweb": "0.0.21",
