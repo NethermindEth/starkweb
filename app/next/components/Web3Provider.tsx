@@ -23,7 +23,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query';
-import { env } from 'process';
+
 
 export function getConfig() {
   return createConfig({
