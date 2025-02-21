@@ -21,6 +21,7 @@ import { ProviderRpcError } from "../errors/rpc.js"
     type Provider = WalletProvider
     type WalletProvider = Evaluate<SNIP1193Provider & {
         providers?: WalletProvider[] | undefined
+        isConnected: boolean
         /** Only exists in MetaMask as of 2022/04/03 */
         _events?: { connect?: (() => void) | undefined } | undefined
         /** Only exists in MetaMask as of 2022/04/03 */
@@ -55,7 +56,21 @@ import { ProviderRpcError } from "../errors/rpc.js"
         const provider = await this.getProvider()
   
         let accounts: readonly Address[] = []
-        if (isReconnecting) accounts = await this.getAccounts().catch(() => [])
+        if (isReconnecting) {
+          try {
+            accounts = await this.getAccounts().catch(() => [])
+            const currentChainId = await this.getChainId()
+            return { accounts, chainId: chainId ?? currentChainId }
+          } catch (error) {
+            throw new ProviderRpcError(
+              error as Error,
+              {
+                shortMessage: 'Failed to retrieve accounts',
+                code: (error as RpcError).code || -32000
+              }
+            )
+          }
+        }
   
         try {
           if (!accounts?.length) {
@@ -104,7 +119,7 @@ import { ProviderRpcError } from "../errors/rpc.js"
           const provider = await this.getProvider()
           const accounts = (await provider.request({
             type: 'wallet_requestAccounts',
-            params: {}
+            params: {silent_mode: true}
           })) as string[]
           return accounts.map((x) => getStarknetAddress(x))
         } catch (error) {
@@ -138,9 +153,8 @@ import { ProviderRpcError } from "../errors/rpc.js"
             // If shim exists in storage, connector is disconnected
             await config.storage?.getItem('braavos.disconnected')
           if (isDisconnected) return false
-  
-          const accounts = await this.getAccounts()
-          return !!accounts.length
+          let provider = await this.getProvider()
+          return provider.isConnected
         } catch {
           return false
         }

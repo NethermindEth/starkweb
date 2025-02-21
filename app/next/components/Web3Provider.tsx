@@ -24,6 +24,7 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query';
 
+
 export function getConfig() {
   return createConfig({
     chains: [mainnet, sepolia],

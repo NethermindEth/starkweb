@@ -23,6 +23,7 @@ import { injectMetamaskBridge } from './metamask-bridge.js'
     type Provider = WalletProvider
     type WalletProvider = SNIP1193Provider & {
       providers?: SNIP1193Provider[] | undefined
+      isConnected: boolean
       /** Only exists in MetaMask as of 2022/04/03 */
       _events?: { connect?: (() => void) | undefined } | undefined
       /** Only exists in MetaMask as of 2022/04/03 */
@@ -54,16 +55,31 @@ import { injectMetamaskBridge } from './metamask-bridge.js'
 
         await config.storage?.setItem('metamask.disconnected', true)
         const provider = await this.getProvider()
-        if (provider) {
+        if (provider && window.starknet_metamask?.isConnected) {
           this.onConnect.bind(this)
           provider.on('accountsChanged', this.onAccountsChanged.bind(this))
+          provider.on('networkChanged', this.onChainChanged.bind(this))
         }
       },
       async connect({ chainId, isReconnecting } = {}) {
         const provider = await this.getProvider()
   
         let accounts: readonly Address[] = []
-        if (isReconnecting) accounts = await this.getAccounts().catch(() => [])
+        if (isReconnecting) {
+          try {
+            accounts = await this.getAccounts().catch(() => [])
+            const currentChainId = await this.getChainId()
+            return { accounts, chainId: chainId ?? currentChainId }
+          } catch (error) {
+            throw new ProviderRpcError(
+              error as Error,
+              {
+                shortMessage: 'Failed to retrieve accounts',
+                code: (error as RpcError).code || -32000
+              }
+            )
+          }
+        }
   
         try {
           if (!accounts?.length) {
@@ -111,7 +127,7 @@ import { injectMetamaskBridge } from './metamask-bridge.js'
         const provider = await this.getProvider()
         const accounts = (await provider?.request({
           type: 'wallet_requestAccounts',
-          params: {}
+          params: {silent_mode: true}
         })) as string[]
         return accounts.map((x) => getStarknetAddress(x))
       },
@@ -151,8 +167,8 @@ import { injectMetamaskBridge } from './metamask-bridge.js'
             await config.storage?.getItem('metamask.disconnected')
           if (isDisconnected) return false
   
-          const accounts = await this.getAccounts()
-          return !!accounts.length
+          const provider = await this.getProvider()
+          return provider.isConnected
         } catch {
           return false
         }

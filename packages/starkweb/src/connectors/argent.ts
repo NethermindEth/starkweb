@@ -28,6 +28,7 @@ export function argentX() {
   type Provider = WalletProvider
   type WalletProvider = Evaluate<SNIP1193Provider & {
       providers?: WalletProvider[] | undefined
+      isConnected: boolean
       /** Only exists in MetaMask as of 2022/04/03 */
       _events?: { connect?: (() => void) | undefined } | undefined
       /** Only exists in MetaMask as of 2022/04/03 */
@@ -60,13 +61,25 @@ export function argentX() {
       if (provider && window.starknet_argentX?.isConnected) {
         this.onConnect.bind(this)
         provider.on('accountsChanged', this.onAccountsChanged.bind(this))
+        provider.on('networkChanged', this.onChainChanged.bind(this))
       }
     },
     async connect({ chainId, isReconnecting } = {}) {
       const provider = await this.getProvider()
 
       let accounts: readonly Address[] = []
-      if (isReconnecting) accounts = await this.getAccounts().catch(() => [])
+      if (isReconnecting) {
+        try {
+          accounts = await this.getAccounts().catch(() => []) 
+          const currentChainId = await this.getChainId()
+          return { accounts, chainId: chainId ?? currentChainId }
+        } catch (error) {
+          throw new ProviderRpcError(
+            'Failed to retrieve accounts',
+            (error as RpcError).code || -32000
+          )
+        }
+      } 
 
       try {
         if (!accounts?.length) {
@@ -115,7 +128,7 @@ export function argentX() {
         const provider = await this.getProvider()
         const accounts = (await provider.request({
           type: 'wallet_requestAccounts',
-          params: {}
+          params: {silent_mode: true}
         })) as string[]
         return accounts.map((x) => getStarknetAddress(x))
       } catch (error) {
@@ -156,9 +169,8 @@ export function argentX() {
           // If shim exists in storage, connector is disconnected
           await config.storage?.getItem('argentX.disconnected')
         if (isDisconnected) return false
-
-        const accounts = await this.getAccounts()
-        return !!accounts.length
+        let provider = await this.getProvider()
+        return provider.isConnected
       } catch {
         return false
       }

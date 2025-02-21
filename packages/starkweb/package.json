@@ -1,15 +1,12 @@
 {
     "name": "starkweb",
-    "version": "0.0.17",
+    "version": "0.0.21",
     "private": false,
     "type": "module",
     "main": "./dist/cjs/exports/starkweb.js",
     "module": "./dist/esm/exports/starkweb.js",
     "types": "./dist/types/exports/starkweb.d.ts",
     "typings": "./dist/types/exports/starkweb.d.ts",
-    "bin": {
-        "starkweb": "./dist/esm/create-starkweb/cli.js"
-    },
     "repository": {
         "type": "git",
         "url": "https://github.com/NethermindEth/starkweb"
@@ -64,11 +61,6 @@
             "types": "./dist/types/exports/window.d.ts",
             "import": "./dist/esm/exports/window.js",
             "default": "./dist/cjs/exports/window.js"
-        },
-        "./cli": {
-            "types": "./dist/types/cli/bin.d.ts",
-            "import": "./dist/esm/cli/bin.js",
-            "default": "./dist/cjs/cli/bin.js"
         },
         "./utils": {
             "types": "./dist/types/exports/utils.d.ts",

@@ -135,10 +135,10 @@ function Connect() {
             onClick={() => connect({ connector, chainId })}
             className="w-full flex items-center justify-center px-4 py-2 bg-teal-500 dark:bg-teal-600 text-white rounded-lg hover:bg-teal-600 dark:hover:bg-teal-700 transition-colors"
           >
-            <img 
+            <img
               src={connector.icon}
               alt={connector.name}
-              className="w-4 h-4 mr-2" 
+              className="w-4 h-4 mr-2"
             />
             <span className="font-medium">
               {connector.name}
