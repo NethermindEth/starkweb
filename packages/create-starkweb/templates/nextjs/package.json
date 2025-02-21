@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^5.17.15",
-    "next": "14.0.4",
+    "next": "14.2.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "starkweb": "latest",
@@ -21,7 +21,7 @@
     "@types/react": "^18.2.43",
     "eslint": "^8.15.0",
     "eslint-config-next": "^14.0.4",
-    "next": "^14.0.4",
+    "next": "^14.2.21",
     "typescript": "^5.0.4"
   }
 }

@@ -178,7 +178,7 @@
         "abitype": "1.0.5",
         "ajv": "^8.17.1",
         "cac": "^6.7.14",
-        "cross-spawn": "^7.0.3",
+        "cross-spawn": "^7.0.5",
         "eventemitter3": "5.0.1",
         "isows": "1.0.4",
         "lossless-json": "^4.0.2",
