@@ -7,6 +7,11 @@ import type { Chain } from '../../types/chain.js'
 import type { Hash } from '../../types/misc.js'
 import type { RequestErrorType } from '../../utils/buildRequest.js'
 
+/**
+ * Parameters for the `getBlockWithTxHashes` action.
+ *
+ * @public
+ */
 export type GetBlockWithTxHashesParameters =
   | {
       /** Hash of the block. */
@@ -27,7 +32,12 @@ export type GetBlockWithTxHashesParameters =
       block_tag?: BlockTag | undefined
     }
 
-export type GetBlockWithTxHashesReturnType = Block | PendingBlock
+/**
+ * The return type for the `getBlockWithTxHashes` action.
+ *
+ * @public
+ */
+export type GetBlockWithTxHashesReturnType<T extends GetBlockWithTxHashesParameters> = T extends { block_tag: 'pending' } ? PendingBlock : Block
 
 export type GetBlockWithTxHashesErrorType = RequestErrorType | ErrorType
 
@@ -53,16 +63,19 @@ export type GetBlockWithTxHashesErrorType = RequestErrorType | ErrorType
  * })
  * const count = await getBlockWithTxHashes(client)
  */
-export async function getBlockWithTxHashes<TChain extends Chain | undefined>(
+export async function getBlockWithTxHashes<
+  TChain extends Chain | undefined,
+  TParams extends GetBlockWithTxHashesParameters
+>(
   client: Client<Transport, TChain>,
-  { block_hash, block_number, block_tag }: GetBlockWithTxHashesParameters = {},
-): Promise<GetBlockWithTxHashesReturnType> {
+  parameters: TParams = {} as TParams,
+): Promise<GetBlockWithTxHashesReturnType<TParams>> {
   // Simplified block_id determination
-  const block_id = block_hash
-    ? { block_hash }
-    : block_number
-      ? { block_number }
-      : (block_tag ?? 'latest')
+  const block_id = parameters.block_hash
+    ? { block_hash: parameters.block_hash }
+    : parameters.block_number
+      ? { block_number: parameters.block_number }
+      : (parameters.block_tag ?? 'latest')
 
   // Directly return the result of the client request
   return await client.request({

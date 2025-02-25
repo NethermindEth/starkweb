@@ -3,16 +3,21 @@
  */
 
 // Import from the starkweb workspace package
-import { http, type Transport } from 'starkweb';
-import { mainnet, sepolia } from 'starkweb/chains';
-import { createPublicClient } from 'starkweb';
-
+import {
+  createPublicClient,
+  http,
+} from 'starkweb';
+import { sepolia } from 'starkweb/chains';
 
 const publicClient = createPublicClient({
   chain: sepolia,
   transport: http(),
 });
 
-const specVersion = await publicClient.getSpecVersion();
+// Use 'as const' to let TypeScript know this is a literal 'pending' value
+const pendingBlock = await publicClient.getBlockWithTxHashes({
+    block_tag: 'pending',
+});
 
-console.log(specVersion);
+// Now TypeScript should infer this is a PendingBlock
+console.log(pendingBlock);
