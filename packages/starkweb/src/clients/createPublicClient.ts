@@ -86,5 +86,5 @@ export function createPublicClient<
     name,
     type: 'publicClient',
   })
-  return client.extend(publicActions) as any
+  return client.extend(publicActions) as PublicClient<transport, chain, ParseAccount<accountOrAddress>, rpcSchema>
 }

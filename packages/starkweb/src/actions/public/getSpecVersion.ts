@@ -12,16 +12,16 @@ export type GetSpecVersionErrorType = RequestErrorType | ErrorType
 /**
  * Returns the current spec version.
  *
- * - Docs: https://starkweb.xyz/docs/actions/public/getChainId
- * - JSON-RPC Methods: [`starknet_specVersion`](https://docs.starknet.io/reference/rpc-api/#starknet_specversion)
+ * - Docs: https://starkweb.xyz/docs/actions/public/getSpecVersion
+ * - JSON-RPC Methods: [`starknet_specVersion`](https://docs.starknet.io/documentation/rpc/starknet_api/#starknet_specversion)
  *
  * @param client - Client to use
- * @returns The current spec version. {@link GetSpecVersionReturnType}
+ * @returns The current spec version as a hex string. {@link GetSpecVersionReturnType}
  *
  * @example
  * import { createPublicClient, http } from 'starkweb'
  * import { mainnet } from 'starkweb/chains'
- * import { getSpecVersion } from 'starkweb/public'
+ * import { getSpecVersion } from 'starkweb/actions'
  *
  * const client = createPublicClient({
  *   chain: mainnet,
