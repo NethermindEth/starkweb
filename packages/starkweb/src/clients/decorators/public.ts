@@ -361,9 +361,9 @@ export type PublicActions = {
    * const blockWithTxHashes = await client.getBlockWithTxHashes({ blockNumber: 12345 })
    * // { blockNumber: 12345, transactions: ['0x...', '0x...'] }
    */
-  getBlockWithReceipts: (
-    args?: GetBlockWithReceiptsParameters | undefined,
-  ) => Promise<GetBlockWithReceiptsReturnType>
+  getBlockWithReceipts: <TParams extends GetBlockWithReceiptsParameters>(
+    args?: TParams | undefined,
+  ) => Promise<GetBlockWithReceiptsReturnType<TParams>>
 
   /**
    * Returns the block with transaction hashes.
@@ -386,9 +386,9 @@ export type PublicActions = {
    * const blockWithTxHashes = await client.getBlockWithTxHashes({ blockNumber: 12345 })
    * // { blockNumber: 12345, transactions: ['0x...', '0x...'] }
    */
-  getBlockWithTxs: (
-    args?: GetBlockWithTxsParameters | undefined,
-  ) => Promise<GetBlockWithTxsReturnType>
+  getBlockWithTxs: <TParams extends GetBlockWithTxsParameters>(
+    args?: TParams | undefined,
+  ) => Promise<GetBlockWithTxsReturnType<TParams>>
 
   /**
    * Returns the block with transactions.

@@ -14,10 +14,5 @@ const publicClient = createPublicClient({
   transport: http(),
 });
 
-// Use 'as const' to let TypeScript know this is a literal 'pending' value
-const pendingBlock = await publicClient.getBlockWithTxHashes({
-    block_tag: 'pending',
-});
-
-// Now TypeScript should infer this is a PendingBlock
-console.log(pendingBlock);
+const block = await publicClient.getBlockWithReceipts({ block_tag: 'latest' });
+console.log(block);

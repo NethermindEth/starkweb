@@ -1,3 +1,4 @@
+import type { BlockNotFoundErrorType } from '../../errors/block.js'
 import type { Client } from '../../clients/createClient.js'
 import type { Transport } from '../../clients/transports/createTransport.js'
 import type { ErrorType } from '../../errors/utils.js'
@@ -37,9 +38,9 @@ export type GetBlockWithTxHashesParameters =
  *
  * @public
  */
-export type GetBlockWithTxHashesReturnType<T extends GetBlockWithTxHashesParameters> = T extends { block_tag: 'pending' } ? PendingBlock : Block
+export type GetBlockWithTxHashesReturnType<T extends GetBlockWithTxHashesParameters> = T extends { block_tag: 'pending' } ? PendingBlock : T extends { block_tag: 'latest' } ? Block : Block | PendingBlock
 
-export type GetBlockWithTxHashesErrorType = RequestErrorType | ErrorType
+export type GetBlockWithTxHashesErrorType = RequestErrorType | ErrorType | BlockNotFoundErrorType
 
 /**
  * Returns the number of Transactions at a block number, hash, or tag.
