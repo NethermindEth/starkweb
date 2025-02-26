@@ -502,9 +502,9 @@ export type PublicActions = {
    * })
    * const blockStateUpdate = await client.getBlockStateUpdate({ blockNumber: 12345 })
    */
-  getBlockStateUpdate: (
-    args: GetBlockStateUpdateParameters,
-  ) => Promise<GetBlockStateUpdateReturnType>
+  getBlockStateUpdate: <TParams extends GetBlockStateUpdateParameters>(
+    args?: TParams | undefined,
+  ) => Promise<GetBlockStateUpdateReturnType<TParams>>
 
   /**
    * Returns the storage value at a specific key.

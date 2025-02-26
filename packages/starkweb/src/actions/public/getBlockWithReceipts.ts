@@ -62,7 +62,9 @@ export async function getBlockWithReceipts<TChain extends Chain | undefined, TPa
     ? { block_hash: parameters.block_hash }
     : parameters.block_number
       ? { block_number: parameters.block_number }
-      : { block_tag: parameters.block_tag ?? 'latest' }
+      : parameters.block_tag
+      ? parameters.block_tag
+      : 'latest'
 
   // Directly return the result of the client request
   return await client.request({

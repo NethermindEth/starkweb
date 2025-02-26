@@ -15,18 +15,18 @@ export type GetBlockStateUpdateParameters = Evaluate<
   strkjs_GetBlockStateUpdateParameters & ChainIdParameter
 >;
 
-export type GetBlockStateUpdateReturnType = Evaluate<
-  strkjs_GetBlockStateUpdateReturnType & {
+export type GetBlockStateUpdateReturnType<T extends GetBlockStateUpdateParameters> = Evaluate<
+  strkjs_GetBlockStateUpdateReturnType<T> & {
     chainId: Hex;
   }
 >;
 
 export type GetBlockStateUpdateErrorType = strkjs_GetBlockStateUpdateErrorType;
 
-export async function getBlockStateUpdate(
+export async function getBlockStateUpdate<TParams extends GetBlockStateUpdateParameters>(
   config: Config,
-  parameters: GetBlockStateUpdateParameters
-): Promise<GetBlockStateUpdateReturnType> {
+  parameters: TParams = {} as TParams,
+): Promise<GetBlockStateUpdateReturnType<TParams>> {
   const { chainId, ...rest } = parameters;
   const client = config.getClient({ chainId });
   const action = getAction(
@@ -34,5 +34,5 @@ export async function getBlockStateUpdate(
     strkjs_getBlockStateUpdate,
     'getBlockStateUpdate'
   );
-  return action(rest) as unknown as Promise<GetBlockStateUpdateReturnType>;
+  return action(rest as strkjs_GetBlockStateUpdateParameters) as unknown as Promise<GetBlockStateUpdateReturnType<TParams>>;
 }

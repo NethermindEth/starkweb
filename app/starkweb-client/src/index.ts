@@ -14,5 +14,7 @@ const publicClient = createPublicClient({
   transport: http(),
 });
 
-const block = await publicClient.getBlockWithReceipts({ block_tag: 'latest' });
-console.log(block);
+const block = await publicClient.getBlockStateUpdate({
+  block_tag: 'latest',
+});
+console.log(block.state_diff);
