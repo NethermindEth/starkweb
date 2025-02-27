@@ -264,28 +264,53 @@ import type { Abi } from '../../strk-types/abi.js'
 
 export type PublicActions = {
   /**
-   * Returns the number of the most recent block seen.
+   * Executes a call to a contract function.
    *
-   * - Docs: https://strk.sh/docs/actions/public/getBlockNumber
-   * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/blocks/fetching-blocks
-   * - JSON-RPC Methods: [`starknet_blockNumber`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_blocknumber)
+   * - Docs: https://starkweb.xyz/docs/actions/public/call
+   * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/contracts/calling-contracts
+   * - JSON-RPC Methods: [`starknet_call`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_call)
    *
    * @param args - {@link CallParameters}
-   * @returns The number of the block. {@link CallReturnType}
+   * @returns The call result. {@link CallReturnType}
    *
    * @example
-   * import { createPublicClient, http } from 'strk'
-   * import { mainnet } from 'strk/chains'
+   * import { createPublicClient, http } from 'starkweb'
+   * import { mainnet } from 'starkweb/chains'
    *
    * const client = createPublicClient({
    *   chain: mainnet,
    *   transport: http(),
    * })
-   * const blockNumber = await client.call()
-   * // 69420n
+   * const result = await client.call({
+   *   contractAddress: '0x...',
+   *   entrypoint: 'balanceOf',
+   *   calldata: ['0x...']
+   * })
    */
   call: (args: CallParameters) => Promise<CallReturnType>
 
+  /**
+   * Returns the balance of an account.
+   *
+   * - Docs: https://starkweb.xyz/docs/actions/public/getBalance
+   * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/accounts/fetching-balance
+   * - JSON-RPC Methods: [`starknet_getBalance`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_getbalance)
+   *
+   * @param args - {@link GetBalanceParameters}
+   * @returns The balance. {@link GetBalanceReturnTypes}
+   *
+   * @example
+   * import { createPublicClient, http } from 'starkweb'
+   * import { mainnet } from 'starkweb/chains'
+   *
+   * const client = createPublicClient({
+   *   chain: mainnet,
+   *   transport: http(),
+   * })
+   * const balance = await client.getBalance({
+   *   address: '0x...',
+   * })
+   */
   getBalance: (
     args: GetBalanceParameters,
   ) => Promise<GetBalanceReturnTypes | GetBalanceErrorType>
@@ -293,7 +318,7 @@ export type PublicActions = {
   /**
    * Returns the number of the most recent block seen.
    *
-   * - Docs: https://strk.sh/docs/actions/public/getBlockNumber
+   * - Docs: https://starkweb.xyz/docs/actions/public/getBlockNumber
    * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/blocks/fetching-blocks
    * - JSON-RPC Methods: [`starknet_blockNumber`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_blocknumber)
    *
@@ -301,8 +326,8 @@ export type PublicActions = {
    * @returns The number of the block. {@link GetBlockNumberReturnType}
    *
    * @example
-   * import { createPublicClient, http } from 'strk'
-   * import { mainnet } from 'strk/chains'
+   * import { createPublicClient, http } from 'starkweb'
+   * import { mainnet } from 'starkweb/chains'
    *
    * const client = createPublicClient({
    *   chain: mainnet,
@@ -318,7 +343,7 @@ export type PublicActions = {
   /**
    * Returns the block with transaction hashes.
    *
-   * - Docs: https://strk.sh/docs/actions/public/getBlockWithTxHashes
+   * - Docs: https://starkweb.xyz/docs/actions/public/getBlockWithTxHashes
    * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/blocks/fetching-blocks-with-tx-hashes
    * - JSON-RPC Methods: [`starknet_getBlockWithTxHashes`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_getblockwithtxhashes)
    *
@@ -326,8 +351,8 @@ export type PublicActions = {
    * @returns The block with transaction hashes. {@link GetBlockWithTxHashesReturnType}
    *
    * @example
-   * import { createPublicClient, http } from 'strk'
-   * import { mainnet } from 'strk/chains'
+   * import { createPublicClient, http } from 'starkweb'
+   * import { mainnet } from 'starkweb/chains'
    *
    * const client = createPublicClient({
    *   chain: mainnet,
@@ -336,13 +361,14 @@ export type PublicActions = {
    * const blockWithTxHashes = await client.getBlockWithTxHashes({ blockNumber: 12345 })
    * // { blockNumber: 12345, transactions: ['0x...', '0x...'] }
    */
-  getBlockWithReceipts: (
-    args?: GetBlockWithReceiptsParameters | undefined,
-  ) => Promise<GetBlockWithReceiptsReturnType>
+  getBlockWithReceipts: <TParams extends GetBlockWithReceiptsParameters>(
+    args?: TParams | undefined,
+  ) => Promise<GetBlockWithReceiptsReturnType<TParams>>
+
   /**
    * Returns the block with transaction hashes.
    *
-   * - Docs: https://strk.sh/docs/actions/public/getBlockWithTxHashes
+   * - Docs: https://starkweb.xyz/docs/actions/public/getBlockWithTxHashes
    * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/blocks/fetching-blocks-with-tx-hashes
    * - JSON-RPC Methods: [`starknet_getBlockWithTxHashes`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_getblockwithtxhashes)
    *
@@ -350,8 +376,8 @@ export type PublicActions = {
    * @returns The block with transaction hashes. {@link GetBlockWithTxHashesReturnType}
    *
    * @example
-   * import { createPublicClient, http } from 'strk'
-   * import { mainnet } from 'strk/chains'
+   * import { createPublicClient, http } from 'starkweb'
+   * import { mainnet } from 'starkweb/chains'
    *
    * const client = createPublicClient({
    *   chain: mainnet,
@@ -360,38 +386,39 @@ export type PublicActions = {
    * const blockWithTxHashes = await client.getBlockWithTxHashes({ blockNumber: 12345 })
    * // { blockNumber: 12345, transactions: ['0x...', '0x...'] }
    */
-  getBlockWithTxs: (
-    args?: GetBlockWithTxsParameters | undefined,
-  ) => Promise<GetBlockWithTxsReturnType>
+  getBlockWithTxs: <TParams extends GetBlockWithTxsParameters>(
+    args?: TParams | undefined,
+  ) => Promise<GetBlockWithTxsReturnType<TParams>>
+
   /**
    * Returns the block with transactions.
    *
-   * - Docs: https://strk.sh/docs/actions/public/getBlockWithTxHashes
-   * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/blocks/fetching-blocks-with-tx-hashes
-   * - JSON-RPC Methods: [`starknet_getBlockWithTxHashes`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_getblockwithtxhashes)
+   * - Docs: https://starkweb.xyz/docs/actions/public/getBlockWithTxs
+   * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/blocks/fetching-blocks-with-txs
+   * - JSON-RPC Methods: [`starknet_getBlockWithTxs`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_getblockwithtxs)
    *
-   * @param args - {@link GetBlockWithTxHashesParameters}
-   * @returns The block with transaction hashes. {@link GetBlockWithTxHashesReturnType}
+   * @param args - {@link GetBlockWithTxsParameters}
+   * @returns The block with transactions. {@link GetBlockWithTxsReturnType}
    *
    * @example
-   * import { createPublicClient, http } from 'strk'
-   * import { mainnet } from 'strk/chains'
+   * import { createPublicClient, http } from 'starkweb'
+   * import { mainnet } from 'starkweb/chains'
    *
    * const client = createPublicClient({
    *   chain: mainnet,
    *   transport: http(),
    * })
-   * const blockWithTxHashes = await client.getBlockWithTxHashes({ blockNumber: 12345 })
-   * // { blockNumber: 12345, transactions: ['0x...', '0x...'] }
+   * const blockWithTxs = await client.getBlockWithTxs({ blockNumber: 12345 })
+   * // { blockNumber: 12345, transactions: [{...}, {...}] }
    */
-  getBlockWithTxHashes: (
-    args?: GetBlockWithTxHashesParameters | undefined,
-  ) => Promise<GetBlockWithTxHashesReturnType>
+  getBlockWithTxHashes: <TParams extends GetBlockWithTxHashesParameters>(
+    args?: TParams | undefined,
+  ) => Promise<GetBlockWithTxHashesReturnType<TParams>>
 
   /**
    * Returns the class at a specific address.
    *
-   * - Docs: https://strk.sh/docs/actions/public/getClassAt
+   * - Docs: https://starkweb.xyz/docs/actions/public/getClassAt
    * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/classes/fetching-class-at
    * - JSON-RPC Methods: [`starknet_getClassAt`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_getclassat)
    *
@@ -399,8 +426,8 @@ export type PublicActions = {
    * @returns The class at the specified address. {@link GetClassAtReturnType}
    *
    * @example
-   * import { createPublicClient, http } from 'strk'
-   * import { mainnet } from 'strk/chains'
+   * import { createPublicClient, http } from 'starkweb'
+   * import { mainnet } from 'starkweb/chains'
    *
    * const client = createPublicClient({
    *   chain: mainnet,
@@ -414,15 +441,15 @@ export type PublicActions = {
   /**
    * Returns the spec version.
    *
-   * - Docs: https://strk.sh/docs/actions/public/getSpecVersion
+   * - Docs: https://starkweb.xyz/docs/actions/public/getSpecVersion
    * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/spec/fetching-spec-version
    * - JSON-RPC Methods: [`starknet_getSpecVersion`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_getspecversion)
    *
    * @returns The spec version. {@link GetSpecVersionReturnType}
    *
    * @example
-   * import { createPublicClient, http } from 'strk'
-   * import { mainnet } from 'strk/chains'
+   * import { createPublicClient, http } from 'starkweb'
+   * import { mainnet } from 'starkweb/chains'
    *
    * const client = createPublicClient({
    *   chain: mainnet,
@@ -436,15 +463,15 @@ export type PublicActions = {
   /**
    * Returns the chain ID.
    *
-   * - Docs: https://strk.sh/docs/actions/public/getChainId
+   * - Docs: https://starkweb.xyz/docs/actions/public/getChainId
    * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/chains/fetching-chain-id
    * - JSON-RPC Methods: [`starknet_chainId`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_chainid)
    *
    * @returns The chain ID. {@link GetChainIdReturnType}
    *
    * @example
-   * import { createPublicClient, http } from 'strk'
-   * import { mainnet } from 'strk/chains'
+   * import { createPublicClient, http } from 'starkweb'
+   * import { mainnet } from 'starkweb/chains'
    *
    * const client = createPublicClient({
    *   chain: mainnet,
@@ -458,101 +485,110 @@ export type PublicActions = {
   /**
    * Returns the block state update.
    *
-   * - Docs: https://strk.sh/docs/actions/public/getBlockStateUpdate
+   * - Docs: https://starkweb.xyz/docs/actions/public/getBlockStateUpdate
    * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/blocks/fetching-block-state-update
    * - JSON-RPC Methods: [`starknet_getBlockStateUpdate`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_getblockstateupdate)
    *
    * @param args - {@link GetBlockStateUpdateParameters}
    * @returns The block state update. {@link GetBlockStateUpdateReturnType}
    *
-   */
-  getBlockStateUpdate: (
-    args: GetBlockStateUpdateParameters,
-  ) => Promise<GetBlockStateUpdateReturnType>
-
-  /**
-   * Returns the transaction by hash.
-   *
-   * - Docs: https://strk.sh/docs/actions/public/getTransactionByHash
-   * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/transactions/fetching-transaction-by-hash
-   * - JSON-RPC Methods: [`starknet_getTransactionByHash`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_blocknumber)
-   *
-   * @param args - {@link GetTransactionByHashParameters}
-   * @returns The transaction by hash. {@link GetTransactionByHashReturnTypes}
-   *
    * @example
-   * import { createPublicClient, http } from 'strk'
-   * import { mainnet } from 'strk/chains'
+   * import { createPublicClient, http } from 'starkweb'
+   * import { mainnet } from 'starkweb/chains'
    *
    * const client = createPublicClient({
    *   chain: mainnet,
    *   transport: http(),
    * })
-   * const transactionByHash = await client.getTransactionByHash({
-   *   transaction_hash: '0x7641514f46a77013e80215cdce2e55d5aca49c13428b885c7ecb9d3ddb4ab11',
+   * const blockStateUpdate = await client.getBlockStateUpdate({ blockNumber: 12345 })
+   */
+  getBlockStateUpdate: <TParams extends GetBlockStateUpdateParameters>(
+    args?: TParams | undefined,
+  ) => Promise<GetBlockStateUpdateReturnType<TParams>>
+
+  /**
+   * Returns the storage value at a specific key.
+   *
+   * - Docs: https://starkweb.xyz/docs/actions/public/getStorageAt
+   * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/storage/fetching-storage
+   * - JSON-RPC Methods: [`starknet_getStorageAt`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_getstorageat)
+   *
+   * @param args - {@link GetStorageAtParameters}
+   * @returns The storage value. {@link GetStorageAtReturnType}
+   *
+   * @example
+   * import { createPublicClient, http } from 'starkweb'
+   * import { mainnet } from 'starkweb/chains'
+   *
+   * const client = createPublicClient({
+   *   chain: mainnet,
+   *   transport: http(),
    * })
-   * // { transaction_hash: '0x7641514f46a77013e80215cdce2e55d5aca49c13428b885c7ecb9d3ddb4ab11' }
+   * const storage = await client.getStorageAt({
+   *   contractAddress: '0x...',
+   *   key: '0x...',
+   * })
    */
   getStorageAt: (
     args: GetStorageAtParameters,
   ) => Promise<GetStorageAtReturnType>
+
   /**
-   * Returns the transaction by hash.
+   * Returns the transaction status.
    *
-   * - Docs: https://strk.sh/docs/actions/public/getTransactionByHash
-   * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/transactions/fetching-transaction-by-hash
-   * - JSON-RPC Methods: [`starknet_getTransactionByHash`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_blocknumber)
+   * - Docs: https://starkweb.xyz/docs/actions/public/getTransactionStatus
+   * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/transactions/fetching-transaction-status
+   * - JSON-RPC Methods: [`starknet_getTransactionStatus`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_gettransactionstatus)
    *
-   * @param args - {@link GetTransactionByHashParameters}
-   * @returns The transaction by hash. {@link GetTransactionByHashReturnTypes}
+   * @param args - {@link GetTransactionStatusParameters}
+   * @returns The transaction status. {@link GetTransactionStatusReturnType}
    *
    * @example
-   * import { createPublicClient, http } from 'strk'
-   * import { mainnet } from 'strk/chains'
+   * import { createPublicClient, http } from 'starkweb'
+   * import { mainnet } from 'starkweb/chains'
    *
    * const client = createPublicClient({
    *   chain: mainnet,
    *   transport: http(),
    * })
-   * const transactionByHash = await client.getTransactionByHash({
-   *   transaction_hash: '0x7641514f46a77013e80215cdce2e55d5aca49c13428b885c7ecb9d3ddb4ab11',
+   * const status = await client.getTransactionStatus({
+   *   transactionHash: '0x...',
    * })
-   * // { transaction_hash: '0x7641514f46a77013e80215cdce2e55d5aca49c13428b885c7ecb9d3ddb4ab11' }
-   */
-  getTransactionByHash: (
-    args: GetTransactionByHashParameters,
-  ) => Promise<GetTransactionByHashReturnTypes>
-  /**
-   * Returns the transaction by hash.
-   *
-   * - Docs: https://strk.sh/docs/actions/public/getTransactionByHash
-   * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/transactions/fetching-transaction-by-hash
-   * - JSON-RPC Methods: [`starknet_getTransactionByHash`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_blocknumber)
-   *
-   * @param args - {@link GetTransactionByHashParameters}
-   * @returns The transaction by hash. {@link GetTransactionByHashReturnTypes}
-   *
-   * @example
-   * import { createPublicClient, http } from 'strk'
-   * import { mainnet } from 'strk/chains'
-   *
-   * const client = createPublicClient({
-   *   chain: mainnet,
-   *   transport: http(),
-   * })
-   * const transactionByHash = await client.getTransactionByHash({
-   *   transaction_hash: '0x7641514f46a77013e80215cdce2e55d5aca49c13428b885c7ecb9d3ddb4ab11',
-   * })
-   * // { transaction_hash: '0x7641514f46a77013e80215cdce2e55d5aca49c13428b885c7ecb9d3ddb4ab11' }
    */
   getTransactionStatus: (
     args: GetTransactionStatusParameters,
   ) => Promise<GetTransactionStatusReturnType>
 
   /**
+   * Returns the transaction by hash.
+   *
+   * - Docs: https://starkweb.xyz/docs/actions/public/getTransactionByHash
+   * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/transactions/fetching-transaction-by-hash
+   * - JSON-RPC Methods: [`starknet_getTransactionByHash`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_gettransactionbyhash)
+   *
+   * @param args - {@link GetTransactionByHashParameters}
+   * @returns The transaction. {@link GetTransactionByHashReturnTypes}
+   *
+   * @example
+   * import { createPublicClient, http } from 'starkweb'
+   * import { mainnet } from 'starkweb/chains'
+   *
+   * const client = createPublicClient({
+   *   chain: mainnet,
+   *   transport: http(),
+   * })
+   * const transaction = await client.getTransactionByHash({
+   *   hash: '0x...',
+   * })
+   */
+  getTransactionByHash: (
+    args: GetTransactionByHashParameters,
+  ) => Promise<GetTransactionByHashReturnTypes>
+
+  /**
    * Returns the transaction receipt.
    *
-   * - Docs: https://strk.sh/docs/actions/public/getTransactionReceipt
+   * - Docs: https://starkweb.xyz/docs/actions/public/getTransactionReceipt
    * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/transactions/fetching-transaction-receipt
    * - JSON-RPC Methods: [`starknet_getTransactionReceipt`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_gettransactionreceipt)
    *
@@ -560,53 +596,52 @@ export type PublicActions = {
    * @returns The transaction receipt. {@link GetTransactionReceiptReturnType}
    *
    * @example
-   * import { createPublicClient, http } from 'strk'
-   * import { mainnet } from 'strk/chains'
+   * import { createPublicClient, http } from 'starkweb'
+   * import { mainnet } from 'starkweb/chains'
    *
    * const client = createPublicClient({
    *   chain: mainnet,
    *   transport: http(),
    * })
-   * const transactionReceipt = await client.getTransactionReceipt({
-   *   transaction_hash: '0x7641514f46a77013e80215cdce2e55d5aca49c13428b885c7ecb9d3ddb4ab11',
+   * const receipt = await client.getTransactionReceipt({
+   *   transactionHash: '0x...',
    * })
-   * // { status: 'success', transaction_hash: '0x7641514f46a77013e80215cdce2e55d5aca49c13428b885c7ecb9d3ddb4ab11' }
    */
   getTransactionReceipt: (
     args: GetTransactionReceiptParameters,
   ) => Promise<GetTransactionReceiptReturnType>
 
   /**
-   * Returns the transaction by block id and index.
+   * Returns the transaction by block ID and index.
    *
-   * - Docs: https://strk.sh/docs/actions/public/getTransactionByBlockIdAndIndex
-   * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/transactions/fetching-transaction-by-hash
-   * - JSON-RPC Methods: [`starknet_getTransactionByHash`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_blocknumber)
+   * - Docs: https://starkweb.xyz/docs/actions/public/getTransactionByBlockIdAndIndex
+   * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/transactions/fetching-transaction-by-block-id-and-index
+   * - JSON-RPC Methods: [`starknet_getTransactionByBlockIdAndIndex`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_gettransactionbyblockidandindex)
    *
    * @param args - {@link GetTransactionByBlockIdAndIndexParameters}
-   * @returns The transaction by block id and index. {@link GetTransactionByBlockIdAndIndexReturnTypes}
+   * @returns The transaction. {@link GetTransactionByBlockIdAndIndexReturnTypes}
    *
    * @example
-   * import { createPublicClient, http } from 'strk'
-   * import { mainnet } from 'strk/chains'
+   * import { createPublicClient, http } from 'starkweb'
+   * import { mainnet } from 'starkweb/chains'
    *
    * const client = createPublicClient({
    *   chain: mainnet,
    *   transport: http(),
    * })
-   * const transactionByBlockIdAndIndex = await client.getTransactionByBlockIdAndIndex({
-   *   block_tag: 'latest',
+   * const transaction = await client.getTransactionByBlockIdAndIndex({
+   *   blockIdentifier: 12345,
    *   index: 0,
    * })
-   * // { transaction_hash: '0x7641514f46a77013e80215cdce2e55d5aca49c13428b885c7ecb9d3ddb4ab11' }
    */
   getTransactionByBlockIdAndIndex: (
     args: GetTransactionByBlockIdAndIndexParameters,
   ) => Promise<GetTransactionByBlockIdAndIndexReturnTypes>
+
   /**
    * Returns the class.
    *
-   * - Docs: https://strk.sh/docs/actions/public/getClass
+   * - Docs: https://starkweb.xyz/docs/actions/public/getClass
    * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/classes/fetching-class
    * - JSON-RPC Methods: [`starknet_getClass`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_getclass)
    *
@@ -614,22 +649,23 @@ export type PublicActions = {
    * @returns The class. {@link GetClassReturnTypes}
    *
    * @example
-   * import { createPublicClient, http } from 'strk'
-   * import { mainnet } from 'strk/chains'
+   * import { createPublicClient, http } from 'starkweb'
+   * import { mainnet } from 'starkweb/chains'
    *
    * const client = createPublicClient({
    *   chain: mainnet,
    *   transport: http(),
    * })
-   * const class = await client.getClass({ classHash: '0x...' })
-   * // { classHash: '0x...', abi: [...] }
+   * const class = await client.getClass({
+   *   classHash: '0x...',
+   * })
    */
   getClass: (args: GetClassParameters) => Promise<GetClassReturnTypes>
 
   /**
    * Returns the class hash at a specific address.
    *
-   * - Docs: https://strk.sh/docs/actions/public/getClassHashAt
+   * - Docs: https://starkweb.xyz/docs/actions/public/getClassHashAt
    * - Examples: https://stackblitz.com/github/wevm/starkweb/tree/main/examples/classes/fetching-class-hash-at
    * - JSON-RPC Methods: [`starknet_getClassHashAt`](https://docs.starknet.io/api-references/json-rpc-api-reference#starknet_getclasshashat)
    *

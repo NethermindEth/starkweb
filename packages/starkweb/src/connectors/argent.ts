@@ -230,13 +230,16 @@ export function argentX() {
       config.emitter.emit('change', { chainId })
     },
     async onConnect(connectInfo) {
-      const accounts = await this.getAccounts()
+      const provider = await this.getProvider()
+      const accounts = await provider.request({
+        type: 'wallet_requestAccounts',
+        params: {silent_mode: true}
+      }) as string[] 
       if (accounts.length === 0) return
 
       const chainId = connectInfo.chainId as Hex
-      config.emitter.emit('accountsChanged', { accounts, chainId })
+      config.emitter.emit('accountsChanged', { accounts: accounts.map((x) => getStarknetAddress(x)), chainId })
 
-      const provider = await this.getProvider()
       if (provider) {
         provider.on('accountsChanged', this.onAccountsChanged.bind(this) as any)
         provider.on('networkChanged', this.onChainChanged as any)

@@ -3,8 +3,8 @@
 import type { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import { useAccount, useBalance, useBlockNumber, useChainId, useConfig, useConnect, useConnectorClient, useDisconnect, useSwitchAccount, useSwitchChain } from 'starkweb/react';
-import { useState, useEffect } from 'react';
 import { useTheme } from 'next-themes';
+import Link from 'next/link';
 
 const Connect = dynamic(
   () => import('../components/Connect').then(mod => mod.Connect), 
@@ -12,22 +12,24 @@ const Connect = dynamic(
 );
 
 const Home: NextPage = () => {
-  const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) return null;
 
   return (
     <main className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
       <nav className="border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
-            <div className="flex items-center">
+            <div className="flex items-center space-x-8">
               <span className="text-2xl font-bold text-emerald-500">L-CHARGE</span>
+              <div className="flex space-x-4">
+                <Link href="/" className="text-emerald-500 dark:text-emerald-400 font-medium">
+                  Home
+                </Link>
+                <Link href="/wallet" className="text-gray-700 dark:text-gray-300 hover:text-emerald-500 dark:hover:text-emerald-400">
+                  Wallet
+                </Link>
+              </div>
             </div>
             <button
               onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}

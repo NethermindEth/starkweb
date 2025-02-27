@@ -16,7 +16,7 @@ export type GetBlockWithTxsParameters = Evaluate<
 >;
 
 export type GetBlockWithTxsReturnType = Evaluate<
-  strkjs_GetBlockWithTxsReturnType & {
+  strkjs_GetBlockWithTxsReturnType<GetBlockWithTxsParameters> & {
     chainId: Hex;
   }
 >;

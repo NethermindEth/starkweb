@@ -9,12 +9,12 @@ import {
 import type { Config } from '../createConfig.js'
 import type { ChainIdParameter, ConnectorParameter } from '../types/properties.js'
 import { getAction } from '../utils/getAction.js'
-import type { ContractFunctionArgs } from '../../types/contract.js'
-import type { ContractFunctionName } from '../../types/contract.js'
+import type { ContractFunctionArgs, ContractFunctionName } from '../../abi/parser.js'
 import type { UnionCompute } from '../types/utils.js'
 import type { Chain } from '../../types/chain.js'
 import type { SelectChains } from '../types/chain.js'
 import type { Compute } from '../types/utils.js'
+import { getConnectorClient } from './getConnectorClient.js'
 
 
 export type WriteContractParameters<
@@ -55,7 +55,7 @@ export type WriteContractReturnType = starkweb_WriteContractReturnTypes
 export type WriteContractErrorType = starkweb_WriteContractErrorType
 
 /** https://starkweb.xyz/core/api/actions/writeContract */
-export function writeContract<
+export async function writeContract<
   abi extends Abi | readonly unknown[],
   functionName extends ContractFunctionName<abi, 'external'> = ContractFunctionName<abi, 'external'>,
   args extends ContractFunctionArgs<abi, 'external', functionName> = ContractFunctionArgs<abi, 'external', functionName>,
@@ -64,7 +64,7 @@ export function writeContract<
   parameters: WriteContractParameters<abi, functionName, args>,
 ): Promise<WriteContractReturnType> {
   const { chainId, ...rest } = parameters
-  const client = config.getClient({ chainId })
+  const client = await getConnectorClient(config, { connector: parameters.connector })
   const action = getAction(client, starkweb_writeContract, 'writeContract')
   return action({
     ...rest,
