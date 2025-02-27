@@ -7,7 +7,7 @@ import {
 } from '../actions/writeContract.js'
 import type { Config } from '../createConfig.js'
 import type { Compute } from '../types/utils.js'
-import type { ContractFunctionArgs, ContractFunctionName } from '../../types/contract.js'
+import type { ContractFunctionArgs, ContractFunctionName } from '../../abi/parser.js'
 import type { Abi } from '../../strk-types/abi.js'
 
 export function writeContractMutationOptions<

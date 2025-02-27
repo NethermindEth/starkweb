@@ -96,7 +96,7 @@ import type { Abi } from '../../strk-types/abi.js'
 import type {
   ContractFunctionArgs,
   ContractFunctionName,
-} from '../../types/contract.js'
+} from '../../abi/parser.js'
 
 export type WalletActions = {
   addDeclareTransaction: (

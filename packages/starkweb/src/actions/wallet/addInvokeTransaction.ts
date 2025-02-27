@@ -3,13 +3,7 @@ import type { Client } from '../../clients/createClient.js'
 import type { Transport } from '../../clients/transports/createTransport.js'
 import type { Account } from '../../types/account.js'
 import type { Chain } from '../../types/chain.js'
-// @ts-ignore
-import type { API_VERSION, FELT, INVOKE_CALL } from '../../types/components.js'
-
-// export type AddInvokeTransactionParameters = {
-//   invoke_transaction: INVOKE_CALL
-//   api_version?: API_VERSION
-// }
+import type { FELT } from '../../types/components.js'
 
 export type Call = {
   contract_address: Address

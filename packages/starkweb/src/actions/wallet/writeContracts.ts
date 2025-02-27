@@ -1,4 +1,4 @@
-import type { ContractFunctionArgs, ContractFunctionName } from '../../types/contract.js'
+import type { ContractFunctionArgs, ContractFunctionName } from '../../abi/parser.js'
 import type { Client } from '../../clients/createClient.js'
 import type { Transport } from '../../clients/transports/createTransport.js'
 import type { Abi } from '../../strk-types/abi.js'

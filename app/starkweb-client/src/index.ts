@@ -5,6 +5,8 @@
 // Import from the starkweb workspace package
 import {
   createPublicClient,
+  createWalletClient,
+  custom,
   http,
 } from 'starkweb';
 import { sepolia } from 'starkweb/chains';
