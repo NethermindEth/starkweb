@@ -9,6 +9,8 @@ import Link from 'next/link';
 import { createWalletClient, custom, WalletClient } from 'starkweb';
 import { erc20Abi } from '../utils/abi/strk';
 import 'starkweb/window'
+import { uint256 } from 'starkweb/utils';
+
 const Wallet: NextPage = () => {
   const { theme, setTheme } = useTheme();
   const [recipient, setRecipient] = useState<string>('');
@@ -144,10 +146,7 @@ function SendTransactionCard({
         functionName: 'transfer',
         args: {
           recipient: recipient as 'contract_address',
-          amount: {
-            high: parseFloat(amount),
-            low: 0,
-          } as unknown as 'u256',
+          amount: uint256(parseFloat(amount)),
         }
       });
       

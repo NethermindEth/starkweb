@@ -499,9 +499,10 @@ export { isBoolean, isNumber, isObject, isString, isUndefined } from '../strk-ut
 export { validateTypedData as snValidateTypedData, encodeData, encodeType, encodeValue } from '../strk-utils/typedData.js'
 
 export { CairoFelt } from '../strk-utils/cairoDataTypes/felt.js'
-export { CairoUint256 } from '../strk-utils/cairoDataTypes/uint256.js'
+export { createUint256 } from '../strk-utils/cairoDataTypes/uint256.js'
+export { toUint512 } from '../strk-utils/cairoDataTypes/uint512.js'
 export { byteArrayFromString } from '../strk-utils/calldata/byteArray.js'
-export { felt, uint256 } from '../strk-utils/calldata/cairo.js'
+export { felt, uint256, uint512 } from '../strk-utils/calldata/cairo.js'
 export { compile, calldataToHex } from '../strk-utils/calldata/compile.js'
 export { CairoCustomEnum } from '../strk-utils/calldata/enum/CairoCustomEnum.js'
 export { CairoOption, CairoOptionVariant } from '../strk-utils/calldata/enum/CairoOption.js'

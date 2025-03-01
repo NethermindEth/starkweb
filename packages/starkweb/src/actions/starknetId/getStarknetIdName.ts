@@ -33,7 +33,7 @@ export async function getStarknetIdName<
   client: Client<Transport, TChain, TAccount>,
   { address }: GetStarknetIdNameParameters,
 ): Promise<GetStarknetIdNameReturnType> {
-  const chainId = client.chain?.id as unknown as StarknetChainId
+  const chainId = client.chain?.chain_id as unknown as StarknetChainId
   if (!chainId) {
     throw new Error('Chain ID is required')
   }
