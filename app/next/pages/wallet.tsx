@@ -6,9 +6,11 @@ import { useAccount, useBalance, useWriteContract } from 'starkweb/react';
 import { useState, useCallback } from 'react';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
-import { createWalletClient, custom, WalletClient } from 'starkweb';
 import { erc20Abi } from '../utils/abi/strk';
 import 'starkweb/window'
+import { uint256 } from 'starkweb/utils';
+import { Address } from 'starkweb/dist/types/abi/starkweb-abi';
+
 const Wallet: NextPage = () => {
   const { theme, setTheme } = useTheme();
   const [recipient, setRecipient] = useState<string>('');
@@ -122,10 +124,10 @@ function SendTransactionCard({
   amount, 
   setAmount 
 }: { 
-  recipient: string;
-  setRecipient: (value: string) => void; 
-  amount: string; 
-  setAmount: (value: string) => void; 
+  recipient: Address;
+  setRecipient: (value: Address) => void; 
+  amount: bigint; 
+  setAmount: (value: bigint) => void; 
 }) {
   const [isPending, setIsPending] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -143,11 +145,8 @@ function SendTransactionCard({
         abi: erc20Abi,
         functionName: 'transfer',
         args: {
-          recipient: recipient as 'contract_address',
-          amount: {
-            high: parseFloat(amount),
-            low: 0,
-          } as unknown as 'u256',
+          recipient: recipient,
+          amount: uint256(amount),
         }
       });
       
@@ -193,7 +192,7 @@ function SendTransactionCard({
             id="recipient"
             type="text"
             value={recipient}
-            onChange={(e) => setRecipient(e.target.value)}
+            onChange={(e) => setRecipient(e.target.value as Address)}
             className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
             placeholder="0x..."
           />
@@ -206,8 +205,8 @@ function SendTransactionCard({
           <input
             id="amount"
             type="text"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
+            value={amount.toString()}
+            onChange={(e) => setAmount(BigInt(e.target.value))}
             className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
             placeholder="0.0"
           />

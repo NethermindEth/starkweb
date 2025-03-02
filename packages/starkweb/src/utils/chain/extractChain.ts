@@ -3,22 +3,22 @@ import type { Chain } from '../../types/chain.js'
 
 export type ExtractChainParameters<
   chains extends readonly Chain[],
-  chainId extends chains[number]['id'],
+  chainId extends chains[number]['chain_id'],
 > = {
   chains: chains
-  id: chainId | chains[number]['id']
+  id: chainId | chains[number]['chain_id']
 }
 
 export type ExtractChainReturnType<
   chains extends readonly Chain[],
-  chainId extends chains[number]['id'],
-> = Extract<chains[number], { id: chainId }>
+  chainId extends chains[number]['chain_id'],
+> = Extract<chains[number], { chain_id: chainId }>
 
 export type ExtractChainErrorType = ErrorType
 
 export function extractChain<
   const chains extends readonly Chain[],
-  chainId extends chains[number]['id'],
+  chainId extends chains[number]['chain_id'],
 >({
   chains,
   id,
@@ -26,8 +26,7 @@ export function extractChain<
   chains,
   chainId
 > {
-  return chains.find((chain) => chain.id === id) as ExtractChainReturnType<
-    chains,
-    chainId
-  >
+  return chains.find(
+    (chain) => chain.chain_id === id,
+  ) as ExtractChainReturnType<chains, chainId>
 }

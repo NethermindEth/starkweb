@@ -107,6 +107,8 @@ export async function readContract<
     parameters as ReadContractParameters<TAbi, TFunctionName>
   const calldata: string[] = args ? compile(args as any) : []
 
+  // Simplified block_id determination
+
   const txCall: CallParameters = {
     contract_address: address,
     entry_point_selector: getSelectorFromName(functionName),

@@ -1,13 +1,13 @@
 import type { Abi } from '../strk-types/abi.js';
-
+import type { Uint512 } from '../strk-types/lib.js';
+import type { Uint256 } from '../strk-types/lib.js';
 import type {
   AbiType,
+  Address,
 } from './starkweb-abi.js';
 // import type { testAbi } from './testabi.js';
 
-export type CairoInt = 'u8' | 'u16' | 'u32' | 'u64' | 'u128' | 'u256'
-
-
+ export type CairoInt = 'u8' | 'u16' | 'u32' | 'u64' | 'u128' | 'u256' | 'u512'
 
 
 
@@ -24,17 +24,18 @@ export type AbiParameterKind = 'inputs' | 'outputs';
  */
 interface PrimitiveTypeLookup {
     'core::felt252': { inputs: 'felt252'; outputs: 'felt252' };
-    'core::integer::u8': { inputs: 'u8'; outputs: 'u8' };
-    'core::integer::u16': { inputs: 'u16'; outputs: 'u16' };
-    'core::integer::u32': { inputs: 'u32'; outputs: 'u32' };
-    'core::integer::u64': { inputs: 'u64'; outputs: 'u64' };
-    'core::integer::u128': { inputs: 'u128'; outputs: 'u128' };
-    'core::integer::u256': { inputs: 'u256'; outputs: 'u256' };
+    'core::integer::u8': { inputs: number; outputs: number };
+    'core::integer::u16': { inputs: number; outputs: number };
+    'core::integer::u32': { inputs: number; outputs: number };
+    'core::integer::u64': { inputs: number; outputs: number };
+    'core::integer::u128': { inputs: number; outputs: number };
+    'core::integer::u256': { inputs: Uint256; outputs: Uint256 };
+    'core::integer::u512': { inputs: Uint512; outputs: Uint512 };
     'core::array::Array<T>': { inputs: 'T[]'; outputs: 'T[]' };
-    'core::bool': { inputs: 'boolean'; outputs: 'boolean' };
-    'core::starknet::contract_address::ContractAddress': { inputs: 'contract_address'; outputs: 'contract_address' };
-    'core::string::String': { inputs: 'string'; outputs: 'string' };
-    'core::starknet::class_hash::ClassHash': { inputs: 'string'; outputs: 'string' };
+    'core::bool': { inputs: boolean; outputs: boolean };
+    'core::starknet::contract_address::ContractAddress': { inputs: Address; outputs: Address };
+    'core::string::String': { inputs: string; outputs: string };
+    'core::starknet::class_hash::ClassHash': { inputs: string; outputs: string };
     tuple: Record<string, unknown>;
 }
 
