@@ -15,6 +15,7 @@ import type { RpcSchema } from '../../types/snip1193.js'
 import type { Client } from '../../clients/createClient.js'
 import type { WalletActions } from '../../clients/decorators/wallet.js'
 import type { PublicActions } from '../../clients/decorators/public.js'
+import type { PaymasterActions } from 'src/exports/starkweb.js'
 
 /**
  * Retrieves and returns an action from the client (if exists), and falls
@@ -38,7 +39,7 @@ export function getAction<
   // Some minifiers drop `Function.prototype.name`, or replace it with short letters,
   // meaning that `actionFn.name` will not always work. For that case, the consumer
   // needs to pass the name explicitly.
-  name: keyof PublicActions | keyof WalletActions,
+  name: keyof PublicActions | keyof WalletActions | keyof PaymasterActions,
 ): (parameters: parameters) => returnType {
   const action_implicit = client[actionFn.name]
   if (typeof action_implicit === 'function')
