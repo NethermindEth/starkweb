@@ -110,6 +110,13 @@ export {
     type CreateWalletClientErrorType,
     createWalletClient,
   } from '../clients/createWalletClient.js'
+
+  export {
+    type PaymasterClient,
+    type PaymasterClientConfig,
+    type CreatePaymasterClientErrorType,
+    createPaymasterClient,
+  } from '../clients/createPaymasterClient.js'
   
   export {
     type PublicActions,
@@ -120,6 +127,11 @@ export {
     type WalletActions,
     walletActions,
   } from '../clients/decorators/wallet.js'
+ 
+  export {
+    type PaymasterActions,
+    paymasterActions,
+  } from '../clients/decorators/paymaster.js'
   
   export {
     type Transport,

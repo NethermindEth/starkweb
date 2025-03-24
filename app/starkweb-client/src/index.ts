@@ -1,54 +1,47 @@
-/**
- * StarkWeb Client - A client for interacting with Starknet
- */
+import { createPaymasterClient, http, parseEther } from "starkweb"
+import { mainnet, sepolia } from "starkweb/chains"
 
-// Import from the starkweb workspace package
-import {
-  createPublicClient,
-  createWalletClient,
-  custom,
-  erc20Abi,
-  http,
-} from 'starkweb';
-import { getStarknetId, getStarknetIdName } from 'starkweb/actions';
-import { mainnet, sepolia } from 'starkweb/chains';
+const paymasterClient = createPaymasterClient({
+  chain: sepolia,
+  transport: http('http://localhost:3000/gasless/sepolia'),
+  type: 'paymasterClient',
+})  
+// get paymaster status
+const status = await paymasterClient.getPaymasterStatus()
+// console.log(status)
 
-const publicClient = createPublicClient({
-  chain: mainnet,
-  transport: http('https://starknet-mainnet.infura.io/v3/db72641028ee47f5b18bcbb791a3f829'),
-});
-const id = await getStarknetId(publicClient, {
-  domain: 'solene.stark',
+// // check account compatibility
+// const compatibility = await paymasterClient.checkAccountCompatibility({
+//   accountAddress: "0x005c475b6089156c0CD4Fc9d64De149992431c442AF882d6332e7c736c99DE91",
+// })
+// console.log(compatibility)
+
+// get gas token prices
+const gasTokenPrices = await paymasterClient.getGasTokenPrices()
+// console.log(gasTokenPrices)
+
+// get account rewards 
+const accountRewards = await paymasterClient.getAccountRewards({
+  accountAddress: "0x005c475b6089156c0CD4Fc9d64De149992431c442AF882d6332e7c736c99DE91",
 })
-// const name = await getStarknetIdName(publicClient, {
-//   address: '0x061b6c0a78f9edf13cea17b50719f3344533fadd470b8cb29c2b4318014f52d3',
-// })
-console.log(id)
-// console.log(name)
+// console.log(accountRewards)
 
-// const result = await publicClient.readContracts({
-//   contracts: [
-//     {
-//       abi: erc20Abi,
-//       functionName: 'balanceOf',
-//       args: 
-//         {
-//           account: '0x005c475b6089156c0CD4Fc9d64De149992431c442AF882d6332e7c736c99DE91',
-//       },
-//       address:
-//         '0x04718f5a0Fc34cC1AF16A1cdee98fFB20C31f5cD61D6Ab07201858f4287c938D',
-//     },
-//     {
-//       abi: erc20Abi,
-//       functionName: 'balanceOf',
-//       args: 
-//         {
-//           account: '0x034abecf49cedc634d0c3145da7b1caea99d8d4f2da5b5d41e532ea05192d523',
-//       },
-//       address:
-//         '0x04718f5a0Fc34cC1AF16A1cdee98fFB20C31f5cD61D6Ab07201858f4287c938D',
-//     },
-//   ],
-// })
+// Check if account is compatible with paymaster
+const isCompatible = await paymasterClient.checkAccountCompatibility({
+  accountAddress: "0x005c475b6089156c0CD4Fc9d64De149992431c442AF882d6332e7c736c99DE91",
+})
+console.log(isCompatible)
 
-// console.log(result);
+
+// build transaction
+const transaction = await paymasterClient.buildTypedData({
+  userAddress: "0x005c475b6089156c0CD4Fc9d64De149992431c442AF882d6332e7c736c99DE91",
+  calls: [
+    {
+      entrypoint: "approve",
+      contractAddress: '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
+      calldata: ['0x005c475b6089156c0CD4Fc9d64De149992431c442AF882d6332e7c736c99DE91', '0xf', '0x0'],
+    },
+  ],
+})
+console.log(transaction)

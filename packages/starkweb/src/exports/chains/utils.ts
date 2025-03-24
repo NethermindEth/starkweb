@@ -16,3 +16,5 @@ export {
     getChainContractAddress,
 } from '../../utils/chain/getChainContractAddress.js'
 export { type AddStarknetChainParameters } from '../../utils/chain/addStarknetChainParameters.js'
+export { mainnet} from "../../chains/definitions/mainnet.js"
+export { sepolia} from "../../chains/definitions/sepolia.js"

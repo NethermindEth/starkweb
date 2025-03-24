@@ -411,3 +411,26 @@ export {
   type VerifyTypedDataParameters,
   type VerifyTypedDataReturnType,
 } from "../actions/verifyTypedData.js";
+
+
+export {
+  fetchAccountRewards
+} from "../actions/getAccountRewards.js";
+
+export {
+  checkAccountCompatibility
+} from "../actions/checkAccountCompatibility.js";
+
+export {
+  fetchPaymasterStatus,
+} from "../actions/getPaymasterStatus.js";
+
+export {
+  buildTypedData,
+} from '../../actions/paymaster/buildTypedData.js';  
+export {
+  getGasTokenPrices,
+} from '../../actions/paymaster/getGasTokenPrices.js';  
+export {
+  executeTransaction,
+} from '../../actions/paymaster/executeTransaction.js';  

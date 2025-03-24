@@ -1,4 +1,4 @@
-import type { PADDED_FELT, PADDED_TXN_HASH } from '@starknet-io/types-js'
+import type { PADDED_FELT, PADDED_TXN_HASH, Signature, TypedData } from '@starknet-io/types-js'
 import type {
   AddInvokeTransactionParameters,
   AddInvokeTransactionResult,
@@ -54,11 +54,13 @@ import type {
   TXN_STATUS,
   TYPED_DATA,
 } from './components.js'
+import type { DeploymentData, GaslessCompatibility, GasTokenPrice, GaslessStatus, PaymasterReward, InvokeResponse } from './paymaster.js'
+import type { Call } from '../strk-types/lib.js'
 
 //////////////////////////////////////////////////
 // Provider
 
-export type SNIP1474Methods = [...PublicRpcSchema, ...WalletRpcSchema]
+export type SNIP1474Methods = [...PublicRpcSchema, ...WalletRpcSchema, ...PaymasterRpcSchema]
 
 export type SNIP1193Provider = Prettify<
   SNIP1193Events & {
@@ -643,6 +645,55 @@ export type WalletRpcSchema = [
       signature: SIGNATURE
     }
   },
+]
+
+export type PaymasterRpcSchema = [
+  {
+    Method: 'pm_getPaymasterStatus'
+    Parameters?: undefined
+    ReturnType: GaslessStatus
+  },
+  {
+    Method: 'pm_checkAccountCompatibility'
+    Parameters?: {
+      accountAddress: ADDRESS
+    }
+    ReturnType: GaslessCompatibility
+  },
+  {
+    Method: 'pm_getGasTokenPrices'
+    Parameters?: undefined
+    ReturnType: GasTokenPrice[]
+  },
+  {
+    Method: 'pm_getAccountRewards'
+    Parameters?: {
+      accountAddress: ADDRESS
+    }
+    ReturnType: PaymasterReward[]
+  },
+  {
+    Method: 'pm_buildTypedData'
+    Parameters?: {
+      userAddress: string,
+      calls: Call[],
+      gasTokenAddress?: string,
+      maxGasTokenAmount?: string,
+      accountClassHash?: string
+    }
+    ReturnType: TypedData
+  },
+  {
+    Method: 'pm_executeTransaction'
+    Parameters?:  {
+      userAddress: string,
+      typedData: string,
+      signature: Signature,
+      deploymentData?: DeploymentData
+    }
+    ReturnType: InvokeResponse
+  },
+  
 ]
 
 // export type TestRpcSchema<TMode extends string> = [
