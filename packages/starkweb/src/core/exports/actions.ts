@@ -415,7 +415,7 @@ export {
 
 export {
   fetchAccountRewards
-} from "../actions/fetchAccountRewards.js";
+} from "../actions/getAccountRewards.js";
 
 export {
   checkAccountCompatibility
