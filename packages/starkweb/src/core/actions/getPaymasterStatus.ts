@@ -1,36 +1,39 @@
-import { useState } from 'react';
-import { createPaymasterClient } from '../../exports/starkweb.js';
-import { http } from '../../exports/starkweb.js';
-import { mainnet, sepolia } from '../../exports/chains.js';
-import type { GaslessStatus } from '../../types/paymaster.js';
+import {
+  type GetPaymasterStatusErrorType as strkjs_GetPaymasterStatusErrorType,
+  type GetPaymasterStatusParameters as strkjs_GetPaymasterStatusParameters,
+  type GetPaymasterStatusReturnType as strkjs_GetPaymasterStatusReturnType,
+  getPaymasterStatus as strkjs_getPaymasterStatus,
+} from "../../actions/paymaster/getPaymasterStatus.js";
+import type { Hex } from "../../types/misc.js";
 
-/**
- * Fetches the current status of the Paymaster.
- *
- * @param {('mainnet' | 'sepolia')} network - The network to connect to, either 'mainnet' or 'sepolia'.
- * @param {string} [url='http://localhost:3003/paymaster'] - Optional URL for the Paymaster service. Defaults to 'http://localhost:3003/paymaster.
- * @returns {Object} An object containing the status, loading state, and error message.
- */
-export const fetchPaymasterStatus = async (network: 'mainnet' | 'sepolia', url: string = 'http://localhost:3003/paymaster') => {
-  const [status, setStatus] = useState<GaslessStatus | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
+import type { Config } from "../createConfig.js";
+import type { ChainIdParameter } from "../types/properties.js";
+import type { Evaluate } from "../types/utils.js";
+import { getAction } from "../utils/getAction.js";
 
-  const chain = network === 'mainnet' ? mainnet : sepolia;
-  const paymasterClient = createPaymasterClient({
-    chain,
-    transport: http(`${url}/paymaster/${network}`),
-  });
+export type GetPaymasterStatusParameters = Evaluate<
+  strkjs_GetPaymasterStatusParameters & ChainIdParameter
+>;
 
-  setLoading(true);
-  try {
-    const paymasterStatus = await paymasterClient.getPaymasterStatus();
-    setStatus(paymasterStatus);
-  } catch (err) {
-    setError('Failed to fetch paymaster status');
-  } finally {
-    setLoading(false);
+export type GetPaymasterStatusReturnType = Evaluate<
+  strkjs_GetPaymasterStatusReturnType & {
+    chainId: Hex;
   }
+>;
 
-  return { status, loading, error };
-};
+export type GetPaymasterStatusErrorType =
+  strkjs_GetPaymasterStatusErrorType;
+
+export async function getPaymasterStatus(
+  config: Config,
+  parameters: GetPaymasterStatusParameters
+): Promise<GetPaymasterStatusReturnType> {
+  const { chainId } = parameters;
+  const client = config.getClient({ chainId });
+  const action = getAction(
+    client,
+    strkjs_getPaymasterStatus,
+    "getPaymasterStatus"
+  );
+  return action(undefined) as Promise<GetPaymasterStatusReturnType>;
+}

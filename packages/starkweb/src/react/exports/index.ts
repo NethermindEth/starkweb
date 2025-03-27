@@ -381,17 +381,28 @@ export {
 ////////////////////////////////////////////////////////////////////////////////
 
 export {
-  type UsePaymasterProps,
-  type UsePaymasterReturn,
-  usePaymaster
-} from '../hooks/usePaymaster.js'
+  type UseGetPaymasterStatusParameters,
+  type UseGetPaymasterStatusReturnType,
+  useGetPaymasterStatus
+} from '../hooks/useGetPaymasterStatus.js'
 
 export {
-  type UseExecuteTransactionProps,
-  type UseExecuteTransactionReturn,
+  type UseExecuteTransactionParameters,
+  type UseExecuteTransactionReturnType,
   useExecuteTransaction,
 } from '../hooks/useExecuteTransaction.js'
 
+export {
+  type UseFetchAccountRewardsParameters,
+  type UseGetAccountRewardsReturnType,
+  useFetchAccountRewards,
+} from '../hooks/useGetAccountRewards.js'
+
+export {
+  type UseGetGasTokenParameters,
+  type UseGetGasTokenReturnType,
+  useGetGasTokenPrices,
+} from '../hooks/useGetGasTokenPrices.js'
 ////////////////////////////////////////////////////////////////////////////////
 // @wagmi/core
 ////////////////////////////////////////////////////////////////////////////////
