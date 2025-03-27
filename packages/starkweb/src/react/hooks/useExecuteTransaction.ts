@@ -1,58 +1,58 @@
-import { useState } from 'react';
-import { createPaymasterClient } from '../../exports/starkweb.js';
-import { http } from '../../exports/starkweb.js';
-import { mainnet, sepolia } from '../../exports/chains.js';
-import type { InvokeResponse } from '../../types/paymaster.js';
-import type { ADDRESS, SIGNATURE } from '../../types/components.js';
+"use client";
 
-export type UseExecuteTransactionProps = {
-  network: 'mainnet' | 'sepolia';
-  userAddress: ADDRESS;
-  typedData: string;
-  signature: SIGNATURE;
-  clientUrl?: string;
-};
+import { useConfig } from "./useConfig.js";
+import { useChainId } from "./useChainId.js";
+import {
+  executeTransactionQueryOptions,
+  type ExecuteTransactionQueryKey,
+  type ExecuteTransactionData,
+  type ExecuteTransactionErrorType,
+  type ExecuteTransactionOptions,
+} from "../../core/query/executeTransaction.js";
+import type { Config } from "../../core/createConfig.js";
+import { type UseQueryReturnType, useQuery } from '../utils/query.js'
+import type { Hex } from "../../types/misc.js";
+import type { ConfigParameter, QueryParameter } from '../types/properties.js'
+import type { Evaluate } from '../../core/types/utils.js'
 
-export type UseExecuteTransactionReturn = {
-  loading: boolean;
-  error: string | null;
-  executeTransaction: () => Promise<InvokeResponse | null>;
-};
+export type UseExecuteTransactionParameters<
+  config extends Config = Config,
+  selectData = ExecuteTransactionData
+> = Evaluate<
+ExecuteTransactionOptions &
+  ConfigParameter<config> & {
+    chainId?: Hex;
+  } & QueryParameter<
+      ExecuteTransactionData,
+      ExecuteTransactionErrorType,
+      selectData,
+      ExecuteTransactionQueryKey
+    >
+>;
 
-export const useExecuteTransaction = ({
-  network,
-  userAddress,
-  typedData,
-  signature,
-  clientUrl,
-}: UseExecuteTransactionProps): UseExecuteTransactionReturn => {
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
+export type UseExecuteTransactionReturnType  =  UseQueryReturnType<ExecuteTransactionData, ExecuteTransactionErrorType>;
 
-  const executeTransaction = async (): Promise<InvokeResponse | null> => {
-    setLoading(true);
-    setError(null);
-    const chain = network === 'mainnet' ? mainnet : sepolia;
-    const paymasterClient = createPaymasterClient({
-      chain,
-      transport: http(clientUrl || `http://localhost:3003/paymaster/${network}`),
-    });
+export function useExecuteTransaction(
+  parameters: UseExecuteTransactionParameters
+): UseExecuteTransactionReturnType {
+  const {userAddress, signature, typedData, query={}} = parameters;
+  const config = useConfig(parameters);
+  const chainId = useChainId({ config });
 
-    try {
-      const response = await paymasterClient.executeTransaction({
-        userAddress,
-        typedData,
-        signature,
-      });
-      return response;
-    } catch (err) {
-      setError('Failed to execute transaction');
-      console.error(err);
-      return null;
-    } finally {
-      setLoading(false);
-    }
-  };
+  const options = executeTransactionQueryOptions(config, {
+    ...parameters,
+    userAddress: userAddress!,
+    signature: signature!,
+    typedData: typedData!,
+    chainId: parameters.chainId ?? chainId,
+  });
 
-  return { loading, error, executeTransaction };
-}; 
+  const queryOptions = {
+    ...(query as any),
+    ...options,
+    queryKey: options.queryKey
+  }
+  return useQuery(queryOptions) as UseExecuteTransactionReturnType
+
+
+}

@@ -137,7 +137,6 @@ export {
   getWalletClientQueryOptions,
 } from "../query/getWalletClient.js";
 
-
 // Starknet ID Queries
 
 export {
@@ -309,4 +308,49 @@ export {
   verifyTypedDataQueryOptions,
 } from "../query/verifyTypedData.js";
 
-export { hashFn, structuralSharing } from '../query/utils.js'
+export { hashFn, structuralSharing } from "../query/utils.js";
+
+
+
+
+// PAYMASTER QUERIES //
+
+export {
+  type GetPaymasterStatusQueryKey,
+  type GetPaymasterStatusReturnType,
+  type GetPaymasterStatusErrorType,
+  getPaymasterStatusQueryKey,
+  getPaymasterStatusQueryOptions,
+} from "../query/getPaymasterStatus.js";
+
+export {
+  type CheckAccountCompatibilityQueryKey,
+  type CheckAccountCompatibilityReturnType,
+  type CheckAccountCompatibilityErrorType,
+  checkAccountCompatibilityQueryKey,
+  checkAccountCompatibilityQueryOptions,
+} from "../query/checkAccountCompatibility.js";
+
+export {
+  type GetAccountRewardsQueryKey,
+  type GetAccountRewardsReturnType,
+  type GetAccountRewardsErrorType,
+  getAccountRewardsQueryKey,
+  getAccountRewardsQueryOptions,
+} from "../query/getAccountRewards.js";
+
+export {
+  type GetGasTokenPricesQueryKey,
+  type GetGasTokenPricesReturnType,
+  type GetGasTokenPricesErrorType,
+  getGasTokenPricesQueryKey,
+  getGasTokenPricesQueryOptions,
+} from "../query/getGasTokenPrices.js";
+
+export {
+  type ExecuteTransactionQueryKey,
+  type ExecuteTransactionReturnType,
+  type ExecuteTransactionErrorType,
+  executeTransactionQueryKey,
+  executeTransactionQueryOptions,
+} from "../query/executeTransaction.js";
