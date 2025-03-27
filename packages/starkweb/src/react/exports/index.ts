@@ -403,6 +403,13 @@ export {
   type UseGetGasTokenReturnType,
   useGetGasTokenPrices,
 } from '../hooks/useGetGasTokenPrices.js'
+
+
+export {
+  type UseBuildTypedDataParameters,
+  type UseBuildTypedDataReturnType,
+  useBuildTypedData,
+} from '../hooks/useBuildTypedData.js'
 ////////////////////////////////////////////////////////////////////////////////
 // @wagmi/core
 ////////////////////////////////////////////////////////////////////////////////
