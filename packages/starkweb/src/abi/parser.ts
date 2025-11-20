@@ -93,6 +93,8 @@ export type ContractFunctionArgs2<
     [K in Extract<ExtractFunctions<abi>, {name: functionName}>["inputs"][number] as K["name"]]: AbiTypeToPrimitiveType<K["type"], 'inputs', abi>
 };
 
+// Supports both array syntax [pool_key] and object syntax {pool_key}
+// Both work at runtime since compile() handles both
 export type ContractFunctionArgs<
   TAbi extends Abi | readonly unknown[],
   TMode extends 'view' | 'external',
@@ -100,12 +102,21 @@ export type ContractFunctionArgs<
 > = TAbi extends Abi
   ? Extract<ExtractFunctions<TAbi>, { name: TFunctionName }>['inputs'] extends infer Inputs
     ? Inputs extends readonly { name: string; type: string }[]
-      ? {
-          [K in Inputs[number] as K['name']]: AbiTypeToPrimitiveType<K['type'], 'inputs', TAbi>
-        }
-      : never
-    : never
-  : never;
+      ? Inputs extends readonly []
+        ? readonly []
+        : // Object syntax: {param1: Type1, param2: Type2} (starkweb default)
+          {
+            [K in Inputs[number] as K['name']]: AbiTypeToPrimitiveType<K['type'], 'inputs', TAbi>
+          } |
+          // Array/tuple syntax: readonly [Type1, Type2] (viem-style)
+          {
+            readonly [K in keyof Inputs]: Inputs[K] extends { type: string }
+              ? AbiTypeToPrimitiveType<Inputs[K]['type'], 'inputs', TAbi>
+              : never
+          }
+      : readonly unknown[]
+    : readonly unknown[]
+  : readonly unknown[];
 
 // // Helper type to extract function parameters
 // type ExtractFunctionParams<
