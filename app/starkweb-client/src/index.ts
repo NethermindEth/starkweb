@@ -15,7 +15,7 @@ import { mainnet, sepolia } from 'starkweb/chains';
 
 const publicClient = createPublicClient({
   chain: mainnet,
-  transport: http('https://starknet-mainnet.infura.io/v3/db72641028ee47f5b18bcbb791a3f829'),
+  transport: http(`https://starknet-mainnet.infura.io/v3/${process.env.INFURA_API_KEY}`),
 });
 const id = await getStarknetId(publicClient, {
   domain: 'solene.stark',

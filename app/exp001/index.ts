@@ -6,11 +6,11 @@ import { sepolia } from '../../packages/starkweb/dist/esm/chains/definitions/sep
 import { accountABI } from '../../packages/starkweb/dist/esm/utils/siws/account-contract-abi';
 import { stringify } from '../../packages/starkweb/dist/esm/utils/json';
 // export const client = createPublicClient({
-//   transport: http('https://starknet-sepolia.infura.io/v3/db72641028ee47f5b18bcbb791a3f829'),
+//   transport: http(`https://starknet-sepolia.infura.io/v3/${process.env.INFURA_API_KEY}`),
 //   chain: sepolia,
 // })
 
-const result = await http('https://starknet-sepolia.infura.io/v3/db72641028ee47f5b18bcbb791a3f829')
+const result = await http(`https://starknet-sepolia.infura.io/v3/${process.env.INFURA_API_KEY}`)
 const client = result({
   chain: sepolia,
   retryCount: 0,
