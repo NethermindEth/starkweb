@@ -25,6 +25,8 @@ jobs:
         run: pnpm run build
 
       - name: Deploy to Vercel
+        # Fork PRs build above, but do not have deployment secrets.
+        if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
         uses: BetaHuhn/deploy-to-vercel-action@v1
         with:
           GITHUB_TOKEN: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
